@@ -1,0 +1,71 @@
+// http://llvm.org/docs/LangRef.html#sext-to-instruction
+// keywords: conversion; unary; instruction
+
+.type SExtInstruction = Instruction
+.decl sext_instruction(instr:SExtInstruction)
+
+instruction(v) :- sext_instruction(v).
+
+.decl sext_instruction_from_operand(instr:SExtInstruction, val:Operand)
+.decl sext_instruction_to_type(instr:SExtInstruction, type:Type)
+
+
+// Helper predicate
+
+.decl sext_instruction_from_type(instr:SExtInstruction, type:Type)
+
+sext_instruction_from_type(Instr, Type) :-
+   sext_instruction_from_operand(Instr, Operand),
+   operand_has_type(Operand, Type).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// 1) The ‘sext‘ instruction takes:
+//      (i)  a value to cast,
+//      (ii) and a type to cast it to.
+//
+// 2) Both source and destination types must be:
+//      (i)  integers or
+//      (ii) vectors of the same number of integers.
+//
+// 3) The source type must be smaller than the destination type.
+//------------------------------------------------------------------------------
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   sext_instruction(Instr),
+   !sext_instruction_from_operand(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   sext_instruction(Instr),
+   !sext_instruction_to_type(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   sext_instruction(Instr),
+   sext_instruction_to_type(Instr, Type),
+   !instruction_returns_type(Instr, Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   sext_instruction(Instr),
+   sext_instruction_from_type(Instr, Type),
+   !integer_type(Type),
+   !integer_vector_type(Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   sext_instruction(Instr),
+   sext_instruction_to_type(Instr, Type),
+   !integer_type(Type),
+   !integer_vector_type(Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   sext_instruction(Instr),
+   sext_instruction_from_type(Instr, FromType),
+   sext_instruction_to_type(Instr, ToType),
+   !vector_compatible_types(FromType, ToType).

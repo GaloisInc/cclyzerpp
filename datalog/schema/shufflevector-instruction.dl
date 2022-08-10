@@ -1,0 +1,112 @@
+// http://llvm.org/docs/LangRef.html#shufflevector-instruction
+// keywords: vector; instruction
+
+.type ShuffleVectorInstruction = Instruction
+.decl shufflevector_instruction(instr:ShuffleVectorInstruction)
+
+instruction(v) :- shufflevector_instruction(v).
+
+.decl shufflevector_instruction_first_vector(instr:ShuffleVectorInstruction, vector:Operand)
+.decl shufflevector_instruction_second_vector(instr:ShuffleVectorInstruction, vector:Operand)
+.decl shufflevector_instruction_mask(instr:ShuffleVectorInstruction, mask:Constant)
+
+
+// Helper Predicates
+
+.decl shufflevector_instruction_input_type(instr:ShuffleVectorInstruction, type:Type)
+.decl shufflevector_instruction_element_type(instr:ShuffleVectorInstruction, type:Type)
+.decl shufflevector_instruction_mask_type(instr:ShuffleVectorInstruction, type:Type)
+
+// The type of the two input vectors.
+shufflevector_instruction_input_type(Instr, Type) :-
+   shufflevector_instruction_first_vector(Instr, Vector),
+   operand_has_type(Vector, Type).
+
+// The element type of the two input vectors
+shufflevector_instruction_element_type(Instr, ElementType) :-
+   shufflevector_instruction_input_type(Instr, VectorType),
+   vector_type_has_component(VectorType, ElementType).
+
+// The type of the shuffle mask.
+shufflevector_instruction_mask_type(Instr, MaskType) :-
+   shufflevector_instruction_mask(Instr, Mask),
+   constant_has_type(Mask, MaskType).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// 1. The 'shufflevector' instruction takes three arguments:
+//  (i)  two vectors of the same type, and
+//  (ii) a shuffle mask argument.
+//
+// 2. The shuffle mask is required to be:
+//  (i) a constant vector
+//  (ii) with i32-integer component type.
+//
+// 3. The result is a vector
+//  (i)  whose length is the same as the shuffle mask and
+//  (ii) whose element type is the same as the element type of the first
+//       two operands.
+//------------------------------------------------------------------------------
+
+
+// 1a. Required arguments
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   shufflevector_instruction(Instr),
+   !shufflevector_instruction_first_vector(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   shufflevector_instruction(Instr),
+   !shufflevector_instruction_second_vector(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   shufflevector_instruction(Instr),
+   !shufflevector_instruction_mask(Instr, _).
+
+
+// 1b. Constraints on the two input vectors
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   shufflevector_instruction(Instr),
+   shufflevector_instruction_input_type(Instr, InputType),
+   shufflevector_instruction_first_vector(Instr, FirstVector),
+   shufflevector_instruction_second_vector(Instr, SecondVector),
+   operand_has_type(FirstVector, FirstVectorType),
+   operand_has_type(SecondVector, SecondVectorType),
+   ( FirstVectorType != InputType
+   ; SecondVectorType != InputType).
+
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   shufflevector_instruction_input_type(Instr, InputType),
+   !vector_type(InputType).
+
+
+// 2. Constraints on the suffle mask
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   shufflevector_instruction_mask_type(Instr, MaskType),
+   !int32_vector_type(MaskType).
+
+
+// 3. Constraints on the result
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   shufflevector_instruction_mask_type(Instr, MaskType),
+   instruction_returns_type(Instr, OutputType),
+   !vector_compatible_types(OutputType, MaskType).      // constraint 3.i
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   shufflevector_instruction_element_type(Instr, ElementType),
+   instruction_returns_type(Instr, OutputType),
+   !vector_type_has_component(OutputType, ElementType). // constraint 3.ii

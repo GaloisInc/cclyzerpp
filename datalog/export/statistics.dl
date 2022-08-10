@@ -1,0 +1,6 @@
+.output subset._merge.count_context_items (compress=true)
+.output subset._merge.count_contexts (compress=true)
+.output function_in_degree (compress=true)
+.output function_out_degree (compress=true)
+.output var_alias_sizes (compress=true)
+.output var_points_to_sizes (compress=true)

@@ -1,0 +1,309 @@
+//-----------------
+// Class Types
+//-----------------
+
+//UNFINISHED (needs debuginfo)
+
+// Class types are a subset of struct types
+.type ClassType = StructType
+.decl class_type(?type: ClassType)
+
+// The name (as it appears in source code) of the class
+// type, including any template parameters
+.decl class_type_name(?type: ClassType, ?name: symbol)
+
+// Unless debug info has been loaded, we follow a heuristic approach
+// to identify class types, by searching for struct types with a
+// specific prefix (namely, `%class.`).
+class_type(?type) :-
+   !debuginfo_is_loaded(),
+   struct_type(?type),
+   ( contains("%class\\.", ?type)
+   ; contains("%\"class\\.", ?type)
+   ).
+
+class_type_name(?type, ?name) :-
+   !debuginfo_is_loaded(),
+   struct_type(?type),
+   !template_type(?type),
+   contains("%\"class\\.", ?type),
+   ?n=strlen(?type),
+   ?name = substr(?type, 8, (?n) - 8).
+
+class_type_name(?type, ?name) :-
+   !debuginfo_is_loaded(),
+   struct_type(?type),
+   !template_type(?type),
+   contains("%class\\.", ?type),
+   ?n=strlen(?type),
+   ?name = substr(?type, 7, (?n) - 7).
+
+class_type_name(?type, ?name) :-
+   !debuginfo_is_loaded(),
+   struct_type(?type),
+   !template_type(?type),
+   contains("%\"struct\\.", ?type),
+   ?n=strlen(?type),
+   ?name = substr(?type, 9, (?n) - 9).
+
+class_type_name(?type, ?name) :-
+   !debuginfo_is_loaded(),
+   struct_type(?type),
+   !template_type(?type),
+   contains("%struct\\.", ?type),
+   ?n=strlen(?type),
+   ?name = substr(?type, 8, (?n) - 8).
+
+//------------------------------------------------------------------------------
+// Virtual Table - Type Info - Class Type Associations
+//
+// Note that we cannot associate typeinfo with a class type via its
+// v-table. Such an approach would not work for external typeinfo
+// symbols, since they lack any v-table.
+//------------------------------------------------------------------------------
+
+.decl class_type_vtable(?classType: ClassType, ?vt: GlobalVariable)
+
+.decl class_type_typeinfo(?classType: ClassType, ?typeInfo: GlobalVariable)
+
+
+// Extract class name from unmangled type info name. The latter is of
+// the form: typeinfo for CLASS-NAME
+.decl _typeinfo_class_name(?typeInfo: GlobalVariable, ?className: symbol)
+_typeinfo_class_name(?typeInfo, ?className) :-
+   typeinfo(?typeInfo),
+   global_variable_has_unmangled_name(?typeInfo, ?tIName),
+   contains("typeinfo for ", ?tIName),
+   ?n = strlen(?tIName),
+   ?className = substr(?tIName, 13, ?n - 13).
+
+
+.decl _typeinfo_by_class_name(?className: symbol , ?typeInfo: GlobalVariable)
+_typeinfo_by_class_name(?className, ?typeInfo) :-
+   _typeinfo_class_name(?typeInfo, ?className).
+
+// typeinfo of class
+class_type_typeinfo(?classType, ?typeInfo) :-
+   class_type_name(?classType, ?className),
+   _typeinfo_by_class_name(?className, ?typeInfo).
+
+
+// Extract class name from unmangled vtable name. The latter is of the
+// form: vtable for CLASS-NAME
+.decl _vtable_class_name(?vt: GlobalVariable, ?className: symbol)
+_vtable_class_name(?vt, ?className) :-
+   vtable(?vt, _),
+   global_variable_has_unmangled_name(?vt, ?unmangledName),
+   contains("vtable for ", ?unmangledName),
+   ?n = strlen(?unmangledName),
+   ?className = substr(?unmangledName, 11, ?n - 11).
+
+.decl _vtable_by_class_name(?className: symbol, ?vt: GlobalVariable)
+_vtable_by_class_name(?className, ?vt) :-
+   _vtable_class_name(?vt, ?className).
+
+// v-table of class
+class_type_vtable(?classType, ?vt) :-
+   class_type_name(?classType, ?className),
+   _vtable_class_name(?vt, ?className),
+   _vtable_by_class_name(?className, ?vt).
+/*
+// Sanity check
+class_type:vtable[ClassType] = VTable
+ , vtable:typeinfo[VTable] = TypeInfo
+ ->
+   class_type:typeinfo[ClassType] = TypeInfo.
+*/
+
+//------------------------------------------------------------------------------
+// Recovering Class Hierarchy
+//------------------------------------------------------------------------------
+
+
+.decl primary_superclass(?type: ClassType, ?superType: ClassType)
+.decl secondary_superclass(?superType: ClassType, ?type: ClassType)
+
+// From typeinfo to class type
+
+.decl _typeinfo_class_type(?typeInfo: GlobalVariable, ?classType: ClassType)
+
+_typeinfo_class_type(?typeInfo, ?classType) :-
+   !unpadded_struct_type(?classType),
+   !template_typeinfo(?typeInfo),
+   !template_type(?classType),
+   class_type_typeinfo(?classType, ?typeInfo).
+
+_typeinfo_class_type(?typeInfo, ?classType) :-
+   !unpadded_struct_type(?classType),
+   template_typeinfo(?typeInfo),
+   template_type(?classType),
+   class_type_typeinfo(?classType, ?typeInfo).
+
+primary_superclass(?type, ?superType) :-
+   typeinfo_base_class(?typeInfo, 0, ?baseTypeInfo),
+   _typeinfo_class_type(?typeInfo, ?type),
+   _typeinfo_class_type(?baseTypeInfo, ?superType).
+
+secondary_superclass(?superType, ?type) :-
+   typeinfo_base_class(?typeInfo, ?index, ?baseTypeInfo),
+   _typeinfo_class_type(?typeInfo, ?type),
+   _typeinfo_class_type(?baseTypeInfo, ?superType),
+   ?index > 0.
+
+
+// Union of the above two kinds of superclasses
+.decl direct_superclass(?superType: ClassType, ?type: ClassType)
+direct_superclass(?superType, ?type) :-
+   primary_superclass(?type, ?superType)
+ ; secondary_superclass(?superType, ?type).
+
+
+// Inverse relation
+.decl direct_subclass(?subType: ClassType, ?type: ClassType)
+direct_subclass(?subtype, ?type) :-
+   direct_superclass(?type, ?subtype).
+
+// Transitive closure computation to compute all superclasses of each
+// type
+
+.decl superclass(?superType: ClassType, ?type: ClassType)
+superclass(?superType, ?type) :-
+   direct_superclass(?superType, ?type).
+
+superclass(?superType, ?type) :-
+   direct_superclass(?superType, ?intermType),
+   superclass(?intermType, ?type).
+
+
+// Constraints according to typeinfo recorded inheritance
+/*
+typeinfo:baseclass(TypeInfo)
+ , _typeinfo_class_type[TypeInfo] = ClassType
+ ->
+   !direct_superclass(_, ClassType).
+
+
+typeinfo:single_inheritance(TypeInfo)
+ , _typeinfo_class_type[TypeInfo] = ClassType
+ , direct_superclass(Supertype1, ClassType)
+ , direct_superclass(Supertype2, ClassType)
+ ->
+   Supertype1 = Supertype2.
+*/
+
+//------------------------------------------------------------------------------
+// Class Type Name Parsing
+//------------------------------------------------------------------------------
+
+/*************************************************************
+ * Suffix helper relations
+ *
+ * Needed for precise handling of Class.getPrimitiveClass().
+ *************************************************************/
+
+// Very silly we have to do this.
+.decl _string_iteration_trick(?pos:number)
+_string_iteration_trick(0).
+_string_iteration_trick(?pos + 1) :- _string_iteration_trick(?pos), ?pos < 256.
+
+.decl relevant_suffix_position(?typeName: symbol, ?pos:number)
+relevant_suffix_position(?typeName, ?pos) :-
+   struct_type(?typeName),
+   _string_iteration_trick(?pos), ?pos < strlen(?typeName).
+
+.decl suffix(?type:Type, ?suffix:symbol, ?suffixLen:number)
+
+suffix(?type, ?suffix, ?suffixLen) :-
+ struct_type_has_name(?type, ?name),
+ relevant_suffix_position(?type, ?pos),
+ substr(?type, ?pos, 1) = ".",
+ ?suffixLen = strlen(?type) - ?pos - 1,
+ ?suffix = substr(?type, ?pos + 1, ?suffixLen),
+ contains(".", ?type),
+ substr(?type, 0, ?pos + 1) != "%class.",
+ substr(?type, 0, ?pos + 1) != "%\"class.",
+ substr(?type, 0, ?pos + 1) != "%struct.",
+ substr(?type, 0, ?pos + 1) != "%\"struct.",
+ substr(?type, 0, ?pos + 1) != "%union.",
+ substr(?type, 0, ?pos + 1) != "%\"union.".
+
+
+// suffix(?type, ?type, ?suffixLen) :-
+//  struct_type(?type),
+//  ?suffixLen = strlen(?type).
+
+.decl minimal_suffix_len(?type:StructType, ?suffixLen:number)
+
+minimal_suffix_len(?type, ?suffixLen) :-
+ struct_type(?type),
+ ?suffixLen = min ?len : suffix(?type, _, ?len).
+
+// Computes the suffix after the last dot of a type name.
+.decl minimal_suffix(?type:StructType, ?suffix:symbol)
+
+minimal_suffix(?type, ?suffix) :-
+ minimal_suffix_len(?type, ?suffixLen),
+ suffix(?type, ?suffix, ?suffixLen).
+
+
+
+.decl template_type(?type:StructType)
+template_type(?type) :-
+   minimal_suffix(?type , ?dotSuffix),
+   ?dotSuffix != "base",
+   ?dotSuffix != "base\"".
+
+// Types that are unpadded versions of their originals, to be used as
+// base types via inheritance
+.decl unpadded_struct_type(?type: StructType)
+unpadded_struct_type(?type) :-
+   struct_type(?type),
+   match(".*\\.base",?type).
+
+// Defined in debuginfo module
+.decl template_type_name(?name: symbol)
+.decl template_typeinfo(?typeInfo: GlobalVariable)
+
+// Typeinfo objects of template types
+template_typeinfo(?typeInfo) :-
+   debuginfo_is_loaded(),
+   template_type_name(?name),
+   _typeinfo_by_class_name(?name, ?typeInfo).
+
+// Fallback when no debug info has been loaded
+template_typeinfo(?typeInfo) :-
+   !debuginfo_is_loaded(),
+   match(".*<.*>", ?name),
+   _typeinfo_by_class_name(?name, ?typeInfo).
+
+//------------------------------------------------------------------------------
+// Constructors and Destructors for objects of this class type
+//------------------------------------------------------------------------------
+
+.decl class_type_constructor(?cTor: FunctionDecl, ?type: ClassType)
+.decl class_type_destructor(?dTor: FunctionDecl, ?type: ClassType)
+
+// To identify constructors we rely on the Itanium ABI mangling rules
+class_type_constructor(?ctor, ?type)
+ :-
+   struct_type(?type),
+   function_has_name(?ctor, ?funcName),
+   function_has_type(?ctor, ?fType),
+   function_type_param(?fType, 0, ?ptrType),
+   pointer_type_has_component(?ptrType, ?type),
+   ( contains("C1", ?funcName)
+   ; contains("C2", ?funcName)
+   ).
+
+// Same for destructors
+
+class_type_destructor(?dtor, ?type)
+ :-
+   struct_type(?type),
+   function_has_name(?dtor, ?funcName),
+   function_has_type(?dtor, ?fType),
+   function_type_param(?fType, 0, ?ptrType),
+   pointer_type_has_component(?ptrType, ?type),
+   ( contains("D1", ?funcName)
+   ; contains("D2", ?funcName)
+   ).

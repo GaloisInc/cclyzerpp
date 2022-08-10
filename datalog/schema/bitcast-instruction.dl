@@ -1,0 +1,79 @@
+// http://llvm.org/docs/LangRef.html#bitcast-to-instruction
+// keywords: conversion; unary; instruction
+
+.type BitcastInstruction = Instruction
+.decl bitcast_instruction(instr:BitcastInstruction)
+
+instruction(v) :- bitcast_instruction(v).
+
+.decl bitcast_instruction_from_operand(instr:BitcastInstruction, val:Operand)
+.decl bitcast_instruction_to_type(instr:BitcastInstruction, type:Type)
+
+
+// Helper predicate
+
+.decl bitcast_instruction_from_type(instr:BitcastInstruction, type:Type)
+
+bitcast_instruction_from_type(Instr, Type) :-
+   bitcast_instruction_from_operand(Instr, Operand),
+   operand_has_type(Operand, Type).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// The ‘bitcast‘ instruction takes:
+//  (i)  a value to cast, which must be a non-aggregate first class value,
+//  (ii) and a type to cast it to, which must also be a non-aggregate
+//       first class type.
+//
+// If the value to be casted is of pointer type:
+//  (i)  the type must also be a pointer
+//  (ii) of the same size.
+//------------------------------------------------------------------------------
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   bitcast_instruction(Instr),
+   !bitcast_instruction_from_operand(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   bitcast_instruction(Instr),
+   !bitcast_instruction_to_type(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   bitcast_instruction(Instr),
+   bitcast_instruction_to_type(Instr, Type),
+   !instruction_returns_type(Instr, Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   bitcast_instruction(Instr),
+   bitcast_instruction_from_type(Instr, Type),
+   ( !type_is_firstclass(Type)
+   ;  aggregate_type(Type) ).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   bitcast_instruction(Instr),
+   bitcast_instruction_to_type(Instr, Type),
+   ( !type_is_firstclass(Type)
+   ;  aggregate_type(Type) ).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   bitcast_instruction(Instr),
+   bitcast_instruction_from_type(Instr, FromType),
+   bitcast_instruction_to_type(Instr, ToType),
+   pointer_type(FromType),
+   !pointer_type(ToType).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   bitcast_instruction(Instr),
+   bitcast_instruction_from_type(Instr, FromType),
+   bitcast_instruction_to_type(Instr, ToType),
+   !pointer_type(FromType),
+   pointer_type(ToType).

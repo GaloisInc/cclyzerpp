@@ -1,0 +1,54 @@
+// Flag to mark that debug information has been loaded
+.decl debuginfo_is_loaded()
+
+//--------------------------------------------------------
+// Debug Information Entry - Type Hierarchy
+//--------------------------------------------------------
+
+.type DIEntry <: symbol
+
+// Scopes
+.type DIScope = DIEntry
+.type DINamespace = DIScope
+.type DIFile = DIScope
+.type DILocalScope = DIScope
+.type DISubprogram = DILocalScope
+.type DILexicalBlock = DILocalScope
+.type DILexicalBlockFile = DILocalScope
+
+// Types
+.type DITypeEntry = DIScope
+.type DIBasicTypeEntry = DITypeEntry
+.type DICompositeTypeEntry = DITypeEntry
+.type DIDerivedTypeEntry = DITypeEntry
+.type DISubroutineTypeEntry = DITypeEntry
+
+// Variables
+.type DIVariable = DIEntry
+.type DILocalVariable = DIVariable
+.type DIGlobalVariable = DIVariable
+
+// Template Parameters
+.type DITemplateParam = DIEntry
+.type DITemplateTypeParam = DITemplateParam
+.type DITemplateValueParam = DITemplateParam
+
+// Miscellaneous
+.type DIEnumerator = DIEntry
+.type DISubrange = DIEntry
+.type DIImportedEntity = DIEntry
+
+.decl di?entry(entry:DIEntry)
+.decl di?scope(entry:DIScope)
+.decl di?local_scope(entry:DILocalScope)
+
+
+//--------------------------------------------------------
+// Enforce predicate subtyping
+//--------------------------------------------------------
+
+di?entry(e) :- di?scope(e).
+di?scope(e) :- di?local_scope(e).
+
+// For constraints
+.decl debuginfo_invalid_entry(e:DIEntry, file:File, line:Line)

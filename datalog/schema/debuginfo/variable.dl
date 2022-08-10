@@ -1,0 +1,92 @@
+//-----------------------------------------------------------
+// Debug Info - Local and Global Variables
+//-----------------------------------------------------------
+
+.decl di?variable(entry:DIVariable)
+.decl di?local_variable(entry:DILocalVariable)
+.decl di?global_variable(entry:DIGlobalVariable)
+
+di?entry(e) :- di?variable(e).
+di?variable(e) :- di?local_variable(e).
+di?variable(e) :- di?global_variable(e).
+
+//-----------------------------------------------------------
+// Debug Info - Variable Entry
+//-----------------------------------------------------------
+
+.decl di?variable_name(entry:DIVariable, name:symbol)
+.decl di?variable_source_file(entry:DIVariable, file:DIFile)
+.decl di?variable_line(entry:DIVariable, line:number)
+.decl di?variable_scope(entry:DIVariable, scope:DIScope)
+.decl di?variable_type(entry:DIVariable, type:DITypeEntry)
+.decl di?variable_raw_type(entry:DIVariable, type:symbol)
+
+// Mandatory properties
+debuginfo_invalid_entry(Entry, __FILE__, __LINE__) :-
+   schema_sanity(),
+   di?global_variable(Entry), !di?variable_name(Entry, _).
+
+debuginfo_invalid_entry(Entry, __FILE__, __LINE__) :-
+   schema_sanity(),
+   di?global_variable(Entry), !di?variable_source_file(Entry, _).
+
+debuginfo_invalid_entry(Entry, __FILE__, __LINE__) :-
+   schema_sanity(),
+   di?global_variable(Entry), !di?variable_line(Entry, _).
+
+debuginfo_invalid_entry(Entry, __FILE__, __LINE__) :-
+   schema_sanity(),
+   di?global_variable(Entry), !di?variable_scope(Entry, _).
+
+debuginfo_invalid_entry(Entry, __FILE__, __LINE__) :-
+   schema_sanity(),
+   di?global_variable(Entry), !di?variable_type(Entry, _), !di?variable_raw_type(Entry, _).
+
+
+//-----------------------------------------------------------
+// Debug Info - Global Variable Entry
+//-----------------------------------------------------------
+
+.decl di?global_variable_linkage_name(entry:DIGlobalVariable, name:symbol)
+.decl di?global_variable_is_definition(entry:DIGlobalVariable)
+.decl di?global_variable_is_local_to_unit(entry:DIGlobalVariable)
+
+// Static Data Member Declaration
+.decl di?global_variable_static_data_member_decl(entry:DIGlobalVariable, decl:DIDerivedTypeEntry)
+
+debuginfo_invalid_entry(Entry, __FILE__, __LINE__) :-
+   schema_sanity(),
+   di?global_variable_static_data_member_decl(Entry, MemberDecl),
+   !di?member_type_entry(MemberDecl).
+
+
+// !! This relation associates this node to an LLVM global variable !!
+.decl di?global_variable_resolved_name(entry:DIGlobalVariable, name:symbol)
+
+
+//-----------------------------------------------------------
+// Debug Info - Local Variable Entry
+//-----------------------------------------------------------
+
+.decl di?local_variable_arg_num(entry:DILocalVariable, argno:number)
+.decl di?local_variable_has_flag(entry:DILocalVariable, flag:symbol)
+.decl di?local_variable_is_parameter(entry:DILocalVariable)
+.decl di?local_variable_is_artificial(entry:DILocalVariable)
+.decl di?local_variable_is_object_pointer(entry:DILocalVariable)
+
+di?local_variable_is_parameter(Entry) :-
+   di?local_variable_arg_num(Entry, _).
+
+di?local_variable_is_artificial(Entry) :-
+   di?local_variable_has_flag(Entry, "artificial").
+
+di?local_variable_is_object_pointer(Entry) :-
+   di?local_variable_has_flag(Entry, "objectpointer").
+
+debuginfo_invalid_entry(Entry, __FILE__, __LINE__) :-
+   schema_sanity(),
+   di?local_variable(Entry),
+   di?variable_scope(Entry, Scope), !di?local_scope(Scope).
+
+// !! This relation associates this node to an LLVM local variable !!
+.decl di?local_variable_declaration(entry:DILocalVariable, var:Variable)

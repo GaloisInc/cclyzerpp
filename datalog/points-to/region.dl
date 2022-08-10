@@ -1,0 +1,35 @@
+// Every allocation has one of a finite set of regions, and allocations with
+// different regions aren't unified by 'unify'.
+.type Region <: symbol
+.decl region(r: Region)
+.decl global_region(r: Region)
+.decl heap_region(r: Region)
+.decl stack_region(r: Region)
+region(r) :- global_region(r).
+region(r) :- heap_region(r).
+region(r) :- stack_region(r).
+
+heap_region("heap").
+stack_region("stack").
+global_region("global").
+region("function").
+region("null").
+region("unknown").
+
+.decl alloc_region(?alloc: Allocation, ?region: Region)
+
+alloc_region(?alloc, "null") :- null_location(?alloc).
+alloc_region(?alloc, "unknown") :- unknown_location(?alloc).
+alloc_region(?alloc, "heap") :- argv_alloc(?alloc).
+alloc_region(?alloc, "heap") :- argv_ptr_points_to(_, ?alloc).
+alloc_region(?alloc, "heap") :- heap_allocation(?alloc).
+alloc_region(?alloc, "heap") :- heap_allocation_by_new(_, ?alloc).
+alloc_region(?alloc, "stack") :- stack_allocation(?alloc).
+alloc_region(?alloc, "global") :- global_allocation_by_variable(_, ?alloc).
+// NOTE: Functions each get their own region because it's costly to unify functions
+// - each call to one becomes a call to each other function, causing many more
+// contexts.
+alloc_region(?alloc, as(?func, Region)),
+  region(as(?func, Region))
+  :-
+  global_allocation_by_function(?func, ?alloc).

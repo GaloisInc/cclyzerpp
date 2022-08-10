@@ -1,0 +1,305 @@
+//------------------------------------------------------------------------------
+// Exceptions - Important functions in the libc++ ABI
+//------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------
+// [Exception Allocation - Memory Management]
+//
+// Signature:
+// void* __cxa_allocate_exception(size_t thrown_size) throw();
+//
+// Allocates memory to hold the exception to be thrown. thrown_size is
+// the size of the exception object. Can allocate additional memory to
+// hold private data. If memory can not be allocated, call
+// std::terminate().
+//
+// Returns: A pointer to the memory allocated for the exception
+// object.
+//-------------------------------------------------------------------------
+
+
+
+.decl cxx_alloc_exception(?func: FunctionDecl)
+
+cxx_alloc_exception(?func),
+   heap_alloc_function(?func)
+ :-
+   function_has_name(?func, "@__cxa_allocate_exception"),
+   function_has_type(?func, ?fType),
+   function_type_param(?fType, 0, ?type),
+   integer_type(?type),
+   function_type_nparams(?fType, 1).
+
+// Exception Object
+
+// Compute allocation size
+sized_alloc_instr(?insn, as(?size, Bytes)) :-
+  cxx_alloc_exception(?func),
+  call_instruction_fn_target(?insn, ?func),
+  call_instruction_arg(?insn, 0, ?sizeOp),
+  constant_to_int(?sizeOp, ?size).
+
+sized_alloc_instr(?insn, as(?size, Bytes)) :-
+  cxx_alloc_exception(?func),
+  invoke_instruction_fn_target(?insn, ?func),
+  invoke_instruction_arg(?insn, 0, ?sizeOp),
+  constant_to_int(?sizeOp, ?size).
+
+.type ExceptionObject = Allocation
+.comp ExceptionObjectComponent {
+  //----------------------------------------------------------------------------
+  // "Input"/declared rules
+  //
+  // https://souffle-lang.github.io/components#input-rules
+  //----------------------------------------------------------------------------
+
+  .decl heap_allocation_by_type_instruction(?type: Type, ?insn: Instruction, ?heapAlloc: HeapAllocation) inline
+
+  //----------------------------------------------------------------------------
+  // "Output"/defined rules
+  //
+  // By convention, rules that begin with an underscore are internal
+  // implementation details, and should not be accessed outside the component.
+  //----------------------------------------------------------------------------
+
+  .decl untyped_allocation(?insn: Instruction, ?alloc: Allocation)
+
+  .decl _exception_object(?alloc: ExceptionObject)
+
+  allocation(?alloc) :-
+    _exception_object(?alloc).
+
+  // Introduce new heap allocation selector
+
+  .decl heap_allocation_by_alloc_exc(?insn: Instruction, ?heapAlloc: HeapAllocation)
+
+  heap_allocation_by_alloc_exc(?insn, ?heapAlloc)
+  , _exception_object(?heapAlloc)
+  :-
+    cxx_alloc_exception(?func),
+    call_instruction_fn_target(?insn, ?func),
+    heap_allocation_by_instruction(?insn, ?heapAlloc).
+
+  heap_allocation_by_alloc_exc(?insn, ?heapAlloc)
+  , _exception_object(?heapAlloc)
+  :-
+    cxx_alloc_exception(?func),
+    invoke_instruction_fn_target(?insn, ?func),
+    heap_allocation_by_instruction(?insn, ?heapAlloc).
+
+  // In the case of inlined constructors, we mark the exception object
+  // as untyped and rely on the type back-propagation
+  // technique. However, we can supply more type hints that specifically
+  // target exception throwing (see below).
+
+  untyped_allocation(?insn, ?excObj) :-
+    inlined_constructors(),
+    heap_allocation_by_alloc_exc(?insn, ?excObj).
+
+  _exception_object(?typedExcObj)
+  :-
+    inlined_constructors(),
+    heap_allocation_by_alloc_exc(?insn, _),
+    heap_allocation_by_type_instruction(_, ?insn, ?typedExcObj).
+}
+
+//-------------------------------------------------------------------------
+// [Throw Function]
+//
+// Signature:
+// void __cxa_throw(void* thrown_exception,
+//                  struct std::type_info * tinfo,
+//                  void (*dest)(void*));
+//
+// The arguments are:
+//   * The address of the thrown exception object (which points to the
+//     throw value, after the header, as specified above).
+//   * A std::type_info pointer, giving the static type of the throw
+//     argument as a std::type_info pointer, used for matching
+//     potential catch sites to the thrown exception.
+//   * A destructor pointer to be used eventually to destroy the
+//     object.
+//
+// This routine never returns.
+//-------------------------------------------------------------------------
+
+.decl cxx_throw_function(?func: FunctionDecl)
+
+cxx_throw_function(?func) :-
+   function_has_name(?func, "@__cxa_throw"),
+   function_has_type(?func, ?fType),
+   function_type_param(?fType, 0, ?type1),
+   function_type_param(?fType, 1, ?type2),
+   function_type_param(?fType, 2, ?type3),
+   pointer_type(?type1),
+   pointer_type(?type2),
+   pointer_type(?type3),
+   function_type_nparams(?fType, 3).
+
+
+//------------------------------------------------
+// * Throw Instr throws exception object
+//------------------------------------------------
+
+.decl _type_info_by_alloc(?obj: GlobalAllocation, ?excTypeInfo: GlobalVariable)
+_type_info_by_alloc(?obj, ?excTypeInfo) :-
+   typeinfo(?excTypeInfo),
+   global_allocation_by_variable(?excTypeInfo, ?obj).
+
+// A typeinfo structure may have external linkage. Try to match it by
+// name.
+
+.decl external_typeinfo(?var: GlobalVariable)
+typeinfo(?var),
+   external_typeinfo(?var) :-
+   external_linkage_type(?externalLinkage),
+   global_variable_has_linkage_type(?var, ?externalLinkage),
+   global_variable_has_name(?var, ?name),
+   substr(?name, 0, strlen("@_ZTI")) = "@_ZTI".
+
+.comp ThrowInstruction {
+
+  //----------------------------------------------------------------------------
+  // "Input"/declared rules
+  //
+  // https://souffle-lang.github.io/components#input-rules
+  //----------------------------------------------------------------------------
+
+  .decl allocation_type(?alloc:Allocation, ?type:Type) inline
+  .decl callgraph_edge(?calleeCtx: Context, ?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: Instruction) inline
+  .decl operand_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?operand: Operand) inline
+  .decl stripctx_operand_points_to(?alloc: Allocation, ?operand: Operand) inline
+  .decl untyped_allocation(?insn: Instruction, ?alloc: Allocation) inline
+
+  //----------------------------------------------------------------------------
+  // "Output"/defined rules
+  //
+  // By convention, rules that begin with an underscore are internal
+  // implementation details, and should not be accessed outside the component.
+  //----------------------------------------------------------------------------
+
+  .decl _cxx_throw_instruction(?throwInsn: Instruction)
+  _cxx_throw_instruction(?throwInsn) :-
+    cxx_throw_function(?throwFunc),
+    callgraph_edge(_, ?throwFunc, _, ?throwInsn).
+
+  .decl _cxx_throw_instruction_exception(?excObj: ExceptionObject, ?throwInsn: Instruction)
+  _cxx_throw_instruction_exception(?excObj, ?throwInsn) :-
+    _cxx_throw_instruction(?throwInsn),
+    actual_arg(?throwInsn, 0, ?exc),
+    operand_points_to(_, ?excObj, _, ?exc).
+
+  .decl _cxx_throw_instruction_full_exception(?aCtx: Context, ?excObj: ExceptionObject, ?throwInsn: Instruction)
+  _cxx_throw_instruction_full_exception(?aCtx, ?excObj, ?throwInsn) :-
+    _cxx_throw_instruction(?throwInsn),
+    actual_arg(?throwInsn, 0, ?exc),
+    operand_points_to(?aCtx, ?excObj, _, ?exc).
+
+  //------------------------------------------------
+  // * Throw Instr registers destructor
+  //------------------------------------------------
+
+  .decl _cxx_throw_instruction_destructor(?dtor: FunctionDecl, ?throwInsn: Instruction)
+  _cxx_throw_instruction_destructor(?dtor, ?throwInsn) :-
+    _cxx_throw_instruction(?throwInsn),
+    actual_arg(?throwInsn, 2, ?dtorArg),
+    stripctx_operand_points_to(?alloc, ?dtorArg),
+    function_by_location(?alloc, ?dtor).
+
+  .decl _cxx_throw_instruction_no_dtor(?throwInsn: Instruction)
+  _cxx_throw_instruction_no_dtor(?throwInsn) :-
+    null_location(?null),
+    _cxx_throw_instruction(?throwInsn),
+    actual_arg(?throwInsn, 2, ?dtorArg),
+    stripctx_operand_points_to(?null, ?dtorArg).
+
+  //------------------------------------------------
+  // * Throw Instr associates typeinfo object
+  //------------------------------------------------
+
+  .decl _cxx_throw_instruction_typeinfo(?excTypeInfo: GlobalVariable, ?throwInsn: Instruction)
+  _cxx_throw_instruction_typeinfo(?excTypeInfo, ?throwInsn) :-
+    _cxx_throw_instruction(?throwInsn),
+    actual_arg(?throwInsn, 1, ?typeInfoArg),
+    stripctx_operand_points_to(?typeInfoObj, ?typeInfoArg),
+    _type_info_by_alloc(?typeInfoObj, ?excTypeInfo).
+
+  //-------------------------------------------------------------------------
+  // The following is a generic catch-all relation that associates with
+  // each throw instruction multiple destructor - typeinfo - exception
+  // object triplets. Each triplet contains compatible elements.
+  //-------------------------------------------------------------------------
+
+  // We can use the destructor and the typeinfo object supplied to a
+  // throw instruction, as type indications for the exception object.
+
+  // TODO(lb): This should be named type_indication4, but a bug in Souffle
+  // prevents it. Appears fixed in Souffle on master, so should be in the next
+  // release.
+  .decl ty_indication4(?type: Type, ?aCtx: Context, ?excObj: Allocation)
+  .decl ty_indication5(?type: Type, ?aCtx: Context, ?excObj: Allocation)
+
+  ty_indication4(?type, ?aCtx, ?excObj)
+    :-
+    untyped_allocation(_, ?excObj),
+    _cxx_throw_instruction_full_exception(?aCtx, ?excObj, ?throwInsn),
+    _cxx_throw_instruction_destructor(?dtor, ?throwInsn),
+    destructor_class_type(?dtor, ?type).
+
+  ty_indication5(?classType, ?aCtx, ?excObj)
+    :-
+    untyped_allocation(_, ?excObj),
+    _cxx_throw_instruction_full_exception(?aCtx, ?excObj, ?throwInsn),
+    _cxx_throw_instruction_typeinfo(?typeInfo, ?throwInsn),
+    class_type_typeinfo(?classType, ?typeInfo).
+
+
+  // Note that the typeinfo registered in the throw instruction may be
+  // one of a non-existing LLVM type, that has been removed altogehter
+  // due to some optimization. Hence, we can only rely on the type of
+  // the destructor's receiver to obtain and verify the type of the
+  // exception object being thrown. However, the original type of the
+  // exception is recorded in the typeinfo argument, so that we may
+  // match exceptions and catch clauses reliably, even if the original
+  // exception type has been optimized away.
+
+  .decl _typeinfo_no_class(?typeInfo: GlobalVariable)
+  _typeinfo_no_class(?typeInfo) :-
+    typeinfo(?typeInfo),
+    !class_type_typeinfo(_, ?typeInfo).
+
+  .decl _cxx_throws(?dtor: FunctionDecl, ?typeInfo: GlobalVariable, ?excObj: ExceptionObject, ?throwInsn: Instruction)
+  _cxx_throws(?dtor, ?typeInfo, ?excObj, ?throwInsn)
+    :-
+    _cxx_throw_instruction_exception(?excObj, ?throwInsn),
+    _cxx_throw_instruction_typeinfo(?typeInfo, ?throwInsn),
+    _cxx_throw_instruction_destructor(?dtor, ?throwInsn),
+    allocation_type(?excObj, ?type),
+    class_type_typeinfo(?type, ?typeInfo),
+    class_type_destructor(?dtor, ?type).
+
+  _cxx_throws(?dtor, ?typeInfo, ?excObj, ?throwInsn)
+    :-
+    _cxx_throw_instruction_exception(?excObj, ?throwInsn),
+    _cxx_throw_instruction_typeinfo(?typeInfo, ?throwInsn),
+    _cxx_throw_instruction_destructor(?dtor, ?throwInsn),
+    _typeinfo_no_class(?typeInfo),
+    allocation_type(?excObj, ?type),
+    class_type_destructor(?dtor, ?type).
+
+  .decl _cxx_throws_no_dtor(?typeInfo: GlobalVariable, ?excObj: ExceptionObject, ?throwInsn: Instruction)
+  _cxx_throws_no_dtor(?typeInfo, ?excObj, ?throwInsn)
+    :-
+    _cxx_throw_instruction_exception(?excObj, ?throwInsn),
+    _cxx_throw_instruction_typeinfo(?typeInfo, ?throwInsn),
+    _cxx_throw_instruction_no_dtor(?throwInsn),
+    _typeinfo_no_class(?typeInfo).
+
+  _cxx_throws_no_dtor(?typeInfo, ?excObj, ?throwInsn)
+    :-
+    _cxx_throw_instruction_exception(?excObj, ?throwInsn),
+    _cxx_throw_instruction_typeinfo(?typeInfo, ?throwInsn),
+    _cxx_throw_instruction_no_dtor(?throwInsn),
+    allocation_type(?excObj, ?type),
+    class_type_typeinfo(?type, ?typeInfo).
+}

@@ -1,0 +1,320 @@
+// See also core.dl
+
+//-----------------------------------------------------------------------
+// [Basic Concepts of Pointer Analysis]
+//-----------------------------------------------------------------------
+
+// Subset-based (Andersen-style) pointer analysis
+//
+// TODO(lb): Many of these rules (e.g. those for suballocations) could be lifted
+// to a more generic points-to component that is shared between subset- and
+// unification-based analyses.
+.comp SubsetPointsTo : PointsTo {
+
+  var_points_to(?aCtx, ?alloc, ?toCtx, ?toVar) :-
+    interp_assignment.interp_assignment(?toCtx, ?toVar, ?fromCtx, ?fromValue),
+    operand_points_to(?aCtx, ?alloc, ?fromCtx, ?fromValue).
+
+  // Aliases have the same points-to sets
+  ptr_points_to(?aCtx, ?alloc, ?baseACtx, ?baseAlloc1) :-
+    ptr_points_to(?aCtx, ?alloc, ?baseACtx, ?baseAlloc2),
+    subset_aliases.alloc_aliases(?baseAlloc1, ?baseAlloc2).
+
+  // When a pointer points to an allocation, it must also point to all
+  // of its aliases
+  ptr_points_to(?aCtx, ?alloc1, ?baseACtx, ?baseAlloc) :-
+    ptr_points_to(?aCtx, ?alloc2, ?baseACtx, ?baseAlloc),
+    subset_aliases.alloc_aliases(?alloc1, ?alloc2).
+  .plan 0: (1, 2),
+        1: (2, 1)
+
+  //----------------------------------------------------------------------
+  // [Load/Store Instructions]
+  //----------------------------------------------------------------------
+
+  ptr_points_to(?aCtx, ?alloc, ?baseACtx, ?baseAlloc) :-
+     callgraph.reachable_store(?ctx, ?toAddress, ?value),
+     operand_points_to(?aCtx, ?alloc, ?ctx, ?value),
+     operand_points_to(?baseACtx, ?baseAlloc, ?ctx, ?toAddress),
+     ptr_compatible_allocation(?baseAlloc).
+  .plan 0: (1, 2, 3, 4),
+        1: (2, 1, 3, 4),
+        2: (3, 1, 2, 4),
+        3: (4, 3, 1, 2)
+
+  var_points_to(?aCtx, ?alloc, ?ctx, ?toVar) :-
+     callgraph.reachable_load(?ctx, ?toVar, ?fromAddress),
+     operand_points_to(?baseACtx, ?baseAlloc, ?ctx, ?fromAddress),
+     ptr_points_to(?aCtx, ?alloc, ?baseACtx, ?baseAlloc). // TODO: consider adding type check
+  .plan 0: (1, 2, 3),
+        1: (2, 1, 3),
+        2: (3, 2, 1)
+
+  //----------------------------------------------------------------------
+  // [Suballocations]
+  //----------------------------------------------------------------------
+
+  // When loading from an allocation we must also consider the more
+  // specific matching allocations and merge their points-to sets also.
+  var_points_to(?aCtx, ?alloc, ?ctx, ?toVar) :-
+    callgraph.reachable_load(?ctx, ?toVar, ?fromAddress),
+    operand_points_to(?baseACtx, ?origAlloc, ?ctx, ?fromAddress),
+    subset_aliases.alloc_matches(?lessGenericAlloc, ?origAlloc),
+    ptr_points_to(?aCtx, ?alloc, ?baseACtx, ?lessGenericAlloc).
+
+  // We must also ensure that matching is considered in the opposite
+  // direction. We do that by extending the points-to set of an
+  // allocation by the points-to sets of all more generic allocations,
+  // ie, those that can pattern match it.
+  ptr_points_to(?aCtx, ?alloc, ?ptrACtx, ?origAlloc) :-
+    ptr_points_to(?aCtx, ?alloc, ?ptrACtx, ?moreGenericAlloc),
+    subset_aliases.alloc_matches(?origAlloc, ?moreGenericAlloc).
+}
+
+.init subset = SubsetPointsTo
+
+subset.callgraph.called_at_exit(?func) :-
+  subset_at_exit.called_at_exit(?func).
+
+// Copy results back from TypeIndication
+subset.var_points_to(?aCtx, ?typedAlloc, ?ctx, ?var) :-
+  subset.type_indication.assign_rebase_alloc(?typedAlloc, ?aCtx, ?alloc, ?var),
+  subset.var_points_to(?aCtx, ?alloc, ?ctx, ?var).
+
+.init subset_signatures = Signatures
+
+subset_signatures.allocation_type(?alloc, ?type) :-
+  subset_allocation_type.allocation_type(?alloc, ?type).
+
+subset_signatures.alloc_may_alias(?alloc1, ?alloc2) :-
+  subset_aliases.alloc_may_alias(?alloc1, ?alloc2).
+
+subset_signatures.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr) :-
+  subset.callgraph.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr).
+
+subset_signatures.reachable_context(?ctx, ?func) :-
+  subset.callgraph.reachable_context(?ctx, ?func).
+
+subset_signatures.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+  subset.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
+
+subset_signatures.ptr_points_to(?aCtx, ?alloc, ?ctx, ?ptr) :-
+  subset.ptr_points_to(?aCtx, ?alloc, ?ctx, ?ptr).
+
+subset_signatures.var_points_to(?aCtx, ?alloc, ?ctx, ?var) :-
+  subset.var_points_to(?aCtx, ?alloc, ?ctx, ?var).
+
+// Copy new points-to facts back
+subset.ptr_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+  subset_signatures.sig_ptr_points_to(?aCtx, ?alloc, ?ctx, ?operand).
+
+subset.var_points_to(?aCtx, ?alloc, ?ctx, ?var) :-
+  subset_signatures.sig_var_points_to(?aCtx, ?alloc, ?ctx, ?var).
+
+.init subset_memcpy = Memcpy
+
+subset_memcpy.allocation_type(?alloc, ?type) :-
+  subset_allocation_type.allocation_type(?alloc, ?type).
+
+subset_memcpy.alloc_subregion(?alloc) :-
+  subset_subobjects.alloc_subregion(?alloc).
+
+subset_memcpy.alloc_subregion_at_any_array_index(?alloc, ?region) :-
+  subset_subobjects.alloc_subregion_at_any_array_index(?alloc, ?region).
+
+subset_memcpy.alloc_subregion_offset(?alloc, ?region, ?offset) :-
+  subset_subobjects.alloc_subregion_offset(?alloc, ?region, ?offset).
+
+subset_memcpy.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr) :-
+  subset.callgraph.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr).
+
+subset_memcpy.memcpy_sig(?toCtx, ?to, ?fromCtx, ?from) :-
+  subset_signatures.memcpy_sig(?toCtx, ?to, ?fromCtx, ?from).
+
+subset_memcpy.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+  subset.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
+
+subset_memcpy.var_points_to(?aCtx, ?alloc, ?ctx, ?var) :-
+  subset.var_points_to(?aCtx, ?alloc, ?ctx, ?var).
+
+subset.ptr_points_to(?aCtx, ?alloc, ?toCtx, ?to) :-
+   subset_memcpy.rec_memcpy(?toCtx, ?to, ?fromCtx, ?from),
+   subset.ptr_points_to(?aCtx, ?alloc, ?fromCtx, ?from).
+
+.init subset_gep = GEP
+
+subset_gep.allocation_type(?alloc, ?type) :-
+  subset_allocation_type.allocation_type(?alloc, ?type).
+
+subset_gep.alloc_subregion_at_path_component(?component, ?region) :-
+  subset_subobjects.alloc_subregion_at_path_component(_, ?component, ?region).
+
+subset_gep.alloc_subregion_at_field(?alloc, ?index, ?region) :-
+  subset_subobjects.alloc_subregion_at_field(?alloc, ?index, ?region).
+
+subset_gep.alloc_subregion_at_array_index(?alloc, ?index, ?region) :-
+  subset_subobjects.alloc_subregion_at_array_index(?alloc, ?index, ?region).
+
+subset_gep.alloc_subregion_at_any_array_index(?alloc, ?region) :-
+  subset_subobjects.alloc_subregion_at_any_array_index(?alloc, ?region).
+
+subset_gep.alloc_subregion_offset(?base, ?subAlloc, ?offset) :-
+  subset_subobjects.alloc_subregion_offset(?base, ?subAlloc, ?offset).
+
+subset_gep.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+  subset.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
+
+subset.var_points_to(?aCtx, ?alloc, ?ctx, ?toVar) :-
+  subset_gep.gep_var_points_to(?aCtx, ?alloc, ?ctx, ?toVar).
+
+.init subset_cplusplus = CPlusPlus
+
+subset_cplusplus.allocation_type(?alloc, ?type) :-
+  subset_allocation_type.allocation_type(?alloc, ?type).
+
+subset_cplusplus.stripctx_operand_points_to(?to, ?op) :-
+  subset.stripctx.stripctx_operand_points_to(?to, ?op).
+
+.init subset_throw_instruction = ThrowInstruction
+
+subset_throw_instruction.allocation_type(?alloc, ?type) :-
+  subset_allocation_type.allocation_type(?alloc, ?type).
+
+subset_throw_instruction.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr) :-
+  subset.callgraph.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr).
+
+subset_throw_instruction.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+  subset.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
+
+subset_throw_instruction.stripctx_operand_points_to(?to, ?op) :-
+  subset.stripctx.stripctx_operand_points_to(?to, ?op).
+
+subset.type_indication.ty_indication(?type, ?aCtx, ?alloc) :-
+  subset_throw_instruction.ty_indication4(?type, ?aCtx, ?alloc).
+
+subset.type_indication.ty_indication(?type, ?aCtx, ?alloc) :-
+  subset_throw_instruction.ty_indication5(?type, ?aCtx, ?alloc).
+
+subset_throw_instruction.untyped_allocation(?insn, ?alloc) :-
+  subset.exception_object.untyped_allocation(?insn, ?alloc).
+
+.init subset_at_exit = AtExit
+
+subset_at_exit.alloc_aliases(?alloc1, ?alloc2) :-
+  subset_aliases.alloc_aliases(?alloc1, ?alloc2).
+
+subset_at_exit.reachable_context(?ctx, ?func) :-
+  subset.callgraph.reachable_context(?ctx, ?func).
+
+subset_at_exit.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr) :-
+  subset.callgraph.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr).
+
+subset_at_exit.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+  subset.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
+
+subset.var_points_to(?aCtx, ?alloc, ?ctx, ?var) :-
+  subset_at_exit.at_exit_var_points_to(?aCtx, ?alloc, ?ctx, ?var).
+
+.init subset_allocations = Allocations
+
+alloc_context(?aCtx) :- subset_allocations.alloc_with_ctx(?aCtx, _).
+
+subset_allocations.alloc_subregion_base(?alloc, ?base) :-
+  subset_subobjects.alloc_subregion_base(?alloc, ?base).
+
+subset_allocations.alloc_with_ctx(?aCtx, ?alloc) :-
+  subset_signatures.alloc_with_ctx(?aCtx, ?alloc).
+
+subset_allocations.alloc_with_ctx(?aCtx, ?alloc) :-
+  subset.type_indication.alloc_with_ctx(?aCtx, ?alloc).
+
+subset_allocations.reachable_context(?ctx, ?func) :-
+  subset.callgraph.reachable_context(?ctx, ?func).
+subset.var_points_to(?aCtx, ?alloc, ?ctx, ?var) :-
+  subset_allocations.allocated_at(?aCtx, ?alloc, ?ctx, ?var).
+
+.init subset_allocation_type = AllocationType
+
+subset_allocation_type.alloc_subregion_type(?alloc, ?type) :-
+  subset_subobjects.alloc_subregion_type(?alloc, ?type).
+
+subset_allocation_type.backpropagated_allocation_type(?alloc, ?type) :-
+  subset.type_indication.backpropagated_allocation_type(?alloc, ?type).
+
+subset_allocation_type.sig_allocation_type(?alloc, ?type) :-
+  subset_signatures.sig_allocation_type(?alloc, ?type).
+
+subset_allocation_type.is_init_by_ctor(?type, ?ctor, ?inFunction, ?alloc) :-
+  subset_cplusplus.is_init_by_ctor(?type, ?ctor, ?inFunction, ?alloc).
+
+subset_allocation_type.heap_allocation_by_alloc_exc(?insn, ?heapAlloc) :-
+  subset.exception_object.heap_allocation_by_alloc_exc(?insn, ?heapAlloc).
+
+.init subset_subobjects = AllocSubobjects
+
+subset_subobjects.allocation_type(?alloc, ?type) :-
+  subset_allocation_type.allocation_type(?alloc, ?type).
+
+subset_subobjects.input_allocation_size(?alloc, ?size) :-
+  allocation_size(?alloc, ?size).
+
+static_subobjects.input_allocation_size(?alloc, ?size) :-
+  allocation_size(?alloc, ?size).
+
+// Copy in results from static subobjects
+subset_subobjects._alloc_subregion(?allocSub, ?base, ?component, ?root, ?path, ?type) :-
+  static_subobjects._alloc_subregion(?allocSub, ?base, ?component, ?root, ?path, ?type).
+subset_subobjects._non_function_basic_allocation(?alloc) :-
+  static_subobjects._non_function_basic_allocation(?alloc).
+subset_subobjects.alloc_subregion_at_field(?alloc, ?index, ?region) :-
+  static_subobjects.alloc_subregion_at_field(?alloc, ?index, ?region).
+subset_subobjects.alloc_subregion_at_any_array_index(?alloc, ?region) :-
+  static_subobjects.alloc_subregion_at_any_array_index(?alloc, ?region).
+subset_subobjects.alloc_subregion_at_array_index(?alloc, ?index, ?region) :-
+  static_subobjects.alloc_subregion_at_array_index(?alloc, ?index, ?region).
+
+.init subset_aliases = Aliases
+
+subset_aliases.alloc_subregion_at_field(?alloc, ?index, ?region) :-
+  subset_subobjects.alloc_subregion_at_field(?alloc, ?index, ?region).
+
+subset_aliases.alloc_subregion_at_array_index(?alloc, ?index, ?region) :-
+  subset_subobjects.alloc_subregion_at_array_index(?alloc, ?index, ?region).
+
+subset_aliases.alloc_subregion_at_any_array_index(?alloc, ?region) :-
+  subset_subobjects.alloc_subregion_at_any_array_index(?alloc, ?region).
+
+.init subset_lift = Lift
+
+subset_lift.alloc_may_alias(?alloc1, ?alloc2) :-
+  subset_aliases.alloc_may_alias(?alloc1, ?alloc2).
+
+subset_lift.alloc_subregion_at_path(?base, ?path, ?obj) :-
+  subset_subobjects.alloc_subregion_at_path(?base, ?path, ?obj).
+
+subset_lift.alloc_subregion_base(?base, ?obj) :-
+  subset_subobjects.alloc_subregion_base(?base, ?obj).
+
+subset_lift.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+  subset.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
+
+subset_lift.reachable_context(?ctx, ?func) :-
+  subset.callgraph.reachable_context(?ctx, ?func).
+
+subset_lift.ptr_points_to(?aCtx, ?alloc, ?ctx, ?ptr) :-
+  subset.ptr_points_to(?aCtx, ?alloc, ?ctx, ?ptr).
+
+subset_lift.var_points_to(?aCtx, ?alloc, ?ctx, ?var) :-
+  subset.var_points_to(?aCtx, ?alloc, ?ctx, ?var).
+
+alloc_region(?subAlloc, ?region) :-
+  subset_subobjects.alloc_subregion_base(?subAlloc, ?alloc),
+  alloc_region(?alloc, ?region).
+alloc_region(?alloc, "heap") :-
+  subset.exception_object.heap_allocation_by_alloc_exc(_, ?alloc).
+alloc_region(?alloc, "heap") :-
+  subset.type_indication.heap_allocation_by_type_instruction(_, _, ?alloc).
+alloc_region(?alloc, "heap") :-
+  subset_signatures.sig_allocation_type(?alloc, _).
+alloc_region(?alloc, "stack") :-
+  subset.type_indication.stack_allocation_by_type_instruction(_, _, ?alloc).

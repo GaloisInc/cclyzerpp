@@ -1,0 +1,15 @@
+//----------------------
+// Inline ASM
+//----------------------
+
+// Inline ASM values do not need to be constants. The only reason it
+// is currently so, is so that we do not have to add yet another type
+// of operand (other than variable and constant).
+
+.type InlineASM = Constant
+.decl inline_asm(asm:InlineASM)
+
+constant(asm) :- inline_asm(asm).
+
+.decl inline_asm_text(asm:InlineASM, text:symbol)
+.decl inline_asm_constraints(asm:InlineASM, constraints:symbol)

@@ -1,0 +1,133 @@
+.decl user_options(?key : symbol, ?value : symbol)
+.decl user_option_valid_value(?key : symbol, ?value : symbol)
+.decl user_option_default(?key : symbol, ?value : symbol)
+
+.decl user_option_selected(?key : symbol, ?value : symbol)
+.decl user_option_invalid(?key : symbol, ?value : symbol)
+.decl user_option_defaulted(?key : symbol, ?value : symbol)
+.decl user_option_value(?key : symbol, ?value : symbol)
+
+user_option_selected(?key, ?value) :-
+  user_options(?key, ?value),
+  user_option_valid_value(?key, ?value).
+
+user_option_invalid(?key, ?value) :-
+  user_options(?key, ?value),
+  !user_option_valid_value(?key, ?value).
+
+user_option_defaulted(?key, ?value) :-
+  user_option_default(?key, ?value),
+  !user_option_selected(?key, _).
+
+user_option_value(?key, ?value) :-
+  user_option_selected(?key, ?value).
+
+user_option_value(?key, ?value) :-
+  user_option_defaulted(?key, ?value).
+
+//------------------------------------------------------------------------------
+// [Context-sensitivity]
+//
+// Context-sensitivity can increase the precision of points-to results, but
+// presents a wide-range of performance trade-offs.
+//------------------------------------------------------------------------------
+
+user_option_valid_value("context_sensitivity","insensitive").
+user_option_valid_value("context_sensitivity","1-callsite").
+user_option_valid_value("context_sensitivity","2-callsite").
+user_option_valid_value("context_sensitivity","3-callsite").
+user_option_valid_value("context_sensitivity","4-callsite").
+user_option_valid_value("context_sensitivity","5-callsite").
+user_option_valid_value("context_sensitivity","6-callsite").
+user_option_valid_value("context_sensitivity","7-callsite").
+user_option_valid_value("context_sensitivity","8-callsite").
+user_option_valid_value("context_sensitivity","9-callsite").
+user_option_valid_value("context_sensitivity","1-caller").
+user_option_valid_value("context_sensitivity","2-caller").
+user_option_valid_value("context_sensitivity","3-caller").
+user_option_valid_value("context_sensitivity","4-caller").
+user_option_valid_value("context_sensitivity","5-caller").
+user_option_valid_value("context_sensitivity","6-caller").
+user_option_valid_value("context_sensitivity","7-caller").
+user_option_valid_value("context_sensitivity","8-caller").
+user_option_valid_value("context_sensitivity","9-caller").
+user_option_valid_value("context_sensitivity","1-file").
+user_option_valid_value("context_sensitivity","2-file").
+user_option_valid_value("context_sensitivity","3-file").
+user_option_valid_value("context_sensitivity","4-file").
+user_option_valid_value("context_sensitivity","5-file").
+user_option_valid_value("context_sensitivity","6-file").
+user_option_valid_value("context_sensitivity","7-file").
+user_option_valid_value("context_sensitivity","8-file").
+user_option_valid_value("context_sensitivity","9-file").
+
+user_option_default("context_sensitivity","insensitive").
+
+//------------------------------------------------------------------------------
+// [Dropped context items]
+//
+// See drop.dl.
+//------------------------------------------------------------------------------
+
+user_option_valid_value("drop_redundant_context_entries","on").
+user_option_valid_value("drop_redundant_context_entries","off").
+
+user_option_default("drop_redundant_context_entries","on").
+
+//------------------------------------------------------------------------------
+// [Dropped contexts]
+//
+// See drop.dl.
+//------------------------------------------------------------------------------
+
+user_option_valid_value("drop_redundant_contexts","on").
+user_option_valid_value("drop_redundant_contexts","off").
+
+user_option_default("drop_redundant_contexts","on").
+
+//------------------------------------------------------------------------------
+// [Marks all functions as reachable]
+//
+// This is useful if the artifact to be analyzed doesn't have any
+// known entry points (e.g., dynamic library). In such a case, it
+// makes sense to treat all functions defined therein as potential
+// entry points.
+//------------------------------------------------------------------------------
+
+user_option_valid_value("entrypoints","main").
+user_option_valid_value("entrypoints","library").
+
+user_option_default("entrypoints","main").
+
+//------------------------------------------------------------------------------
+// [Handle Pointer Arithmetic]
+//
+// Handling pointer arithmetic in a sound way is quite expensive. It
+// may double the overall analysis time. Hence, it is optional and can
+// be turned on/off with the folowing configuration option.
+//------------------------------------------------------------------------------
+
+user_option_valid_value("pointer_arithmetic","on").
+user_option_valid_value("pointer_arithmetic","off").
+
+user_option_default("pointer_arithmetic","on").
+
+//------------------------------------------------------------------------------
+// [Handle optimized code]
+//
+// Similarly, handling optimized code requires a set of techniques
+// that may be completely redundant or even harmful for the precision
+// of the analysis, in the common case (non-optimized code). Hence, it
+// is optional and can be turned on/off with the folowing
+// configuration option.
+//
+// For instance, code optimizations may include inlined
+// constructors. In such a case, we cannot rely on the presence of a
+// call to a constructor after a heap allocation instruction, to be
+// able to identify the type of the allocation.
+//------------------------------------------------------------------------------
+
+user_option_valid_value("optimized_code","on").
+user_option_valid_value("optimized_code","off").
+
+user_option_default("optimized_code","on").

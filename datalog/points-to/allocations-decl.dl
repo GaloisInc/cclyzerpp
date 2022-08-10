@@ -1,0 +1,130 @@
+//-----------------------------------
+// Basic Allocation Type Hierarchy
+//-----------------------------------
+
+.type StackAllocation <: symbol
+.type HeapAllocation <: symbol
+.type GlobalAllocation <: symbol
+.type SignatureAllocation <: symbol
+.type BasicAllocation
+  = GlobalAllocation
+  | HeapAllocation
+  | StackAllocation
+  | SignatureAllocation
+.type Allocation = BasicAllocation | AllocSubregion | NonAllocation
+
+.decl allocation(?alloc:Allocation)
+.decl basic_allocation(?basicAlloc:BasicAllocation)
+.decl stack_allocation(?stackAlloc:StackAllocation)
+.decl heap_allocation(?heapAlloc:HeapAllocation)
+.decl global_allocation(?globalAlloc:GlobalAllocation)
+.decl signature_allocation(?sigAlloc:SignatureAllocation)
+
+allocation(?alloc) :-
+  basic_allocation(?alloc).
+
+basic_allocation(?alloc) :-
+  stack_allocation(?alloc);
+  heap_allocation(?alloc);
+  global_allocation(?alloc);
+  signature_allocation(?alloc).
+
+// Constructors
+
+.decl stack_allocation_by_instruction(?insn:AllocaInstruction, ?stackAlloc:StackAllocation)
+.decl stack_allocation_by_type_instruction(?type:Type, ?insn:AllocaInstruction, ?stackAlloc:StackAllocation)
+.decl stack_allocation_by_parameter(?func:FunctionDecl, ?index:number, ?stackAlloc:StackAllocation)
+
+.decl heap_allocation_by_instruction(?insn:CallInstruction, ?heapAlloc:HeapAllocation)
+.decl heap_allocation_by_type_instruction(?type:Type, ?insn:CallInstruction, ?heapAlloc:HeapAllocation)
+
+.decl global_allocation_by_function(?func:FunctionDecl, ?globalAlloc:GlobalAllocation)
+.decl global_allocation_by_variable(?var:GlobalVariable, ?globalAlloc:GlobalAllocation)
+.decl global_allocation_by_name(?global:GlobalName, ?globalAlloc:GlobalAllocation)
+
+.decl heap_alloc_function(?function:Function)
+heap_alloc_function(?func) :-
+   function_has_name(?func, "@malloc")
+ ; function_has_name(?func, "@calloc")
+ ; function_has_name(?func, "@realloc")
+ ; function_has_name(?func, "@mmap").
+
+.decl heap_allocation_by_malloc(?insn:CallInstruction, ?heapAlloc:HeapAllocation)
+.decl heap_allocation_by_calloc(?insn:CallInstruction, ?heapAlloc:HeapAllocation)
+.decl heap_allocation_by_realloc(?insn:CallInstruction, ?heapAlloc:HeapAllocation)
+.decl heap_allocation_by_mmap(?insn:CallInstruction, ?heapAlloc:HeapAllocation)
+
+// NOTE(lb): This rule is populated from both analyses, but that's fine because
+// it isn't used to compute any further results, just in lift.dl.
+//
+// See subset-rules.dl and unification-rules.dl.
+.type AllocInstruction = CallInstruction | AllocaInstruction
+.decl allocation_by_instruction(?insn:AllocInstruction, ?alloc:Allocation)
+
+allocation_by_instruction(?insn, ?alloc) :-
+  heap_allocation_by_instruction(?insn, ?alloc).
+
+allocation_by_instruction(?insn, ?alloc) :-
+  stack_allocation_by_instruction(?insn, ?alloc).
+
+//---------------------------------------------------------------------------
+// [Pointer-compatible allocations]
+//
+// Allocations that may be used as pointers (e.g., can be dereferenced
+// to get another memory location).
+//---------------------------------------------------------------------------
+
+.decl ptr_compatible_allocation(?alloc:Allocation)
+
+
+// We consider all stack and heap allocations as pointer-compatible
+ptr_compatible_allocation(?alloc) :-
+   stack_allocation(?alloc)
+ ; heap_allocation(?alloc)
+ ; signature_allocation(?alloc).
+
+
+// Global constants cannot point-to anything, since storing to them
+// would change their contents
+ptr_compatible_allocation(?alloc) :-
+   global_allocation_by_variable(?globalVar,?alloc),
+   ! global_variable_constant(?globalVar).
+
+//-------------------------------------
+// Additional pseudo-allocation types
+//-------------------------------------
+
+.type NonAllocation
+  = NullAllocation
+  | UnknownAllocation
+
+.type NullAllocation <: symbol
+.type UnknownAllocation <: symbol
+
+.decl non_allocation(?alloc:NonAllocation)
+.decl unknown_location(?alloc:UnknownAllocation)
+.decl null_location(?alloc:NullAllocation)
+
+non_allocation(?alloc) :-
+   unknown_location(?alloc)
+ ; null_location(?alloc).
+
+unknown_location("*unknown*").
+
+null_location("*null*").
+
+//--------------------------------
+// Allocation properties
+//--------------------------------
+
+// Statically-known allocation type (without back-propagation)
+.decl static_allocation_type(?alloc:Allocation, ?type:Type)
+
+// Allocation size in bytes
+.decl allocation_size(?alloc: Allocation, ?size: Bytes)
+
+// Allocation of more than one elements
+.decl array_allocation(?alloc:Allocation)
+
+// Allocation position on source code (requires debug info)
+.decl allocation_pos(?alloc:Allocation, ?line:LineNumber , ?column:ColumnNumber)

@@ -1,0 +1,69 @@
+// http://llvm.org/docs/LangRef.html#phi-instruction
+// keywords: index; instruction
+
+.type PhiInstruction = Instruction
+.decl phi_instruction(instr:PhiInstruction)
+
+instruction(v) :- phi_instruction(v).
+
+.type PhiInstructionPair = [
+   value : Operand,
+   label : Variable
+]
+
+.decl phi_instruction_type(instr:PhiInstruction, type:Type)
+.decl phi_instruction_npairs(instr:PhiInstruction, total:number)
+.decl phi_instruction_pair(instr:PhiInstruction, index:number, pair:PhiInstructionPair)
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// The ‘phi‘ instruction takes a list of pairs as arguments,
+// with one pair for each predecessor basic block of the current block.
+//   (i)  Only values of first class type may be used as the value arguments
+//        to the PHI node.
+//   (ii) Only labels may be used as the label arguments.
+//------------------------------------------------------------------------------
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   phi_instruction(Instr),
+   !phi_instruction_npairs(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   phi_instruction(Instr),
+   phi_instruction_type(Instr, Type),
+   !instruction_returns_type(Instr, Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   phi_instruction(Instr),
+   phi_instruction_pair(Instr, _, Pair),
+   Pair = [Value, Label],
+   operand(Value),
+   !variable_is_label(Label).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   phi_instruction(Instr),
+   phi_instruction_pair(Instr, _, Pair),
+   Pair = [Value, Label],
+   variable(Label),
+   !operand_is_firstclass(Value).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   phi_instruction_type(Instr, Type),
+   phi_instruction_pair(Instr, _, Pair),
+   Pair = [Value, Label],
+   operand(Value),
+   variable(Label),
+   !operand_has_type(Value, Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   phi_instruction_npairs(Instr, Total),
+   phi_instruction_pair(Instr, Index, _),
+   (Index < 0 ; Index >= Total).

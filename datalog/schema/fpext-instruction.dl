@@ -1,0 +1,58 @@
+// http://llvm.org/docs/LangRef.html#fpext-to-instruction
+// keywords: conversion; unary; instruction
+
+.type FPExtInstruction = Instruction
+.decl fpext_instruction(instr:FPExtInstruction)
+
+instruction(v) :- fpext_instruction(v).
+
+.decl fpext_instruction_from_operand(instr:FPExtInstruction, val:Operand)
+.decl fpext_instruction_to_type(instr:FPExtInstruction, type:Type)
+
+
+// Helper predicate
+
+.decl fpext_instruction_from_type(instr:FPExtInstruction, type:Type)
+
+fpext_instruction_from_type(Instr, Type) :-
+   fpext_instruction_from_operand(Instr, Operand),
+   operand_has_type(Operand, Type).
+
+
+//-------------------------------------------------------------------
+// [Constraints]
+//
+// 1) The ‘fpext‘ instruction takes:
+//      (i)  a floating point value to cast,
+//      (ii) and a floating point type to cast it to.
+//
+// 2) The source type must be smaller than the destination type.
+//-------------------------------------------------------------------
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fpext_instruction(Instr),
+   !fpext_instruction_from_operand(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fpext_instruction(Instr),
+   !fpext_instruction_to_type(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fpext_instruction(Instr),
+   fpext_instruction_to_type(Instr, Type),
+   !instruction_returns_type(Instr, Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fpext_instruction(Instr),
+   fpext_instruction_from_type(Instr, Type),
+   !fp_type(Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fpext_instruction(Instr),
+   fpext_instruction_to_type(Instr, Type),
+   !fp_type(Type).

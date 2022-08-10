@@ -1,0 +1,190 @@
+// There is code to plot some of these statistics in ../../plot
+
+// The containing function of a variable
+
+variable_in_function(?var, ?func) :-
+   _variable_in_function(?var, ?funcName),
+   function_has_name(?func, ?funcName).
+
+// Compute variables defined in reachable functions
+
+.decl reachable_var(?var: Variable)
+.decl reachable_vars(?nVars: number)
+.decl empty_var(?var: Variable)
+.decl nonempty_var(?var: Variable)
+.decl empty_vars(?nVars: number)
+.decl nonempty_vars(?nVars: number)
+.decl var_points_to_sizes(?var: Variable, ?nAllocs: number)
+.decl nvars_by_pt_size(?nAllocs: number, ?nVars: number)
+.decl _nvars_by_pt_total(?nVars: number)
+.decl empty_ptr(?ptr: Allocation)
+.decl empty_ptrs(?nPtrs: number)
+.decl nonempty_ptr(?ptr: Allocation)
+.decl nonempty_ptrs(?nPtrs: number)
+.decl alloc_points_to_sizes(?alloc: Allocation, ?nAllocs: number)
+.decl _alloc_pt_size(?nAllocs: number, ?alloc: Allocation)
+.decl nallocs_by_pt_size(?nAllocs: number, ?nPtrs: number)
+.decl var_alias(?var1 : Variable, ?var2 : Variable)
+.decl var_alias_sizes(?var : Variable, ?nAlias : number)
+.decl stripctx_var_alias(?var1 : Variable, ?var2 : Variable)
+
+reachable_var(?var) :-
+   variable_in_function(?var, ?func),
+   subset.callgraph.reachable_function(?func).
+
+reachable_vars(?nVars) :-
+   ?nVars = count : reachable_var(_).
+
+//------------------------------------------------------------------------------
+// Variable Points-to Sets Statistics
+//------------------------------------------------------------------------------
+
+
+// Compute variables with non-empty points-to sets
+
+
+empty_var(?var) :-
+   variable(?var),
+   !subset.stripctx.stripctx_var_points_to(_, ?var).
+
+nonempty_var(?var) :-
+   subset.stripctx.stripctx_var_points_to(_, ?var).
+
+empty_vars(?nVars) :-
+   ?nVars = count : empty_var(_).
+
+nonempty_vars(?nVars) :-
+   ?nVars = count : nonempty_var(_).
+
+// Compute variable points-to sets sizes
+
+var_points_to_sizes(?var, ?nAllocs) :-
+   variable(?var),
+   ?nAllocs = count : subset.stripctx.stripctx_var_points_to(_, ?var).
+
+
+// Compute alias set sizes
+
+// Pre-filter for performance
+stripctx_var_alias(?var1, ?var2) :-
+  subset.stripctx.stripctx_var_points_to(?alloc, ?var1),
+  !null_location(?alloc),
+  subset.stripctx.stripctx_var_points_to(?alloc, ?var2),
+  ?var1 != ?var2.
+
+var_alias(?var1, ?var2) :-
+  stripctx_var_alias(?var1, ?var2),
+  subset.var_points_to(?aCtx, ?alloc, _, ?var1),
+  !null_location(?alloc),
+  subset.var_points_to(?aCtx, ?alloc, _, ?var2).
+
+var_alias_sizes(?var, ?nAlias) :-
+  reachable_var(?var),
+  ?nAlias = count : var_alias(?var, _).
+
+// Number of variables that point to `NAllocs` number of allocations
+
+nvars_by_pt_size(?nAllocs, ?nVars) :-
+   var_points_to_sizes(_, ?nAllocs),
+   ?nVars = count : var_points_to_sizes(_, ?nAllocs).
+
+
+// Sanity check: all non-empty variables should point-to some number
+// of allocations
+
+/*
+//				Maybe sanity check?
+_nvars_by_pt_total(?nVars) :-
+   sanity_check(),
+   ?nVars = count : nvars_by_pt_size(_,?n).
+
+
+_nvars_by_pt_total[] = NVars
+ -> nonempty_vars[] = NVars.
+*/
+
+//------------------------------------------------------------------------------
+// Pointer Dereference Statistics
+//------------------------------------------------------------------------------
+
+
+// Compute pointer objects with non-empty points-to sets
+
+empty_ptr(?ptr) :-
+   allocation(?ptr),
+   !subset.stripctx.stripctx_ptr_points_to(_, ?ptr).
+
+empty_ptrs(?nPtrs) :-
+   ?nPtrs = count : empty_ptr(_).
+
+nonempty_ptr(?ptr) :-
+   subset.stripctx.stripctx_ptr_points_to(_, ?ptr).
+
+nonempty_ptrs(?nPtrs) :-
+   ?nPtrs = count : nonempty_ptr(_).
+
+
+// Compute pointer points-to sets sizes
+alloc_points_to_sizes(?alloc, ?nAllocs) :-
+   subset.stripctx.stripctx_ptr_points_to(_, ?alloc),
+   ?nAllocs = count : subset.stripctx.stripctx_ptr_points_to(_, ?alloc).
+
+_alloc_pt_size(?nAllocs, ?alloc) :-
+   alloc_points_to_sizes(?alloc, ?nAllocs).
+
+
+// Number of pointer objects that point to `NAllocs` number of
+// allocations
+
+nallocs_by_pt_size(?nAllocs, ?nPtrs) :-
+   _alloc_pt_size(?nAllocs, _),
+   ?nPtrs = count : _alloc_pt_size(?nAllocs, _).
+
+/*
+// Sanity check: all non-empty pointers should point-to some number of
+// allocations
+
+_nallocs_by_pt_total[] = NPtrs <-
+   agg<<NPtrs = total(N)>>
+   nallocs_by_pt_size[_] = N.
+
+_nallocs_by_pt_total[] = NVars
+ -> nonempty_ptrs[] = NVars.
+
+*/
+
+
+//------------------------------------------------------------------------------
+// Callgraph Statistics
+//------------------------------------------------------------------------------
+
+// Intermediate relationship
+.decl function_calls_function(?caller: Function, ?callee: Function)
+function_calls_function(?caller, ?callee) :-
+  instruction_in_function(?callerInstr, ?caller),
+  subset.callgraph.callgraph_edge(_, ?callee, _, ?callerInstr).
+
+// How many functions does this function call?
+.decl function_out_degree(?functionName: FunctionName, ?degree: number)
+// How many functions is this function called by?
+.decl function_in_degree(?functionName: FunctionName, ?degree: number)
+// How many functions call this number of functions?
+.decl functions_by_in_degree(?degree: number, ?functions: number)
+// How many functions are called by this number of functions?
+.decl functions_by_out_degree(?degree: number, ?functions: number)
+
+function_out_degree(?functionName, ?degree) :-
+   function_has_name(?func, ?functionName),
+   ?degree = count : function_calls_function(?func, _).
+
+function_in_degree(?functionName, ?degree) :-
+   function_has_name(?func, ?functionName),
+   ?degree = count : function_calls_function(_, ?func).
+
+functions_by_out_degree(?degree, ?functions) :-
+   function_out_degree(_, ?degree), // ground it
+   ?functions = count : function_out_degree(_, ?degree).
+
+functions_by_in_degree(?degree, ?functions) :-
+   function_in_degree(_, ?degree), // ground it
+   ?functions = count : function_in_degree(_, ?degree).

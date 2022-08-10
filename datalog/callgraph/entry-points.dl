@@ -1,0 +1,65 @@
+// Entry points; functions reachable by definition (call-graph roots)
+.decl entry_point(func:FunctionDecl)
+
+// The main function and any other functions called automatically at
+// startup, are our program's entry points
+
+entry_point(Func) :-
+   main_function(Func)
+ ; called_at_startup(Func).
+
+//-----------------------------------------------------------------------
+// Main function
+//-----------------------------------------------------------------------
+
+.decl main_function(func:Function)
+
+main_function(MainFn) :-
+   function_has_name(MainFn, "@main"),
+   function(MainFn).
+
+// Set up argv
+.decl argv_alloc(alloc: BasicAllocation)
+argv_alloc("*argv-alloc").
+basic_allocation(argvAlloc) :- argv_alloc(argvAlloc).
+dynamically_sized_alloc(argvAlloc) :- argv_alloc(argvAlloc).
+
+// The construction of subregion allocations depends on knowing the type, so we
+// have to ascribe one here.
+static_allocation_type(argvAlloc, i8PtrPtrType) :-
+  int8_type(i8),
+  argv_alloc(argvAlloc),
+  pointer_type_has_component(i8PtrType, i8),
+  pointer_type_has_component(i8PtrPtrType, i8PtrType).
+
+.decl argv_ptr_points_to(from: Allocation, to: Allocation)
+
+// Create a separate string allocation for each pointer in argv
+basic_allocation(newAlloc),
+static_allocation_type(newAlloc, i8PtrType),
+argv_ptr_points_to(subAlloc, newAlloc),
+dynamically_sized_alloc(newAlloc)
+  :-
+  argv_alloc(argvAlloc),
+  static_subobjects.alloc_subregion_at_array_index(argvAlloc, index, subAlloc),
+  int8_type(i8),
+  pointer_type_has_component(i8PtrType, i8),
+  newAlloc = cat(cat("*argv[", to_string(index)), "]-alloc").
+
+.decl argv_var_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable)
+argv_var_points_to(aCtx, argvAlloc, mainCtx, argvVar) :-
+  main_function(main),
+  argv_alloc(argvAlloc),
+  function_param(main, 1, argvVar),
+  empty_alloc_context(aCtx),
+  main_context(mainCtx).
+
+//-----------------------------------------------------------------------
+// C Runtime performs initializations before running main() by calling
+// functions (e.g., global constructors) insided special sections.
+//-----------------------------------------------------------------------
+
+.decl called_at_startup(func:FunctionDecl)
+
+called_at_startup(StartupFn) :-
+   function_in_section(StartupFn, ".text.startup").

@@ -1,0 +1,15 @@
+//-----------------------------------------------------------
+// Debug Info - Subranges
+//-----------------------------------------------------------
+
+.decl di?subrange(entry:DISubrange)
+.decl di?subrange_count(entry:DISubrange, cnt:number)
+.decl di?subrange_lower_bound(entry:DISubrange, bound:number)
+
+di?entry(e) :- di?subrange(e).
+
+
+debuginfo_invalid_entry(Entry, __FILE__, __LINE__) :-
+   schema_sanity(),
+   di?subrange(Entry),
+   !di?subrange_count(Entry, _).

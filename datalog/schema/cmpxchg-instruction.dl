@@ -1,0 +1,133 @@
+// http://llvm.org/docs/LangRef.html#cmpxchg-instruction
+// keywords: atomic; memory; instruction
+//
+// [Syntax]
+//
+// cmpxchg [weak] [volatile] <ty>* <pointer>,
+//                           <ty> <cmp>,
+//                           <ty> <new>
+//         [singlethread] <success ordering> <failure ordering>
+//    ; yields  { ty, i1 }
+//
+
+.type CmpXchgInstruction = Instruction
+.decl cmpxchg_instruction(instr:CmpXchgInstruction)
+
+instruction(v) :- cmpxchg_instruction(v).
+
+.decl cmpxchg_instruction_ordering(instr:CmpXchgInstruction, ordering:Ordering)
+
+
+// If the cmpxchg is marked as volatile, then the optimizer is not allowed
+// to modify the number or order of execution of this cmpxchg with other
+// volatile operations.
+
+.decl cmpxchg_instruction_is_volatile(instr:CmpXchgInstruction)
+
+
+// There are three arguments to the cmpxchg instruction:
+//  (i)   an address to operate on,
+//  (ii)  a value to compare to the value currently be at
+//        that address, and
+//  (iii) a new value to place at that address if the compared
+//        values are equal.
+
+.decl cmpxchg_instruction_address(instr:CmpXchgInstruction, ptr:Operand)
+.decl cmpxchg_instruction_cmp_value(instr:CmpXchgInstruction, val:Operand)
+.decl cmpxchg_instruction_new_value(instr:CmpXchgInstruction, val:Operand)
+
+
+// Auxiliary
+
+.decl cmpxchg_instruction_cmp_value_type(instr:CmpXchgInstruction, type:Type)
+
+cmpxchg_instruction_cmp_value_type(Instr, Type) :-
+   cmpxchg_instruction_cmp_value(Instr, Value),
+   operand_has_type(Value, Type).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+//  1. the type of ‘<cmp>’ must be an integer type or pointer type
+//     whose bit width is a power of two greater than or equal to
+//     eight and less than or equal to a target-specific size limit
+//  2. ‘<cmp>’ and ‘<new>’ must have the same type
+//  3. the type of ‘<pointer>’ must be a pointer to that type
+//  4. the original value at the location is returned, together with a
+//     flag indicating success (true) or failure (false).
+//------------------------------------------------------------------------------
+
+// Required arguments
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   cmpxchg_instruction(Instr),
+   !cmpxchg_instruction_ordering(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   cmpxchg_instruction(Instr),
+   !cmpxchg_instruction_address(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   cmpxchg_instruction(Instr),
+   !cmpxchg_instruction_cmp_value(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   cmpxchg_instruction(Instr),
+   !cmpxchg_instruction_new_value(Instr, _).
+
+
+// 1. Constraint on value type
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   cmpxchg_instruction_cmp_value_type(Instr, Type),
+   !integer_type(Type),
+   !pointer_type(Type).
+
+
+// 2. Type equality constaint on ‘<cmp>’ and ‘<new>’ arguments
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   cmpxchg_instruction_cmp_value(Instr, CmpValue),
+   cmpxchg_instruction_new_value(Instr, NewValue),
+   operand_has_type(CmpValue, CmpType),
+   operand_has_type(NewValue, NewType),
+   CmpType != NewType.
+
+
+// 3. Type constraint on ‘<pointer>’ argument
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   cmpxchg_instruction_address(Instr, AddressPtr),
+   cmpxchg_instruction_cmp_value_type(Instr, Type),
+   operand_has_type(AddressPtr, PtrType),
+   !pointer_type_has_component(PtrType, Type).
+
+
+// 4. Return value
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   cmpxchg_instruction(Instr),
+   instruction_returns_type(Instr, RetType),
+   !struct_type_nfields(RetType, 2).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   cmpxchg_instruction_cmp_value_type(Instr, Type),
+   instruction_returns_type(Instr, RetType),
+   !struct_type_field(RetType, 0, Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   cmpxchg_instruction(Instr),
+   instruction_returns_type(Instr, RetType),
+   struct_type_field(RetType, 1, FlagType),
+   !int1_type(FlagType).

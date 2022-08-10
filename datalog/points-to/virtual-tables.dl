@@ -1,0 +1,150 @@
+//--------------------------------------------------------------------
+// [Virtual Table of Type Info Objects]
+//
+// We assume that the compiled program adheres to the
+// industry-standard Itanium C++ ABI.
+//
+// In order to identify vtables, we track the existence of <typeinfo>
+// objects inside global variable arrays, which we then label as
+// vtables. To identify type info objects, we must first track their
+// vpointers to their own virtual tables.
+//
+// https://mentorembedded.github.io/cxx-abi/abi.html#rtti-layout
+//--------------------------------------------------------------------
+
+.decl vtable(?vt: VirtualTable, ?name: symbol)
+.decl typeinfo(?typeInfo: GlobalVariable)
+.decl vtable_typeinfo(?vt: VirtualTable,?typeInfo: GlobalVariable)
+
+.type VirtualTable = GlobalVariable
+
+.decl typeinfo_vtable(?vt: VirtualTable, ?name: symbol)
+vtable(?vt, ?name) :-
+   typeinfo_vtable(?vt, ?name).
+
+typeinfo_vtable(?vt, ?name) :-
+   external_linkage_type(?externalLinkage),
+   global_variable_has_linkage_type(?vt, ?externalLinkage),
+   global_variable_has_name(?vt, ?name),
+   contains("class_type_info", ?name),
+   contains("cxxabi", ?name).
+
+.decl typeinfo_vtable_baseclass(?vt: VirtualTable, ?name: symbol)
+typeinfo_vtable_baseclass(?vt, ?name) :-
+   typeinfo_vtable(?vt, ?name),
+   !contains("__si_class_type_info", ?name),
+   !contains("__vmi_class_type_info", ?name),
+   contains("__class_type_info", ?name).
+
+.decl typeinfo_vtable_single_inheritance(?vt: VirtualTable, ?name: symbol)
+typeinfo_vtable_single_inheritance(?vt, ?name) :-
+   typeinfo_vtable(?vt, ?name),
+   contains("__si_class_type_info", ?name).
+
+.decl typeinfo_vtable_multiple_inheritance(?vt: VirtualTable, ?name: symbol)
+typeinfo_vtable_multiple_inheritance(?vt, ?name) :-
+   typeinfo_vtable(?vt, ?name),
+   contains("__vmi_class_type_info", ?name).
+
+
+// Track flow of vpointers to constants
+
+.decl constant_contains_vptr(?vt: VirtualTable, ?constant: Constant)
+constant_contains_vptr(?vt, ?constant) :-
+   global_variable_constant_name(?constant, ?name),
+   vtable(?vt, ?name).
+
+constant_contains_vptr(?vt, ?outer) :-
+   getelementptr_constant_expression_base(?outer,?inner),
+   constant_contains_vptr(?vt, ?inner).
+
+constant_contains_vptr(?vt, ?outer) :-
+   bitcast_constant_expression_from(?outer, ?inner),
+   constant_contains_vptr(?vt, ?inner).
+
+constant_contains_vptr(?vt, ?outer) :-
+   constant_struct_index(?outer, 0, ?inner),
+   constant_contains_vptr(?vt, ?inner).
+
+
+// Identify the actual type info objects through their vpointers
+
+.decl typeinfo_has_vtable(?typeInfo:GlobalVariable, ?vt: VirtualTable)
+typeinfo(?typeInfo),
+typeinfo_has_vtable(?typeInfo,?vt) :-
+   constant_contains_vptr(?vt, ?initializer),
+   typeinfo_vtable(?vt, _),
+   global_variable_has_initializer(?typeInfo, ?initializer).
+
+.decl typeinfo_baseclass(?typeInfo: GlobalVariable)
+typeinfo_baseclass(?typeInfo) :-
+   typeinfo_has_vtable(?typeInfo, ?vt),
+   typeinfo_vtable_baseclass(?vt,_).
+
+.decl typeinfo_single_inheritance(?typeInfo: GlobalVariable)
+typeinfo_single_inheritance(?typeInfo) :-
+   typeinfo_has_vtable(?typeInfo, ?vt),
+   typeinfo_vtable_single_inheritance(?vt, _).
+
+.decl typeinfo_multiple_inheritance(?typeInfo: GlobalVariable)
+typeinfo_multiple_inheritance(?typeInfo) :-
+   typeinfo_has_vtable(?typeInfo, ?vt),
+   typeinfo_vtable_multiple_inheritance(?vt, _).
+
+
+// Now identify vtables
+
+.decl _constant_contains_typeinfo(?typeInfo: GlobalVariable, ?constant:Constant)
+_constant_contains_typeinfo(?typeInfo, ?constant) :-
+   global_variable_constant_reference(?constant, ?typeInfo),
+   typeinfo(?typeInfo).
+
+_constant_contains_typeinfo(?typeinfo, ?outer) :-
+   bitcast_constant_expression_from(?outer, ?inner),
+   _constant_contains_typeinfo(?typeinfo, ?inner).
+
+vtable(?vt, ?name),
+vtable_typeinfo(?vt,?typeinfo) :-
+   global_variable_has_name(?vt, ?name),
+   global_variable_has_initializer(?vt, ?initializer), // get array constant of vtable
+   constant_array_index(?initializer, 1, ?tic),    // type info is at index 1
+   _constant_contains_typeinfo(?typeinfo, ?tic).
+
+
+// Recover hints of class hierarchy by identifying cases of typeinfo
+// objects inside other typeinfo objects
+.decl _typeinfo_contains_typeinfo(?outer: GlobalVariable, ?index:number, ?inner: GlobalVariable)
+_typeinfo_contains_typeinfo(?outer, ?index, ?inner) :-
+   typeinfo(?outer),
+   global_variable_has_initializer(?outer, ?init),
+   constant_struct_index(?init, ?index, ?tic),
+   _constant_contains_typeinfo(?inner, ?tic).
+
+.decl typeinfo_base_class(?typeinfo:GlobalVariable, ?offset: number, ?baseTypeinfo: GlobalVariable)
+
+// Single inheritance case
+typeinfo_base_class(?typeinfo, 0, ?baseTypeinfo) :-
+   typeinfo_single_inheritance(?typeinfo),
+   _typeinfo_contains_typeinfo(?typeinfo, 2, ?baseTypeinfo).
+
+// Multiple inheritance case
+typeinfo_base_class(?typeinfo, ?offset, ?baseTypeinfo) :-
+   typeinfo_multiple_inheritance(?typeinfo),
+   _typeinfo_contains_typeinfo(?typeinfo, ?index, ?baseTypeinfo),
+   global_variable_has_initializer(?typeinfo, ?init),
+   constant_struct_index(?init, ?index + 1, ?constant),
+   constant_to_int(?constant, ?offsetMask),
+   ?offset = ?offsetMask / 256.
+
+// see RTTI Layout of Itanium C++ ABI
+
+// Find the functions stored inside each vtable
+.decl vtable_function(?vt: VirtualTable, ?index: number, ?func: FunctionDecl)
+
+vtable_function(?vt,?index,?func) :-
+   vtable(?vt, _),
+   global_variable_has_initializer(?vt,?init),
+   constant_array_index(?init, ?index, ?funcAsInteger),
+   bitcast_constant_expression_from(?funcAsInteger, ?funcConstant),
+   function_constant_fn_name(?funcConstant, ?funcName),
+   function_has_name(?func,?funcName).

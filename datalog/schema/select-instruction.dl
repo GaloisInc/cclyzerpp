@@ -1,0 +1,84 @@
+// http://llvm.org/docs/LangRef.html#select-instruction
+// keywords: instruction
+
+.type SelectInstruction = Instruction
+.decl select_instruction(instr:SelectInstruction)
+
+instruction(v) :- select_instruction(v).
+
+
+// The ‘select‘ instruction is used to choose one value
+// based on a condition, without branching.
+
+.decl select_instruction_condition(instr:SelectInstruction, condition:Operand)
+.decl select_instruction_first_operand(instr:SelectInstruction, op:Operand)
+.decl select_instruction_second_operand(instr:SelectInstruction, op:Operand)
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// The ‘select‘ instruction requires:
+//  (i)  an ‘i1’ value or a vector of ‘i1’ values
+//       indicating the condition, and
+//  (ii) two values of the same first class type.
+//
+// If the condition is a vector of i1, then:
+//  (i)  the value arguments must be vectors of the same size, and
+//  (ii) the selection is done element by element.
+//
+// If the condition is a scalar, the value arguments can still be
+// vectors, in which case the entire vectors are selected, instead
+// of individual elements.
+//------------------------------------------------------------------------------
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   select_instruction(Instr),
+   !select_instruction_condition(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   select_instruction(Instr),
+   !select_instruction_first_operand(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   select_instruction(Instr),
+   !select_instruction_second_operand(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   select_instruction_condition(Instr, Cond),
+   operand_has_type(Cond, CondType),
+   !boolean_type(CondType),
+   !boolean_vector_type(CondType).
+
+// The two operands must be of the same first-class type.
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   select_instruction(Instr),
+   instruction_returns_type(Instr, Type),
+   !type_is_firstclass(Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   select_instruction_first_operand(Instr, LeftOp),
+   instruction_returns_type(Instr, Type),
+   !operand_has_type(LeftOp, Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   select_instruction_second_operand(Instr, RightOp),
+   instruction_returns_type(Instr, Type),
+   !operand_has_type(RightOp, Type).
+
+// If the condition is of type vector, then all operands
+// must have the same size.
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   select_instruction(Instr),
+   select_instruction_condition(Instr, Cond),
+   instruction_returns_type(Instr, Type),
+   operand_has_type(Cond, CondType),
+   !vector_compatible_types(CondType, Type).

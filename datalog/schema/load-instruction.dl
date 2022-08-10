@@ -1,0 +1,74 @@
+// http://llvm.org/docs/LangRef.html#load-instruction
+// keywords: memory; instruction
+
+.type LoadInstruction = Instruction
+.decl load_instruction(instr:LoadInstruction)
+
+instruction(v) :- load_instruction(v).
+
+.decl load_instruction_alignment(instr:LoadInstruction, alignment:number)
+.decl load_instruction_ordering(instr:LoadInstruction, ordering:Ordering)
+
+// If the load is marked as volatile, then the optimizer is not allowed
+// to modify the number or order of execution of this load with other
+// volatile operations.
+
+.decl load_instruction_is_volatile(instr:LoadInstruction)
+
+
+// If the load is marked as atomic, it takes an extra ordering
+// and optional singlethread argument.
+
+.decl load_instruction_is_atomic(instr:LoadInstruction)
+
+load_instruction_is_atomic(Instr) :-
+   load_instruction_ordering(Instr, _).
+
+
+// The argument to the load instruction specifies the memory address
+// from which to load.
+
+.decl load_instruction_address(instr:LoadInstruction, pointer:Operand)
+
+
+// Helper predicates
+
+.decl load_instruction_address_ptr_type(instr:LoadInstruction, type:Type) 
+
+load_instruction_address_ptr_type(Instr, PtrType) :-
+   load_instruction_address(Instr, PtrAddress),
+   operand_has_type(PtrAddress, PtrType).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+//  (i)  The pointer must point to a first class type.
+//
+//  (ii) The release and acq_rel orderings are not valid on load instructions.
+//------------------------------------------------------------------------------
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   load_instruction(Instr),
+   !load_instruction_address(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   load_instruction(Instr),
+   load_instruction_address_ptr_type(Instr, PtrType),
+   !pointer_type_to_firstclass(PtrType).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   load_instruction(Instr),
+   load_instruction_address_ptr_type(Instr, PtrType),
+   pointer_type_has_component(PtrType, CompType),
+   !instruction_returns_type(Instr, CompType).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   load_instruction(Instr),
+   load_instruction_ordering(Instr, Ord),
+   ( release_ordering(Ord)
+   ; acq_rel_ordering(Ord) ).

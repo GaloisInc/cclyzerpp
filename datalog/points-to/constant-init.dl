@@ -1,0 +1,59 @@
+// Track the constant that initializes an allocation
+
+.decl initialized_by_constant(?alloc: Allocation, ?constant: Constant)
+
+initialized_by_constant(?baseAlloc, ?init) :-
+   global_variable_has_initializer(?var, ?init),
+   global_allocation_by_variable(?var, ?baseAlloc).
+
+initialized_by_constant(?alloc, ?init) :-
+   global_variable_has_initializer(?var, ?init),
+   global_allocation_by_variable(?var, ?baseAlloc),
+   static_subobjects.alloc_subregion_at_array_index(?baseAlloc, 0, ?alloc).
+
+initialized_by_constant(?alloc, ?innerConstant) :-
+   initialized_by_constant(?baseAlloc, ?constant),
+   constant_struct(?constant),
+   constant_struct_index(?constant, ?field, ?innerConstant),
+   static_subobjects.alloc_subregion_at_field(?baseAlloc, ?field, ?alloc),
+   // check type compatibility
+   constant_has_type(?constant, ?constantType),
+   static_allocation_type(?baseAlloc, ?type),
+   struct_type(?type),
+   struct_type(?constantType),
+   type_compatible_up_to_field(?type, ?constantType, ?field).
+
+initialized_by_constant(?alloc, ?innerConstant) :-
+   initialized_by_constant(?baseAlloc, ?constant),
+   constant_array(?constant),
+   constant_array_index(?constant, ?index, ?innerConstant),
+   static_subobjects.alloc_subregion_at_array_index(?baseAlloc, ?index, ?alloc),
+   // check type compatibility
+   constant_has_type(?constant, ?constantType),
+   static_allocation_type(?baseAlloc, ?type),
+   array_type(?type),
+   array_type(?constantType),
+   type_compatible(?type, ?constantType).
+
+
+// Augment array indices to include those from constant initializers
+array_indices__no_typecomp(?region, ?constantType, as(?index, ArrayIndex)) :-
+  constant_has_type(?constant, ?constantType),
+  constant_array_index(?constant, ?index, _),
+  array_type(?constantType),
+  // Note that all arrays will have indices that look like they might be targets
+  // of GEP instructions - see allocations-subobjects.dl. However, there's no
+  // need to create *all* possible suballocations for non-pointer array types -
+  // it's expensive and they can't affect points-to facts.
+  type_contains_pointer(?constantType),
+  global_region(?region).
+
+
+// A constant may point to a global allocation, so if used to
+// initialize another global allocation, we have to track the
+// resulting dereference edge.
+.decl constant_ptr_points_to(?aCtx: Context, ?alloc: Allocation, ?ptrACtx: Context, ?ptrAlloc: Allocation)
+constant_ptr_points_to(?aCtx, ?someAlloc, ?aCtx, ?alloc) :-
+   empty_alloc_context(?aCtx),
+   initialized_by_constant(?alloc, ?constant),
+   constant_points_to(?constant, ?someAlloc).

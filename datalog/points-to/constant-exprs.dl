@@ -1,0 +1,137 @@
+//------------------------------------------------------------------------------
+// Constant aliases
+//------------------------------------------------------------------------------
+constant_points_to(?otherConstant, ?alloc)
+ :-
+   aliased_constants(?otherConstant, ?constant),
+   constant_points_to(?constant, ?alloc).
+
+//------------------------------------------------------------------------------
+// inttoptr constant expression
+//------------------------------------------------------------------------------
+
+// Integers can be cast to pointers. In such case, the conservative
+// approach is to assume that the pointer may point to anywhere in
+// memory.
+//
+// Example: (int *) 0xabcd
+constant_points_to(?constant, ?unknown) :-
+   inttoptr_constant_expression(?constant),
+   unknown_location(?unknown).
+
+//------------------------------------------------------------------------------
+// ptrtoint constant expression
+//------------------------------------------------------------------------------
+
+// A pointer may be masqueraded into an integer (or something else),
+// but the associated memory locations are still valid.
+constant_points_to(?intConstant, ?alloc) :-
+   ptrtoint_constant_expression_from(?intConstant, ?ptrConstant),
+   constant_points_to(?ptrConstant, ?alloc).
+
+//------------------------------------------------------------------------------
+// bitcast constant expression
+//------------------------------------------------------------------------------
+constant_points_to(?outerConstant, ?alloc) :-
+   bitcast_constant_expression_from(?outerConstant, ?innerConstant),
+   constant_points_to(?innerConstant, ?alloc).
+
+//------------------------------------------------------------------------------
+// [Field Sensitivity for `getelementptr` constant expressions]
+//
+// This is equivalent to the treatment of GEP instructions, but with
+// no support for variable indices, as they are not allowed in
+// constant expressions.
+//------------------------------------------------------------------------------
+
+
+// Compute intermediate points to for `getelementptr` constant
+// expression up to some index
+
+.decl gep_constant_expr_indexes_from(?cExpr: GetElementPtrConstantExpression, ?index: GepIndex, ?alloc: Allocation, ?type: Type)
+.decl gep_constant_expr_points_to(?cExpr: GetElementPtrConstantExpression, ?index: GepIndex, ?alloc: Allocation)
+
+.decl gep_constant_expr_index_offset(?insn: GetElementPtrConstantExpression, ?index: GepIndex, ?alloc: Allocation, ?offset: number)
+
+// Specialize for i8*?
+gep_constant_expr_index_offset(?insn, 0, ?alloc, ?offset) :-
+   gep_constant_expr_indexes_from(?insn, 0, ?alloc, ?ptrType),
+   pointer_type_has_component(?ptrType, ?type),
+   static_allocation_type(?alloc, ?allocType),
+   type_has_size(?type, ?pSize),
+   type_has_size(?allocType, ?aSize),
+   getelementptr_constant_expression_index(?insn, 0, ?indexOp),
+   constant_to_int(?indexOp, ?offset),
+   ?aSize != 0, // TODO: Does anything else need to be done in this case?
+   ?offset = (?offset * ?pSize) / ?aSize.
+
+gep_constant_expr_index_offset(?insn, ?n, ?alloc, ?offset) :-
+   gep_constant_expr_indexes_from(?insn, ?n, ?alloc, _),
+   ?n > 0,
+   getelementptr_constant_expression_index(?insn, ?n, ?indexOp),
+   constant_to_int(?indexOp, ?offset).
+
+gep_constant_expr_indexes_from(?cExpr, 0, ?alloc, ?type) :-
+   getelementptr_constant_expression_base(?cExpr, ?base),
+   constant_points_to(?base, ?alloc),
+   _getelementptr_constant_expression_base_type(?cExpr, ?type).
+
+gep_constant_expr_indexes_from(?cExpr, ?n, ?alloc, ?type) :-
+   getelementptr_constant_expression_index(?cExpr, ?n, _),
+   gep_constant_expr_points_to(?cExpr, ?n - 1, ?alloc),
+   _getelementptr_constant_expression_interm_type(?cExpr, ?n, ?type).
+
+gep_constant_expr_points_to(?cExpr, ?n, ?alloc) :-
+   gep_constant_expr_indexes_from(?cExpr, ?n, ?parent, ?type),
+   (array_type(?type); pointer_type(?type)),
+   gep_constant_expr_index_offset(?cExpr, ?n, ?parent, ?offset),
+   static_subobjects.alloc_subregion_at_array_index(?parent, ?offset, ?alloc).
+
+gep_constant_expr_points_to(?cExpr, ?n, ?alloc) :-
+   gep_constant_expr_indexes_from(?cExpr, ?n, ?parent, ?type),
+   (array_type(?type); pointer_type(?type)),
+   gep_constant_expr_index_offset(?cExpr, ?n, ?parent, ?offset),
+   static_subobjects.alloc_subregion(?parent),
+   global_region(?region),
+   static_allocation_type(?parent, ?type),
+   ! array_indices(?region, ?type, ?offset),
+   static_subobjects.alloc_subregion_at_any_array_index(?parent, ?alloc).
+
+gep_constant_expr_points_to(?cExpr, ?n, ?alloc) :-
+   gep_constant_expr_indexes_from(?cExpr, ?n, ?parent, ?type),
+   (array_type(?type); pointer_type(?type)),
+   static_subobjects.alloc_subregion_at_array_index(?grandparent, ?start, ?parent),
+   gep_constant_expr_index_offset(?cExpr, ?n, ?parent, ?offset),
+   static_subobjects.alloc_subregion_at_array_index(?grandparent, ?start + ?offset, ?alloc).
+
+gep_constant_expr_points_to(?cExpr, ?n, ?alloc) :-
+   gep_constant_expr_indexes_from(?cExpr, ?n, ?parent, ?type),
+   (array_type(?type); pointer_type(?type)),
+   static_subobjects.alloc_subregion_at_array_index(?grandparent, ?start, ?parent),
+   gep_constant_expr_index_offset(?cExpr, ?n, ?parent, ?offset),
+   static_subobjects.alloc_subregion(?grandparent),
+   global_region(?region),
+   static_allocation_type(?grandparent, ?type),
+   ! array_indices(?region, ?type, ?start + ?offset),
+   static_subobjects.alloc_subregion_at_any_array_index(?grandparent, ?alloc).
+
+gep_constant_expr_points_to(?cExpr, ?n, ?alloc) :-
+   gep_constant_expr_indexes_from(?cExpr, ?n, ?parent, ?type),
+   struct_type(?type),
+   gep_constant_expr_index_offset(?cExpr, ?n, ?parent, ?field),
+   static_subobjects.alloc_subregion_at_field(?parent, ?field, ?alloc).
+
+gep_constant_expr_points_to(?cExpr, ?n, ?alloc) :-
+   gep_constant_expr_indexes_from(?cExpr, ?n, ?parent, ?type),
+   pointer_type_has_component(?type, ?i8),
+   int8_type(?i8),
+   static_allocation_type(?parent, ?parentType),
+   struct_type(?parentType),
+   getelementptr_constant_expression_index(?cExpr, ?n, ?indexOp),
+   constant_to_int(?indexOp, ?offset),
+   struct_type_field_offset(?parentType, ?field, ?offset),
+   static_subobjects.alloc_subregion_at_field(?parent, ?field, ?alloc).
+
+constant_points_to(?cExpr, ?alloc) :-
+   getelementptr_constant_expression_nindices(?cExpr, ?total),
+   gep_constant_expr_points_to(?cExpr, ?total - 1, ?alloc).

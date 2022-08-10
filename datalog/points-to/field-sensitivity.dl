@@ -1,0 +1,432 @@
+//------------------------------------------------------------------------------
+// [Field Sensitive treatment of `getelementptr` instructions]
+//
+// We create subregions on the fly to act as destinations of
+// instructions that may point to an allocation at some
+// *offset*. Essentially, we create complex allocations paired with
+// access paths in a demand-driven way, according to the given indices
+// of some GEP instruction where an existing allocation is used as the
+// base operand. The subregions are created in allocations-subobjects.dl.
+//------------------------------------------------------------------------------
+
+// getelementptr instruction `insn` indexes into its input allocation at offset
+// `offset`. Note that `offset` is a byte offset, not an array offset.
+.decl gep_zero_index_offset(?insn: GetElementPtrInstruction, ?offset: SubregionOffset)
+
+// An index of '0' always indexes offset '0' regardless of the allocation's type.
+gep_zero_index_offset(?insn, 0) :-
+  getelementptr_instruction_index(?insn, 0, ?indexOp),
+  constant_to_int(?indexOp, 0).
+
+gep_zero_index_offset(?insn, ?index * ?size) :-
+  getelementptr_instruction_index(?insn, 0, ?indexOp),
+  constant_to_int(?indexOp, ?index),
+  getelementptr_instruction_base_type(?insn, ?ptrType),
+  pointer_type_has_component(?ptrType, ?type),
+  type_has_size(?type, ?size).
+
+.comp GEP {
+  //----------------------------------------------------------------------------
+  // "Input"/declared rules
+  //
+  // https://souffle-lang.github.io/components#input-rules
+  //----------------------------------------------------------------------------
+
+  .decl allocation_type(?alloc:Allocation, ?type:Type) inline
+  .decl alloc_subregion_at_path_component(?component: PathComponent, ?obj: AllocSubregion) inline
+  .decl alloc_subregion_at_field(?alloc: Allocation, ?index: FieldIndex, ?region: AllocSubregion) inline
+  .decl alloc_subregion_at_array_index(?alloc: Allocation, ?index: ArrayIndex, ?region: AllocSubregion) inline
+  .decl alloc_subregion_at_any_array_index(?alloc: Allocation, ?region: AllocSubregion) inline
+  .decl alloc_subregion_offset(?alloc: Allocation, ?region: AllocSubregion, ?offset: SubregionOffset) inline
+  .decl operand_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?operand: Operand) inline
+
+  //----------------------------------------------------------------------------
+  // "Output"/defined rules
+  //
+  // NOTE! This component can compute new points-to facts, and these need to be
+  // propagated back into the points-to component.
+  //
+  // By convention, rules that begin with an underscore are internal
+  // implementation details, and should not be accessed outside the component.
+  //----------------------------------------------------------------------------
+
+  //------------------------------------------------------------------------------
+  // [Type-compatibility for GEP indexes]
+  //
+  // Allocation ?alloc is _gep_type_compatible at type ?gepType if the allocation
+  // is allowed to be indexed by an getelementptr index at the specified type.
+  //
+  // For example, a suballocation whose type is [4 x i32] is allowed to be indexed
+  // by getelementptr indexes with i32 array types, i32 pointer types, or i8 array
+  // and pointer types (and possibly others). Technically, LLVM's memory model
+  // allows a getelementptr of any type to index into any memory, but cclyzer uses
+  // type compatibility as a heuristic to increase precision.
+  //------------------------------------------------------------------------------
+
+  .decl _alloc_type_and_path(?alloc: Allocation, ?allocType: Type, ?component: PathComponent)
+
+  _alloc_type_and_path(?alloc, ?allocType, ?component) :-
+    allocation_type(?alloc, ?allocType),
+    alloc_subregion_at_path_component(?component, ?alloc).
+
+  _alloc_type_and_path(?alloc, ?allocType, ?empty) :-
+    allocation_type(?alloc, ?allocType),
+    basic_allocation(?alloc),
+    empty_path_component(?empty).
+
+  _alloc_type_and_path(?alloc, ?allocType, ?empty) :-
+    allocation_type(?alloc, ?allocType),
+    non_allocation(?alloc),
+    empty_path_component(?empty).
+
+  .decl _some_alloc_type_and_path(?allocType: Type, ?component: PathComponent)
+
+  _some_alloc_type_and_path(?allocType, ?component) :-
+    _alloc_type_and_path(_, ?allocType, ?component).
+
+  .decl _gep_type_compatible(?gepType: Type, ?allocType: Type, ?component: PathComponent)
+
+  // Any allocation is _gep_type_compatible with indexes of its own allocation type.
+  _gep_type_compatible(?gepType, ?allocType, ?component) :-
+    _some_alloc_type_and_path(?allocType, ?component),
+    type_compatible(?gepType, ?allocType).
+
+  // Array elements can also be indexed by pointers to types compatible with their
+  // array element types. For example, alloc[0][5] can be indexed at type i8* if
+  // alloc[0][5] has type i8.
+  _gep_type_compatible(?gepType, ?allocType, ?component) :-
+    _some_alloc_type_and_path(?allocType, ?component),
+    ( path_component_at_index(?component, _)
+    ; path_component_at_any_index(?component)
+    ),
+    pointer_type_has_component(?type, ?allocType),
+    type_compatible(?gepType, ?type).
+
+  //------------------------------------------------------------------------------
+  // [GEP points-to relations]
+  //
+  // To simplify processing of getelementptr instructions, we treat each index
+  // of the getelementptr instruction stepwise. Relation `gep_indexes_from`
+  // records which allocations each step is indexing with respect to, while
+  // relation `gep_points_to` records which allocations are pointed to after
+  // indexing. `gep_indexes_from` is used rather than `gep_points_to` for index
+  // n - 1 to handle the special case of the first index, which indexes from the
+  // gep's operand instead of the result of a previous indexing operation.
+  //------------------------------------------------------------------------------
+
+  // The `index`'th step of `insn` indexes from `alloc` at type `type` and resulted
+  // from indexing `baseAlloc` at index 0. `baseAlloc` is recorded to track which
+  // allocation contexts the points-to information for `alloc` should be recorded
+  // for when translating `gep_points_to` facts to `var_points_to` facts.
+  .decl gep_indexes_from(?insn: GetElementPtrInstruction,
+                        ?index: GepIndex,
+                ?baseAlloc: Allocation,
+                ?alloc: Allocation,
+                ?type: Type)
+
+  // The first index of a getelementptr instruction indexes any allocation pointed
+  // to by its base operand.
+  gep_indexes_from(?insn, 0, ?alloc, ?alloc, ?type) :-
+    !gep_is_vector_based(?insn),
+    getelementptr_instruction_base(?insn, ?base),
+    operand_points_to(_, ?alloc, _, ?base),
+    getelementptr_instruction_base_type(?insn, ?type).
+
+  // The remaining indexes of a getelementptr instruction index from the allocations
+  // pointed to by the previous index, filtered by GEP type compatibility, as
+  // described above.
+  gep_indexes_from(?insn, ?n, ?baseAlloc, ?alloc, ?type) :-
+    getelementptr_instruction_index(?insn, ?n, _),
+    gep_points_to(?insn, ?n - 1, ?baseAlloc, ?alloc),
+    getelementptr_instruction_interm_type(?insn, ?n, ?type),
+    _alloc_type_and_path(?alloc, ?allocType, ?component),
+    _gep_type_compatible(?type, ?allocType, ?component).
+
+  // The `index`'th step of `insn` points to `alloc` and resulted from a sequence
+  // of index operations starting with `baseAlloc` at index 0.
+  .decl gep_points_to(?insn: GetElementPtrInstruction,
+                      ?index: GepIndex,
+              ?baseAlloc: Allocation,
+              ?alloc: Allocation)
+
+  //------------------------------------------------------------------------------
+  // Handling the first index
+  //
+  // The first index operation in a getelementptr instruction is special because
+  // it is the only index operation that operates on a pointer. (See "The Often
+  // Misunderstood GEP Instruction": https://llvm.org/docs/GetElementPtr.html)
+  //------------------------------------------------------------------------------
+
+  // Indexing the pointer with a zero offset is a no-op.
+  // E.g.,
+  //   `getelementptr i32, i32* %MyVar, i64 0` points to
+  //   `some_alloc` if `%MyVar` points to `some_alloc`
+  gep_points_to(?insn, 0, ?alloc, ?alloc) :-
+    gep_indexes_from(?insn, 0, ?alloc, ?alloc, ?type),
+    pointer_type(?type),
+    gep_zero_index_offset(?insn, 0).
+
+  // Indexing the pointer at an offset for which a subregion of
+  // the indexed allocation exists.
+  // E.g.,
+  //   `getelementptr i32, i32* %MyVar, i64 5` points to
+  //   `some_alloc[5]` if `%MyVar` points to `some_alloc` and
+  //   `some_alloc` has a subregion at array index 5.
+  gep_points_to(?insn, 0, ?baseAlloc, ?alloc) :-
+    gep_indexes_from(?insn, 0, ?baseAlloc, ?baseAlloc, ?type),
+    pointer_type(?type),
+    basic_allocation(?baseAlloc),
+    gep_zero_index_offset(?insn, ?offset),
+    alloc_subregion_offset(?baseAlloc, ?alloc, ?offset).
+
+  // Indexing the pointer at an offset for which a subregion of
+  // the indexed allocation does not exist.
+  // E.g.
+  //   `getelementptr i32, i32* %MyVar, i64 5` points to
+  //   `some_alloc[*]` if `%MyVar` points to `some_alloc` but
+  //   `some_alloc` has does not have a subregion at array index 5.
+  //
+  // Note: you might expect this rule to never fire because we
+  // statically determine the set of the offsets at which a pointer
+  // may be accessed. This is not the case because `gep_zero_index_offset`
+  // also computes offsets where the pointer is being used to index
+  // over a different type than the allocation the GEP is indexing.
+  // Rather than generate subregions for all possible pairs of
+  // allocation type sizes that could be indexed in this way, we fall
+  // back on the `[*]` subregion.
+  gep_points_to(?insn, 0, ?baseAlloc, ?alloc)
+    :-
+    gep_indexes_from(?insn, 0, ?baseAlloc, ?baseAlloc, ?type),
+    pointer_type(?type),
+    basic_allocation(?baseAlloc),
+    gep_zero_index_offset(?insn, ?offset),
+    allocation_type(?baseAlloc, ?allocType),
+    alloc_region(?baseAlloc, ?region),
+    ! pointer_offset(?region, ?allocType, ?offset),
+    type_has_size(?allocType, ?elemSize),
+    ?elemSize != 0,
+    ?offset % max(?elemSize, 1) = 0,
+    alloc_subregion_at_any_array_index(?baseAlloc, ?alloc).
+
+  // Indexing the pointer where the indexed allocation already points to
+  // an element of an array, and the resulting offset within the array
+  // is also a subregion within the array.
+  // E.g.,
+  //   `getelementptr i32, i32* %MyVar, i64 3` points to
+  //   `some_alloc[7]` if `%MyVar` points to `some_alloc[4]` and
+  //   `some_alloc` has a subregion at array index 7.
+  gep_points_to(?insn, 0, ?baseAlloc, ?alloc) :-
+    gep_indexes_from(?insn, 0, ?baseAlloc, ?baseAlloc, ?type),
+    pointer_type(?type),
+    alloc_subregion_at_array_index(?grandparent, _, ?baseAlloc),
+    alloc_subregion_offset(?grandparent, ?baseAlloc, ?startOffset),
+    gep_zero_index_offset(?insn, ?offset),
+    alloc_subregion_offset(?grandparent, ?alloc, ?startOffset + ?offset).
+
+  // Indexing the pointer where the indexed allocation already points to
+  // an element of an array, but the resulting offset is not one for
+  // which the array has a subregion.
+  // E.g.,
+  //   `getelementptr i32, i32* %MyVar, i64 3` points to
+  //   `some_alloc[*]` if `%MyVar` points to `some_alloc[4]` and
+  //   `some_alloc` does not have a subregion at array index 7.
+  //
+  // Note: you might expect this rule never to fire, but to avoid
+  // creating an unbounded number of suballocations, we only create
+  // suballocations for pointer indices that appear in GEP instructions,
+  // not for constant offsets relative to those indices.
+  gep_points_to(?insn, 0, ?baseAlloc, ?alloc)
+    :-
+    gep_indexes_from(?insn, 0, ?baseAlloc, ?baseAlloc, ?type),
+    pointer_type(?type),
+    alloc_subregion_at_array_index(?grandparent, _, ?baseAlloc),
+    alloc_subregion_offset(?grandparent, ?baseAlloc, ?startOffset),
+    gep_zero_index_offset(?insn, ?offset),
+    allocation_type(?grandparent, ?allocType),
+    alloc_region(?grandparent, ?region),
+    ( ( basic_allocation(?grandparent)
+      , ! pointer_offset(?region, ?allocType, ?startOffset + ?offset)
+      , type_has_size(?allocType, ?elemSize)
+      )
+    ; ( alloc_subregion_at_path_component(_, ?grandparent)
+      , ! array_offset(?region, ?allocType, ?startOffset + ?offset)
+      , array_type_has_component(?allocType, ?elemType)
+      , type_has_size(?allocType, ?elemSize)
+      )
+    ),
+    ?elemSize != 0,
+    (?startOffset + ?offset) % max(?elemSize, 1) = 0,
+    alloc_subregion_at_any_array_index(?grandparent, ?alloc).
+
+  // Indexing the pointer where the indexed allocation already points to
+  // the unknown index of an array.
+  // E.g.,
+  //   `getelementptr i32, i32* %MyVar, i64 3` points to
+  //   `some_alloc[*]` if `%MyVar` points to `some_alloc[*]`.
+  gep_points_to(?insn, 0, ?baseAlloc, ?baseAlloc) :-
+    gep_indexes_from(?insn, 0, ?baseAlloc, ?baseAlloc, ?type),
+    pointer_type(?type),
+    alloc_subregion_at_any_array_index(_, ?baseAlloc).
+
+  // Indexing the pointer at a variable offset where the indexed
+  // allocation has array subregions.
+  // E.g.,
+  //   `getelementptr i32, i32* %MyVar, i64 %0` points to
+  //   `some_alloc[*]` if `%MyVar` points to `some_alloc`.
+  gep_points_to(?insn, 0, ?baseAlloc, ?alloc) :-
+    gep_indexes_from(?insn, 0, ?baseAlloc, ?baseAlloc, ?type),
+    pointer_type(?type),
+    getelementptr_instruction_index(?insn, 0, ?indexOp),
+    ! operand_to_int(?indexOp, _),
+    alloc_subregion_at_any_array_index(?baseAlloc, ?alloc).
+
+  // Indexing the pointer at a variable offset where the indexed
+  // allocation is already an element within an array.
+  // E.g.,
+  //   `getelementptr i32, i32* %MyVar, i64 %0` points to
+  //   `some_alloc[*]` if `%MyVar` points to `some_alloc[4]`.
+  //
+  // Note: the case where `%MyVar` points to `some_alloc[*]`
+  // is handled in a previous rule.
+  gep_points_to(?insn, 0, ?baseAlloc, ?alloc) :-
+    gep_indexes_from(?insn, 0, ?baseAlloc, ?baseAlloc, ?type),
+    array_type(?type),
+    getelementptr_instruction_index(?insn, 0, ?indexOp),
+    ! operand_to_int(?indexOp, _),
+    alloc_subregion_at_array_index(?grandparent, _, ?baseAlloc),
+    alloc_subregion_at_any_array_index(?grandparent, ?alloc).
+
+  //------------------------------------------------------------------------------
+  // Handling the remaining indices
+  //
+  // The rules for the remaining indices are type-directed, since only the first
+  // index of a getelementptr may index a pointer. There are two cases: indexing
+  // into a structure to extract a field and indexing into an array.
+  //------------------------------------------------------------------------------
+
+  // Indexing with a constant offset of zero is always a no-op.
+  // E.g.,
+  //   `getelementptr i32, i32* %MyVar, i64 3, i64 0` points to the same
+  //   allocations as `getelemtptr i32, i32* %MyVar, i64 3`.
+  gep_points_to(?insn, ?n, ?baseAlloc, ?alloc) :-
+    getelementptr_instruction_index(?insn, ?n, ?indexOp),
+    gep_points_to(?insn, ?n - 1, ?baseAlloc, ?alloc),
+    constant_to_int(?indexOp, 0).
+
+  //------------------------------------------------------------------------------
+  // Accessing a structure
+  //------------------------------------------------------------------------------
+
+  // Indexing into a struct by the field's index within a struct type.
+  // Note that `gep_indexes_from` uses `_gep_type_compatible` to ensure that
+  // the structure type of `parent` is compatible with the GEP's type.
+  // E.g.,
+  //   `getelementptr i32, %struct.foo *%MyVar, i64 0, i64 2` points to
+  //   `some_alloc[0].bar/2` if `getelementptr %struct.foo, %struct.foo *%MyVar, i64 0`
+  //   points to `some_alloc[0]` and `bar` is the field at index 2 of the structure
+  //   type `%struct.foo`.
+  gep_points_to(?insn, ?n, ?baseAlloc, ?alloc) :-
+    gep_indexes_from(?insn, ?n, ?baseAlloc, ?parent, ?type),
+    struct_type(?type),
+    getelementptr_instruction_index(?insn, ?n, ?indexOp),
+    constant_to_int(?indexOp, ?field),
+    alloc_subregion_at_field(?parent, ?field, ?alloc).
+
+  // Indexing into a struct via an i8*. We use `struct_type_field_offset` to
+  // compute which field of the struct corresponds to the specified offset.
+  // E.g.,
+  //   `getelementptr i32, i32* %MyVar, i64 0, i64 1` points to
+  //   `some_alloc[0].bar/2` if `%MyVar` points to `some_alloc` of type
+  //   `%struct.foo` and the `bar` field of the struct is at offset 4 bytes.
+  gep_points_to(?insn, ?n, ?baseAlloc, ?alloc) :-
+    gep_indexes_from(?insn, ?n, ?baseAlloc, ?parent, ?type),
+    pointer_type_has_component(?type, ?i8),
+    int8_type(?i8),
+    allocation_type(?parent, ?parentType),
+    struct_type(?parentType),
+    getelementptr_instruction_index(?insn, ?n, ?indexOp),
+    constant_to_int(?indexOp, ?offset),
+    struct_type_field_offset(?parentType, ?field, ?offset),
+    alloc_subregion_at_field(?parent, ?field, ?alloc).
+
+  // Indexing into a struct via an i8*, but where the offset is not a
+  // constant so the field accessed cannot be computed. Assume the resulting
+  // pointer points to any field.
+  gep_points_to(?insn, ?n, ?baseAlloc, ?alloc) :-
+    gep_indexes_from(?insn, ?n, ?baseAlloc, ?parent, ?type),
+    pointer_type_has_component(?type, ?i8),
+    int8_type(?i8),
+    allocation_type(?parent, ?parentType),
+    struct_type(?parentType),
+    getelementptr_instruction_index(?insn, ?n, ?indexOp),
+    ! operand_to_int(?indexOp, _),
+    alloc_subregion_at_field(?parent, _, ?alloc).
+
+  //------------------------------------------------------------------------------
+  // Accessing an array
+  //------------------------------------------------------------------------------
+
+  // Indexing into an array at an offset for which a subregion exists.
+  // E.g.,
+  //   `getelementptr i32, [4 x i32]* %MyVar, i64 0, i64 2` points to
+  //   `some_alloc[2]` if `%MyVar` points to `some_alloc`.
+  gep_points_to(?insn, ?n, ?baseAlloc, ?alloc) :-
+    gep_indexes_from(?insn, ?n, ?baseAlloc, ?parent, ?type),
+    array_type(?type),
+    getelementptr_instruction_index(?insn, ?n, ?indexOp),
+    constant_to_int(?indexOp, ?offset),
+    alloc_subregion_at_array_index(?parent, ?offset, ?alloc).
+
+  // Indexing into an array at an offset for which a subregion does not exist.
+  // E.g.,
+  //   `getelementptr i32, [4 x i32]* %MyVar, i64 0, i64 2` points to
+  //   `some_alloc[*]` if `%MyVar` points to `some_alloc` and the
+  //   `some_alloc[2]` subregion does not exist.
+  gep_points_to(?insn, ?n, ?baseAlloc, ?alloc) :-
+    gep_indexes_from(?insn, ?n, ?baseAlloc, ?parent, ?type),
+    array_type(?type),
+    getelementptr_instruction_index(?insn, ?n, ?indexOp),
+    constant_to_int(?indexOp, ?offset),
+    allocation_type(?parent, ?allocType),
+    alloc_region(?parent, ?region),
+    ( ( basic_allocation(?parent)
+      , ! pointer_index(?region, ?allocType, ?offset)
+      )
+    ; ( alloc_subregion_at_path_component(_, ?parent)
+      , ! array_indices(?region, ?allocType, ?offset)
+      )
+    ),
+    alloc_subregion_at_any_array_index(?parent, ?alloc).
+
+  // Indexing into an array at a variable offset.
+  // E.g.,
+  //   `getelementptr i32, [8 x i32]* %MyVar, i64 0, i64 %0` points to
+  //   `some_alloc[*]` if `%MyVar` points to `some_alloc`.
+  gep_points_to(?insn, ?n, ?baseAlloc, ?alloc) :-
+    gep_indexes_from(?insn, ?n, ?baseAlloc, ?parent, ?type),
+    array_type(?type),
+    getelementptr_instruction_index(?insn, ?n, ?indexOp),
+    ! operand_to_int(?indexOp, _),
+    alloc_subregion_at_any_array_index(?parent, ?alloc).
+
+  //------------------------------------------------------------------------------
+  // Lifting into var_points_to
+  //------------------------------------------------------------------------------
+
+  .decl _gep_last_index_points_to(?alloc: Allocation, ?baseAlloc: Allocation, ?insn: GetElementPtrInstruction)
+  _gep_last_index_points_to(?alloc, ?baseAlloc, ?insn) :-
+    gep_points_to(?insn, ?n, ?baseAlloc, ?alloc),
+    getelementptr_instruction_nindices(?insn, ?n + 1).
+
+  .decl _gep_address_ctx_points_to(?ctx: Context, ?aCtx: Context, ?baseAlloc: Allocation, ?insn: GetElementPtrInstruction)
+  _gep_address_ctx_points_to(?ctx, ?aCtx, ?baseAlloc, ?insn) :-
+    getelementptr_instruction_base(?insn, ?base),
+    operand_points_to(?aCtx, ?baseAlloc, ?ctx, ?base).
+
+  .decl gep_var_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable) inline
+
+  gep_var_points_to(?aCtx, ?alloc, ?ctx, ?toVar) :-
+    _gep_last_index_points_to(?alloc, ?baseAlloc, ?insn),
+    _gep_address_ctx_points_to(?ctx, ?aCtx, ?baseAlloc, ?insn),
+    instruction_assigns_to(?insn, ?toVar).
+}

@@ -1,0 +1,416 @@
+//------------------------------------------------------------------------------
+// Assertions
+//------------------------------------------------------------------------------
+
+// NOTE(lb): To actually have these checked, they must also appear in
+// "assertion_relations" in PAInterface.cpp.
+
+//------------------------------------------------------------------------------
+// Types
+//------------------------------------------------------------------------------
+
+.decl assert_every_allocation_has_a_type(?alloc: Allocation)
+assert_every_allocation_has_a_type(?alloc) :-
+  allocation(?alloc),
+  ! argv_alloc(?alloc),
+  ! subset_allocation_type.allocation_type(?alloc, _),
+  ! unification_allocation_type.allocation_type(?alloc, _).
+
+.decl assert_array_type_size(?type: Type, ?numElems: number, ?elemSize: number, ?size: number)
+assert_array_type_size(?type, ?numElems, ?elemSize, ?size) :-
+  array_type_has_component(?type, ?elemType),
+  type_has_size(?type, ?size),
+  array_type_has_size(?type, ?numElems),
+  type_has_size(?elemType, ?elemSize),
+  ?numElems * ?elemSize != ?size.
+
+.decl assert_type_has_size(?type: Type)
+assert_type_has_size(?type) :-
+  type(?type),
+  ! function_type(?type),
+  ! opaque_struct_type(?type),
+  ! void_type(?type),
+  ! label_type(?type),
+  ! metadata_type(?type),
+  ! x86mmx_type(?type),
+  ! type_has_size(?type, _).
+
+.decl assert_type_unique_size(?type: Type, ?sz1: number, ?sz2: number)
+assert_type_unique_size(?type, ?sz1, ?sz2) :-
+  type_has_size(?type, ?sz1),
+  type_has_size(?type, ?sz2),
+  ?sz1 != ?sz2.
+
+//------------------------------------------------------------------------------
+// Type Compatibility
+//------------------------------------------------------------------------------
+
+.decl _assert_type_compatible_relaxed(?from: Type, ?to: Type) eqrel
+.decl _assert_type_compatible_relaxed_inner(?from: Type, ?to: Type)
+
+// The _assert_type_compatible_relaxed is a further relaxation of the points-to
+// analysis' type_compatible relation to account for common cases where
+// points-to relations end up with type-incompatible elements that appear
+// necessary for sound analysis. The relation is defined here so that we can
+// check for totally-unexpected type incompatibilities by asserting this weaker
+// level of compatibility without changing the core analysis logic.
+
+// Anything the analysis considers type-compatible is compatible.
+_assert_type_compatible_relaxed(?from, ?to) :-
+  type_compatible(?from, ?to).
+
+// Allow integer-typed fields (i8, i32) to point to anything that a `char *`
+// pointer can point to. Necessary because C++ standard library procedures store
+// pointers into i8/i32 buffers that are cast to pointers.
+_assert_type_compatible_relaxed(?integerType, ?to) :-
+  integer_type(?integerType),
+  int8_type(?i8Type),
+  pointer_type_has_component(?i8PtrType, ?i8Type),
+  _assert_type_compatible_relaxed(?i8PtrType, ?to).
+
+// The remaining rules consider pointer/array types compatible if the elements
+// they point to have compatible types, where compatibility is also relaxed
+// to allow function or struct types to be compatible up to a given argument
+// or field. This allows the relation to handle, e.g., pointers to a class or its
+// subclass, which are structs with a common prefix. The relation
+// `_assert_type_compatible_relaxed_inner` is used to prevent these rules
+// being applied recursively.
+
+_assert_type_compatible_relaxed(?fromPtr, ?toPtr) :-
+  pointer_type_has_component(?fromPtr, ?from),
+  pointer_type_has_component(?toPtr, ?to),
+  _assert_type_compatible_relaxed_inner(?from, ?to).
+
+_assert_type_compatible_relaxed(?fromPtr, ?toPtr) :-
+  pointer_type_has_component(?fromPtr, ?from),
+  array_type_has_component(?toPtr, ?to),
+  _assert_type_compatible_relaxed_inner(?from, ?to).
+
+_assert_type_compatible_relaxed(?fromPtr, ?toPtr) :-
+  array_type_has_component(?fromPtr, ?from),
+  pointer_type_has_component(?toPtr, ?to),
+  _assert_type_compatible_relaxed_inner(?from, ?to).
+
+_assert_type_compatible_relaxed(?fromPtr, ?toPtr) :-
+  array_type_has_component(?fromPtr, ?from),
+  array_type_has_component(?toPtr, ?to),
+  _assert_type_compatible_relaxed_inner(?from, ?to).
+
+_assert_type_compatible_relaxed_inner(?from, ?to) :-
+  type_compatible(?from, ?to).
+
+_assert_type_compatible_relaxed_inner(?from, ?to) :-
+  struct_type_field(?from, 0, ?element),
+  _assert_type_compatible_relaxed_inner(?element, ?to).
+
+_assert_type_compatible_relaxed_inner(?from, ?to) :-
+  type_compatible_up_to_arg(?from, ?to, _).
+
+.decl assert_type_compatible_constant_points_to(?from: Constant, ?to: Allocation, ?fromType: Type, ?toType: Type)
+assert_type_compatible_constant_points_to(?from, ?to, ?fromTy, ?toTy) :-
+  constant_points_to(?from, ?to),
+  constant_has_type(?from, ?fromTy),
+  subset_allocation_type.allocation_type(?to, ?toTy),
+  pointer_type_has_component(?toTyPtr, ?toTy),
+  ! null_location(?to),
+  ! unknown_location(?to),
+  ! _assert_type_compatible_relaxed(?fromTy, ?toTyPtr).
+
+.decl _assert_type_compatible_ptr_points_to_alias(?from: Allocation, ?to: Allocation)
+
+_assert_type_compatible_ptr_points_to_alias(?from, ?to) :-
+  subset.ptr_points_to(_, ?to, _, ?from),
+  subset_aliases.alloc_aliases(?from, ?fromAlias),
+  subset_aliases.alloc_aliases(?to, ?toAlias),
+  subset_allocation_type.allocation_type(?fromAlias, ?fromTy),
+  subset_allocation_type.allocation_type(?toAlias, ?toTy),
+  pointer_type_has_component(?toTyPtr, ?toTy),
+  _assert_type_compatible_relaxed(?fromTy, ?toTyPtr).
+
+.decl assert_type_compatible_ptr_points_to(?from: Allocation, ?to: Allocation, ?fromType: Type, ?toType: Type)
+assert_type_compatible_ptr_points_to(?from, ?to, ?fromTy, ?toTy) :-
+  subset.ptr_points_to(_, ?to, _, ?from),
+  subset_allocation_type.allocation_type(?from, ?fromTy),
+  subset_allocation_type.allocation_type(?to, ?toTy),
+  ! null_location(?to),
+  ! unknown_location(?to),
+  ! _assert_type_compatible_ptr_points_to_alias(?from, ?to).
+
+// TODO(#1327)
+.decl failing_assert_type_compatible_var_points_to(?from: Variable, ?to: Allocation, ?fromType: Type, ?toType: Type)
+failing_assert_type_compatible_var_points_to(?from, ?to, ?fromTy, ?toTy) :-
+  subset.var_points_to(_, ?to, _, ?from),
+  variable_has_type(?from, ?fromTy),
+  subset_allocation_type.allocation_type(?to, ?toTy),
+  pointer_type_has_component(?toTyPtr, ?toTy),
+  ! null_location(?to),
+  ! unknown_location(?to),
+  ! _assert_type_compatible_relaxed(?fromTy, ?toTyPtr).
+
+//------------------------------------------------------------------------------
+// Allocations
+//------------------------------------------------------------------------------
+
+.decl assert_alloc_with_ctx_complete(?aCtx: Context, ?alloc: Allocation)
+assert_alloc_with_ctx_complete(?aCtx, ?alloc) :-
+  subset.operand_points_to(?aCtx, ?alloc, _, _),
+  ! subset_allocations.alloc_with_ctx(?aCtx, ?alloc).
+
+assert_alloc_with_ctx_complete(?aCtx, ?alloc) :-
+  subset.ptr_points_to(?aCtx, ?alloc, _, _),
+  ! subset_allocations.alloc_with_ctx(?aCtx, ?alloc).
+
+assert_alloc_with_ctx_complete(?aCtx, ?alloc) :-
+  unification.unify(_, _, ?aCtx, ?alloc),
+  ! unification_allocations.alloc_with_ctx(?aCtx, ?alloc).
+
+//------------------------------------------------------------------------------
+// Inhabitedness
+//------------------------------------------------------------------------------
+
+.decl _assert_every_gep_instruction_points_to_something(?ctx: Context, ?insn: GetElementPtrInstruction)
+_assert_every_gep_instruction_points_to_something(?ctx, ?insn) :-
+  subset_gep._gep_address_ctx_points_to(?ctx, _, ?alloc, ?insn),
+  subset_gep._gep_last_index_points_to(_, ?alloc, ?insn).
+
+// TODO(sm): this seems to get tripped up by C++ programs with complicated uses
+// of allocations at different types without always using an explicit bitcast
+// instruction. Could be solved by adding more aggresive type back-propagation?
+.decl failing_assert_every_gep_instruction_points_to_something(?ctx: Context, ?insn: GetElementPtrInstruction)
+failing_assert_every_gep_instruction_points_to_something(?ctx, ?insn) :-
+  subset_gep._gep_address_ctx_points_to(?ctx, _, _, ?insn),
+  ! _assert_every_gep_instruction_points_to_something(?ctx, ?insn).
+
+.decl assert_every_gep_constant_expr_points_to_something(?cExpr: GetElementPtrConstantExpression)
+assert_every_gep_constant_expr_points_to_something(?cExpr) :-
+  getelementptr_constant_expression_nindices(?cExpr, _),
+  ! constant_points_to(?cExpr, _).
+
+.decl assert_every_pointer_constant_points_to_something(?constant: Constant)
+assert_every_pointer_constant_points_to_something(?constant) :-
+  constant_has_type(?constant, ?constantType),
+  pointer_type(?constantType),
+  ! constant_points_to(?constant, _),
+  ! undef_constant(?constant),
+  ! inline_asm(?constant).
+
+// There are many reasons that this assertion doesn't hold on all input
+// programs, including but not limited to:
+//
+// - Unsound handling of exceptions
+// - No handling whatsoever of llvm.stacksave/stackrestore
+// - Missing signatures/incomplete programs
+//
+.decl failing_assert_reachable_pointer_vars_point_to_something(?var: Variable)
+failing_assert_reachable_pointer_vars_point_to_something(?var) :-
+  instruction_assigns_to(?inst, ?var),
+  subset.callgraph.reachable_instruction(?inst),
+  variable_has_type(?var, ?ty),
+  pointer_type(?ty),
+  ! subset.var_points_to(_, _, _, ?var).
+
+//------------------------------------------------------------------------------
+// Globals
+//------------------------------------------------------------------------------
+
+.decl assert_global_allocations_have_static_types(?alloc: GlobalAllocation)
+  assert_global_allocations_have_static_types(?alloc) :-
+  global_allocation(?alloc),
+  ! static_allocation_type(?alloc, _).
+
+.decl assert_global_allocations_have_dynamic_types(?alloc: GlobalAllocation)
+assert_global_allocations_have_dynamic_types(?alloc) :-
+   global_allocation(?alloc),
+   ! subset_allocation_type.allocation_type(?alloc, _).
+
+.decl assert_global_allocations_have_one_type(?alloc: GlobalAllocation)
+assert_global_allocations_have_one_type(?alloc) :-
+  global_allocation(?alloc),
+  subset_allocation_type.allocation_type(?alloc, ?type1),
+  subset_allocation_type.allocation_type(?alloc, ?type2),
+  ?type1 != ?type2.
+
+// TODO(lb): There just aren't any rules about allocation sizes for global
+// variables. Their sizes should just be emitted by the fact generator.
+.decl failing_assert_global_allocations_have_sizes(?alloc: GlobalAllocation)
+failing_assert_global_allocations_have_sizes(?alloc) :-
+   // global_allocation includes "allocations" for functions, which naturally
+   // don't have sizes.
+   global_allocation_by_variable(_, ?alloc),
+   ! allocation_size(?alloc, _).
+
+//------------------------------------------------------------------------------
+// Reachability
+//------------------------------------------------------------------------------
+
+// This assertion justifies eliding reachable_context checks when a points-to
+// fact with the same context is in the same rule body.
+//
+// Note that this assertion alone covers operand_points_to, because
+// operand_points_to consists of var_points_to plus a rule where constant_points_to
+// is filtered on reachable_context.
+
+.decl assert_var_points_to_implies_reachable(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable)
+assert_var_points_to_implies_reachable(?aCtx, ?alloc, ?ctx, ?toVar) :-
+  subset.var_points_to(?aCtx, ?alloc, ?ctx, ?toVar),
+  instruction_assigns_to(?instr, ?toVar),
+  instruction_in_function(?instr, ?instrFunc),
+  ! subset.callgraph.reachable_context(?ctx, ?instrFunc).
+
+// Instructions can't access variables defined outside their own function.
+.decl assert_bitcast_operand_in_same_function(?bitcastInstr: Instruction)
+assert_bitcast_operand_in_same_function(?bitcastInstr) :-
+  bitcast_instruction_from_operand(?bitcastInstr, ?fromOperand),
+  instruction_assigns_to(?instr, ?fromOperand),
+  instruction_in_function(?bitcastInstr, ?instrFunc),
+  ! instruction_in_function(?instr, ?instrFunc).
+
+.decl assert_reachable_direct_calls_have_callees(?ctx: Context, ?call : Instruction)
+
+assert_reachable_direct_calls_have_callees(?ctx, ?call) :-
+  subset.callgraph.reachable_context(?ctx, ?instrFunc),
+  instruction_in_function(?call, ?instrFunc),
+  direct_call_instruction(?call),
+  call_instruction_fn_operand(?call, ?funcOp),
+  ! undef_constant(?funcOp),
+  ! subset.callgraph.callgraph_edge(_, _, ?ctx, ?call).
+
+//------------------------------------------------------------------------------
+// Subset- and Unification-Based Analyses
+//------------------------------------------------------------------------------
+
+// The subset-based analysis is more precise than the unification-based
+// analysis.
+//
+// TODO: https://github.com/souffle-lang/souffle/issues/1409
+// .decl assert_subset_var_points_to_subset_unification_final(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable)
+// assert_subset_var_points_to_subset_unification_final(?aCtx, ?alloc, ?ctx, ?var) :-
+//   subset.var_points_to(?aCtx, ?alloc, ?ctx, ?var),
+//   ! ( unification.var_points_to_final(?uCtx, ?uAlloc, ?ctx, ?var)
+//     , unification.unify([?uCtx, ?uAlloc], [?aCtx, ?alloc])
+//     ).
+
+// A variable should only have an inhabited points-to set in the subset analysis
+// if it *also* has one in the unification analysis.
+.decl assert_subset_var_points_to_inhabited_implies_unification(?ctx: Context, ?var: Variable)
+assert_subset_var_points_to_inhabited_implies_unification(?ctx, ?var) :-
+  subset.var_points_to(_, _, ?ctx, ?var),
+  ! unification.var_points_to_final(_, _, ?ctx, ?var).
+
+// If two variables alias in the subset analysis, they should share an
+// equivalence class representative in the unification analysis.
+.decl assert_subset_aliases_are_unification_aliases(?uCtx: Context, ?uAlloc: Allocation, ?aCtx: Context, ?alloc: Allocation, ?var1: Variable, ?var2: Variable)
+assert_subset_aliases_are_unification_aliases(?uCtx, ?uAlloc, ?aCtx, ?alloc, ?var1, ?var2) :-
+   subset.var_points_to(?aCtx, ?alloc, ?ctx1, ?var1),
+   subset.var_points_to(?aCtx, ?alloc, ?ctx2, ?var2),
+   unification.unify_repr(?aCtx, ?alloc, ?uCtx, ?uAlloc),
+   unification.var_points_to_final(?uCtx, ?uAlloc, ?ctx1, ?var1),
+   ! unification.var_points_to_final(?uCtx, ?uAlloc, ?ctx2, ?var2).
+.plan 0: (1, 2, 3, 4),
+      1: (2, 1, 3, 4),
+      2: (3, 4, 1, 2),
+      3: (4, 3, 2, 1)
+
+// This *should* happen purely because of the `choice-domain` annotation on
+// var_points_to, but see https://github.com/souffle-lang/souffle/issues/1905.
+.decl assert_unification_var_points_to_unique(?ctx: Context, ?var: Variable)
+assert_unification_var_points_to_unique(?ctx, ?var) :-
+  unification.var_points_to_choice(?aCtx1, ?alloc1, ?ctx, ?var, ?region, ?type, ?info),
+  unification.var_points_to_choice(?aCtx2, ?alloc2, ?ctx, ?var, ?region, ?type, ?info),
+  ( ?aCtx1 != ?aCtx2
+  ; ?alloc1 != ?alloc2
+  ).
+.plan 0: (1, 2),
+      1: (2, 1)
+
+.decl assert_subset_reachable_ctx_implies_unification_reachable_ctx(?ctx: Context, ?func: FunctionDecl)
+assert_subset_reachable_ctx_implies_unification_reachable_ctx(?ctx, ?func) :-
+  subset.callgraph.reachable_context(?ctx, ?func),
+  ! unification.callgraph.reachable_context(?ctx, ?func).
+
+.decl assert_subset_callgraph_edge_implies_unification_callgraph_edge(?calleeCtx: Context, ?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: Instruction)
+assert_subset_callgraph_edge_implies_unification_callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr) :-
+  subset.callgraph.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr),
+  ! unification.callgraph.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr).
+
+.decl assert_every_allocation_has_a_region(?alloc: Allocation)
+assert_every_allocation_has_a_region(?alloc) :-
+  allocation(?alloc),
+  ! alloc_region(?alloc, _).
+
+.decl assert_every_allocation_has_one_region(?alloc: Allocation)
+assert_every_allocation_has_one_region(?alloc) :-
+  allocation(?alloc),
+  alloc_region(?alloc, ?region1),
+  alloc_region(?alloc, ?region2),
+  ?region1 != ?region2.
+
+.decl assert_has_repr(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable)
+assert_has_repr(?aCtx, ?alloc, ?ctx, ?var) :-
+  unification.var_points_to(?aCtx, ?alloc, ?ctx, ?var),
+  ! unification.unify_repr(?aCtx, ?alloc, _, _).
+
+.decl assert_unique_repr(?inpCtx: Context, ?inpAlloc: Allocation)
+assert_unique_repr(?inpCtx, ?inpAlloc) :-
+  unification.unify_repr(?inpCtx, ?inpAlloc, ?reprCtx1, ?reprAlloc1),
+  unification.unify_repr(?inpCtx, ?inpAlloc, ?reprCtx2, ?reprAlloc2),
+  ( ?reprCtx1 != ?reprCtx2
+  ; ?reprAlloc1 != ?reprAlloc2
+  ).
+.plan 0: (1, 2),
+      1: (2, 1)
+
+.decl _typed_alloc(?alloc: Allocation)
+_typed_alloc(?alloc) :-
+  unification.type_indication.heap_allocation_by_type_instruction(_, _, ?alloc).
+_typed_alloc(?alloc) :-
+  unification.type_indication.stack_allocation_by_type_instruction(_, _, ?alloc).
+_typed_alloc(?subAlloc) :-
+  _typed_alloc(?alloc),
+  unification_subobjects.alloc_subregion_base(?alloc, ?subAlloc).
+
+// Every allocation is either a suballocation with a path to it, a basic
+// allocation, or a typed allocation. The unification analysis doesn't
+// care too much about typed allocations, they're unified with their
+// untyped variants.
+.decl assert_basic_or_path(?alloc: Allocation)
+assert_basic_or_path(?alloc) :-
+  allocation(?alloc),
+  !basic_allocation(?alloc),
+  !subset_subobjects.alloc_subregion_at_path(_, _, ?alloc),
+  !unification_subobjects.alloc_subregion_at_path(_, _, ?alloc),
+  !_typed_alloc(?alloc).
+
+//------------------------------------------------------------------------------
+// Allocation Sizes
+//------------------------------------------------------------------------------
+
+.decl assert_dynamic_or_known_size(?alloc: Allocation)
+assert_dynamic_or_known_size(?alloc) :-
+  allocation(?alloc),
+  ! global_allocation_by_function(_, ?alloc),
+  ! allocation_size(?alloc, _),
+  ! dynamically_sized_alloc(?alloc).
+
+.decl assert_size_less_than_parent(?alloc: Allocation, ?size: number, ?subAlloc: Allocation, ?subSize: number)
+assert_size_less_than_parent(?alloc, ?size, ?subAlloc, ?subSize) :-
+  allocation_size(?alloc, ?size),
+  subset_subobjects.alloc_subregion_offset(?alloc, ?subAlloc, ?offset),
+  allocation_size(?subAlloc, ?subSize),
+  // Only count feasible allocations. Otherwise may fail for suballocations of
+  // zero-sized arrays.
+  as(?offset, number) < ?size,
+  ?subSize > ?size.
+
+.decl assert_size_sum_less_than_parent(?alloc: Allocation)
+assert_size_sum_less_than_parent(?alloc) :-
+  allocation_size(?alloc, ?size),
+  ?sumSize = sum ?subSize : {
+    // Weirdly, can't use an inline relation here.
+    subset_subobjects._alloc_subregion(?subAlloc, ?alloc, _, _, _, _),
+    // Only count feasible allocations
+    subset_subobjects.alloc_subregion_offset(?alloc, ?subAlloc, ?offset),
+    as(?offset, number) < ?size,
+    allocation_size(?subAlloc, ?subSize)
+  },
+  ?sumSize > ?size.

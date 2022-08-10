@@ -1,0 +1,59 @@
+//----------------------------------------------------------------------
+// [Assignment Instructions]
+//
+// There are many types of instructions that essentially copy the
+// points-to set of a variable to another.
+//
+// Cast instructions such as `bitcast` fall to this category. Often
+// the returned type of a `@malloc` function call is different than
+// the declared type of the target variable. The LLVM IR adds a
+// temporary variable of type `i8*` to hold the result and then an
+// intermediate `bitcast` instruction that casts this temporary
+// variable to the right type.
+//
+// Another class of assignment instructions are the interprocedural
+// assignments. This way we can model the implicit flow from (i) the
+// actual arguments to the formal parameters, and from (ii) the return
+// value of the called function to the variable that is assigned the
+// result of the `call instruction`.
+//
+// A simple field-insensitive approach would also treat getelementptr as an
+// assignment instruction.
+//----------------------------------------------------------------------
+
+.decl assign_instruction(?toVar: Variable, ?value: Operand)
+// `bitcast` instructions
+assign_instruction(?toVar, ?value) :-
+   any_reachable_function(?instrFunc),
+   instruction_in_function(?instr, ?instrFunc),
+   bitcast_instruction_from_operand(?instr, ?value),  // TODO: consider adding type check
+   instruction_assigns_to(?instr, ?toVar).
+
+// `ptrtoint` instructions
+assign_instruction(?toVar, ?value) :-
+   any_reachable_function(?instrFunc),
+   instruction_in_function(?instr, ?instrFunc),
+   ptrtoint_instruction_from_operand(?instr, ?value),
+   instruction_assigns_to(?instr, ?toVar).
+
+// `phi` instructions: treat every possible pair value as a potential
+// assignment to the target variable
+assign_instruction(?toVar, ?value) :-
+   any_reachable_function(?instrFunc),
+   instruction_in_function(?instr, ?instrFunc),
+   phi_instruction_pair(?instr, _, [?value, _]),
+   instruction_assigns_to(?instr, ?toVar).
+
+// `select` instructions; similar to `phi` instructions
+assign_instruction(?toVar, ?value) :-
+   any_reachable_function(?instrFunc),
+   instruction_in_function(?instr, ?instrFunc),
+   select_instruction(?instr),
+   ( select_instruction_first_operand(?instr, ?value)
+   ; select_instruction_second_operand(?instr, ?value) ),
+   instruction_assigns_to(?instr, ?toVar),
+   instruction_returns_type(?instr, ?type),
+   !vector_type(?type).
+
+// TODO: support `cmpxchg` and `atomicrmw` instructions
+// TODO: support `invoke` and `landingpad` instructions

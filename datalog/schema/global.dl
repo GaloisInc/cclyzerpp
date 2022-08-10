@@ -1,0 +1,166 @@
+// http://llvm.org/docs/LangRef.html#global-variables
+
+.type GlobalVariable <: symbol
+.decl global_variable(gv:GlobalVariable)
+.decl global_variable_has_type(gv:GlobalVariable, type:Type)
+.decl global_variable_has_name(gv:GlobalVariable, name:GlobalVarName)
+.decl global_variable_has_unmangled_name(gv:GlobalVariable, name:symbol)
+.decl global_variable_has_flag(gv:GlobalVariable, flag:Flag)
+.decl global_variable_has_linkage_type(gv:GlobalVariable, link:LinkageType)
+.decl global_variable_has_initializer(gv:GlobalVariable, init:Constant)
+.decl global_variable_has_visibility(gv:GlobalVariable, vis:Visibility)
+.decl global_variable_in_section(gv:GlobalVariable, sect:symbol)
+.decl global_variable_in_threadlocal_mode(gv:GlobalVariable, mode:ThreadLocalMode)
+.decl global_variable_aligned_to(gv:GlobalVariable, alignment:number)
+
+flag(Flag) :- global_variable_has_flag(_, Flag).
+
+
+// For constraints
+.decl schema_invalid_global_variable(gv:GlobalVariable, file:File, line:Line)
+
+schema_invalid_global_variable(GVar, __FILE__, __LINE__) :-
+   schema_sanity(),
+   global_variable(GVar),
+   !global_variable_has_visibility(GVar, _).
+
+schema_invalid_global_variable(GVar, __FILE__, __LINE__) :-
+   schema_sanity(),
+   global_variable(GVar),
+   !global_variable_has_linkage_type(GVar, _).
+
+
+//------------------------------------------------------------------------------
+// [Global Constants]
+//
+// A variable may be defined as a global constant, which indicates
+// that the contents of the variable will never be modified (enabling
+// better optimization, allowing the global data to be placed in the
+// read-only section of an executable, etc).
+// Note that variables that need runtime initialization cannot be
+// marked constant as there is a store to the variable.
+//
+//------------------------------------------------------------------------------
+
+.decl global_variable_is_constant(gv:GlobalVariable)
+
+global_variable_is_constant(GVar) :-
+   global_variable_has_flag(GVar, "constant").
+
+
+//------------------------------------------------------------------------------
+// [Linkage Type], and selectors
+//------------------------------------------------------------------------------
+
+.type LinkageType <: symbol
+.decl linkage_type(link:LinkageType)
+
+.decl external_linkage_type(link:LinkageType)
+.decl private_linkage_type(link:LinkageType)
+.decl internal_linkage_type(link:LinkageType)
+.decl linkonce_linkage_type(link:LinkageType)
+.decl linker_private_linkage_type(link:LinkageType)
+.decl linkonce_odr_linkage_type(link:LinkageType)
+.decl weak_linkage_type(link:LinkageType)
+.decl weak_odr_linkage_type(link:LinkageType)
+.decl common_linkage_type(link:LinkageType)
+.decl appending_linkage_type(link:LinkageType)
+.decl dllimport_linkage_type(link:LinkageType)
+.decl dllexport_linkage_type(link:LinkageType)
+.decl extern_weak_linkage_type(link:LinkageType)
+.decl linker_private_weak_linkage_type(link:LinkageType)
+.decl available_externally_linkage_type(link:LinkageType)
+
+linkage_type("external"). external_linkage_type("external").
+linkage_type("private"). private_linkage_type("private").
+linkage_type("internal"). internal_linkage_type("internal").
+linkage_type("linkonce"). linkonce_linkage_type("linkonce").
+linkage_type("linker_private"). linker_private_linkage_type("linker_private").
+linkage_type("linkonce_odr"). linkonce_odr_linkage_type("linkonce_odr").
+linkage_type("weak"). weak_linkage_type("weak").
+linkage_type("weak_odr"). weak_odr_linkage_type("weak_odr").
+linkage_type("common"). common_linkage_type("common").
+linkage_type("appending"). appending_linkage_type("appending").
+linkage_type("dllimport"). dllimport_linkage_type("dllimport").
+linkage_type("dllexport"). dllexport_linkage_type("dllexport").
+linkage_type("extern_weak"). extern_weak_linkage_type("extern_weak").
+linkage_type("linker_private_weak"). linker_private_weak_linkage_type("linker_private_weak").
+linkage_type("available_externally"). available_externally_linkage_type("available_externally").
+
+
+//------------------------------------------------------------------------------
+// [Visibility Style]
+//------------------------------------------------------------------------------
+
+.type Visibility <: symbol
+.decl visibility(vis:Visibility)
+
+.decl default_visibility(vis:Visibility)
+.decl hidden_visibility(vis:Visibility)
+.decl protected_visibility(vis:Visibility)
+
+visibility("default"). default_visibility("default").
+visibility("hidden"). hidden_visibility("hidden").
+visibility("protected"). protected_visibility("protected").
+
+
+//------------------------------------------------------------------------------
+// [Thread-local Mode]
+//------------------------------------------------------------------------------
+
+.type ThreadLocalMode <: symbol
+.decl threadlocal_mode(mode:ThreadLocalMode)
+.decl local_dynamic_threadlocal_mode(mode:ThreadLocalMode)
+.decl initial_exec_threadlocal_mode(mode:ThreadLocalMode)
+.decl local_exec_threadlocal_mode(mode:ThreadLocalMode)
+
+threadlocal_mode("thread_local").
+threadlocal_mode("thread_local(localdynamic)").
+threadlocal_mode("thread_local(initialexec)").
+threadlocal_mode("thread_local(localexec)").
+local_dynamic_threadlocal_mode("thread_local(localdynamic)").
+initial_exec_threadlocal_mode("thread_local(initialexec)").
+local_exec_threadlocal_mode("thread_local(localexec)").
+
+
+//------------------------------------------------------------------------------
+// [Aliases]
+//
+// Aliases act as “second name” for the aliasee value
+// (which can be either function, global variable, another
+// alias or bitcast of global value).
+//------------------------------------------------------------------------------
+
+.type Alias <: symbol
+.decl alias(x:Alias)
+.decl alias_aliasee(x:Alias, y:Constant)
+.decl alias_has_name(x:Alias, name:symbol)
+.decl alias_has_type(x:Alias, type:Type)
+.decl alias_has_linkage_type(x:Alias, link:LinkageType)
+.decl alias_has_visibility(x:Alias, vis:Visibility)
+
+// For constraints
+.decl schema_invalid_alias(x:Alias, file:File, line:Line)
+
+schema_invalid_alias(Var, __FILE__, __LINE__) :-
+   schema_sanity(),
+   alias(Var),
+   !alias_has_type(Var, _).
+
+schema_invalid_alias(Var, __FILE__, __LINE__) :-
+   schema_sanity(),
+   alias(Var),
+   !alias_has_name(Var, _).
+
+schema_invalid_alias(Var, __FILE__, __LINE__) :-
+   schema_sanity(),
+   alias_has_linkage_type(Var, Link),
+   !private_linkage_type(Link),
+   !linker_private_linkage_type(Link),
+   !linker_private_weak_linkage_type(Link),
+   !internal_linkage_type(Link),
+   !linkonce_linkage_type(Link),
+   !weak_linkage_type(Link),
+   !linkonce_odr_linkage_type(Link),
+   !weak_odr_linkage_type(Link),
+   !external_linkage_type(Link).

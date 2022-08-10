@@ -1,0 +1,93 @@
+// http://llvm.org/docs/LangRef.html#store-instruction
+// keywords: memory; instruction
+
+.type StoreInstruction = Instruction
+.decl store_instruction(instr:StoreInstruction)
+
+instruction(v) :- store_instruction(v).
+
+.decl store_instruction_alignment(instr:StoreInstruction, alignment:number)
+.decl store_instruction_ordering(instr:StoreInstruction, ordering:Ordering)
+
+// If the store is marked as volatile, then the optimizer is not allowed
+// to modify the number or order of execution of this store with other
+// volatile operations.
+
+.decl store_instruction_is_volatile(instr:StoreInstruction)
+
+
+// If the store is marked as atomic, it takes an extra ordering
+// and optional singlethread argument.
+
+.decl store_instruction_is_atomic(instr:StoreInstruction)
+
+store_instruction_is_atomic(Instr) :-
+   store_instruction_ordering(Instr, _).
+
+
+// There are two arguments to the store instruction:
+//  (i)  a value to store and
+//  (ii) an address at which to store it.
+
+.decl store_instruction_value(instr:StoreInstruction, value:Operand)
+.decl store_instruction_address(instr:StoreInstruction, pointer:Operand)
+
+
+// Helper predicates
+
+.decl store_instruction_address_ptr_type(instr:StoreInstruction, type:Type)
+.decl store_instruction_value_type(instr:StoreInstruction, type:Type) 
+
+store_instruction_address_ptr_type(Instr, PtrType) :-
+   store_instruction_address(Instr, PtrAddress),
+   operand_has_type(PtrAddress, PtrType).
+
+store_instruction_value_type(Instr, PtrType) :-
+   store_instruction_value(Instr, PtrAddress),
+   operand_has_type(PtrAddress, PtrType).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+//  (i)  The type of the <pointer> operand must be a pointer to
+//       the first class type of the <value> operand.
+//
+//  (ii) The acquire and acq_rel orderings aren’t valid on store
+//       instructions.
+//------------------------------------------------------------------------------
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   store_instruction(Instr),
+   !store_instruction_address(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   store_instruction(Instr),
+   !store_instruction_value(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   store_instruction(Instr),
+   instruction_assigns_to(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   store_instruction(Instr),
+   store_instruction_address_ptr_type(Instr, PtrType),
+   !pointer_type_to_firstclass(PtrType).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   store_instruction(Instr),
+   store_instruction_address_ptr_type(Instr, PtrType),
+   store_instruction_value_type(Instr, Type),
+   !pointer_type_has_component(PtrType, Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   store_instruction(Instr),
+   store_instruction_ordering(Instr, Ord),
+   ( acquire_ordering(Ord)
+   ; acq_rel_ordering(Ord) ).

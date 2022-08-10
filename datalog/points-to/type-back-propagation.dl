@@ -1,0 +1,170 @@
+// Mark all heap allocations that do not carry any type information
+
+.comp TypeIndication {
+
+  //----------------------------------------------------------------------------
+  // "Input"/declared rules
+  //
+  // https://souffle-lang.github.io/components#input-rules
+  //----------------------------------------------------------------------------
+
+  .decl operand_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?operand: Operand) inline
+  .decl var_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable) inline
+  .decl alloc_with_ctx(?aCtx: Context, ?alloc: Allocation) inline
+
+  //----------------------------------------------------------------------------
+  // "Output"/defined rules
+  //
+  // By convention, rules that begin with an underscore are internal
+  // implementation details, and should not be accessed outside the component.
+  //----------------------------------------------------------------------------
+
+  // TODO(lb): This should be named type_indication, but a bug in Souffle
+  // prevents it. Appears fixed in Souffle on master, so should be in the next
+  // release.
+  .decl ty_indication(?type: Type, ?aCtx: Context, ?alloc: Allocation)
+  .decl ty_indication1(?type: Type, ?aCtx: Context, ?alloc: Allocation)
+  .decl ty_indication2(?type: Type, ?aCtx: Context, ?alloc: Allocation)
+  .decl ty_indication3(?type: Type, ?aCtx: Context, ?alloc: Allocation)
+
+  .decl backpropagated_allocation_type(?alloc: Allocation, ?type: Type) inline
+
+  .decl _heap_allocation_by_instruction(?insn: Instruction, ?alloc: Allocation, ?untyped: Allocation)
+  _heap_allocation_by_instruction(?insn, ?alloc, ?alloc) :-
+    heap_allocation_by_instruction(?insn, ?alloc).
+
+  _heap_allocation_by_instruction(?insn, ?alloc, ?untyped) :-
+    heap_allocation_by_type_instruction(_, ?insn, ?alloc),
+    heap_allocation_by_instruction(?insn, ?untyped).
+
+  // Only bitcast instructions are considered type indications for now
+  ty_indication1(?type, ?aCtx, ?untyped),
+  ty_indication(?type, ?aCtx, ?untyped) :-
+     bitcast_instruction_to_type(?instr,?ptrType),
+     bitcast_instruction_from_operand(?instr,?fromOperand),
+     operand_points_to(?aCtx, ?alloc, _, ?fromOperand),
+     _heap_allocation_by_instruction(?allocInstr, ?alloc, ?untyped),
+     !sized_alloc_instr(?allocInstr,_),
+     pointer_type_has_component(?ptrType,?type).
+
+  ty_indication2(?type, ?aCtx, ?untyped),
+  ty_indication(?type, ?aCtx, ?untyped) :-
+     bitcast_instruction_to_type(?instr,?ptrType),
+     bitcast_instruction_from_operand(?instr,?fromOperand),
+     operand_points_to(?aCtx, ?alloc, _, ?fromOperand),
+     _heap_allocation_by_instruction(?allocInstr, ?alloc, ?untyped),
+     pointer_type_has_component(?ptrType,?type),
+     sized_alloc_instr(?allocInstr,?size),
+     type_has_size(?type,?size).
+
+  // In case of known size, we must also allow pointer types whose base
+  // component may perfectly divide the known size of the allocation.
+  ty_indication3(?type, ?aCtx, ?untyped),
+  ty_indication(?type, ?aCtx, ?untyped) :-
+     bitcast_instruction_to_type(?instr,?ptrType),
+     bitcast_instruction_from_operand(?instr,?fromOperand),
+     operand_points_to(?aCtx, ?alloc, _, ?fromOperand),
+     _heap_allocation_by_instruction(?allocInstr, ?alloc, ?untyped),
+     pointer_type_has_component(?ptrType,?type),
+     pointer_type_base_component(?ptrType, ?baseType),
+     sized_alloc_instr(?allocInstr, size),
+     type_has_size(?baseType,baseSize),
+     baseSize != 0, // TODO: Does anything else need to be done in this case?
+     size = (size / baseSize) * baseSize.
+
+  .decl heap_allocation_by_type_instruction(?type: Type, ?insn: Instruction, ?heapAlloc: HeapAllocation)
+  .decl assign_rebase_alloc(?typedAlloc: Allocation, ?aCtx: Context, ?alloc: Allocation, ?var: Variable)
+
+  heap_allocation_by_type_instruction(?type, ?allocInstr, ?typedAlloc),
+    assign_rebase_alloc(?typedAlloc, ?aCtx, ?alloc, ?var),
+    heap_allocation(?typedAlloc),
+    backpropagated_allocation_type(?typedAlloc, ?type),
+    alloc_with_ctx(?aCtx, ?typedAlloc)
+   :-
+     heap_allocation_by_instruction(?allocInstr, ?alloc),
+     ty_indication(?type, ?aCtx, ?alloc),
+     instruction_assigns_to(?allocInstr, ?var),
+     variable_in_function(?var, ?func),
+     variable_has_name(?var, ?name),
+     function_has_name(?func, ?funcName),
+     pointer_type_has_component(?ptrType, ?type),
+     ?typedAlloc= cat("*typed_heap_alloc", ?funcName, "[" , ?ptrType , " ", ?name, "]").
+
+  allocation_pos(?alloc, ?line, ?column) :-
+     heap_allocation_by_type_instruction(_, ?insn, ?alloc),
+     instruction_pos(?insn, ?line, ?column).
+
+  //-----------------------------------------------------------------------
+  // [Type Back-propagation for Stack Allocations]
+  //-----------------------------------------------------------------------
+  //
+  // In certain situations (where LLVM knows it can pass a stack-allocated
+  // struct by value), LLVM will use an integer-typed allocation on the
+  // stack instead of the expected type, and then bitcast to the
+  // appropriate type as needed.
+  //
+  // For example, LLVM might emit:
+  // ```
+  // %1 = alloca i64, align 8
+  // %2 = bitcast i64* %1 to %struct.foo*
+  // %3 = bitcast i64* %1 to i32*,
+  // store i32 42, i32* %3, align 8,
+  // %4 = getelementptr inbounds %struct.foo, %struct.foo* %2, i64 0, i32 1,
+  // store i8 %4, i8* @somebuf, align 4,
+  // %5 = load i64, i64* %1, align 8,
+  // %6 = call i8 @function_with_foo_arg_passed_by_value(i64 %5)
+  // ```
+  // instead of:
+  // ```
+  // %1 = alloca %struct.foo, align 4
+  // %2 = getelementptr inbounds %struct.foo, %struct.foo* %2, i64 0, i32 0,
+  // store i32 42, i32* %2, align 8,
+  // %3 = getelementptr inbounds %struct.foo, %struct.foo* %2, i64 0, i32 1,
+  // store i8 %3, i8* @somebuf, align 4,
+  // %4 = call i8 @function_with_foo_arg_passed_by_value(%struct.foo* %1)
+  // ```
+  //
+  // Where this causes problems is that instructions like `%4 =
+  // getelementptr inbounds %struct.foo, %struct.foo* %2, i64 0, i32 1,` do
+  // not calculate the expected points-to information because the analysis
+  // does not know how to interpret accessing %struct.foo fields from an
+  // i64*.
+  //
+  // The fix is to use type back-propagation (a la cclyzer's handling of
+  // heap allocations) for stack variables as well and generate a
+  // `%struct.foo`-typed allocation (as well i64/i32 sized allocations) for
+  // the initial alloca. In this patch, this is restricted to occasions
+  // where the underlying alloca has an integer-type, but we might want to
+  // change this if we see other examples in the wild.
+
+  .decl stack_allocation_by_type_instruction(?type: Type, ?insn: Instruction, ?stackAlloc: StackAllocation)
+  .decl stack_type_indication(?type: Type, ?aCtx: Context, ?alloc: Allocation)
+
+  stack_type_indication(?type, ?aCtx, ?alloc) :-
+     bitcast_instruction_to_type(?instr,?ptrType),
+     bitcast_instruction_from_operand(?instr,?fromOperand),
+     operand_points_to(?aCtx, ?alloc, _, ?fromOperand),
+     stack_allocation_by_instruction(?allocInstr, ?alloc),
+     alloca_instruction_type(?allocInstr, ?allocaType),
+     integer_type(?allocaType),
+     pointer_type_has_component(?ptrType,?type).
+
+  stack_allocation_by_type_instruction(?type, ?allocInstr, ?typedAlloc),
+    assign_rebase_alloc(?typedAlloc, ?aCtx, ?alloc, ?var),
+    stack_allocation(?typedAlloc),
+    backpropagated_allocation_type(?typedAlloc, ?type),
+    alloc_with_ctx(?aCtx, ?typedAlloc)
+   :-
+     stack_allocation_by_instruction(?allocInstr, ?alloc),
+     stack_type_indication(?type, ?aCtx, ?alloc),
+     instruction_assigns_to(?allocInstr, ?var),
+     variable_in_function(?var, ?func),
+     variable_has_name(?var, ?name),
+     function_has_name(?func, ?funcName),
+     pointer_type_has_component(?ptrType, ?type),
+     ?typedAlloc= cat("*typed_stack_alloc", ?funcName, "[", ?ptrType, " ", ?name, "]").
+
+  allocation_pos(?alloc, ?line, ?column) :-
+    stack_allocation_by_type_instruction(_, ?insn, ?alloc),
+    instruction_pos(?insn, ?line, ?column).
+}

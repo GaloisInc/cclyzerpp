@@ -1,0 +1,52 @@
+// http://llvm.org/docs/LangRef.html#frem-instruction
+// keywords: arithmetic; binary; instruction
+
+.type FRemInstruction = Instruction
+.decl frem_instruction(instr:FRemInstruction)
+
+instruction(v) :- frem_instruction(v).
+
+.decl frem_instruction_first_operand(instr:FRemInstruction, op:Operand)
+.decl frem_instruction_second_operand(instr:FRemInstruction, op:Operand)
+
+
+//-------------------------------------------------------------------
+// [Constraints]
+//
+// 1) The two arguments to the ‘frem‘ instruction must be:
+//      (i)  floating point or
+//      (ii) vector of floating point values.
+//
+// 2) Both arguments must have identical types.
+//
+// 3) The resulting value is the same type as its operands.
+//-------------------------------------------------------------------
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   frem_instruction(Instr),
+   !frem_instruction_first_operand(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   frem_instruction(Instr),
+   !frem_instruction_second_operand(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   frem_instruction(Instr),
+   instruction_returns_type(Instr, Type),
+   !fp_type(Type),
+   !fp_vector_type(Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   instruction_returns_type(Instr, Type),
+   frem_instruction_first_operand(Instr, LeftOp),
+   !operand_has_type(LeftOp, Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   instruction_returns_type(Instr, Type),
+   frem_instruction_second_operand(Instr, RightOp),
+   !operand_has_type(RightOp, Type).

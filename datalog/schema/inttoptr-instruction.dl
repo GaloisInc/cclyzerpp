@@ -1,0 +1,70 @@
+// http://llvm.org/docs/LangRef.html#inttoptr-to-instruction
+// keywords: conversion; unary; instruction
+
+.type IntToPtrInstruction = Instruction
+.decl inttoptr_instruction(instr:IntToPtrInstruction)
+
+instruction(v) :- inttoptr_instruction(v).
+
+.decl inttoptr_instruction_from_operand(instr:IntToPtrInstruction, val:Operand)
+.decl inttoptr_instruction_to_type(instr:IntToPtrInstruction, type:Type)
+
+
+// Helper predicate
+
+.decl inttoptr_instruction_from_type(instr:IntToPtrInstruction, type:Type)
+
+inttoptr_instruction_from_type(Instr, Type) :-
+   inttoptr_instruction_from_operand(Instr, Operand),
+   operand_has_type(Operand, Type).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// The ‘inttoptr‘ instruction takes:
+//  (i)  a value to cast, which must be integer or vector of integer values,
+//  (ii) and a type to cast it to, which must be a pointer or a vector of
+//       pointers type.
+//
+// If the value to be casted is a vector integer type:
+//  (i)  the type must be a vector pointer type,
+//  (ii) with the same number of elements.
+//------------------------------------------------------------------------------
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   inttoptr_instruction(Instr),
+   !inttoptr_instruction_from_operand(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   inttoptr_instruction(Instr),
+   !inttoptr_instruction_to_type(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   inttoptr_instruction(Instr),
+   inttoptr_instruction_to_type(Instr, Type),
+   !instruction_returns_type(Instr, Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   inttoptr_instruction(Instr),
+   inttoptr_instruction_from_type(Instr, Type),
+   !integer_type(Type),
+   !integer_vector_type(Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   inttoptr_instruction(Instr),
+   inttoptr_instruction_to_type(Instr, Type),
+   !pointer_type(Type),
+   !pointer_vector_type(Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   inttoptr_instruction(Instr),
+   inttoptr_instruction_from_type(Instr, FromType),
+   inttoptr_instruction_to_type(Instr, ToType),
+   !vector_compatible_types(FromType, ToType).

@@ -1,0 +1,34 @@
+// http://llvm.org/docs/LangRef.html#resume-instruction
+// keywords: terminator; instruction
+
+.type ResumeInstruction = Instruction
+.decl resume_instruction(instr:ResumeInstruction)
+
+instruction(v) :- resume_instruction(v).
+terminator_instruction(v) :- resume_instruction(v).
+
+.decl resume_instruction_operand(instr:ResumeInstruction, op:Operand)
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// 1) The ‘resume‘ instruction requires one argument, which
+//    must have the same type as the result of any ‘landingpad‘
+//    instruction in the same function.
+//------------------------------------------------------------------------------
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   resume_instruction(Instr),
+   !resume_instruction_operand(Instr, _).
+
+schema_invalid_instruction(ResumeInstr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   resume_instruction(ResumeInstr),
+   resume_instruction_operand(ResumeInstr, Operand),
+   instruction_in_function(ResumeInstr, Func),
+   instruction_in_function(LPadInstr, Func),
+   landingpad_instruction(LPadInstr),
+   instruction_returns_type(LPadInstr, Type),
+   !operand_has_type(Operand, Type).

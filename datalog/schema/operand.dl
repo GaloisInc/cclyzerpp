@@ -1,0 +1,123 @@
+//------------------------------------------------------------------------------
+// [Variables]
+//
+// The first type of instruction operands are variables. In this
+// representation, variables correspond to LLVM virtual
+// registers. They are either source-level variables with valid names
+// or temporaries introduced by LLVM that hold intermediate expressions.
+//------------------------------------------------------------------------------
+
+.type Variable <: symbol
+.decl variable(v:Variable)
+
+.decl variable_has_type(v:Variable, type:Type)
+.decl variable_has_name(v:Variable, name:symbol)
+.decl variable_is_label(v:Variable)
+.decl variable_is_pointer(v:Variable)
+.decl variable_is_firstclass(v:Variable)
+
+variable_is_label(Var) :-
+   variable_has_type(Var, Type),
+   label_type(Type).
+
+variable_is_pointer(Var) :-
+   variable_has_type(Var, Type),
+   pointer_type(Type).
+
+variable_is_firstclass(Var) :-
+   variable_has_type(Var, Type),
+   type_is_firstclass(Type).
+
+
+// Debug-level information from source code (DWARF)
+.decl variable_has_debug_source_name(v:Variable, name:symbol)
+.decl variable_has_debug_decl_pos(v:Variable, line:LineNumber, column:ColumnNumber)
+
+
+//------------------------------------------------------------------------------
+// [Constants]
+//
+// The second type of instruction operands are constants. Constants
+// may be quite complex (see constant expressions).
+//------------------------------------------------------------------------------
+
+.decl constant(c:Constant)
+
+.decl constant_has_type(c:Constant, type:Type)
+.decl constant_has_value(c:Constant, val:symbol)
+
+// Precomputed hash-codes for constant values
+.decl constant_hashes_to(c:Constant, hashcode:number)
+
+// Previously derived. Now implemented as a macro
+#define constants_equal(X, Y)  \
+      (constant_has_value(X, CCLYZER_SOME_MACRO_VALUE__), \
+       constant_has_value(Y, CCLYZER_SOME_MACRO_VALUE__))
+
+//  Handy Conversions
+.decl constant_to_int(c:Constant, val:number)
+
+// This is used under a negation in field_sensitivity.dl. See
+// https://github.com/souffle-lang/souffle/issues/1560
+.decl operand_to_int(c:Operand, val:number)
+operand_to_int(c, x) :- constant_to_int(c, x).
+
+// For constraints
+.decl schema_invalid_constant(c:Constant, file:File, line:Line)
+
+schema_invalid_constant(Constant, __FILE__, __LINE__) :-
+   schema_sanity(),
+   constant(Constant),
+   !constant_has_type(Constant, _).
+
+schema_invalid_constant(Constant, __FILE__, __LINE__) :-
+   schema_sanity(),
+   constant(Constant),
+   !constant_has_value(Constant, _).
+
+//schema_invalid_constant(Constant, __FILE__, __LINE__) :-
+//   schema_sanity(),
+//   constant(Constant),
+//   !constant_hashes_to(Constant, _).
+
+// Constants cannot be labels
+schema_invalid_constant(Constant, __FILE__, __LINE__) :-
+   schema_sanity(),
+   constant_has_type(Constant, Type),
+   label_type(Type).
+
+
+//--------------------------------------------------
+// [Operands] as union of {variable, constant}
+//--------------------------------------------------
+
+.type Operand = Constant | Variable
+.decl operand(op:Operand)
+
+operand(c) :- constant(c).
+operand(v) :- variable(v).
+
+
+// Type predicate
+
+.decl operand_has_type(op:Operand, type:Type)
+
+operand_has_type(var, type) :-
+   variable_has_type(var, type).
+
+operand_has_type(c, type) :-
+   constant_has_type(c, type).
+
+
+// Helper predicates
+
+.decl operand_is_firstclass(op:Operand)
+.decl operand_is_pointer(op:Operand)
+
+operand_is_firstclass(Op) :-
+   operand_has_type(Op, Type),
+   type_is_firstclass(Type).
+
+operand_is_pointer(Op) :-
+   operand_has_type(Op, Type),
+   pointer_type(Type).

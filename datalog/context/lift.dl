@@ -1,0 +1,83 @@
+//------------------------------------------------------------------------
+// [Allocation aliases in context for export]
+//
+// Report allocation aliases in context for use in the CPG.
+//------------------------------------------------------------------------
+
+.comp Lift {
+  //----------------------------------------------------------------------------
+  // "Input"/declared rules
+  //
+  // https://souffle-lang.github.io/components#input-rules
+  //----------------------------------------------------------------------------
+
+  .decl alloc_aliases(?alloc1: Allocation, ?alloc2: Allocation) inline
+  .decl alloc_may_alias(?alloc1: Allocation, ?alloc2: Allocation) inline
+  .decl alloc_subregion_at_path(?alloc: Allocation, ?path: Path, ?subAlloc: Allocation) inline
+  .decl alloc_subregion_base(?alloc: AllocSubregion, ?baseAlloc: Allocation) inline
+  .decl reachable_context(?ctx: Context, ?func: FunctionDecl) inline
+  .decl operand_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?operand: Operand) inline
+  .decl ptr_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?ptr: Allocation) inline
+  .decl var_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable) inline
+
+  //----------------------------------------------------------------------------
+  // "Output"/defined rules
+  //----------------------------------------------------------------------------
+
+  .decl _allocation_with_context(?aCtx: Context, ?alloc: Allocation)
+
+  _allocation_with_context(?aCtx, ?alloc) :-
+    var_points_to(?aCtx, ?alloc, _, _).
+
+  _allocation_with_context(?aCtx, ?alloc) :-
+    ptr_points_to(?aCtx, ?alloc, _, _).
+
+  _allocation_with_context(?aCtx, ?alloc) :-
+    ptr_points_to(_, _, ?aCtx, ?alloc).
+
+  _allocation_with_context(?aCtx, ?alloc) :-
+    operand_points_to(?aCtx, ?alloc, _, _).
+
+  .decl alloc_may_alias_ctx(?aCtx: Context, ?alloc1: Allocation, ?alloc2: Allocation)
+
+  alloc_may_alias_ctx(?aCtx, ?alloc1, ?alloc2) :-
+    _allocation_with_context(?aCtx, ?alloc1),
+    _allocation_with_context(?aCtx, ?alloc2),
+    alloc_may_alias(?alloc1, ?alloc2).
+
+  .decl alloc_must_alias_ctx(?aCtx: Context, ?alloc1: Allocation, ?alloc2: Allocation)
+
+  alloc_must_alias_ctx(?aCtx, ?alloc1, ?alloc2) :-
+    _allocation_with_context(?aCtx, ?alloc1),
+    _allocation_with_context(?aCtx, ?alloc2),
+    alloc_aliases(?alloc1, ?alloc2).
+
+  .decl alloc_subregion_ctx(?aCtx: Context, ?alloc1: Allocation, ?alloc2: Allocation)
+
+  alloc_subregion_ctx(?aCtx, ?alloc1, ?alloc2) :-
+    _allocation_with_context(?aCtx, ?alloc1),
+    _allocation_with_context(?aCtx, ?alloc2),
+    alloc_subregion_base(?alloc1, ?alloc2).
+
+  .decl alloc_contains_ctx(?aCtx: Context, ?alloc1: Allocation, ?alloc2: Allocation)
+
+  alloc_contains_ctx(?aCtx, ?alloc1, ?alloc2) :-
+    _allocation_with_context(?aCtx, ?alloc1),
+    _allocation_with_context(?aCtx, ?alloc2),
+    alloc_subregion_at_path(?alloc1, _, ?alloc2).
+
+  .decl allocation_by_instruction_ctx(?ctx: Context, ?insn: Instruction, ?aCtx: Context, ?alloc: Allocation)
+
+  allocation_by_instruction_ctx(ctx, insn, actx, alloc) :-
+    reachable_context(ctx, fun),
+    instruction_in_function(insn, fun),
+    allocation_by_instruction(insn, alloc),
+    instruction_assigns_to(insn, var),
+    var_points_to(actx, alloc, ctx, var).
+
+  .decl allocation_size_ctx(?actx: Context, ?alloc: Allocation, ?size: number)
+
+  allocation_size_ctx(actx, alloc, size) :-
+    allocation_size(alloc, size),
+    var_points_to(actx, alloc, _, _).
+}

@@ -1,0 +1,53 @@
+// http://llvm.org/docs/LangRef.html#trunc-to-instruction
+// keywords: conversion; unary; instruction
+
+.type FPTruncInstruction = Instruction
+.decl fptrunc_instruction(instr:FPTruncInstruction)
+
+instruction(v) :- fptrunc_instruction(v).
+
+.decl fptrunc_instruction_from_operand(instr:FPTruncInstruction, val:Operand)
+.decl fptrunc_instruction_to_type(instr:FPTruncInstruction, type:FPType)
+
+
+// Helper predicate
+
+.decl fptrunc_instruction_from_type(instr:FPTruncInstruction, type:Type)
+
+fptrunc_instruction_from_type(Instr, Type) :-
+   fptrunc_instruction_from_operand(Instr, Operand),
+   operand_has_type(Operand, Type).
+
+
+//-------------------------------------------------------------------
+// [Constraints]
+//
+// 1) The ‘fptrunc‘ instruction takes:
+//      (i)  a floating point value to cast,
+//      (ii) and a floating point type to cast it to.
+//
+// 2) The source type must be larger than the destination type.
+//-------------------------------------------------------------------
+
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fptrunc_instruction(Instr),
+   !fptrunc_instruction_from_operand(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fptrunc_instruction(Instr),
+   !fptrunc_instruction_to_type(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fptrunc_instruction(Instr),
+   fptrunc_instruction_to_type(Instr, Type),
+   !instruction_returns_type(Instr, Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fptrunc_instruction(Instr),
+   fptrunc_instruction_from_type(Instr, Type),
+   !fp_type(Type).

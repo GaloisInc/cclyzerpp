@@ -1,0 +1,34 @@
+//-----------------------------------------------------------
+// Debug Info - Template Parameters
+//-----------------------------------------------------------
+
+.decl di?template_param(entry:DITemplateParam)
+.decl di?template_param_name(entry:DITemplateParam, name:symbol)
+.decl di?template_param_type(entry:DITemplateParam, type:DITypeEntry)
+.decl di?template_param_raw_type(entry:DITemplateParam, type:symbol)
+
+// Two kinds of template parameters
+.decl di?template_type_param(entry:DITemplateTypeParam)
+.decl di?template_value_param(entry:DITemplateValueParam)
+
+// Enforce predicate subtyping
+di?entry(e) :- di?template_param(e).
+di?template_param(e) :- di?template_type_param(e).
+di?template_param(e) :- di?template_value_param(e).
+
+
+//------------------------------------------------------
+// Template Value Parameter
+//------------------------------------------------------
+
+// Single constant value
+.decl di?template_value_param_value(entry:DITemplateValueParam, value:Constant)
+
+// Value is a tuple of debug-info nodes
+.decl di?template_value_param_elements(entry:DITemplateValueParam, idx:number, elem:DIEntry)
+
+// The two predicates above are mutually exclusive
+debuginfo_invalid_entry(Entry, __FILE__, __LINE__) :-
+   schema_sanity(),
+   di?template_value_param_value(Entry, _),
+   di?template_value_param_elements(Entry, _, _).

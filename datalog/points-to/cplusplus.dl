@@ -1,0 +1,258 @@
+//------------------------------------------------------------------------------
+// Identify the new() function for C++
+//------------------------------------------------------------------------------
+
+
+// There must be a single allocating function
+
+.decl cxx_new_function(?func: FunctionDecl)
+
+// Consider only functions with a single parameter of integer type, no
+// definition, and whose unmangled name contains the keyword `new`
+
+cxx_new_function(?func),
+   heap_alloc_function(?func)
+ :-
+   function_has_signature(?func, ?signature),
+   function_has_type(?func, ?fType),
+   contains("operator new", ?signature),
+   function_type_param(?fType, 0, ?type),
+   integer_type(?type),
+   function_type_nparams(?fType, 1),
+   !function_decl_to_defn(?func, _).
+
+// Introduce new heap allocation selector
+.decl heap_allocation_by_new(?insn: Instruction, ?heapAlloc: HeapAllocation)
+
+heap_allocation_by_new(?insn, ?heapAlloc) :-
+   cxx_new_function(?func),
+   ( call_instruction_fn_target(?insn, ?func)
+   ; invoke_instruction_fn_target(?insn, ?func) ),
+   heap_allocation_by_instruction(?insn, ?heapAlloc).
+
+// Compute allocation size
+
+sized_alloc_instr(?insn, as(?size, Bytes)) :-
+   cxx_new_function(?func),
+   call_instruction_fn_target(?insn, ?func),
+   call_instruction_arg(?insn, 0, ?operand),
+   constant_to_int(?operand, ?size).
+
+sized_alloc_instr(?insn, as(?size, Bytes)) :-
+   cxx_new_function(?func),
+   invoke_instruction_fn_target(?insn, ?func),
+   invoke_instruction_arg(?insn, 0, ?operand),
+   constant_to_int(?operand, ?size).
+
+//------------------------------------------------------------------------------
+// [Constructor and Type]
+//
+// In order to infer the object type, we track the flow of the object
+// being created to some constructor. Intraprocedurally, there will only
+// be a single constructor being called, which will have the correct
+// type for the object.
+//------------------------------------------------------------------------------
+
+.decl constructor_class_type(?ctor: FunctionDecl, ?classType: ClassType)
+constructor_class_type(?ctor, ?classType) :-
+   class_type_constructor(?ctor, ?classType).
+
+.decl destructor_class_type(?dtor: FunctionDecl, ?classType: ClassType)
+destructor_class_type(?dtor, ?classType) :-
+   class_type_destructor(?dtor, ?classType).
+
+.comp CPlusPlus {
+
+  //----------------------------------------------------------------------------
+  // "Input"/declared rules
+  //
+  // https://souffle-lang.github.io/components#input-rules
+  //----------------------------------------------------------------------------
+
+  .decl allocation_type(?alloc:Allocation, ?type:Type) inline
+  .decl stripctx_operand_points_to(?alloc: Allocation, ?operand: Operand) inline
+
+  //----------------------------------------------------------------------------
+  // "Output"/defined rules
+  //
+  // By convention, rules that begin with an underscore are internal
+  // implementation details, and should not be accessed outside the component.
+  //----------------------------------------------------------------------------
+
+  // We have a direct call to a constructor function (associated with
+  // type `Type`) inside function `InFunction`, where `this` points to
+  // `Alloc`. Note that the latter may be initialized by many
+  // constructors, unless it is of a base type.
+  // TODO(lb): Remove "is_" prefix when upgrading Souffle
+  .decl is_init_by_ctor(?type: ClassType, ?ctor: FunctionDecl, ?inFunction: Function, ?alloc: Allocation)
+  is_init_by_ctor(?type, ?ctor, ?inFunction, ?alloc)
+  :-
+    ( call_instruction_fn_target(?initInstr, ?ctor)
+    ; invoke_instruction_fn_target(?initInstr, ?ctor) ),
+    constructor_class_type(?ctor, ?type),
+    instruction_in_function(?initInstr, ?inFunction),
+    actual_arg(?initInstr, 0, ?this),
+    stripctx_operand_points_to(?alloc, ?this).
+
+  // In the case of inlined constructors, we mark the heap allocation as
+  // untyped and rely on the type back-propagation technique.
+
+  .decl untyped_allocation(?insn: Instruction, ?alloc: Allocation)
+  untyped_allocation(?insn, ?heapAlloc) :-
+    inlined_constructors(),
+    heap_allocation_by_new(?insn, ?heapAlloc).
+
+  //----------------------------------------------------
+  // Identify class instances based on inferred type
+  //----------------------------------------------------
+
+  .decl _class_instance(?alloc: BasicAllocation)
+  _class_instance(?alloc) :-
+    allocation_type(?alloc, ?type),
+    class_type(?type),
+    basic_allocation(?alloc).
+
+  .decl class_instance_constructor(?alloc: BasicAllocation, ?ctor: FunctionDecl)
+  class_instance_constructor(?alloc, ?ctor) :-
+    allocation_type(?alloc, ?type),
+    is_init_by_ctor(?type, ?ctor, _, ?alloc),
+    basic_allocation(?alloc).
+
+
+  //---------------------------------------------------------------------------
+  // [Recovering the Class Hierarchy]
+  //
+  // We recover the class hierarchy by tracking the sub-object
+  // constructors called inside the top constructor of some object. This
+  // will miss parts of the class hierarchy for classes with no
+  // instances, but these would probably by unreachable code anyway.
+  //---------------------------------------------------------------------------
+
+  //.decl primary_superclass(?type: ClassType, ?superType: ClassType)
+  //.decl secondary_superclass(?superType: ClassType, ?type: ClassType)
+
+
+  // The primary superclass of class B is derived by identifying the
+  // call to some constructor of class A inside the B constructor, that
+  // is invoked on the receiver object
+
+  // primary_superclass[Type] = Supertype <-
+  //    class_instance:constructor[Alloc] = Ctor,
+  //    constructor:class_type[Ctor] = Type,
+  //    !class_type:typeinfo[Type] = _,
+  //    // TODO: could we leverage context here?
+  //    init_by_ctor(Supertype, _, Ctor, Alloc),
+  //    struct_type:field[Type, 0] = UnpaddedType,
+  //    struct_type:nfields[UnpaddedType] = NFields,
+  //    type_compatible:up_to_field(Supertype, UnpaddedType, NFields - 1).
+
+  // Same thing for secondary superclasses, although the object that
+  // flows to constructor will have some offset w.r.t the original
+  // receiver object.
+
+  // TODO This is not entirely correct, as some fields may be labeled as
+  // superclasses
+
+  // secondary_superclass(Supertype, Type) <-
+  //    class_instance:constructor[BaseAlloc] = Ctor,
+  //    constructor:class_type[Ctor] = Type,
+  //    !class_type:typeinfo[Type] = _,
+  //    alloc_aliases(BaseAlloc0, BaseAlloc),
+  //    alloc_aliases(BaseAlloc, BaseAlloc0),     // redundant opt clause
+  //    alloc_subregion:base[Alloc] = BaseAlloc0, // reduntant opt clause
+  //    alloc_subregion:at_field[BaseAlloc0, Index] = Alloc,
+  //    // TODO: could we leverage context here?
+  //    init_by_ctor(Supertype, _, Ctor, Alloc),
+  //    struct_type:field[Type, Index] = UnpaddedType,
+  //    struct_type:nfields[UnpaddedType] = NFields,
+  //    type_compatible:up_to_field(Supertype, UnpaddedType, NFields - 1),
+  //    Index != 0.
+
+
+  //----------------------------------------------------
+  // Find vtable associated with given class instance
+  //----------------------------------------------------
+
+  .decl class_instance_vtable(?alloc: Allocation, ?vTable: VirtualTable)
+
+  class_instance_vtable(?alloc, ?vTable)
+  :-
+    class_instance_constructor(?alloc, ?ctor),
+    instruction_in_function(?storeInsn, ?ctor),
+    store_instruction_value(?storeInsn, ?value),
+    store_instruction_address(?storeInsn, ?pointer),
+    stripctx_operand_points_to(?alloc, ?pointer),
+    constant(?value),
+    constant_contains_vptr(?vTable, ?value).
+
+
+  //----------------------------------------------------
+  // Find class type associated with each vtable
+  //----------------------------------------------------
+
+  // We do that by identifying instructions that store a pointer to a
+  // vtable to the vpointer of some class instance, inside some
+  // constructor. We already now the class type associated with each
+  // constructor function, hence we now have the association between the
+  // class type and its vtable too.
+
+  // This does not always work. TODO: fix
+
+  // vtable:class_type[VTable] = Type
+  //  <-
+  //    init_by_ctor(Type, Ctor, _, Alloc),
+  //    instruction:function[StoreInsn] = Ctor,
+  //    store_instruction:value[StoreInsn] = Value,
+  //    store_instruction:address[StoreInsn] = Pointer,
+  //    operand_points_to(Alloc, Pointer),
+  //    operand:as_constant[Value] = Constant,
+  //    constant_contains_vptr(VTable, Constant).
+
+
+  // Note !!! Load instructions on class instances will return the
+  // object's vtable. The array-sensitive treatment of GEP instructions
+  // will ensure that the indices are appropriately recorded, so that
+  // any subsequent dynamic dispatch will be correctly resolved by the
+  // normal dereference rules. However, in case of non-base class types,
+  // we have to ensure that the vpointer gets strongly updated,
+  // otherwise it may also point to all v-tables of its parent class
+  // types !!!
+
+}
+
+//----------------------------------------------------
+// C++ Type Compatibility
+//----------------------------------------------------
+
+
+// REVIEW: Enhance type compatibility rules by allowing a pointer to
+// some subclass be used in the place of the pointer to the
+// superclass!!
+
+.decl _eligible_base_type(?superType: StructType, ?type: StructType)
+_eligible_base_type(?superType, ?type) :-
+   struct_type_field(?type, 0, ?unpaddedType),
+   struct_type_nfields(?unpaddedType, ?nFields),
+   type_compatible_up_to_field(?superType, ?unpaddedType, ?nFields - 1).
+
+.decl _type_expands_base_type(?superType: StructType, ?type: StructType)
+_type_expands_base_type(?superType, ?type) :-
+   _eligible_base_type(?superType, ?type)
+   ;
+   _eligible_base_type(?superType, ?intermType),
+   _type_expands_base_type(?intermType, ?type).
+
+type_compatible(?ptrActualType, ?ptrDeclaredType) :-
+   pointer_type_has_component(?ptrActualType, ?actualType),
+   pointer_type_has_component(?ptrDeclaredType, ?declaredType),
+   _type_expands_base_type(?declaredType, ?actualType).
+/*
+struct_type(Type)
+ , struct_type(UnpaddedType)
+ , type:id(Type:Sign)
+ , type:id(UnpaddedType:UnpaddedSign)
+ , struct_type:nfields[UnpaddedType] = NFields
+ , UnpaddedSign = Sign + ".base"
+ ->
+   type_compatible:up_to_field(Type, UnpaddedType, NFields - 1).
+*/

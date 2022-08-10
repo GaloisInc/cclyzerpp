@@ -1,0 +1,62 @@
+// http://llvm.org/docs/LangRef.html#indirectbr-instruction
+// keywords: terminator; instruction
+
+.type IndirectBrInstruction = Instruction
+.decl indirectbr_instruction(instr:IndirectBrInstruction)
+
+instruction(v) :- indirectbr_instruction(v).
+terminator_instruction(v) :- indirectbr_instruction(v).
+
+
+// The ‘address‘ argument is the address of the label to jump to.
+.decl indirectbr_instruction_address(instr:Instruction, address:Operand)
+
+
+// The rest of the arguments indicate the full set
+// of possible destinations that the address may point to.
+// This destination list is required so that dataflow analysis
+// has an accurate understanding of the CFG.
+
+.decl indirectbr_instruction_label(instr:Instruction, index:number, label:Variable)
+.decl indirectbr_instruction_nlabels(instr:Instruction, total:number)
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+//  (1) Address must be derived from a blockaddress constant.
+//
+//  (2) The ‘blockaddress‘ constant computes the address of the
+//      specified basic block in the specified function, and always
+//      has an i8* type.
+//------------------------------------------------------------------------------
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   indirectbr_instruction(Instr),
+   !indirectbr_instruction_address(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   indirectbr_instruction(Instr),
+   !indirectbr_instruction_nlabels(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   indirectbr_instruction(Instr),
+   indirectbr_instruction_label(Instr, _, Label),
+   !variable_is_label(Label).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   indirectbr_instruction(Instr),
+   indirectbr_instruction_label(Instr, Index, _),
+   indirectbr_instruction_nlabels(Instr, Total),
+   (Index < 0 ; Index >= Total).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   indirectbr_instruction(Instr),
+   indirectbr_instruction_address(Instr, Address),
+   operand_has_type(Address, Type),
+   !int8_type(Type).

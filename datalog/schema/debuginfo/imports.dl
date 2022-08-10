@@ -1,0 +1,12 @@
+//-----------------------------------------------------------
+// Debug Info - Imported Entities
+//-----------------------------------------------------------
+
+.decl di?imported_entity(entry:DIImportedEntity)
+.decl di?imported_entity_name(entry:DIImportedEntity, name:symbol)
+.decl di?imported_entity_line(entry:DIImportedEntity, line:number)
+.decl di?imported_entity_scope(entry:DIImportedEntity, scope:DIScope)
+.decl di?imported_entity_entity(entry:DIImportedEntity, entity:DIEntry)
+.decl di?imported_entity_raw_entity(entry:DIImportedEntity, entity:symbol)
+
+di?entry(e) :- di?imported_entity(e).

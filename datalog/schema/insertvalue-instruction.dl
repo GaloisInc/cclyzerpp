@@ -1,0 +1,112 @@
+// http://llvm.org/docs/LangRef.html#insertvalue-instruction
+// keywords: aggregate; instruction
+
+.type InsertValueInstruction = Instruction
+.decl insertvalue_instruction(instr:InsertValueInstruction)
+
+instruction(v) :- insertvalue_instruction(v).
+
+.decl insertvalue_instruction_base(instr:InsertValueInstruction, aggregate:Operand)
+.decl insertvalue_instruction_value(instr:InsertValueInstruction, value:Operand)
+
+//------------------------
+// Aggregate Indices
+//------------------------
+
+.decl insertvalue_instruction_nindices(instr:InsertValueInstruction, total:number)
+.decl insertvalue_instruction_index(instr:InsertValueInstruction, i:number, idx:number)
+
+next_instruction_index(Instr, Index, Index + 1) :-
+   insertvalue_instruction_index(Instr, Index, _).
+
+
+//------------------------------------------------
+// The resulting type for each dereference.
+//------------------------------------------------
+
+.decl insertvalue_instruction_base_type(instr:InsertValueInstruction, type:Type)
+.decl insertvalue_instruction_value_type(instr:InsertValueInstruction, type:Type)
+.decl insertvalue_instruction_interm_type(instr:InsertValueInstruction, i:number, type:Type)
+
+insertvalue_instruction_interm_type(Instr, 0, Type) :-
+   insertvalue_instruction_base(Instr, Aggregate),
+   operand_has_type(Aggregate, Type).
+
+insertvalue_instruction_interm_type(Instr, NextIndex, Type) :-
+   insertvalue_instruction_interm_type(Instr, Index, StructType),
+   insertvalue_instruction_index(Instr, Index, IdxValue),
+   struct_type_field(StructType, IdxValue, Type),
+   next_instruction_index(Instr, Index, NextIndex).
+
+insertvalue_instruction_interm_type(Instr, NextIndex, Type) :-
+   insertvalue_instruction_interm_type(Instr, Index, ArrayType),
+   array_type_has_component(ArrayType, Type),
+   next_instruction_index(Instr, Index, NextIndex).
+
+insertvalue_instruction_value_type(Instr, Type) :-
+   insertvalue_instruction_nindices(Instr, Total),
+   insertvalue_instruction_interm_type(Instr, Total, Type).
+
+insertvalue_instruction_base_type(Instr, Type) :-
+   insertvalue_instruction_interm_type(Instr, 0, Type).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+//  (1) The first operand of an ‘insertvalue‘ instruction is
+//      a value of struct or array type.
+//  (2) The second operand is a first-class value to insert.
+//  (3) The value to insert must have the same type as the value
+//      identified by the indices.
+//  (4) At least one index must be specified.
+//
+// The result is an aggregate of the same type as the first
+// operand type.
+//------------------------------------------------------------------------------
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   insertvalue_instruction(Instr),
+   !insertvalue_instruction_base(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   insertvalue_instruction(Instr),
+   !insertvalue_instruction_value(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   insertvalue_instruction(Instr),
+   !insertvalue_instruction_nindices(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   insertvalue_instruction(Instr),
+   !insertvalue_instruction_index(Instr, 0, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   insertvalue_instruction_base_type(Instr, BaseType),
+   !aggregate_type(BaseType).   // c1
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   insertvalue_instruction_value_type(Instr, Type),
+   !type_is_firstclass(Type).   // c2
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   insertvalue_instruction_value(Instr, Value),
+   insertvalue_instruction_value_type(Instr, Type),
+   !operand_has_type(Value, Type). // c3
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   insertvalue_instruction_nindices(Instr, Total),
+   Total <= 0.                  // c4
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   insertvalue_instruction_base_type(Instr, BaseType),
+   !instruction_returns_type(Instr, BaseType). // creturn

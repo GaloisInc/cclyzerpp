@@ -1,0 +1,22 @@
+//-----------------------------------------------------------
+// Debug Info - Enumerators
+//-----------------------------------------------------------
+
+.decl di?enumerator(entry:DIEnumerator)
+.decl di?enumerator_name(entry:DIEnumerator, name:symbol)
+.decl di?enumerator_value(entry:DIEnumerator, value:number)
+
+di?entry(e) :- di?enumerator(e).
+
+
+// Constraints
+
+debuginfo_invalid_entry(Entry, __FILE__, __LINE__) :-
+   schema_sanity(),
+   di?enumerator(Entry),
+   !di?enumerator_name(Entry, _).
+
+debuginfo_invalid_entry(Entry, __FILE__, __LINE__) :-
+   schema_sanity(),
+   di?enumerator(Entry),
+   !di?enumerator_value(Entry, _).

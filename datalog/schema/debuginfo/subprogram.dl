@@ -1,0 +1,39 @@
+//-----------------------------------------------------------
+// Debug Info - Subprogram Scopes
+//-----------------------------------------------------------
+
+.decl di?subprogram(entry:DISubprogram)
+.decl di?subprogram_name(entry:DISubprogram, name:symbol)
+.decl di?subprogram_linkage_name(entry:DISubprogram, name:symbol)
+.decl di?subprogram_line(entry:DISubprogram, line:number)
+.decl di?subprogram_source_file(entry:DISubprogram, file:DIFile)
+.decl di?subprogram_declaration(entry:DISubprogram, decl:DISubprogram)
+.decl di?subprogram_function(entry:DISubprogram, func:FunctionDecl)
+
+di?local_scope(e) :- di?subprogram(e).
+
+// Containing Type
+.decl di?subprogram_containing_type(entry:DISubprogram, type:DITypeEntry)
+.decl di?subprogram_raw_containing_type(entry:DISubprogram, type:symbol)
+
+// Type and Scope
+.decl di?subprogram_type(entry:DISubprogram, type:DITypeEntry)
+.decl di?subprogram_scope(entry:DISubprogram, scope:DIScope)
+.decl di?subprogram_scope_line(entry:DISubprogram, line:number)
+.decl di?subprogram_raw_scope(entry:DISubprogram, scope:symbol)
+
+// Various Flags
+.decl di?subprogram_has_flag(entry:DISubprogram, flag:symbol)
+.decl di?subprogram_is_definition(entry:DISubprogram)
+.decl di?subprogram_is_local_to_unit(entry:DISubprogram)
+.decl di?subprogram_is_optimized(entry:DISubprogram)
+
+// Virtuality and Virtual Index
+.decl di?subprogram_virtuality(entry:DISubprogram, virtuality:symbol)
+.decl di?subprogram_virtual_index(entry:DISubprogram, index:number)
+
+// Template Parameters
+.decl di?subprogram_template_param(entry:DISubprogram, idx:number, param:DITemplateParam)
+
+// Variables
+.decl di?subprogram_variable(entry:DISubprogram, idx:number, param:DIVariable)

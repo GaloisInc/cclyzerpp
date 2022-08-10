@@ -1,0 +1,7 @@
+#include "common.project"
+#include "export/subset.dl"
+#include "export/unification.dl"
+#include "points-to/assertions.dl"
+#include "points-to/points-to-statistics.dl"
+#include "points-to/subset.dl"
+#include "points-to/unification.dl"

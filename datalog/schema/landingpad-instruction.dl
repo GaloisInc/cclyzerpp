@@ -1,0 +1,231 @@
+// http://llvm.org/docs/LangRef.html#landingpad-instruction
+// keywords: exception; instruction
+
+.type LandingPadInstruction = Instruction
+.decl landingpad_instruction(instr:LandingPadInstruction)
+.decl landingpad_instruction_is_cleanup(instr:LandingPadInstruction)
+
+instruction(v) :- landingpad_instruction(v).
+
+// result type
+.decl landingpad_instruction_type(instr:LandingPadInstruction, type:Type)
+
+// personality function
+.decl landingpad_instruction_pers_fn(instr:LandingPadInstruction, func:FunctionDecl)
+
+landingpad_instruction_pers_fn(Instr, PersFunction) :-
+   landingpad_instruction(Instr),
+   instruction_in_function(Instr, EnclosingFunction),
+   function_with_pers_fn(EnclosingFunction, FnConstant),
+   function_constant(FnConstant),
+   function_constant_fn_name(FnConstant, PersFnName),
+   function_has_name(PersFunction, PersFnName).
+
+landingpad_instruction_pers_fn(Instr, PersFunction) :-
+   landingpad_instruction(Instr),
+   instruction_in_function(Instr, EnclosingFunction),
+   function_with_pers_fn(EnclosingFunction, BitcastConstant),
+   bitcast_constant_expression_from(BitcastConstant, FnConstant),
+   function_constant(FnConstant),
+   function_constant_fn_name(FnConstant, PersFnName),
+   function_has_name(PersFunction, PersFnName).
+
+
+//------------------------------------------------------------------------------
+// [Landing Pad]
+//
+// A landing pad block is a basic block which is the unwind
+// destination of an ‘invoke‘ instruction.
+//
+// A landing pad block must have a ‘landingpad‘ instruction as its
+// first non-PHI instruction.
+//
+//
+// In order to compute the first non-phi instruction per landing pad,
+// we first have to record its segment of consecutive phi-instructions
+// from its starting point, encoded in predicate `landingpad:phi'.
+//
+// The first *non-phi* instruction of a landing pad may be either
+// (i) its first instruction, or (ii) the first non-phi instruction
+// that follows the segment described above.
+//
+// The landing pad block cannot contain any other landing pad
+// instructions, except this one.
+//------------------------------------------------------------------------------
+
+// Landing Pad Definition
+.decl landingpad(bb:BasicBlock)
+
+landingpad(BB) :-
+   invoke_instruction_exception_label(_, Label),
+   basicblock_of_label(BB, Label).
+
+
+// Compute the segment of consecutive phi-instructions from starting
+// point, per landing pad.
+
+.decl _landingpad_starting_phi(bb:BasicBlock, instr:PhiInstruction)
+
+_landingpad_starting_phi(BB, Instr) :-
+   landingpad(BB),
+   basicblock_first_instruction(BB, Instr),
+   phi_instruction(Instr).
+
+_landingpad_starting_phi(BB, NextInstr) :-
+   _landingpad_starting_phi(BB, Instr),
+   next_instruction(Instr, NextInstr),
+   phi_instruction(NextInstr),
+   instruction_in_basicblock(NextInstr, BB).
+
+
+// Compute the first non-phi instruction, per landing pad.
+
+.decl _landingpad_first_nonphi(bb:BasicBlock, instr:Instruction)
+
+_landingpad_first_nonphi(BB, Instr) :-
+   landingpad(BB),
+   basicblock_first_instruction(BB, Instr),
+   !phi_instruction(Instr).
+
+_landingpad_first_nonphi(BB, NextInstr) :-
+   _landingpad_starting_phi(BB, Instr),
+   next_instruction(Instr, NextInstr),
+   !phi_instruction(NextInstr),
+   instruction_in_basicblock(NextInstr, BB).
+
+
+// Same as above, via different computation.
+.decl _landingpad_contains_landingpad_instruction(bb:BasicBlock, instr:Instruction)
+
+_landingpad_contains_landingpad_instruction(BB, Instr) :-
+   landingpad_instruction(Instr),
+   instruction_in_basicblock(Instr, BB),
+   landingpad(BB).
+
+
+// Sanity Check: the two instructions must coincide.
+.decl _valid_landingpad(bb:BasicBlock)
+
+_valid_landingpad(BB) :-
+   landingpad(BB),
+   _landingpad_first_nonphi(BB, Instr),
+   _landingpad_contains_landingpad_instruction(BB, Instr).
+
+
+//------------------------------------------------------------------------------
+// [Clauses]
+//
+// A clause begins with the clause type — catch or filter — and
+// contains the global variable representing the “type” that may be
+// caught or filtered respectively.
+//
+// Unlike the catch clause, the filter clause takes an array
+// constant as its argument.
+//------------------------------------------------------------------------------
+
+// Clauses as records
+
+.type Clause = [
+   arg : Constant
+]
+
+.decl clause(c:Clause)
+.decl catch_clause(c:Clause)
+.decl filter_clause(c:Clause)
+
+clause(c) :- catch_clause(c) ; filter_clause(c).
+
+// Clause Predicates
+.decl landingpad_instruction_clause(instr:LandingPadInstruction, i:number, clause:Clause)
+.decl landingpad_instruction_nclauses(instr:LandingPadInstruction, total:number)
+
+// Enforce that clause is either catch or filter
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   landingpad_instruction_clause(Instr, _, Clause),
+   !catch_clause(Clause),
+   !filter_clause(Clause).
+
+
+//-------------------------------------------------------------------------
+// [Constraints]
+//
+// The landingpad instruction has several restrictions:
+//  (1) A landing pad block is a basic block which is the unwind
+//      destination of an ‘invoke‘ instruction. (See
+//      invoke-instruction.)
+//  (2) A landing pad block must have a ‘landingpad‘ instruction
+//      as its first non-PHI instruction.
+//  (3) There can be only one ‘landingpad‘ instruction within the
+//      landing pad block.
+//  (4) A basic block that is not a landing pad block may not include
+//      a ‘landingpad‘ instruction.
+//  (5) All ‘landingpad‘ instructions in a function must have the same
+//      personality function.
+//  (6) The ‘landingpad‘ instruction must contain at least one clause
+//      or the cleanup flag.
+//-------------------------------------------------------------------------
+
+
+// Additional type constraints not mentioned above
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   landingpad_instruction_clause(Instr, _, Clause),
+   filter_clause(Clause),
+   Clause = [ Constant ],
+   constant_has_type(Constant, Type),
+   !array_type(Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   landingpad_instruction_type(Instr, Type),
+   !instruction_returns_type(Instr, Type).
+
+
+// 1st Constraint is omitted, since it is not really a constraint,
+// rather than a definition of a landing pad (already encoded in the
+// relevant section)
+
+
+// 2nd Constraint: first non-phi instruction must be a landing pad
+// instruction (i.e., its only landing pad instruction)
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   landingpad(BB), !_valid_landingpad(BB),
+   basicblock_first_instruction(BB, Instr).
+
+
+// 3rd Constraint: in case of multiple landing pad instructions in a
+// basic block, the basic block will be marked invalid, since at least
+// one of these landing pad instruction will not match its first
+// non-phi.
+
+
+// 4th Constraint: only landing pad blocks may contain landing pad
+// instructions
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   landingpad_instruction(Instr),
+   instruction_in_basicblock(Instr, BB),
+   !landingpad(BB).
+
+
+// 5th Constraint: all ‘landingpad‘ instructions in a function must
+// have the same personality function
+schema_invalid_instruction(Instr1, __FILE__, __LINE__) :-
+   schema_sanity(),
+   landingpad_instruction(Instr1),
+   landingpad_instruction_pers_fn(Instr1, PersFunc),
+   instruction_in_function(Instr1, Func),
+   instruction_in_function(Instr2, Func),
+   landingpad_instruction(Instr2),
+   !landingpad_instruction_pers_fn(Instr2, PersFunc).
+
+
+// 6th Constraint: the ‘landingpad‘ instruction must contain at least
+// one clause or the cleanup flag
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   landingpad_instruction(Instr),
+   !landingpad_instruction_is_cleanup(Instr),
+   !landingpad_instruction_clause(Instr, 0, _).

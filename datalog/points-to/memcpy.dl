@@ -1,0 +1,155 @@
+//------------------------------------------------------------------------------
+// [Memcpy instructions]
+//
+//  We must treat `memcpy` instructions in such a way as to ensure
+//  that it may change the points-to set of any subregion of memory
+//  that is being copied.
+//------------------------------------------------------------------------------
+.comp Memcpy {
+
+  //----------------------------------------------------------------------------
+  // "Input"/declared rules
+  //
+  // https://souffle-lang.github.io/components#input-rules
+  //----------------------------------------------------------------------------
+
+  .decl alloc_subregion(?alloc:Allocation) inline
+  .decl alloc_subregion_at_any_array_index(?alloc: Allocation, ?region: AllocSubregion) inline
+  .decl alloc_subregion_offset(?alloc: Allocation, ?region: AllocSubregion, ?offset: SubregionOffset) inline
+  .decl allocation_type(?alloc:Allocation, ?type:Type) inline
+  .decl callgraph_edge(?calleeCtx: Context, ?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: Instruction) inline
+  .decl memcpy_sig(?toCtx: Context, ?to: Allocation, ?fromCtx: Context , ?from: Allocation) inline
+  .decl operand_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?operand: Operand) inline
+  .decl var_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable) inline
+
+  //----------------------------------------------------------------------------
+  // "Output"/defined rules
+  //
+  // By convention, rules that begin with an underscore are internal
+  // implementation details, and should not be accessed outside the component.
+  //----------------------------------------------------------------------------
+
+  // Two kinds of `memcpy` predicates that will trigger the deep copy
+  // semantics for the corresponding allocations they point to.
+  //
+  // The first one is for ordinary memcpy calls, while the second one is
+  // intended to simulate pass-by-value copy semantics.
+
+  .decl _memcpy_call(?ctx: Context, ?to: Operand, ?from: Operand, ?size: number)
+
+  _memcpy_call(?callerCtx, ?to, ?from, ?size) :-
+    function_has_name(?callee, ?name),
+    (
+    "@memcpy"=substr(?name,0,7);
+    "@llvm.memcpy"=substr(?name,0,12)
+    ),
+    callgraph_edge(_, ?callee, ?callerCtx, ?memcpyInstr),
+    actual_arg(?memcpyInstr, 0, ?to),
+    actual_arg(?memcpyInstr, 1, ?from),
+    actual_arg(?memcpyInstr, 2, ?sizeOp),
+    ( operand_to_int(?sizeOp, ?size)
+    ; ( ! operand_to_int(?sizeOp, _)
+      , ?size = 0
+      )
+    ).
+
+  // Logic should handle syntactic aliases. For instance
+  // `memcpy(to,from)` is equivalent to `memcpy(to, &from[0])`. We
+  // consider all possible aliases of the base objects that flow to the
+  // operands of the @memcpy instruction, but only keep type compatible
+  // pairs.
+  // TODO(SM): Previously these rules explicitly accounted for this
+  // using the alloc_aliases relation, but removing this had no effect
+  // on a number of large test bases. Needs to be revisited...
+
+  // Bitwise copy semantics that respect type information
+  .decl _try_memcpy(?toCtx: Context, ?to: Allocation, ?fromCtx: Context, ?from: Allocation, size: number)
+
+  _try_memcpy(?toACtx, ?toAlloc, ?fromACtx, ?fromAlloc, ?size)
+  :-
+    _memcpy_call(?ctx, ?to, ?from, ?size),
+    operand_points_to(?toACtx, ?toAlloc, ?ctx, ?to),
+    operand_points_to(?fromACtx, ?fromAlloc, ?ctx, ?from).
+
+  _try_memcpy(?toACtx, ?toAlloc, ?fromACtx, ?fromAlloc, 0)
+  :-
+    memcpy_pass_by_value(?toCtx, ?to, ?fromCtx, ?from),
+    operand_points_to(?fromACtx, ?fromAlloc, ?fromCtx, ?from),
+    var_points_to(?toACtx, ?toAlloc, ?toCtx, ?to).
+
+  _try_memcpy(?toACtx, ?toAlloc, ?fromACtx, ?fromAlloc, 0)
+  :-
+    memcpy_sig(?toACtx, ?toAlloc, ?fromACtx, ?fromAlloc).
+
+  .decl _stripctx_memcpy(?toAlloc: Allocation, ?fromAlloc: Allocation, ?size: number)
+  _stripctx_memcpy(?toAlloc, ?fromAlloc, ?size) :-
+    _try_memcpy(_, ?toAlloc, _, ?fromAlloc, ?size),
+    ptr_compatible_allocation(?toAlloc). // make sure "to" isn't e.g. a const global
+
+  .decl _type_compatible_memcpy(?to: Allocation, ?from: Allocation, ?size: number)
+  _type_compatible_memcpy(?toAlloc, ?fromAlloc, ?size) :-
+    _stripctx_memcpy(?toAlloc, ?fromAlloc, ?size),
+    allocation_type(?toAlloc, ?toType),
+    allocation_type(?fromAlloc, ?fromType),
+    type_compatible(?fromType, ?toType).
+
+  .decl _well_typed_and_sized_memcpy(?to: Allocation, ?from: Allocation, ?size: number)
+  _well_typed_and_sized_memcpy(?toAlloc, ?fromAlloc, ?size) :-
+    _type_compatible_memcpy(?toAlloc, ?fromAlloc, ?size),
+    ( dynamically_sized_alloc(?fromAlloc)
+    ; ( allocation_size(?fromAlloc, ?fromSize)
+      , ?fromSize >= ?size
+      )
+    ),
+    ( dynamically_sized_alloc(?toAlloc)
+    ; ( allocation_size(?toAlloc, ?toSize)
+      , ?toSize >= ?size
+      )
+    ).
+
+  .decl _do_memcpy(?toCtx: Context, ?to: Allocation, ?fromCtx: Context, ?from: Allocation)
+  _do_memcpy(?toCtx, ?to, ?fromCtx, ?from) :-
+    _try_memcpy(?toCtx, ?to, ?fromCtx, ?from, ?size),
+    _well_typed_and_sized_memcpy(?to, ?from, ?size).
+
+  //------------------------------------------------------------------------------
+  // [Recursive Memory Copying]
+  //
+  // Memory copy may extend to subobjects. As an optimization, we do not
+  // keep track of context during the recursive computation of memcopied
+  // pairs, since we can take it back from their respective base
+  // objects.
+  //------------------------------------------------------------------------------
+
+  .decl rec_memcpy(?toCtx: Context, ?to: Allocation, ?fromCtx: Context, ?from: Allocation)
+
+  rec_memcpy(?toCtx, ?to, ?fromCtx, ?from) :-
+    _do_memcpy(?toCtx, ?to, ?fromCtx, ?from).
+
+  // Copy contents from type-compatible allocations at the same offset
+  rec_memcpy(?toCtx, ?to, ?fromCtx, ?from) :-
+    rec_memcpy(?toCtx, ?toOuter, ?fromCtx, ?fromOuter),
+    alloc_subregion_offset(?fromOuter, ?from, ?offset),
+    alloc_subregion_offset(?toOuter, ?to, ?offset).
+
+  rec_memcpy(?toCtx, ?to, ?fromCtx, ?from) :-
+    rec_memcpy(?toCtx, ?toOuter, ?fromCtx, ?fromOuter),
+    alloc_subregion_at_any_array_index(?fromOuter, ?from),
+    alloc_subregion_at_any_array_index(?toOuter, ?to).
+
+  // Account for the destination having different array suballocations
+  rec_memcpy(?toCtx, ?to, ?fromCtx, ?from) :-
+    rec_memcpy(?toCtx, ?toOuter, ?fromCtx, ?fromOuter),
+    alloc_subregion_offset(?fromOuter, ?from, ?offset),
+    allocation_type(?toOuter, ?toOuterType),
+    alloc_region(?toOuter, ?toOuterRegion),
+    ( ( alloc_subregion(?toOuter)
+      , array_type(?toOuterType)
+      , ! array_offset(?toOuterRegion, ?toOuterType, ?offset)
+      )
+    ; ( basic_allocation(?toOuter)
+      , ! pointer_offset(?toOuterRegion, ?toOuterType, ?offset)
+      )
+    ),
+    alloc_subregion_at_any_array_index(?toOuter, ?to).
+}

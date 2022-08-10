@@ -1,0 +1,171 @@
+//-----------------------------------------------------------
+// Debug Info - Core Type Entry
+//-----------------------------------------------------------
+
+.decl di?type_entry(entry:DITypeEntry)
+.decl di?type_entry_name(entry:DITypeEntry, name:symbol)
+.decl di?type_entry_line(entry:DITypeEntry, line:Line)
+.decl di?type_entry_scope(entry:DITypeEntry, scope:DIScope)
+.decl di?type_entry_raw_scope(entry:DITypeEntry, scope:symbol)
+.decl di?type_entry_has_flag(entry:DITypeEntry, flag:symbol)
+.decl di?type_entry_is_bit_aligned_to(entry:DITypeEntry, alignment:number)
+.decl di?type_entry_has_bit_size(entry:DITypeEntry, size:number)
+.decl di?type_entry_has_bit_offset(entry:DITypeEntry, offset:number)
+.decl di?type_entry_is_forward_decl(entry:DITypeEntry)
+.decl di?type_entry_is_static_member(entry:DITypeEntry)
+
+// Enforce predicate subtyping
+di?scope(e) :- di?type_entry(e).
+
+di?type_entry_is_forward_decl(Entry) :-
+   di?type_entry_has_flag(Entry, "DIFlagFwdDecl").
+
+di?type_entry_is_static_member(Entry) :-
+   di?type_entry_has_flag(Entry, "DIFlagStaticMember").
+
+
+//-----------------------------------------------------------
+// Debug Info - Basic Type Entry
+//-----------------------------------------------------------
+
+.decl di?basic_type_entry(entry:DIBasicTypeEntry)
+
+di?type_entry(e) :- di?basic_type_entry(e).
+
+
+//-----------------------------------------------------------
+// Debug Info - Composite Type Entry
+//-----------------------------------------------------------
+
+.decl di?composite_type_entry(entry:DICompositeTypeEntry)
+.decl di?composite_type_entry_source_file(entry:DICompositeTypeEntry, file:DIFile)
+.decl di?composite_type_entry_abi_id(entry:DICompositeTypeEntry, id:symbol)
+.decl di?composite_type_entry_field(entry:DICompositeTypeEntry, idx:number, field:DITypeEntry)
+.decl di?composite_type_entry_base_type(entry:DICompositeTypeEntry, type:DITypeEntry)
+.decl di?composite_type_entry_raw_base_type(entry:DICompositeTypeEntry, type:symbol)
+.decl di?composite_type_entry_base_vtable(entry:DICompositeTypeEntry, vtable:DITypeEntry)
+.decl di?composite_type_entry_raw_base_vtable(entry:DICompositeTypeEntry, vtable:symbol)
+.decl di?composite_type_entry_template_param(entry:DICompositeTypeEntry, idx:number, param:DITemplateParam)
+
+// Kinds of composite type entries
+.decl di?structure_type_entry(entry:DICompositeTypeEntry)
+.decl di?class_type_entry(entry:DICompositeTypeEntry)
+.decl di?union_type_entry(entry:DICompositeTypeEntry)
+.decl di?array_type_entry(entry:DICompositeTypeEntry)
+.decl di?enum_type_entry(entry:DICompositeTypeEntry)
+
+// Array Composite Types
+.decl di?composite_type_entry_subrange(entry:DICompositeTypeEntry, idx:number, subrange:DISubrange)
+
+// Enum Composite Types
+.decl di?composite_type_entry_enumerator(entry:DICompositeTypeEntry, idx:number, enumerator:DIEnumerator)
+
+// Enforce predicate subtyping
+di?type_entry(e) :- di?composite_type_entry(e).
+di?composite_type_entry(e) :- di?structure_type_entry(e).
+di?composite_type_entry(e) :- di?class_type_entry(e).
+di?composite_type_entry(e) :- di?union_type_entry(e).
+di?composite_type_entry(e) :- di?array_type_entry(e).
+di?composite_type_entry(e) :- di?enum_type_entry(e).
+
+// Constraints
+debuginfo_invalid_entry(Entry, __FILE__, __LINE__) :-
+   schema_sanity(),
+   di?composite_type_entry(Entry),
+   di?composite_type_entry_field(Entry, _, _),
+   !di?structure_type_entry(Entry),
+   !di?class_type_entry(Entry),
+   !di?union_type_entry(Entry).
+
+debuginfo_invalid_entry(Entry, __FILE__, __LINE__) :-
+   schema_sanity(),
+   di?composite_type_entry_subrange(Entry, _, _),
+   !di?array_type_entry(Entry).
+
+debuginfo_invalid_entry(Entry, __FILE__, __LINE__) :-
+   schema_sanity(),
+   di?composite_type_entry_enumerator(Entry, _, _),
+   !di?enum_type_entry(Entry).
+
+
+//-----------------------------------------------------------
+// Debug Info - Derived Type Entry
+//-----------------------------------------------------------
+
+.decl di?derived_type_entry(entry:DIDerivedTypeEntry)
+.decl di?derived_type_entry_source_file(entry:DIDerivedTypeEntry, file:DIFile)
+.decl di?derived_type_entry_kind(entry:DIDerivedTypeEntry, kind:DITag)
+.decl di?derived_type_entry_base_type(entry:DIDerivedTypeEntry, type:DITypeEntry)
+.decl di?derived_type_entry_raw_base_type(entry:DIDerivedTypeEntry, type:symbol)
+
+di?type_entry(e) :- di?derived_type_entry(e).
+di?tag(t) :- di?derived_type_entry_kind(_, t).
+
+// Categorize derived type entries by kind
+
+.decl di?member_type_entry(entry:DIDerivedTypeEntry)
+.decl di?ptr_type_entry(entry:DIDerivedTypeEntry)
+.decl di?const_type_entry(entry:DIDerivedTypeEntry)
+.decl di?typedef_type_entry(entry:DIDerivedTypeEntry)
+.decl di?restrict_type_entry(entry:DIDerivedTypeEntry)
+.decl di?volatile_type_entry(entry:DIDerivedTypeEntry)
+.decl di?reference_type_entry(entry:DIDerivedTypeEntry)
+.decl di?friend_type_entry(entry:DIDerivedTypeEntry)
+.decl di?inheritance_type_entry(entry:DIDerivedTypeEntry)
+.decl di?rvalue_ref_type_entry(entry:DIDerivedTypeEntry)
+.decl di?ptr_to_member_type_entry(entry:DIDerivedTypeEntry)
+
+di?member_type_entry(Entry) :-
+   di?tag_member(MemberTag),
+   di?derived_type_entry_kind(Entry, MemberTag).
+
+di?ptr_type_entry(Entry) :-
+   di?tag_pointer_type(PtrTag),
+   di?derived_type_entry_kind(Entry, PtrTag).
+
+di?const_type_entry(Entry) :-
+   di?tag_const_type(ConstTag),
+   di?derived_type_entry_kind(Entry, ConstTag).
+
+di?typedef_type_entry(Entry) :-
+   di?tag_typedef(TypedefTag),
+   di?derived_type_entry_kind(Entry, TypedefTag).
+
+di?restrict_type_entry(Entry) :-
+   di?tag_restrict_type(RestrictTag),
+   di?derived_type_entry_kind(Entry, RestrictTag).
+
+di?volatile_type_entry(Entry) :-
+   di?tag_volatile_type(VolatileTag),
+   di?derived_type_entry_kind(Entry, VolatileTag).
+
+di?reference_type_entry(Entry) :-
+   di?tag_reference_type(ReferenceTag),
+   di?derived_type_entry_kind(Entry, ReferenceTag).
+
+di?friend_type_entry(Entry) :-
+   di?tag_friend(FriendTag),
+   di?derived_type_entry_kind(Entry, FriendTag).
+
+di?inheritance_type_entry(Entry) :-
+   di?tag_inheritance(InheritanceTag),
+   di?derived_type_entry_kind(Entry, InheritanceTag).
+
+di?rvalue_ref_type_entry(Entry) :-
+   di?tag_rvalue_ref_type(RValueRefTag),
+   di?derived_type_entry_kind(Entry, RValueRefTag).
+
+di?ptr_to_member_type_entry(Entry) :-
+   di?tag_ptr_to_member_type(PtrToMemberTag),
+   di?derived_type_entry_kind(Entry, PtrToMemberTag).
+
+
+//-----------------------------------------------------------
+// Debug Info - Subroutine Type Entry
+//-----------------------------------------------------------
+
+.decl di?subroutine_type_entry(entry:DISubroutineTypeEntry)
+.decl di?subroutine_type_entry_type_elem(entry:DISubroutineTypeEntry, idx:number, type:DITypeEntry)
+.decl di?subroutine_type_entry_raw_type_elem(entry:DISubroutineTypeEntry, idx:number, type:symbol)
+
+di?type_entry(e) :- di?subroutine_type_entry(e).

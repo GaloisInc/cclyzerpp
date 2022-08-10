@@ -1,0 +1,7 @@
+#include "schema/schema.project"
+#include "import/import.project"
+#include "symbol-lookup/symbol-lookup.project"
+#include "callgraph/callgraph.project"
+#include "points-to/points-to.project"
+#include "context/context.project"
+#include "options/user-options.dl"

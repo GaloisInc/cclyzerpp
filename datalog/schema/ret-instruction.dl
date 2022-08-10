@@ -1,0 +1,75 @@
+// http://llvm.org/docs/LangRef.html#ret-instruction
+// keywords: terminator; instruction
+
+.type RetInstruction = Instruction
+.decl ret_instruction(instr:RetInstruction)
+
+instruction(v) :- ret_instruction(v).
+terminator_instruction(v) :- ret_instruction(v).
+
+// The ‘ret‘ instruction optionally accepts a single
+// argument, the return value.
+
+.decl ret_instruction_value(instr:RetInstruction, val:Operand)
+.decl void_ret_instruction(instr:RetInstruction)
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   void_ret_instruction(Instr),
+   ret_instruction_value(Instr, _).
+
+
+//------------------------------------------------------------------------------
+// [Well Formed Functions]
+//
+// A function is not well formed if:
+//  (i)   it it has a non-void return type and contains a ‘ret‘
+//        instruction with no return value or
+//
+//  (ii)  a return value with a type that does not match its type, or
+//
+//  (iii) if it has a void return type and contains a ‘ret‘
+//        instruction with a return value.
+//------------------------------------------------------------------------------
+
+.decl function_is_wellformed(func:Function)
+.decl function_is_illformed(func:Function)
+
+function_is_wellformed(Func):-
+   function(Func),
+   !function_is_illformed(Func).
+
+function_is_illformed(Func) :-
+   void_ret_instruction(Instr),
+   instruction_in_function(Instr, Func),
+   function_has_type(Func, FuncType),
+   function_type_return(FuncType, RetType),
+   !void_type(RetType).
+
+function_is_illformed(Func) :-
+   ret_instruction_value(Instr, Value),
+   instruction_in_function(Instr, Func),
+   function_has_type(Func, FuncType),
+   function_type_return(FuncType, RetType),
+   !void_type(RetType),
+   !operand_has_type(Value, RetType).
+
+function_is_illformed(Func) :-
+   ret_instruction(Instr),
+   !void_ret_instruction(Instr),
+   instruction_in_function(Instr, Func),
+   function_has_type(Func, FuncType),
+   function_type_return(FuncType, RetType),
+   void_type(RetType).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+//  (i) The type of the return value must be a ‘first class‘ type.
+//------------------------------------------------------------------------------
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   ret_instruction_value(Instr, Value),
+   !operand_is_firstclass(Value).

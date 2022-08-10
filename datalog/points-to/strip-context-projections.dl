@@ -1,0 +1,36 @@
+//------------------------------------------------------------------------------
+// Context-Insensitive Projections of core relations
+//------------------------------------------------------------------------------
+
+.comp StripCtx {
+  //----------------------------------------------------------------------------
+  // "Input"/declared rules
+  //
+  // https://souffle-lang.github.io/components#input-rules
+  //----------------------------------------------------------------------------
+
+  .decl callgraph_edge(?calleeCtx: Context, ?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: Instruction) inline
+  .decl operand_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?operand: Operand) inline
+  .decl ptr_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?ptr: Allocation) inline
+  .decl var_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable) inline
+
+  //----------------------------------------------------------------------------
+  // "Output"/defined rules
+  //----------------------------------------------------------------------------
+
+  .decl stripctx_callgraph_edge(?callee: FunctionDecl, ?callerInstr: Instruction)
+  stripctx_callgraph_edge(?callee, ?callerInstr) :-
+    callgraph_edge(_, ?callee, _, ?callerInstr).
+
+  .decl stripctx_var_points_to(?alloc: Allocation, ?var: Variable)
+  stripctx_var_points_to(?alloc, ?var) :-
+    var_points_to(_, ?alloc, _, ?var).
+
+  .decl stripctx_ptr_points_to(?to: Allocation, ?from: Allocation)
+  stripctx_ptr_points_to(?to, ?from) :-
+    ptr_points_to(_, ?to, _, ?from).
+
+  .decl stripctx_operand_points_to(?to: Allocation, ?from: Operand)
+  stripctx_operand_points_to(?to, ?from) :-
+    operand_points_to(_, ?to, _, ?from).
+}

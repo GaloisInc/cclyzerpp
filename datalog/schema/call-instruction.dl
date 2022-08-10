@@ -1,0 +1,183 @@
+// http://llvm.org/docs/LangRef.html#call-instruction
+// keywords: instruction
+
+.type CallInstruction = Instruction
+.decl call_instruction(instr:CallInstruction)
+
+instruction(v) :- call_instruction(v).
+
+// Function operand: can be either a constant or a variable
+.decl call_instruction_fn_operand(instr:CallInstruction, op:Operand)
+
+// Resolved function of call instruction. Initially empty.
+.decl call_instruction_fn_target(instr:CallInstruction, func:FunctionDecl)
+
+// Eligible for tail call optimizations
+.decl call_instruction_is_tail_opt(instr:CallInstruction)
+
+
+// If none is specified, the call defaults to using C
+// calling conventions.
+.decl call_instruction_with_calling_convention(instr:CallInstruction, cc:CallingConvention)
+calling_convention(cc) :- call_instruction_with_calling_convention(_, cc).
+
+
+//---------------------------------------------------------------
+// [Direct and Indirect Call Instructions]
+//
+// Call-instructions are divided into direct calls
+// that provide a function name, and indirect calls
+// through a function pointer variable.
+//---------------------------------------------------------------
+
+.decl direct_call_instruction(instr:CallInstruction)
+.decl indirect_call_instruction(instr:CallInstruction)
+.decl asm_call_instruction(instr:CallInstruction)
+
+direct_call_instruction(Instr) :-
+   call_instruction_fn_operand(Instr, Constant),
+   constant(Constant), !inline_asm(Constant).
+
+indirect_call_instruction(Instr) :-
+   call_instruction_fn_operand(Instr, Variable),
+   variable(Variable).
+
+asm_call_instruction(Instr) :-
+   call_instruction_fn_operand(Instr, Constant),
+   inline_asm(Constant).
+
+
+//--------------------------------------------------
+// Actual arguments and Parameter Attributes
+//--------------------------------------------------
+
+.decl call_instruction_arg(instr:CallInstruction, i:ArgumentIndex, arg:Operand)
+.decl call_instruction_with_return_attribute(instr:CallInstruction, attr:Attribute)
+.decl call_instruction_with_param_attribute(instr:CallInstruction, i:ArgumentIndex, attr:Attribute)
+.decl call_instruction_with_fn_attribute(instr:CallInstruction, attr:Attribute)
+
+attribute(Attr) :- call_instruction_with_fn_attribute(_, Attr).
+attribute(Attr) :- call_instruction_with_return_attribute(_, Attr).
+attribute(Attr) :- call_instruction_with_param_attribute(_, _, Attr).
+
+
+//-----------------------------
+// Signature (function type)
+//-----------------------------
+
+.decl call_instruction_fn_type(instr:CallInstruction, type:Type)
+.decl call_instruction_return_type(instr:CallInstruction, type:Type)
+
+call_instruction_fn_type(Instr, FnType) :-
+   call_instruction_fn_operand(Instr, FnOp),
+   operand_has_type(FnOp, PtrType),
+   pointer_type_has_component(PtrType, FnType),
+   function_type(FnType).
+
+call_instruction_return_type(Instr, Type) :-
+   call_instruction_fn_type(Instr, FnType),
+   function_type_return(FnType, Type).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+//  (1) Only ‘zeroext‘, ‘signext‘, and ‘inreg‘ attributes
+//      are valid for return values.
+//  (2) The calling convention of the call must match the
+//      calling convention of the target function.
+//  (3) The type of the call instruction is also the type of
+//      the return value. Functions that return no value are
+//      marked void.
+//  (4) The function type shall be the signature of the pointer
+//      to function value being invoked. The argument types must
+//      match the types implied by this signature.
+//  (5) All arguments must be of first class type.
+//  (6) Only ‘noreturn‘, ‘nounwind‘, ‘readonly‘ and ‘readnone‘
+//      attributes are valid as function attributes.
+//------------------------------------------------------------------------------
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   call_instruction(Instr),
+   !call_instruction_fn_operand(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   call_instruction(Instr),
+   !call_instruction_fn_type(Instr, _).
+
+// attribute compatibility
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   call_instruction_with_return_attribute(Instr, Attr),
+   !parameter_attribute__zeroext(Attr),
+   !parameter_attribute__signext(Attr),
+   !parameter_attribute__inreg(Attr),
+   !parameter_attribute__noalias(Attr),
+   !parameter_attribute__dereferenceable(Attr). // c1
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   call_instruction_with_fn_attribute(Instr, Attr),
+   !function_attribute__noreturn(Attr),
+   !function_attribute__nounwind(Attr),
+   !function_attribute__readonly(Attr),
+   !function_attribute__readnone(Attr),
+   !function_attribute__cold(Attr),
+   !function_attribute__returns_twice(Attr),
+   !function_attribute__builtin(Attr),
+   !target_dependent_attribute(Attr). // c6
+
+
+// cc compatibility
+//
+// TODO: this should be used to limit imprecision instead, and not be
+// a constraint
+//
+// schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+//    schema_sanity(),
+//    call_instruction_fn_target(Instr, Func),
+//    call_instruction_with_calling_convention(Instr, CConv),
+//    !function_with_calling_convention(Func, CConv). // c2
+
+// Signature conformance
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   call_instruction_arg(Instr, Index, _),
+   call_instruction_fn_type(Instr, FnType),
+   !function_type_param(FnType, Index, _),
+   !function_type_has_varargs(FnType).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   call_instruction(Instr),
+   !call_instruction_arg(Instr, Index, _),
+   call_instruction_fn_type(Instr, FnType),
+   function_type_param(FnType, Index, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   call_instruction_arg(Instr, Index, Arg),
+   call_instruction_fn_type(Instr, FnType),
+   function_type_param(FnType, Index, ParamType),
+   !operand_has_type(Arg, ParamType). // c4
+
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   call_instruction_return_type(Instr, Type),
+   !void_type(Type),
+   !instruction_returns_type(Instr, Type). // c3
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   call_instruction_return_type(Instr, Type),
+   void_type(Type),
+   instruction_returns_type(Instr, _). // c3 vice versa
+
+// only first class arguments allowed
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   call_instruction_arg(Instr, _, Arg),
+   !operand_is_firstclass(Arg). // c5

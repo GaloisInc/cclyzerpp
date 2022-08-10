@@ -1,0 +1,155 @@
+//----------------------------------------------------------------------
+// Some of the following do not have any use right now, since we
+// always end up with a single bitcode file and don't care about
+// multiple compilation units, etc.
+//
+// We assume the following, due to our whole-program analysis scheme:
+//
+//   1. For any referenced function, there will exist at least one
+//      function declaration (that may also be a definition).
+//
+//   2. If a function definition exists, then no declarations will be
+//      visible. This means that we do not have to deal with any
+//      indirections when creating the mapping from call instructions
+//      to functions being called. When a function definition exists,
+//      then the call instruction will be mapped to it. Otherwise, it
+//      will be mapped to a function declaration.
+//
+//   3. In principle, not all function declarations will map directly
+//      to a function definition. For instance, function calls that
+//      belong to dynamically linked libraries cannot be resolved.
+//      Thus, they will be mapped to function declarations instead.
+//
+//   4. There will exist at most one definition per function.
+//----------------------------------------------------------------------
+
+.decl constant_references_function(c:Constant, f:FunctionDecl)
+.decl constant_references_variable(c:Constant, v:GlobalVariable)
+
+// Retrieve function names from constants
+constant_references_function(FC, Func) :-
+  function_constant(FC),
+  function_constant_fn_name(FC, FuncName),
+  function_has_name(Func, FuncName).
+
+// Retrieve variable names from constants
+constant_references_variable(GC, GVar) :-
+  global_variable_constant(GC),
+  global_variable_constant_name(GC, Name),
+  global_variable_has_name(GVar, Name).
+
+
+// A constant may be enclosed by a bitcast constant
+// expression
+constant_references_function(Outer, Func) :-
+   bitcast_constant_expression_from(Outer, Inner),
+   constant_references_function(Inner, Func).
+
+constant_references_variable(Outer, GVar) :-
+   bitcast_constant_expression_from(Outer, Inner),
+   constant_references_variable(Inner, GVar).
+
+//-------------------------------------------------------------
+// [Aliases]
+//
+// An alias may also be used as a function operand.
+//-------------------------------------------------------------
+
+.decl aliased_constants(c1:Constant, c2:Constant)
+.decl _alias(c:Constant, a:Alias)
+.decl _aliasee(c:Constant, a:Alias)
+
+// `Constant` is an aliasee of `Alias`
+_aliasee(Constant, Alias) :-
+   alias_aliasee(Alias, Aliasee),
+   constant_has_value(Aliasee, Value),
+   constant_has_value(Constant, Value).
+
+// `Constant` is actually an alias (via `Alias`)
+_alias(Constant, Alias) :-
+   constant_has_value(Constant, AliasName),
+   alias_has_name(Alias, AliasName).
+
+// `OtherConstant` is an alias of `Constant`
+aliased_constants(OtherConstant, Constant) :-
+   _alias(OtherConstant, Alias),
+   _aliasee(Constant, Alias).
+
+constant_references_function(OtherConstant, Func) :-
+   aliased_constants(OtherConstant, Constant),
+   constant_references_function(Constant, Func).
+
+constant_references_variable(OtherConstant, GVar) :-
+   aliased_constants(OtherConstant, Constant),
+   constant_references_variable(Constant, GVar).
+
+
+//------------------------------------------------------------------------------
+// Mapping from call instructions to function declarations
+//------------------------------------------------------------------------------
+
+.decl _instr_calls_func(instr:Instruction, target:FunctionDecl)
+
+_instr_calls_func(Instr, Func) :-
+   direct_call_instruction(Instr),
+   call_instruction_fn_operand(Instr, FunctionConstant),
+   constant(FunctionConstant),
+   constant_references_function(FunctionConstant, Func).
+
+_instr_calls_func(Instr, Func) :-
+   direct_invoke_instruction(Instr),
+   invoke_instruction_fn_operand(Instr, FunctionConstant),
+   constant(FunctionConstant),
+   constant_references_function(FunctionConstant, Func).
+
+
+// Is this always true for our tests?
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   direct_call_instruction(Instr),
+   !call_instruction_fn_target(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   direct_invoke_instruction(Instr),
+   !invoke_instruction_fn_target(Instr, _).
+
+
+//----------------------------------------------------------------------
+// This is for future use (if we ever introduce multiple compilation
+// units as input).
+//
+// * Each function declaration should be mapped to exactly one
+//   function definition.
+//
+// * Each function declaration, which also happens to be a definition,
+//   maps to itself.
+//----------------------------------------------------------------------
+
+.decl function_decl_to_defn(fdecl:FunctionDecl, func:Function)
+
+function_decl_to_defn(Func, Func) :-
+   function(Func).
+
+// Map call instructions to functions. If definition is obtainable,
+// map to it; else map to declaration
+
+call_instruction_fn_target(Instr, Func) :-
+   call_instruction(Instr),
+   _instr_calls_func(Instr, SomeFunc),
+   function_decl_to_defn(SomeFunc, Func).
+
+call_instruction_fn_target(Instr, SomeFunc) :-
+   call_instruction(Instr),
+   _instr_calls_func(Instr, SomeFunc),
+   !function_decl_to_defn(SomeFunc, _).
+
+invoke_instruction_fn_target(Instr, Func) :-
+   invoke_instruction(Instr),
+   _instr_calls_func(Instr, SomeFunc),
+   function_decl_to_defn(SomeFunc, Func).
+
+invoke_instruction_fn_target(Instr, SomeFunc) :-
+   invoke_instruction(Instr),
+   _instr_calls_func(Instr, SomeFunc),
+   !function_decl_to_defn(SomeFunc, _).

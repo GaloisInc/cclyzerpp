@@ -1,0 +1,10 @@
+// llvm.org/docs/LangRef.html#unreachable-instruction
+// keywords: terminator; instruction
+
+.type UnreachableInstruction = Instruction
+.decl unreachable_instruction(instr:UnreachableInstruction)
+
+instruction(v) :- unreachable_instruction(v).
+terminator_instruction(Insn) :- unreachable_instruction(Insn).
+
+// The ‘unreachable‘ instruction has no defined semantics.

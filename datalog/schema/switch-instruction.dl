@@ -1,0 +1,90 @@
+// http://llvm.org/docs/LangRef.html#switch-instruction
+// keywords: terminator; instruction
+
+.type SwitchInstruction = Instruction
+.decl switch_instruction(instr:SwitchInstruction)
+
+instruction(v) :- switch_instruction(v).
+terminator_instruction(v) :- switch_instruction(v).
+
+.type SwitchInstructionCase = [
+   constant : Constant,
+   label : Variable
+]
+
+.decl switch_instruction_operand(instr:SwitchInstruction, value:Operand)
+.decl switch_instruction_ncases(instr:SwitchInstruction, total:number)
+.decl switch_instruction_case(instr:SwitchInstruction, index:number, case:SwitchInstructionCase)
+.decl switch_instruction_default_label(instr:SwitchInstruction, label:Variable)
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// The ‘switch‘ instruction uses three parameters:
+//  (i)   an integer comparison value ‘value‘,
+//  (ii)  a default ‘label‘ destination, and
+//  (iii) an array of pairs of comparison value constants
+//        and ‘label‘s.
+//
+// The table is not allowed to contain duplicate constant entries.
+//------------------------------------------------------------------------------
+
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   switch_instruction(Instr),
+   !switch_instruction_ncases(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   switch_instruction(Instr),
+   !switch_instruction_default_label(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   switch_instruction(Instr),
+   switch_instruction_default_label(Instr, Label),
+   !variable_is_label(Label).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   switch_instruction(Instr),
+   switch_instruction_operand(Instr, Value),
+   operand_has_type(Value, Type),
+   !integer_type(Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   switch_instruction(Instr),
+   switch_instruction_case(Instr, _, Case),
+   Case = [Constant, Label],
+   constant(Constant),
+   !variable_is_label(Label).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   switch_instruction(Instr),
+   switch_instruction_case(Instr, _, Case),
+   Case = [Constant, Label],
+   variable(Label),
+   constant_has_type(Constant, Type),
+   !integer_type(Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   switch_instruction(Instr),
+   switch_instruction_case(Instr, Index1, Case1),
+   switch_instruction_case(Instr, Index2, Case2),
+   Index1 != Index2,
+   Case1 = [Constant1, Label1],
+   Case2 = [Constant2, Label2],
+   variable(Label1),
+   variable(Label2),
+   constants_equal(Constant1, Constant2).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   switch_instruction_ncases(Instr, Total),
+   switch_instruction_case(Instr, Index, _),
+   (Index < 0 ; Index >= Total).

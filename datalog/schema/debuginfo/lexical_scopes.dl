@@ -1,0 +1,36 @@
+//-----------------------------------------------------------
+// Debug Info - Lexical Block Scopes
+//-----------------------------------------------------------
+
+.decl di?lexical_block(entry:DILexicalBlock)
+.decl di?lexical_block_line(entry:DILexicalBlock, line:number)
+.decl di?lexical_block_column(entry:DILexicalBlock, column:number)
+.decl di?lexical_block_scope(entry:DILexicalBlock, scope:DIScope)
+.decl di?lexical_block_source_file(entry:DILexicalBlock, file:DIFile)
+
+di?local_scope(e) :- di?lexical_block(e).
+
+
+// Constraints
+
+debuginfo_invalid_entry(Entry, __FILE__, __LINE__) :-
+   schema_sanity(),
+   di?lexical_block(Entry),
+   !di?lexical_block_line(Entry, _).
+
+debuginfo_invalid_entry(Entry, __FILE__, __LINE__) :-
+   schema_sanity(),
+   di?lexical_block(Entry),
+   !di?lexical_block_column(Entry, _).
+
+
+//-----------------------------------------------------------
+// Debug Info - Lexical Block File Scopes
+//-----------------------------------------------------------
+
+.decl di?lexical_block_file(entry:DILexicalBlockFile)
+.decl di?lexical_block_file_source_file(entry:DILexicalBlockFile, file:DIFile)
+.decl di?lexical_block_file_scope(entry:DILexicalBlockFile, scope:DIScope)
+.decl di?lexical_block_file_discrim(entry:DILexicalBlockFile, discrim:number)
+
+di?local_scope(e) :- di?lexical_block_file(e).

@@ -1,0 +1,164 @@
+// This file contains all rules used in both the subset and unification analyses.
+// The idea is that if you build ../unification.project (resp. ../subset.project),
+// the Souffle optimizer will notice that the output rules don't depend on the
+// subset analysis (resp. unification analysis), and will avoid computing its
+// results.
+
+.comp PointsTo {
+  //-----------------------------------------------------------------------
+  // [Subcomponents and their Input Relations]
+  //-----------------------------------------------------------------------
+
+  .init callgraph = Callgraph
+
+  callgraph.merge(?newCtx, ?callerInstr, ?callerCtx) :-
+    _merge.merge(?newCtx, ?callerInstr, ?callerCtx).
+
+  .init _merge = Merge
+
+  _merge.reachable_context(?ctx, ?func) :-
+    callgraph.reachable_context(?ctx, ?func).
+
+  callgraph.function_pointer_operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+    operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
+
+  memcpy_pass_by_value(?calleeCtx, ?param, ?callerCtx, ?argument) :-
+    function_by_value_param(?callee, ?index, ?param),
+    callgraph.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr),
+    actual_arg(?callerInstr, ?index, ?argument).
+
+  ptr_points_to(aCtx, to, aCtx, from) :-
+    empty_alloc_context(aCtx),
+    argv_ptr_points_to(from, to).
+
+  var_points_to(aCtx, argvAlloc, mainCtx, argvVar) :-
+    argv_var_points_to(aCtx, argvAlloc, mainCtx, argvVar).
+
+  any_reachable_function(?func) :- callgraph.reachable_function(?func).
+
+  //-----------------------------------------------------------------------
+  // [Output Relations]
+  //-----------------------------------------------------------------------
+
+  .decl var_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable)
+
+  //----------------------------------------------------------------------
+  // [Assignment Instructions]
+  //----------------------------------------------------------------------
+
+  var_points_to(?aCtx, ?alloc, ?ctx, ?toVar) :-
+    // assign_instruction only holds if the instruction is reachable.
+    assign_instruction(?toVar, ?value),
+    operand_points_to(?aCtx, ?alloc, ?ctx, ?value). // TODO: consider adding type check
+
+  // `inttoptr` instructions
+  //
+  // TODO(lb): Should this be an assignment? Should we merge allocations with
+  // *unknown*?
+  var_points_to(?aCtx, ?unknown, ?ctx, ?toVar) :-
+    empty_alloc_context(?aCtx),
+    unknown_location(?unknown),
+    inttoptr_instruction(?instr),
+    instruction_assigns_to(?instr, ?toVar),
+    instruction_in_function(?instr, ?instrFunc),
+    callgraph.reachable_context(?ctx, ?instrFunc).
+
+  //----------------------------
+  // Dereferencing Pointers
+  //----------------------------
+
+  // This is the traditional concept of `points-to`. It signifies that an
+  // allocation will point to another memory allocation when dereferenced.
+
+  .decl ptr_points_to(?aCtx: Context, ?alloc: Allocation, ?ptrACtx: Context, ?ptrAlloc: Allocation)
+
+  ptr_points_to(?aCtx, ?someAlloc, ?aCtx, ?alloc) :-
+    constant_ptr_points_to(?aCtx, ?someAlloc, ?aCtx, ?alloc).
+
+  // An unknown location points to an unknown location
+  ptr_points_to(?aCtx, ?unknown, ?aCtx, ?unknown) :-
+    empty_alloc_context(?aCtx),
+    unknown_location(?unknown).
+
+  // Intermediate relations
+
+  .decl operand_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?operand: Operand)
+
+  operand_points_to(?aCtx, ?alloc, ?ctx, ?ptrVar) :-
+    var_points_to(?aCtx, ?alloc, ?ctx, ?ptrVar).
+
+  operand_points_to(?aCtx, ?alloc, ?ctx, ?cons) :-
+    empty_alloc_context(?aCtx),
+    constant_in_function(?cons, ?enclosingFunc),
+    constant_points_to(?cons, ?alloc),
+    callgraph.reachable_context(?ctx, ?enclosingFunc).
+
+  //------------------------------------------------------------------------------
+  // [Marks all functions as reachable]
+  //
+  // This is useful if the artifact to be analyzed doesn't have any
+  // known entry points (e.g., dynamic library). In such a case, it
+  // makes sense to treat all functions defined therein as potential
+  // entry points.
+  //------------------------------------------------------------------------------
+
+  callgraph.reachable_context(?ctx, ?func) :-
+    user_option_value("entrypoints", "library"),
+    empty_context(?ctx),
+    function(?func).
+
+  //-----------------------------------------------------------------------
+  // [Re-exports]
+  //-----------------------------------------------------------------------
+
+  .decl merge(?newCtx: Context, ?callerInstr: Instruction, ?callerCtx: Context) inline
+  merge(?newCtx, ?callerInstr, ?callerCtx) :-
+    _merge.merge(?newCtx, ?callerInstr, ?callerCtx).
+
+  //-----------------------------------------------------------------------
+  // [Shared Components]
+  //-----------------------------------------------------------------------
+
+  .init exception_object = ExceptionObjectComponent
+
+  exception_object.heap_allocation_by_type_instruction(?type, ?insn, ?heapAlloc) :-
+    type_indication.heap_allocation_by_type_instruction(?type, ?insn, ?heapAlloc).
+
+  .init interp_assignment = InterpAssignment
+
+  interp_assignment.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr) :-
+    callgraph.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr).
+
+  .init stripctx = StripCtx
+
+  stripctx.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr) :-
+    callgraph.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr).
+
+  stripctx.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+    operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
+
+  stripctx.ptr_points_to(?aCtx, ?alloc, ?ctx, ?ptr) :-
+    ptr_points_to(?aCtx, ?alloc, ?ctx, ?ptr).
+
+  stripctx.var_points_to(?aCtx, ?alloc, ?ctx, ?var) :-
+    var_points_to(?aCtx, ?alloc, ?ctx, ?var).
+
+  .init type_indication = TypeIndication
+
+  type_indication.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+    operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
+
+  type_indication.var_points_to(?aCtx, ?alloc, ?ctx, ?var) :-
+    var_points_to(?aCtx, ?alloc, ?ctx, ?var).
+
+  heap_allocation_by_type_instruction(?type, ?insn, ?alloc) :-
+    type_indication.heap_allocation_by_type_instruction(?type, ?insn, ?alloc).
+
+  stack_allocation_by_type_instruction(?type, ?insn, ?alloc) :-
+    type_indication.stack_allocation_by_type_instruction(?type, ?insn, ?alloc).
+
+  // Components that don't appear here don't share setup code between the
+  // subset-based and unification-based analyses - their input relations require
+  // different handling, or they're in a strongly-connected relation dependency
+  // cycle with such a component.
+}

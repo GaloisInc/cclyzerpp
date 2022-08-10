@@ -1,0 +1,451 @@
+// See doc/signatures.rst for documentation on pts_signature_*
+.decl pts_signature_return_alloc(?func : FunctionName)
+.decl pts_signature_return_alloc_once(?func : FunctionName)
+.decl pts_signature_return_aliases_arg(?func : FunctionName, ?index : ArgumentIndex)
+.decl pts_signature_return_aliases_arg_reachable(?func : FunctionName, ?index : ArgumentIndex)
+.decl pts_signature_return_points_to_global(?func : FunctionName, ?global : GlobalVarName)
+.decl pts_signature_return_aliases_global(?func : FunctionName, ?global : GlobalVarName)
+.decl pts_signature_return_aliases_global_reachable(?func : FunctionName, ?global : GlobalVarName)
+.decl pts_signature_arg_alloc(?func : FunctionName, ?index : ArgumentIndex)
+.decl pts_signature_arg_alloc_once(?func : FunctionName, ?index : ArgumentIndex)
+.decl pts_signature_arg_memcpy_arg(?func : FunctionName, ?index1 : ArgumentIndex, ?index2 : ArgumentIndex)
+.decl pts_signature_arg_memcpy_arg_reachable(?func : FunctionName, ?index1 : ArgumentIndex, ?index2 : ArgumentIndex)
+.decl pts_signature_arg_points_to_global(?func : FunctionName, ?index : ArgumentIndex, ?global : GlobalVarName)
+.decl pts_signature_arg_memcpy_global(?func : FunctionName, ?index : ArgumentIndex, ?global : GlobalVarName)
+.decl pts_signature_arg_memcpy_global_reachable(?func : FunctionName, ?index : ArgumentIndex, ?global : GlobalVarName)
+.decl pts_signature_global_memcpy_arg(?func : FunctionName, ?global : GlobalVarName, ?index : ArgumentIndex)
+.decl pts_signature_global_memcpy_arg_reachable(?func : FunctionName, ?global : GlobalVarName, ?index : ArgumentIndex)
+.decl pts_signature_none(?func : FunctionName)
+
+.decl function_needs_pts_signature(?function : FunctionDecl)
+.decl function_has_pts_signature(?function : FunctionDecl)
+.decl function_missing_pts_signature(?function : FunctionDecl)
+
+.decl type_has_subelement(?type : Type, ?elem : Type)
+
+type_has_subelement(?type, ?elem) :-
+  type_has_subelement(?type, ?mid),
+  array_type_has_component(?mid, ?elem).
+
+type_has_subelement(?type, ?elem) :-
+  type_has_subelement(?type, ?mid),
+  struct_type_field(?mid, _, ?elem).
+
+type_has_subelement(?type, ?elem) :-
+  type_has_subelement(?type, ?mid),
+  vector_type_has_component(?mid, ?elem).
+
+type_has_subelement(?type, ?type) :-
+  type(?type).
+
+function_needs_pts_signature(?function) :-
+  function_decl(?function),
+  function_has_name(?function, ?name),
+  !(function_decl_to_defn(?function,_);
+    heap_alloc_function(?function);
+    "@memcpy"=substr(?name,0,7);
+    "@llvm.memcpy"=substr(?name,0,12)),
+  function_has_type(?function, ?type),
+  function_type_return(?type, ?rtype),
+  pointer_type(?rtype).
+
+function_needs_pts_signature(?function) :-
+  function_decl(?function),
+  function_has_name(?function, ?name),
+  !(function_decl_to_defn(?function,_);
+    heap_alloc_function(?function);
+    "@memcpy"=substr(?name,0,7);
+    "@llvm.memcpy"=substr(?name,0,12)),
+  function_has_type(?function, ?type),
+  function_type_param(?type, _, ?ptype),
+  pointer_type_has_component(?ptype, ?comp),
+  type_has_subelement(?comp, ?elem),
+  pointer_type(?elem).
+
+function_has_pts_signature(?function) :-
+  function_has_name(?function, ?name),
+  (pts_signature_none(?name);
+   pts_signature_return_alloc(?name);
+   pts_signature_return_alloc_once(?name);
+   pts_signature_return_aliases_arg(?name, _);
+   pts_signature_return_aliases_arg_reachable(?name, _);
+   pts_signature_return_points_to_global(?name, _);
+   pts_signature_return_aliases_global(?name, _);
+   pts_signature_return_aliases_global_reachable(?name, _);
+   pts_signature_arg_alloc(?name, _);
+   pts_signature_arg_alloc_once(?name, _);
+   pts_signature_arg_memcpy_arg(?name, _, _);
+   pts_signature_arg_memcpy_arg_reachable(?name, _, _);
+   pts_signature_arg_points_to_global(?name, _, _);
+   pts_signature_arg_memcpy_global(?name, _, _);
+   pts_signature_arg_memcpy_global_reachable(?name, _, _);
+   pts_signature_global_memcpy_arg(?name, _, _);
+   pts_signature_global_memcpy_arg_reachable(?name, _, _)).
+
+function_missing_pts_signature(?function) :-
+  function_needs_pts_signature(?function),
+  !function_has_pts_signature(?function).
+
+//------------------------------------------------------------------------------
+//  Allocation functions
+//------------------------------------------------------------------------------
+
+.decl build_signature_allocation(sigAlloc: SignatureAllocation, func: Function, caller: Function, type: Type, var: Variable, pos: symbol) inline
+build_signature_allocation(sigAlloc, func, caller, type, var, pos) :-
+  function_has_name(func, funcName),
+  function_has_name(caller, callerName),
+  variable_has_name(var, varName),
+  sigAlloc = cat("*sig_alloc", funcName, "|", callerName, "[", type, " ", varName, "(", pos, ")", "]").
+
+.decl build_signature_allocation_once(sigAlloc: SignatureAllocation, func: Function, type: Type, pos: symbol) inline
+build_signature_allocation_once(sigAlloc, func, type, pos) :-
+  function_has_name(func, funcName),
+  sigAlloc = cat("*sig_alloc", funcName, "[", type, "(", pos, ")]").
+
+.comp Signatures {
+
+  //----------------------------------------------------------------------------
+  // "Input"/declared rules
+  //
+  // https://souffle-lang.github.io/components#input-rules
+  //----------------------------------------------------------------------------
+
+  .decl allocation_type(?alloc:Allocation, ?type:Type) inline
+  .decl alloc_may_alias(?alloc1: Allocation, ?alloc2: Allocation) inline
+  .decl alloc_with_ctx(?aCtx: Context, ?alloc: Allocation) inline
+  .decl callgraph_edge(?calleeCtx: Context, ?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: Instruction) inline
+  .decl reachable_context(?ctx: Context, ?func: FunctionDecl) inline
+  .decl operand_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?operand: Operand) inline
+  .decl ptr_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?ptr: Allocation) inline
+  .decl var_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable) inline
+
+  //----------------------------------------------------------------------------
+  // "Output"/defined rules
+  //
+  // NOTE! This component can compute new points-to facts, and these need to be
+  // propagated back into the points-to component.
+  //----------------------------------------------------------------------------
+
+  .decl sig_allocation_type(?alloc:Allocation, ?type:Type) inline
+
+  .decl sig_ptr_points_to(?aCtx: Context, ?alloc: Allocation, ?ptrACtx: Context, ?ptrAlloc: Allocation)
+  .decl sig_var_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable) inline
+
+  .decl _sig_var_alloc(?aCtx: Context, ?sigAlloc: SignatureAllocation, ?ctx: Context, ?var: Variable, ?type: Type)
+  .decl _sig_ptr_alloc(?aCtx: Context, ?sigAlloc: SignatureAllocation, ?ctx: Context, ?ptr: Allocation, ?type: Type)
+
+  .decl _sig_alloc(?aCtx: Context, ?sigAlloc: SignatureAllocation, ?ctx: Context, ?type: Type) inline
+
+  _sig_alloc(?aCtx, ?sigAlloc, ?ctx, ?type) :-
+    _sig_var_alloc(?aCtx, ?sigAlloc, ?ctx, ?var, ?type).
+
+  _sig_alloc(?aCtx, ?sigAlloc, ?ctx, ?type) :-
+    _sig_ptr_alloc(?aCtx, ?sigAlloc, ?ctx, ?var, ?type).
+
+  alloc_with_ctx(?aCtx, ?sigAlloc) :-
+    _sig_alloc(?aCtx, ?sigAlloc, _, _).
+
+  signature_allocation(?sigAlloc) :-
+    _sig_alloc(_, ?sigAlloc, _, _).
+
+  sig_allocation_type(?sigAlloc, ?type) :-
+    _sig_alloc(_, ?sigAlloc, _, ?type).
+
+  sig_var_points_to(?newCtx, ?sigAlloc, ?ctx, ?var) :-
+    _sig_var_alloc(?newCtx, ?sigAlloc, ?ctx, ?var, _).
+
+  sig_ptr_points_to(?newCtx, ?sigAlloc, ?ctx, ?ptr) :-
+    _sig_ptr_alloc(?newCtx, ?sigAlloc, ?ctx, ?ptr, _).
+
+  _sig_var_alloc(?newCtx, ?sigAlloc, ?ctx, ?var, ?type) :-
+     function_has_name(?func, ?sname),
+     pts_signature_return_alloc(?sname),
+     ( call_instruction_fn_target(?instr, ?func)
+     ; invoke_instruction_fn_target(?instr, ?func)),
+     instruction_assigns_to(?instr, ?var),
+     instruction_in_function(?instr,  ?instrFunc),
+
+     variable_has_type(?var,?ptrType),
+     pointer_type_has_component(?ptrType, ?type),
+
+     reachable_context(?ctx, ?instrFunc),
+     build_signature_allocation(?sigAlloc, ?func, ?instrFunc, ?ptrType, ?var, "return"),
+     record(?newCtx, ?sigAlloc, ?ctx).
+
+  _sig_var_alloc(?newCtx, ?sigAlloc, ?ctx, ?var, ?type) :-
+     function_has_name(?func, ?sname),
+     pts_signature_return_alloc_once(?sname),
+     ( call_instruction_fn_target(?instr, ?func)
+     ; invoke_instruction_fn_target(?instr, ?func)),
+     instruction_assigns_to(?instr, ?var),
+     instruction_in_function(?instr,  ?instrFunc),
+
+     variable_has_type(?var,?ptrType),
+     pointer_type_has_component(?ptrType, ?type),
+
+     reachable_context(?ctx, ?instrFunc),
+     build_signature_allocation_once(?sigAlloc, ?func, ?ptrType, "return"),
+     empty_alloc_context(?newCtx).
+
+  _sig_ptr_alloc(?newCtx, ?sigAlloc, ?ptrCtx, ?ptr, ?type) :-
+     function_has_name(?func, ?sname),
+     pts_signature_arg_alloc(?sname, ?index),
+     ( call_instruction_fn_target(?instr, ?func)
+     ; invoke_instruction_fn_target(?instr, ?func)),
+     instruction_in_function(?instr,  ?instrFunc),
+     actual_arg(?instr, ?index, ?var),
+
+     reachable_context(?ctx, ?instrFunc),
+     var_points_to(?ptrCtx, ?ptr, ?ctx, ?var),
+
+     allocation_type(?ptr, ?ptrType),
+     pointer_type_has_component(?ptrType, ?type),
+
+     ?indexStr = to_string(?index),
+     build_signature_allocation(?sigAlloc, ?func, ?instrFunc, ?ptrType, ?var, ?indexStr),
+     record(?newCtx, ?sigAlloc, ?ctx).
+
+  _sig_ptr_alloc(?newCtx, ?sigAlloc, ?ptrCtx, ?ptr, ?type) :-
+     function_has_name(?func, ?sname),
+     pts_signature_arg_alloc_once(?sname, ?index),
+     ( call_instruction_fn_target(?instr, ?func)
+     ; invoke_instruction_fn_target(?instr, ?func)),
+     instruction_in_function(?instr,  ?instrFunc),
+     actual_arg(?instr, ?index, ?var),
+
+     reachable_context(?ctx, ?instrFunc),
+     var_points_to(?ptrCtx, ?ptr, ?ctx, ?var),
+
+     allocation_type(?ptr, ?ptrType),
+     pointer_type_has_component(?ptrType, ?type),
+
+     ?indexStr = to_string(?index),
+     build_signature_allocation_once(?sigAlloc, ?func, ?ptrType, ?indexStr),
+     user_options("context_sensitivity", Config),
+     empty_alloc_context(?newCtx).
+
+  dynamically_sized_alloc(?sigAlloc) :-
+    signature_allocation(?sigAlloc).
+
+  //------------------------------------------------------------------------------
+  //  Aliasing
+  //------------------------------------------------------------------------------
+
+  .decl signature_var_points_to_base(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable)
+  .decl signature_ptr_points_to_base(?aCtx: Context, ?alloc: Allocation, ?ptrACtx : Context, ?ptrAlloc : Allocation)
+
+  .decl memcpy_sig(?toCtx: Context, ?to: Allocation, ?fromCtx: Context , ?from: Allocation)
+
+  .decl _ptr_reaches_to_request(?ptrACtx: Context, ?ptrAlloc: Allocation)
+  .decl _ptr_reaches_to(?aCtx: Context, ?alloc: Allocation, ?ptrACtx: Context, ?ptrAlloc: Allocation)
+
+  _ptr_reaches_to(?ptrACtx, ?ptrAllocAlias, ?ptrACtx, ?ptrAlloc) :-
+     _ptr_reaches_to_request(?ptrACtx, ?ptrAlloc),
+     alloc_may_alias(?ptrAlloc, ?ptrAllocAlias).
+
+  _ptr_reaches_to(?aCtx, ?allocAlias, ?ptrACtx, ?ptrAlloc) :-
+     _ptr_reaches_to(?ptrMidACtx, ?ptrMid, ?ptrACtx, ?ptrAlloc),
+     ptr_points_to(?aCtx, ?alloc, ?ptrMidACtx, ?ptrMid),
+     alloc_may_alias(?alloc, ?allocAlias).
+
+  signature_var_points_to_base(?aCtx, ?alloc, ?callerCtx, ?toVar) :-
+     callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
+     function_has_name(?callee, ?name),
+     pts_signature_return_aliases_arg(?name, ?index),
+     instruction_assigns_to(?callerInstr, ?toVar),
+     actual_arg(?callerInstr, ?index, ?fromValue),
+     operand_points_to(?aCtx, ?alloc, ?callerCtx, ?fromValue).
+
+  _ptr_reaches_to_request(?ptrACtx, ?ptrAlloc) :-
+     callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
+     function_has_name(?callee, ?name),
+     pts_signature_return_aliases_arg_reachable(?name, ?index),
+     actual_arg(?callerInstr, ?index, ?fromValue),
+     operand_points_to(?ptrACtx, ?ptrAlloc, ?callerCtx, ?fromValue).
+
+  signature_var_points_to_base(?aCtx, ?alloc, ?callerCtx, ?toVar) :-
+     callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
+     function_has_name(?callee, ?name),
+     pts_signature_return_aliases_arg_reachable(?name, ?index),
+     instruction_assigns_to(?callerInstr, ?toVar),
+     actual_arg(?callerInstr, ?index, ?fromValue),
+     operand_points_to(?ptrACtx, ?ptrAlloc, ?callerCtx, ?fromValue),
+     _ptr_reaches_to(?aCtx, ?alloc, ?ptrACtx, ?ptrAlloc).
+
+  signature_var_points_to_base(?aCtx, ?alloc, ?callerCtx, ?toVar) :-
+     callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
+     function_has_name(?callee, ?name),
+     pts_signature_return_points_to_global(?name, ?globalName),
+     global_allocation_by_name(?globalName, ?alloc),
+     empty_context(?aCtx),
+     instruction_assigns_to(?callerInstr, ?toVar).
+
+  signature_var_points_to_base(?aCtx, ?alloc, ?callerCtx, ?toVar) :-
+     callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
+     function_has_name(?callee, ?name),
+     pts_signature_return_aliases_global(?name, ?globalName),
+     global_allocation_by_name(?globalName, ?globalAlloc),
+     empty_context(?globalCtx),
+     instruction_assigns_to(?callerInstr, ?toVar),
+     ptr_points_to(?aCtx, ?alloc, ?globalCtx, ?globalAlloc).
+
+  _ptr_reaches_to_request(?globalCtx, ?globalAlloc) :-
+     callgraph_edge(_, ?callee, _, ?callerInstr),
+     function_has_name(?callee, ?name),
+     pts_signature_return_aliases_global_reachable(?name, ?globalName),
+     global_allocation_by_name(?globalName, ?globalAlloc),
+     empty_context(?globalCtx),
+     instruction_assigns_to(?callerInstr, _).
+
+  signature_var_points_to_base(?aCtx, ?alloc, ?callerCtx, ?toVar) :-
+     callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
+     function_has_name(?callee, ?name),
+     pts_signature_return_aliases_global_reachable(?name, ?globalName),
+     global_allocation_by_name(?globalName, ?globalAlloc),
+     empty_context(?globalCtx),
+     instruction_assigns_to(?callerInstr, ?toVar),
+     _ptr_reaches_to(?aCtx, ?alloc, ?globalCtx, ?globalAlloc).
+
+  memcpy_sig(?toACtx, ?toAlloc, ?fromACtx, ?fromAlloc) :-
+     callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
+     function_has_name(?callee, ?name),
+     pts_signature_arg_memcpy_arg(?name, ?toIndex, ?fromIndex),
+     actual_arg(?callerInstr, ?toIndex, ?toValue),
+     actual_arg(?callerInstr, ?fromIndex, ?fromValue),
+     operand_points_to(?toACtx, ?toAlloc, ?callerCtx, ?toValue),
+     operand_points_to(?fromACtx, ?fromAlloc, ?callerCtx, ?fromValue).
+
+  _ptr_reaches_to_request(?fromPtrACtx, ?fromPtrAlloc) :-
+     callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
+     function_has_name(?callee, ?name),
+     pts_signature_arg_memcpy_arg_reachable(?name, ?toIndex, ?fromIndex),
+     actual_arg(?callerInstr, ?toIndex, ?toValue),
+     actual_arg(?callerInstr, ?fromIndex, ?fromValue),
+     operand_points_to(_, _, ?callerCtx, ?toValue),
+     operand_points_to(?fromPtrACtx, ?fromPtrAlloc, ?callerCtx, ?fromValue).
+
+  memcpy_sig(?toACtx, ?toAlloc, ?fromACtx, ?fromAlloc) :-
+     callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
+     function_has_name(?callee, ?name),
+     pts_signature_arg_memcpy_arg_reachable(?name, ?toIndex, ?fromIndex),
+     actual_arg(?callerInstr, ?toIndex, ?toValue),
+     actual_arg(?callerInstr, ?fromIndex, ?fromValue),
+     operand_points_to(?toACtx, ?toAlloc, ?callerCtx, ?toValue),
+     operand_points_to(?fromPtrACtx, ?fromPtrAlloc, ?callerCtx, ?fromValue),
+     _ptr_reaches_to(?fromACtx, ?fromAlloc, ?fromPtrACtx, ?fromPtrAlloc).
+
+  signature_ptr_points_to_base(?gACtx, ?gAlloc, ?ptrACtx, ?ptrAlloc) :-
+     callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
+     function_has_name(?callee, ?name),
+     pts_signature_arg_points_to_global(?name, ?index, ?globalName),
+     actual_arg(?callerInstr, ?index, ?toValue),
+     operand_points_to(?ptrACtx, ?ptrAlloc, ?callerCtx, ?toValue),
+     global_allocation_by_name(?globalName, ?gAlloc),
+     empty_context(?gACtx).
+
+  memcpy_sig(?toACtx, ?toAlloc, ?fromACtx, ?fromAlloc) :-
+     callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
+     function_has_name(?callee, ?name),
+     pts_signature_arg_memcpy_global(?name, ?index, ?globalName),
+     actual_arg(?callerInstr, ?index, ?toValue),
+     operand_points_to(?toACtx, ?toAlloc, ?callerCtx, ?toValue),
+     global_allocation_by_name(?globalName, ?fromAlloc),
+     empty_context(?fromACtx).
+
+  _ptr_reaches_to_request(?gACtx, ?gAlloc) :-
+     callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
+     function_has_name(?callee, ?name),
+     pts_signature_arg_memcpy_global_reachable(?name, ?index, ?globalName),
+     actual_arg(?callerInstr, ?index, ?toValue),
+     operand_points_to(_, _, ?callerCtx, ?toValue),
+     global_allocation_by_name(?globalName, ?gAlloc),
+     empty_context(?gACtx).
+
+  memcpy_sig(?toACtx, ?toAlloc, ?fromACtx, ?fromAlloc) :-
+     callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
+     function_has_name(?callee, ?name),
+     pts_signature_arg_memcpy_global_reachable(?name, ?index, ?globalName),
+     actual_arg(?callerInstr, ?index, ?toValue),
+     operand_points_to(?toACtx, ?toAlloc, ?callerCtx, ?toValue),
+     global_allocation_by_name(?globalName, ?gAlloc),
+     empty_context(?gACtx),
+     _ptr_reaches_to(?fromACtx, ?fromAlloc, ?gACtx, ?gAlloc).
+
+  memcpy_sig(?toACtx, ?toAlloc, ?fromACtx, ?fromAlloc) :-
+     callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
+     function_has_name(?callee, ?name),
+     pts_signature_global_memcpy_arg(?name, ?globalName, ?index),
+     actual_arg(?callerInstr, ?index, ?toValue),
+     operand_points_to(?fromACtx, ?fromAlloc, ?callerCtx, ?toValue),
+     global_allocation_by_name(?globalName, ?toAlloc),
+     empty_context(?toACtx).
+
+  _ptr_reaches_to_request(?ptrACtx, ?ptrAlloc) :-
+     callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
+     function_has_name(?callee, ?name),
+     pts_signature_global_memcpy_arg_reachable(?name, _, ?index),
+     actual_arg(?callerInstr, ?index, ?toValue),
+     operand_points_to(?ptrACtx, ?ptrAlloc, ?callerCtx, ?toValue).
+
+  memcpy_sig(?toACtx, ?toAlloc, ?fromACtx, ?fromAlloc) :-
+     callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
+     function_has_name(?callee, ?name),
+     pts_signature_global_memcpy_arg_reachable(?name, ?globalName, ?index),
+     actual_arg(?callerInstr, ?index, ?toValue),
+     operand_points_to(?ptrACtx, ?ptrAlloc, ?callerCtx, ?toValue),
+     global_allocation_by_name(?globalName, ?toAlloc),
+     empty_context(?toACtx),
+     _ptr_reaches_to(?fromACtx, ?fromAlloc, ?ptrACtx, ?ptrAlloc).
+
+  //------------------------------------------------------------------------------
+  //  Points-to updates
+  //------------------------------------------------------------------------------
+
+  sig_var_points_to(?baseACtx, ?baseAlloc, ?callerCtx, ?toVar) :-
+     signature_var_points_to_base(?baseACtx, ?baseAlloc, ?callerCtx, ?toVar),
+     variable_has_type(?toVar, ?toPtrType),
+     pointer_type_has_component(?toPtrType, ?toType),
+     allocation_type(?baseAlloc, ?allocType),
+     type_compatible(?allocType, ?toType).
+
+  //var_points_to(?baseACtx, ?alloc, ?callerCtx, ?toVar) :-
+  //   signature_var_points_to_base(?baseACtx, ?baseAlloc, ?callerCtx, ?toVar),
+  //   alloc_subregion_base(?alloc, ?baseAlloc),
+  //   variable_has_type(?toVar, ?toPtrType),
+  //   pointer_type_has_component(?toPtrType, ?toType),
+  //   allocation_type(?alloc, ?allocType),
+  //   type_compatible(?allocType, ?toType).
+
+  sig_ptr_points_to(?baseACtx, ?baseAlloc, ?ptrACtx, ?ptrAlloc) :-
+     signature_ptr_points_to_base(?baseACtx, ?baseAlloc, ?ptrACtx, ?ptrAlloc),
+     allocation_type(?baseAlloc, ?allocType),
+     allocation_type(?ptrAlloc, ?ptrType),
+     pointer_type_has_component(?ptrType, ?toType),
+     type_compatible(?allocType, ?toType).
+
+  //ptr_points_to(?baseACtx, ?baseSubAlloc, ?ptrACtx, ?ptrAlloc) :-
+  //   signature_ptr_points_to_base(?baseACtx, ?baseAlloc, ?ptrACtx, ?ptrAlloc),
+  //   alloc_subregion_base(?baseSubAlloc, ?baseAlloc),
+  //   allocation_type(?baseSubAlloc, ?allocType),
+  //   allocation_type(?ptrAlloc, ?ptrType),
+  //   pointer_type_has_component(?ptrType, ?toType),
+  //   type_compatible(?allocType, ?toType).
+
+  //ptr_points_to(?baseACtx, ?baseAlloc, ?ptrACtx, ?ptrSubAlloc) :-
+  //   signature_ptr_points_to_base(?baseACtx, ?baseAlloc, ?ptrACtx, ?ptrAlloc),
+  //   alloc_subregion_base(?ptrSubAlloc, ?ptrAlloc),
+  //   allocation_type(?baseAlloc, ?allocType),
+  //   allocation_type(?ptrSubAlloc, ?ptrType),
+  //   pointer_type_has_component(?ptrType, ?toType),
+  //   type_compatible(?allocType, ?toType).
+
+  //ptr_points_to(?baseACtx, ?baseSubAlloc, ?ptrACtx, ?ptrSubAlloc) :-
+  //   signature_ptr_points_to_base(?baseACtx, ?baseAlloc, ?ptrACtx, ?ptrAlloc),
+  //   alloc_subregion_base(?baseSubAlloc, ?baseAlloc),
+  //   alloc_subregion_base(?ptrSubAlloc, ?ptrAlloc),
+  //   allocation_type(?baseSubAlloc, ?allocType),
+  //   allocation_type(?ptrSubAlloc, ?ptrType),
+  //   pointer_type_has_component(?ptrType, ?toType),
+  //   type_compatible(?allocType, ?toType).
+
+}

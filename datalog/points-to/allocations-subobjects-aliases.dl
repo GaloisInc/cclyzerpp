@@ -1,0 +1,143 @@
+//------------------------------------------------------------------------
+// [Implicit Pointer Aliases]
+//
+// In C, the expression `ptr[0]` and `*ptr` is the same. The 0 index
+// is often omitted from some instructions, but we must ensure that
+// such expressions are treated as aliases by the analysis and have
+// the same points-to sets.
+//
+// Note that this relation denotes *definite* (must) aliases. This
+// does not include possible aliases, like when a variable array index
+// may be equal to some constant c, and so X[*] *may* be aliased to
+// X[c]. For the latter concept, see the alloc_matches relation.
+//------------------------------------------------------------------------
+
+.comp Aliases {
+
+  //----------------------------------------------------------------------------
+  // "Input"/declared rules
+  //
+  // https://souffle-lang.github.io/components#input-rules
+  //----------------------------------------------------------------------------
+
+  .decl alloc_subregion_at_field(?alloc: Allocation, ?index: FieldIndex, ?region:AllocSubregion) inline
+  .decl alloc_subregion_at_array_index(?alloc: Allocation, ?index: ArrayIndex, ?region: AllocSubregion) inline
+  .decl alloc_subregion_at_any_array_index(?alloc: Allocation, ?region: AllocSubregion) inline
+
+  //----------------------------------------------------------------------------
+  // "Output"/defined rules
+  //----------------------------------------------------------------------------
+
+  .decl alloc_aliases(?alloc1: Allocation, ?alloc2: Allocation)
+
+  // Reflexivity
+
+  alloc_aliases(?alloc, ?alloc) :-
+    allocation(?alloc).
+
+  // Transitivity
+
+  alloc_aliases(?alloc1, ?alloc2) :-
+    alloc_aliases(?alloc1, ?intermAlloc),
+    alloc_aliases(?alloc2, ?intermAlloc).
+
+  // Symmetricitity
+
+  alloc_aliases(?alloc1, ?alloc2) :-
+    alloc_aliases(?alloc2, ?alloc1).
+
+  // A base allocation with zero index is an alias to base. The first
+  // field is also and alias to base, as it too points to the exact same
+  // memory location.
+
+  alloc_aliases(?base, ?zeroIndexBase) :-
+    alloc_subregion_at_array_index(?base, 0, ?zeroIndexBase).
+
+  alloc_aliases(?base, ?firstField) :-
+    alloc_subregion_at_field(?base, 0, ?firstField).
+
+
+  // Note !!! Aliased bases will *not* result in aliased subregions when
+  // extended by the same field or index. See `Why don’t GEP x,0,0,1 and
+  // GEP x,1 alias?` from http://llvm.org/docs/GetElementPtr.html
+
+
+
+  //------------------------------------------------------------------------
+  // [Pattern Matching Star Expressions]
+  //
+  // By allowing star expressions in subregion allocations, we must
+  // ensure that when loading from some allocation we consider all other
+  // allocation that could potentially alias the former.  An allocation
+  // that contains a star expression (unknown index) is more generic
+  // than any allocation where the star is replaced by a specific
+  // constant index.
+  //
+  // For instance, when loading from an address that points-to an
+  // allocation such as `Base[1][*].$1[*][3]`, the possible dereferenced
+  // locations are not just those of its points-to set, but also those
+  // from `Base[1][c1].$1[c2][3]` for any c1, c2 constants (or even just
+  // one of them).
+  //
+  // To be able to reason about such relations between complex
+  // allocations, we define a relation (actually a partial-order)
+  // between allocations a1 and a2 that detects when a2 can pattern
+  // match a1 by replacing any or all of its star expressions with some
+  // constant indices. For better performance, we compute only the
+  // non-reflexive part of the partial order. The RHS must always
+  // include some star.
+  //------------------------------------------------------------------------
+
+
+  // `StarredAlloc` is more generic than (ie, can pattern match)
+  // `Alloc`.
+
+  .decl alloc_matches(?alloc: Allocation, ?starredAlloc: Allocation)
+
+  alloc_matches(?alloc, ?starredAlloc) :-
+    alloc_matches(?base1, ?base2),
+    alloc_subregion_at_array_index(?base1, _, ?alloc),
+    alloc_subregion_at_any_array_index(?base2, ?starredAlloc).
+
+  alloc_matches(?alloc, ?starredAlloc) :-
+    alloc_subregion_at_array_index(?base, _, ?alloc),
+    alloc_subregion_at_any_array_index(?base, ?starredAlloc).
+
+  alloc_matches(?alloc1, ?alloc2) :-
+    alloc_matches(?base1, ?base2),
+    alloc_subregion_at_any_array_index(?base1, ?alloc1),
+    alloc_subregion_at_any_array_index(?base2, ?alloc2).
+
+  alloc_matches(?alloc1, ?alloc2) :-
+    alloc_matches(?base1, ?base2),
+    alloc_subregion_at_array_index(?base1, ?index, ?alloc1),
+    alloc_subregion_at_array_index(?base2, ?index, ?alloc2).
+
+  alloc_matches(?alloc1, ?alloc2) :-
+    alloc_matches(?base1, ?base2),
+    alloc_subregion_at_field(?base1, ?field, ?alloc1),
+    alloc_subregion_at_field(?base2, ?field, ?alloc2).
+
+  //------------------------------------------------------------------------
+  // [May aliases]
+  //
+  // This relation records *possible* (may) aliases, including implicit
+  // pointer aliases, matching aliases, and subregion aliases.
+  //------------------------------------------------------------------------
+
+  .decl alloc_may_alias(?alloc1: Allocation, ?alloc2: Allocation)
+
+  // note this is not an eqrel because it is not transitive
+  // reflexivity is taken care of by alloc_aliases
+  // it is symmetric
+
+  alloc_may_alias(?alloc1, ?alloc2) :-
+    alloc_may_alias(?alloc2, ?alloc1).
+
+  alloc_may_alias(?alloc1, ?alloc2) :-
+    alloc_aliases(?alloc1, ?alloc2).
+
+  alloc_may_alias(?alloc1, ?alloc2) :-
+    alloc_matches(?alloc1, ?alloc2).
+
+}

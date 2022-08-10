@@ -1,0 +1,58 @@
+// http://llvm.org/docs/LangRef.html#extractelement-instruction
+// keywords: vector; instruction
+
+.type ExtractElementInstruction = Instruction
+.decl extractelement_instruction(instr:ExtractElementInstruction)
+
+instruction(v) :- extractelement_instruction(v).
+
+.decl extractelement_instruction_base(instr:ExtractElementInstruction, vector:Operand)
+.decl extractelement_instruction_index(instr:ExtractElementInstruction, index:Operand)
+.decl extractelement_instruction_type(instr:ExtractElementInstruction, type:Type)
+
+// The type of the elements that the vector comprises.
+extractelement_instruction_type(Instr, Type) :-
+   extractelement_instruction_base(Instr, Vector),
+   operand_has_type(Vector, VectorType),
+   vector_type_has_component(VectorType, Type).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// The ‘extractelement‘ instruction takes two operands:
+//    (i)  the first operand is a value of vector type
+//    (ii) and the second operand is an index of i32-integer type.
+//
+// The result is a scalar of the same type as the component type
+// of the vector value.
+//------------------------------------------------------------------------------
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   extractelement_instruction(Instr),
+   !extractelement_instruction_base(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   extractelement_instruction(Instr),
+   !extractelement_instruction_index(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   extractelement_instruction(Instr),
+   extractelement_instruction_base(Instr, Vector),
+   operand_has_type(Vector, Type),
+   !vector_type(Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   extractelement_instruction(Instr),
+   extractelement_instruction_index(Instr, Index),
+   operand_has_type(Index, Type),
+   !int32_type(Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   extractelement_instruction_type(Instr, Type),
+   !instruction_returns_type(Instr, Type).

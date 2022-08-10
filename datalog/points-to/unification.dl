@@ -1,0 +1,706 @@
+// See also core.dl
+
+//-----------------------------------------------------------------------
+// [Basic Concepts of Pointer Analysis]
+//-----------------------------------------------------------------------
+
+// Unification-based (Steensgard-style) pointer analysis
+//
+// This analysis should be faster, but less precise than the subset-based
+// analysis. Here's the general idea:
+//
+// - Use Soufflé's `choice-domain` feature to ensure that each variable and pointer
+//   has only one points-to fact per context (well, technically one per
+//   context/type/etc. tuple, see `var_points_to_choice` below).
+// - When a variable or pointer would have multiple points-to facts in a given
+//   context, "unify" the allocations that would be pointed to (see `unify`).
+// - After the analysis is finished, go through and replace each allocation that
+//   appears in a points-to fact with a canonical representative of its equivalence
+//   class in `unify` (see `unify_repr`).
+//
+// TODO(lb): Many of these rules (e.g. those for suballocations) could be lifted
+// to a more generic points-to component that is shared between subset- and
+// unification-based analyses.
+.comp UnificationPointsTo : PointsTo {
+  //-----------------------------------------------------------------------
+  // [Relations with Choice]
+  //-----------------------------------------------------------------------
+
+  // "choice-domain" introduces a functional dependency on ?ctx, ?var, ?region,
+  // ?type, and ?info: only one result will be computed (non-deterministically) for
+  // each (?ctx, ?var, ?region, ?type, ?info) tuple in the relation. Thus we will
+  // choose *one* representative element of ?var's points-to set to record (for
+  // each context, region, type, and "getelementptr info" - explained below). Note:
+  // multiple variables that share a points-to set may have different
+  // representative elements.
+  //
+  // Why all these qualifiers? It leads to less merging of allocations via `unify`,
+  // which is the big source of imprecision in unification-based analyses.
+  // Naturally, there's an unclear performance/precision interaction here as well.
+  //
+  // The entries in the choice-domain must agree with the rules that have
+  // `unify` as their head atom/conclusion, i.e. those rules shouldn't cause
+  // any allocations to be unified unless they agree on all the attributes in
+  // the choice-domain.
+  //
+  // The qualifiers are necessary for correctness as well. For each variable, we
+  // have a points-to set where each allocation represents a different `unify`
+  // equivalence class, because we've set up the elements of the `choice-domain` on
+  // the `*_points_to` relations to be synchronized with conditions under which we
+  // add pairs to `unify`. Since all elements of each `unify` equivalence class
+  // aren't propagated through the whole analysis (saving time and space relative
+  // to the subset analysis), we need to make sure that members of the same
+  // equivalence class are treated identically by all the rules of the analysis. To
+  // accomplish this, we can either
+  //
+  // 1. copy the feature/attribute between unified allocations
+  // 2. never unify allocations that differ in some feature, adding the attribute
+  //    to the `choice-domain` (e.g. what's done for allocation types)
+  // 3. iterate over `unify` when producing inputs for rules that branch on the attribute.
+  //
+  // The rules for GEP branch on more features of allocations than any other rules.
+  //
+  // - Whether an allocation is "basic" or a suballocation
+  // - Whether a suballocation is a array suballocation, and at what index
+  //
+  // This is captured in the `_gep_alloc_info` relation.
+  //
+  // In actuality, *all* different array suballocations are fed separately to the
+  // GEP rules if the GEP in question has a constant first index. This is because
+  // for two unified array suballocations arr1[x] and arr2[x] that also match on
+  // allocation region, type, and suballocation path, the GEP rules can output two
+  // suballocations arr1[x+y] and arr2[x+y] that *aren't unified* because they
+  // aren't suballocations of arr1[x] and arr2[x]. They need to be passed to the
+  // GEP rules to be unified in the first place.
+
+  // Note that there is one "region" per function, which is important for
+  // maintaining a precise callgraph, which is also crucial for analysis speed.
+  .decl var_points_to_choice(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable, ?region: Region, ?type: Type, ?info: GEPAllocInfo) choice-domain (?ctx, ?var, ?region, ?type, ?info)
+  .decl ptr_points_to_choice(?aCtx: Context, ?alloc: Allocation, ?ptrACtx: Context, ?ptrAlloc: Allocation, ?region: Region, ?type: Type, ?info: GEPAllocInfo) choice-domain (?ptrACtx, ?ptrAlloc, ?region, ?type, ?info)
+
+  .type GEPAllocInfo = PathComponent | symbol
+
+  .decl _gep_alloc_info(?alloc: Allocation, ?info: GEPAllocInfo)
+
+  _gep_alloc_info(?alloc, "basic") :- basic_allocation(?alloc).
+  _gep_alloc_info(?alloc, "basic") :- non_allocation(?alloc).
+
+  _gep_alloc_info(?alloc, "struct") :-
+    unification_subobjects.alloc_subregion_at_path_component(_, ?component, ?alloc),
+    path_component_at_field(?component, _).
+
+  _gep_alloc_info(?alloc, ?component) :-
+    unification_subobjects.alloc_subregion_at_path_component(_, ?component, ?alloc),
+    path_component_at_any_index(?component).
+
+  _gep_alloc_info(?alloc, ?alloc) :-
+    unification_subobjects.alloc_subregion_at_path_component(_, ?component, ?alloc),
+    path_component_at_index(?component, _).
+
+  //-----------------------------------------------------------------------
+  // [Output Relations]
+  //-----------------------------------------------------------------------
+
+  // While it might look like this relation is superfluous and
+  // `var_points_to_choice` should just be used directly in its stead, it's
+  // important that the unification analysis shares the same API as the subset
+  // analysis so that the majority of rules (e.g. the callgraph and GEP rules) can
+  // be shared between them via components.
+  var_points_to(?aCtx, ?alloc, ?ctx, ?var) :-
+    var_points_to_choice(?aCtx, ?alloc, ?ctx, ?var, _, _, _).
+
+  // Choose arbitrarily from the set of allocations unified at this variable
+  var_points_to_choice(?aCtx, ?alloc, ?ctx, ?var, ?region, ?type, ?info) :-
+    unify_var_expanded(?aCtx, ?alloc, ?ctx, ?var, ?region, ?type, ?info).
+
+  // Collect allocation metadata that's used in the choice-domains.
+  //
+  // Every allocation should have exactly one region and at least one type.
+  .decl _unify_allocation_info(?alloc: Allocation, ?region: Region, ?type: Type, ?info: GEPAllocInfo)
+  _unify_allocation_info(?alloc, ?region, ?type, ?info) :-
+    alloc_region(?alloc, ?region),
+    // The "pseudo-allocations" don't have types, so just make something up.
+    ( unification_allocation_type.allocation_type(?alloc, ?type)
+    ; ( non_allocation(?alloc)
+      , int8_type(?type)
+      )
+    ),
+    _gep_alloc_info(?alloc, ?info).
+
+  .decl unify_var_expanded(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable, ?region: Region, ?type: Type, ?info: GEPAllocInfo)
+  unify_var_expanded(?aCtx, ?alloc, ?ctx, ?var, ?region, ?type, ?info) :-
+    unify_var(?aCtx, ?alloc, ?ctx, ?var),
+    _unify_allocation_info(?alloc, ?region, ?type, ?info).
+
+  // `unify_var` causes points-to sets to be merged via `unify`.
+  .decl unify_var(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable)
+
+  unify_var(?aCtx, ?alloc, ?toCtx, ?toVar) :-
+    interp_assignment.interp_assignment(?toCtx, ?toVar, ?fromCtx, ?fromValue),
+    operand_points_to(?aCtx, ?alloc, ?fromCtx, ?fromValue).
+
+  //----------------------------
+  // Dereferencing Pointers
+  //----------------------------
+
+  ptr_points_to(?aCtx, ?alloc, ?ctx, ?ptr) :-
+    ptr_points_to_choice(?aCtx, ?alloc, ?ctx, ?ptr, _, _, _).
+
+  .decl unify_ptr_expanded(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?ptr: Allocation, ?region: Region, ?type: Type, ?info: GEPAllocInfo)
+  unify_ptr_expanded(?aCtx, ?alloc, ?ctx, ?ptr, ?region, ?type, ?info) :-
+    unify_ptr(?aCtx, ?alloc, ?ctx, ?ptr),
+    _unify_allocation_info(?alloc, ?region, ?type, ?info).
+
+  // `unify_ptr` causes points-to sets to be merged via `unify`.
+  .decl unify_ptr(?aCtx: Context, ?alloc: Allocation, ?baseACtx: Context, ?ptr: Allocation)
+
+  ptr_points_to_choice(?aCtx, ?alloc, ?baseACtx, ?ptr, ?region, ?type, ?info) :-
+    unify_ptr_expanded(?aCtx, ?alloc, ?baseACtx, ?ptr, ?region, ?type, ?info).
+
+  // Aliases have the same points-to sets
+  unify_ptr(?aCtx, ?alloc, ?baseACtx, ?baseAlloc1) :-
+    ptr_points_to(?aCtx, ?alloc, ?baseACtx, ?baseAlloc2),
+    unification_aliases.alloc_aliases(?baseAlloc1, ?baseAlloc2).
+
+  // When a pointer points to an allocation, it must also point to all
+  // of its aliases
+  unify_ptr(?aCtx, ?alloc1, ?baseACtx, ?baseAlloc) :-
+    ptr_points_to(?aCtx, ?alloc2, ?baseACtx, ?baseAlloc),
+    unification_aliases.alloc_aliases(?alloc1, ?alloc2).
+  .plan 0: (1, 2),
+        1: (2, 1)
+
+  //----------------------------------------------------------------------
+  // [Load/Store Instructions]
+  //----------------------------------------------------------------------
+
+  unify_ptr(?aCtx, ?alloc, ?baseACtx, ?baseAlloc) :-
+     callgraph.reachable_store(?ctx, ?toAddress, ?value),
+     operand_points_to(?aCtx, ?alloc, ?ctx, ?value),
+     operand_points_to(?baseACtx, ?baseAlloc, ?ctx, ?toAddress),
+     ptr_compatible_allocation(?baseAlloc).
+  .plan 0: (1, 2, 3, 4),
+        1: (2, 1, 3, 4),
+        2: (3, 1, 2, 4),
+        3: (4, 3, 1, 2)
+
+  // This join doesn't appear directly in the `unify_var` rule for `load`
+  // because the load rule is so expensive.
+  .decl _load_operand_points_to(?baseCtx: Context, ?base: Allocation, ?ctx: Context, ?toVar: Variable)
+  _load_operand_points_to(?baseACtx, ?baseAlloc, ?ctx, ?toVar) :-
+    callgraph.reachable_load(?ctx, ?toVar, ?fromAddress),
+    operand_points_to(?baseACtx, ?baseAlloc, ?ctx, ?fromAddress).
+  .plan 0: (1, 2),
+        1: (2, 1)
+
+  // When loading from an allocation we must also consider the more
+  // specific matching allocations and merge their points-to sets also.
+
+  .decl _load_ptr_points_to(?aCtx: Context, ?alloc: Allocation, ?baseCtx: Context, ?base: Allocation)
+  _load_ptr_points_to(?ctx, ?alloc, ?baseACtx, ?baseAlloc) :-
+    ptr_points_to(?ctx, ?alloc, ?baseACtx, ?baseAlloc).
+
+// This join doesn't appear directly in the `unify_var` rule for `load`
+// because the load rule is so expensive.
+  _load_ptr_points_to(?ctx, ?alloc, ?baseACtx, ?baseAlloc) :-
+    unification_aliases.alloc_matches(?lessGenericAlloc, ?baseAlloc),
+    ptr_points_to(?ctx, ?alloc, ?baseACtx, ?lessGenericAlloc).
+  .plan 0: (1, 2),
+        1: (2, 1)
+
+  unify_var(?aCtx, ?alloc, ?ctx, ?toVar) :-
+    _load_operand_points_to(?baseCtx, ?base, ?ctx, ?toVar),
+    unify(?reprCtx, ?repr, ?baseCtx, ?base),
+    unify(?reprCtx, ?repr, ?newCtx, ?new),
+    _load_ptr_points_to(?aCtx, ?alloc, ?newCtx, ?new).
+  // This rule accounts for the majority of the runtime of this analysis. These
+  // plans were very carefully crafted to ameliorate this performance issue, be
+  // sure to profile before and after if you change them!
+  .plan 0: (1, 2, 3, 4),  // delta: _load_operand_points_to
+        1: (2, 3, 1, 4),  // delta: unify
+        2: (3, 2, 1, 4),  // delta: unify
+        3: (4, 3, 2, 1)   // delta: _load_ptr_points_to
+
+  //----------------------------------------------------------------------
+  // [Suballocations]
+  //----------------------------------------------------------------------
+
+  // When loading from an allocation, we must also load from more generic
+  // allocations (i.e., allocations with [*] in place of [n] in some positions -
+  // see `alloc_matches`).
+  unify_ptr(?aCtx, ?alloc, ?ptrACtx, ?origAlloc) :-
+    ptr_points_to(?aCtx, ?alloc, ?ptrACtx, ?moreGenericAlloc),
+    unification_aliases.alloc_matches(?origAlloc, ?moreGenericAlloc).
+
+  //----------------------------------------------------------------------
+  // [Unification]
+  //----------------------------------------------------------------------
+
+  .type AllocWithContext = [?aCtx: Context, ?alloc: Allocation]
+
+  // Union-find datastructure to track merged allocation sets
+  //
+  // LHS is equivalence class representative, RHS is equivalence class element.
+  // Each representative should be a member of the equivalence class.
+  //
+  // We don't use Soufflé's EQREL feature because of performance issues, e.g.,
+  // https://github.com/souffle-lang/souffle/issues/2054. Instead, we emulate
+  // a union-find data structure using subsumption to non-monotonically update
+  // the "parent" relationship.
+  .decl unify0(?reprCtx: Context, ?reprAlloc: Allocation, ?elemCtx: Context, ?elemAlloc: Allocation)
+  .decl unify(?reprCtx: Context, ?reprAlloc: Allocation, ?elemCtx: Context, ?elemAlloc: Allocation) btree_delete
+
+  // Because some rules (like those for load, GEP) iterate over `unify`, it's
+  // crucial that `unify` contain "reflexivity" facts for every allocation.
+  unify(?aCtx, ?alloc, ?aCtx, ?alloc) :-
+    unification_allocations.alloc_with_ctx(?aCtx, ?alloc).
+
+  // Transitivity
+  unify(?xCtx, ?x, ?zCtx, ?z) :-
+    unify(?xCtx, ?x, ?yCtx, ?y),
+    unify(?yCtx, ?y, ?zCtx, ?z).
+  .plan 0: (1, 2),
+        1: (2, 1)
+
+// TODO(lb): Is there some number of bit-level operations here that would yield
+// a semantically equivalent result, without splitting each query that uses this
+// into a disjunction?
+//
+// Could certainly use a functor...
+#define LEX_ORDER(xCtx, x, yCtx, y) (ord(xCtx) < ord(yCtx); (ord(xCtx) = ord(yCtx), ord(x) < ord(y)))
+
+  // Parent-hopping (i.e., what happens during `find` in a normal union-find
+  // structure)
+  unify(?xCtx, ?x, ?yCtx, ?y) <= unify(?zCtx, ?z, ?yCtx, ?y) :-
+    LEX_ORDER(?zCtx, ?z, ?xCtx, ?x).
+
+  // On pain of incorrectness, we can only unify existing representatives.
+  unify(?rCtx1, ?r1, ?rCtx2, ?r2) :-
+    unify0(?xCtx, ?x, ?yCtx, ?y),
+    ( ( unify(?rCtx1, ?r1, ?xCtx, ?x),
+        unify(?rCtx2, ?r2, ?yCtx, ?y),
+        LEX_ORDER(?rCtx1, ?r1, ?rCtx2, ?r2)
+      )
+    ; ( unify(?rCtx1, ?r1, ?yCtx, ?y),
+        unify(?rCtx2, ?r2, ?xCtx, ?x),
+        LEX_ORDER(?rCtx1, ?r1, ?rCtx2, ?r2)
+      )
+    ).
+  .plan 0: (1, 2, 3),
+        1: (2, 1, 3),
+        2: (3, 1, 2)
+
+  // Analysis rules
+
+  // NOTE: The query plans in this section optimize based on the understanding that
+  // "delta" relations will be generated. One version of each rule is generated for
+  // each atom that recursively depends on the conclusion of the rule (in this
+  // case, unify0). We the query plan to loop over the deltas first, rather than
+  // the whole relation (which is bigger). Unfortunately, the SIPS metric doesn't
+  // take these deltas into account, so it's necessary to write a plan manually.
+  //
+  // Note that query plan 0 is already in the best order by default.
+  //
+  // You can view the query plans by passing --show=transformed-ram to Soufflé.
+  //
+  // ALSO NOTE: The rules below have the following subobject unification
+  // rule "embedded" in them to get subobject info while generating the
+  // data in each rule:
+  //
+  //  // Unify subobjects of already-unified allocations
+  // unify([?aCtx1, ?subAlloc1], [?aCtx2, ?subAlloc2]) :-
+  //   unify_unrecord(?aCtx1, ?alloc1, ?aCtx2, ?alloc2),
+  //   unification_subobjects.alloc_subregion_at_path(?alloc1, ?path, ?subAlloc1),
+  //   unification_subobjects.alloc_subregion_at_path(?alloc2, ?path, ?subAlloc2).
+
+  // The body of this rule is semantically equivalent to the same rule with a
+  // second copy of `unify_var_expanded` in place of `var_points_to_choice`.
+  // However, this version is faster, because `var_points_to_choice` has a more
+  // limited number of elements due to its `choice-domain`. The reason that
+  // they're semantically equivalent is that `unify` is an `eqrel`, and
+  // `var_points_to_choice` is a subset of `unify_var_expanded`, so unifying
+  // all equivalent allocations with a single chosen allocation is equivalent to
+  // unifying them all pairwise.
+  unify0(?aCtx1, ?subAlloc1, ?aCtx2, ?subAlloc2) :-
+    var_points_to_choice(?aCtx1, ?alloc1, ?ctx, ?var, ?region, ?type, ?info),
+    unify_var_expanded(?aCtx2, ?alloc2, ?ctx, ?var, ?region, ?type, ?info),
+    unification_subobjects.alloc_subregion_at_path(?alloc1, ?path, ?subAlloc1),
+    unification_subobjects.alloc_subregion_at_path(?alloc2, ?path, ?subAlloc2).
+  .plan 0: (1, 2, 3, 4),
+        1: (2, 1, 3, 4),
+        2: (3, 1, 2, 4),
+        3: (4, 2, 1, 3)
+
+  unify0(?aCtx1, ?subAlloc1, ?aCtx2, ?subAlloc2) :-
+    ptr_points_to_choice(?aCtx1, ?alloc1, ?baseACtx, ?ptr, ?region, ?type, ?info),
+    unify_ptr_expanded(?aCtx2, ?alloc2, ?baseACtx, ?ptr, ?region, ?type, ?info),
+    unification_subobjects.alloc_subregion_at_path(?alloc1, ?path, ?subAlloc1),
+    unification_subobjects.alloc_subregion_at_path(?alloc2, ?path, ?subAlloc2).
+  .plan 0: (1, 2, 3, 4),
+        1: (2, 1, 3, 4),
+        2: (3, 1, 2, 4),
+        3: (4, 2, 1, 3)
+
+  // Unify must-aliases
+  unify0(?aCtx, ?subAlloc1, ?aCtx, ?subAlloc2) :-
+    unification_allocations.alloc_with_ctx(?aCtx, ?alloc),
+    unification_aliases.alloc_aliases(?mustAlias, ?alloc),
+    unification_subobjects.alloc_subregion_at_path(?alloc, ?path, ?subAlloc1),
+    unification_subobjects.alloc_subregion_at_path(?mustAlias, ?path, ?subAlloc2).
+  .plan 0: (1, 2, 3, 4),
+        1: (2, 1, 3, 4),
+        2: (3, 1, 2, 4),
+        3: (4, 2, 1, 3)
+
+  // Unify typed and untyped variants of the same allocation
+  unify0(?aCtx, ?subAlloc1, ?aCtx, ?subAlloc2) :-
+    heap_allocation_by_instruction(?instr, ?alloc1),
+    heap_allocation_by_instruction(?instr, ?alloc2),
+    instruction_assigns_to(?instr, ?var),
+    var_points_to(?aCtx, ?alloc1, _, ?var),
+    unification_subobjects.alloc_subregion_at_path(?alloc1, ?path, ?subAlloc1),
+    unification_subobjects.alloc_subregion_at_path(?alloc2, ?path, ?subAlloc2).
+  // As an input rule, instruction_assigns_to doesn't get a delta, hence 5 query
+  // plans for 6 clauses
+  .plan 0: (1, 2, 3, 4, 5, 6),
+        1: (2, 1, 3, 4, 5, 6),
+        2: (4, 3, 2, 1, 5, 6),
+        3: (5, 1, 2, 3, 4, 6),
+        4: (6, 2, 1, 3, 4, 5)
+
+  //----------------------------------------------------------------------
+  // [Canonical Representatives of Each Equivalence Classes]
+  //----------------------------------------------------------------------
+
+  // In var_points_to_final, we replace each points-to fact
+  //
+  //   (?aCtx, ?alloc, ?ctx, ?var)
+  //
+  // with a fact
+  //
+  //   (?aCtx', ?alloc', ?ctx, ?var)
+  //
+  // where ?aCtx' and ?alloc' are "canonical representatives" of their equivalence
+  // class under 'unify' (via 'unify_repr'). With this done, checking if two
+  // variables may alias is as simple as checking if they have any elements of
+  // their points-to sets in common, like in the subset analysis.
+
+  // Note: The aggregate `count` causes stratification, so this relation will
+  // view the "final version" of `unify`, where all the subsumption has already
+  // occurred.
+  .decl is_repr(?reprCtx: Context, ?repr: Allocation)
+  is_repr(?reprCtx, ?repr) :-
+    unify(?reprCtx, ?repr, _, _),
+    0 = count : {
+      unify(?reprCtx0, _, ?reprCtx, ?repr),
+      ?reprCtx0 != ?reprCtx
+    },
+    0 = count : {
+      unify(_, ?repr0, ?reprCtx, ?repr),
+      ?repr0 != ?repr
+    }.
+
+  // TODO(lb): Flip this for consistency
+  .decl unify_repr(?inpCtx: Context, ?inpAlloc: Allocation, ?reprCtx: Context, ?reprAlloc: Allocation)
+  unify_repr(?inpCtx, ?inpAlloc, ?reprCtx, ?reprAlloc) :-
+    is_repr(?reprCtx, ?reprAlloc),
+    unify(?reprCtx, ?reprAlloc, ?inpCtx, ?inpAlloc).
+  .plan 0: (1, 2),
+        1: (2, 1)
+
+  // Replace all allocation/context pairs with their chosen representative.
+
+  .decl ptr_points_to_final(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?ptr: Allocation)
+  ptr_points_to_final(?reprCtx, ?repr, ?ctx, ?ptr) :-
+    ptr_points_to(?aCtx, ?alloc, ?ctx, ?ptr),
+    unify_repr(?aCtx, ?alloc, ?reprCtx, ?repr).
+
+  .decl operand_points_to_final(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?operand: Operand)
+  operand_points_to_final(?reprCtx, ?repr, ?ctx, ?operand) :-
+    var_points_to_final(?reprCtx, ?repr, ?ctx, ?operand).
+  operand_points_to_final(?reprCtx, ?repr, ?ctx, ?cons) :-
+    empty_alloc_context(?aCtx),
+    constant_in_function(?cons, ?enclosingFunc),
+    constant_points_to(?cons, ?alloc),
+    callgraph.reachable_context(?ctx, ?enclosingFunc),
+    unify_repr(?aCtx, ?alloc, ?reprCtx, ?repr).
+
+  .decl var_points_to_final(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable)
+  var_points_to_final(?reprCtx, ?repr, ?ctx, ?var) :-
+    var_points_to(?aCtx, ?alloc, ?ctx, ?var),
+    unify_repr(?aCtx, ?alloc, ?reprCtx, ?repr).
+}
+
+
+.init unification = UnificationPointsTo
+
+unification.callgraph.called_at_exit(?func) :-
+  unification_at_exit.called_at_exit(?func).
+
+// Copy results back from TypeIndication
+unification.unify_var(?aCtx, ?typedAlloc, ?ctx, ?var) :-
+  unification.type_indication.assign_rebase_alloc(?typedAlloc, ?aCtx, ?alloc, ?var),
+  unification.var_points_to(?aCtx, ?alloc, ?ctx, ?var).
+
+.init unification_signatures = Signatures
+
+unification_signatures.allocation_type(?alloc, ?type) :-
+  unification_allocation_type.allocation_type(?alloc, ?type).
+
+unification_signatures.alloc_may_alias(?alloc1, ?alloc2) :-
+  unification_aliases.alloc_may_alias(?alloc1, ?alloc2).
+
+unification_signatures.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr) :-
+  unification.callgraph.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr).
+
+unification_signatures.reachable_context(?ctx, ?func) :-
+  unification.callgraph.reachable_context(?ctx, ?func).
+
+unification_signatures.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+  unification.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
+
+unification_signatures.ptr_points_to(?aCtx, ?alloc, ?ctx, ?ptr) :-
+  unification.ptr_points_to(?aCtx, ?alloc, ?ctx, ?ptr).
+
+unification_signatures.var_points_to(?aCtx, ?alloc, ?ctx, ?var) :-
+  unification.var_points_to(?aCtx, ?alloc, ?ctx, ?var).
+
+// Copy new points-to facts back
+unification.unify_ptr(?aCtx, ?alloc, ?ctx, ?operand) :-
+  unification_signatures.sig_ptr_points_to(?aCtx, ?alloc, ?ctx, ?operand).
+
+unification.unify_var(?aCtx, ?alloc, ?ctx, ?var) :-
+  unification_signatures.sig_var_points_to(?aCtx, ?alloc, ?ctx, ?var).
+
+.init unification_memcpy = Memcpy
+
+unification_memcpy.allocation_type(?alloc, ?type) :-
+  unification_allocation_type.allocation_type(?alloc, ?type).
+
+unification_memcpy.alloc_subregion(?alloc) :-
+  unification_subobjects.alloc_subregion(?alloc).
+
+unification_memcpy.alloc_subregion_at_any_array_index(?alloc, ?region) :-
+  unification_subobjects.alloc_subregion_at_any_array_index(?alloc, ?region).
+
+unification_memcpy.alloc_subregion_offset(?alloc, ?region, ?offset) :-
+  unification_subobjects.alloc_subregion_offset(?alloc, ?region, ?offset).
+
+unification_memcpy.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr) :-
+  unification.callgraph.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr).
+
+unification_memcpy.memcpy_sig(?toCtx, ?to, ?fromCtx, ?from) :-
+  unification_signatures.memcpy_sig(?toCtx, ?to, ?fromCtx, ?from).
+
+unification_memcpy.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+  unification.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
+
+unification_memcpy.var_points_to(?aCtx, ?alloc, ?ctx, ?var) :-
+  unification.var_points_to(?aCtx, ?alloc, ?ctx, ?var).
+
+unification.unify_ptr(?aCtx, ?alloc, ?toCtx, ?to) :-
+   unification_memcpy.rec_memcpy(?toCtx, ?to, ?fromCtx, ?from),
+   unification.ptr_points_to(?aCtx, ?alloc, ?fromCtx, ?from).
+
+.init unification_gep = GEP
+
+unification_gep.allocation_type(?alloc, ?type) :-
+  unification_allocation_type.allocation_type(?alloc, ?type).
+
+unification_gep.alloc_subregion_at_path_component(?component, ?region) :-
+  unification_subobjects.alloc_subregion_at_path_component(_, ?component, ?region).
+
+unification_gep.alloc_subregion_at_field(?alloc, ?index, ?region) :-
+  unification_subobjects.alloc_subregion_at_field(?alloc, ?index, ?region).
+
+unification_gep.alloc_subregion_at_array_index(?alloc, ?index, ?region) :-
+  unification_subobjects.alloc_subregion_at_array_index(?alloc, ?index, ?region).
+
+unification_gep.alloc_subregion_at_any_array_index(?alloc, ?region) :-
+  unification_subobjects.alloc_subregion_at_any_array_index(?alloc, ?region).
+
+unification_gep.alloc_subregion_offset(?base, ?subAlloc, ?offset) :-
+  unification_subobjects.alloc_subregion_offset(?base, ?subAlloc, ?offset).
+
+unification_gep.operand_points_to(?aCtx, ?alloc, ?ctx, ?op) :-
+  unification.operand_points_to(?aCtx, ?alloc, ?ctx, ?op).
+
+unification.unify_var(?aCtx, ?alloc, ?ctx, ?toVar) :-
+  unification_gep.gep_var_points_to(?aCtx, ?alloc, ?ctx, ?toVar).
+
+.init unification_cplusplus = CPlusPlus
+
+unification_cplusplus.allocation_type(?alloc, ?type) :-
+  unification_allocation_type.allocation_type(?alloc, ?type).
+
+unification_cplusplus.stripctx_operand_points_to(?to, ?op) :-
+  unification.stripctx.stripctx_operand_points_to(?to, ?op).
+
+.init unification_throw_instruction = ThrowInstruction
+
+unification_throw_instruction.allocation_type(?alloc, ?type) :-
+  unification_allocation_type.allocation_type(?alloc, ?type).
+
+unification_throw_instruction.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr) :-
+  unification.callgraph.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr).
+
+unification_throw_instruction.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+  unification.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
+
+unification_throw_instruction.stripctx_operand_points_to(?to, ?op) :-
+  unification.stripctx.stripctx_operand_points_to(?to, ?op).
+
+unification.type_indication.ty_indication(?type, ?aCtx, ?alloc) :-
+  unification_throw_instruction.ty_indication4(?type, ?aCtx, ?alloc).
+
+unification.type_indication.ty_indication(?type, ?aCtx, ?alloc) :-
+  unification_throw_instruction.ty_indication5(?type, ?aCtx, ?alloc).
+
+unification_throw_instruction.untyped_allocation(?insn, ?alloc) :-
+  unification.exception_object.untyped_allocation(?insn, ?alloc).
+
+.init unification_at_exit = AtExit
+
+unification_at_exit.alloc_aliases(?alloc1, ?alloc2) :-
+  unification_aliases.alloc_aliases(?alloc1, ?alloc2).
+
+unification_at_exit.reachable_context(?ctx, ?func) :-
+  unification.callgraph.reachable_context(?ctx, ?func).
+
+unification_at_exit.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr) :-
+  unification.callgraph.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr).
+
+unification_at_exit.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+  unification.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
+
+unification.unify_var(?aCtx, ?alloc, ?ctx, ?var) :-
+  unification_at_exit.at_exit_var_points_to(?aCtx, ?alloc, ?ctx, ?var).
+
+.init unification_allocations = Allocations
+
+alloc_context(?aCtx) :- unification_allocations.alloc_with_ctx(?aCtx, _).
+
+unification_allocations.alloc_subregion_base(?alloc, ?base) :-
+  unification_subobjects.alloc_subregion_base(?alloc, ?base).
+
+unification_allocations.alloc_with_ctx(?aCtx, ?alloc) :-
+  unification_signatures.alloc_with_ctx(?aCtx, ?alloc).
+
+unification_allocations.alloc_with_ctx(?aCtx, ?alloc) :-
+  unification.type_indication.alloc_with_ctx(?aCtx, ?alloc).
+
+unification_allocations.reachable_context(?ctx, ?func) :-
+  unification.callgraph.reachable_context(?ctx, ?func).
+unification.unify_var(?aCtx, ?alloc, ?ctx, ?var) :-
+  unification_allocations.allocated_at(?aCtx, ?alloc, ?ctx, ?var).
+
+.init unification_allocation_type = AllocationType
+
+unification_allocation_type.alloc_subregion_type(?alloc, ?type) :-
+  unification_subobjects.alloc_subregion_type(?alloc, ?type).
+
+unification_allocation_type.backpropagated_allocation_type(?alloc, ?type) :-
+  unification.type_indication.backpropagated_allocation_type(?alloc, ?type).
+
+unification_allocation_type.sig_allocation_type(?alloc, ?type) :-
+  unification_signatures.sig_allocation_type(?alloc, ?type).
+
+unification_allocation_type.is_init_by_ctor(?type, ?ctor, ?inFunction, ?alloc) :-
+  unification_cplusplus.is_init_by_ctor(?type, ?ctor, ?inFunction, ?alloc).
+
+unification_allocation_type.heap_allocation_by_alloc_exc(?insn, ?heapAlloc) :-
+  unification.exception_object.heap_allocation_by_alloc_exc(?insn, ?heapAlloc).
+
+// NOTE(lb): Aliasing among subobjects of aliasing allocations is handled in
+// unification.dl.
+.init unification_subobjects = AllocSubobjects
+
+unification_subobjects.allocation_type(?alloc, ?type) :-
+  unification_allocation_type.allocation_type(?alloc, ?type).
+
+// With bounds checking, different allocations of the same type, region, ... may
+// have different numbers of array suballocations. This can cause unsoundness,
+// as the GEP rules applied to two unified allocations could give different
+// results. To avoid this, we copy sizes among unified allocations.
+.decl unify_allocation_size(?alloc: Allocation, ?size: Bytes)
+
+unify_allocation_size(?alloc, ?size) :-
+  allocation_size(?alloc, ?size).
+
+unify_allocation_size(?repr, ?size) :-
+  unification.unify(_, ?repr, _, ?base),
+  allocation_size(?base, ?size).
+
+unify_allocation_size(?base, ?size) :-
+  unification.unify(_, ?repr, _, ?base),
+  allocation_size(?repr, ?size).
+
+dynamically_sized_alloc(?repr) :-
+  unification.unify(_, ?repr, _, ?base),
+  dynamically_sized_alloc(?base).
+
+dynamically_sized_alloc(?base) :-
+  unification.unify(_, ?repr, _, ?base),
+  dynamically_sized_alloc(?repr).
+
+unification_subobjects.input_allocation_size(?alloc, ?size) :-
+  unify_allocation_size(?alloc, ?size).
+
+static_subobjects.input_allocation_size(?alloc, ?size) :-
+  unify_allocation_size(?alloc, ?size).
+
+// Copy in results from static subobjects
+unification_subobjects._alloc_subregion(?allocSub, ?base, ?component, ?root, ?path, ?type) :-
+  static_subobjects._alloc_subregion(?allocSub, ?base, ?component, ?root, ?path, ?type).
+unification_subobjects._non_function_basic_allocation(?alloc) :-
+  static_subobjects._non_function_basic_allocation(?alloc).
+unification_subobjects.alloc_subregion_at_field(?alloc, ?index, ?region) :-
+  static_subobjects.alloc_subregion_at_field(?alloc, ?index, ?region).
+unification_subobjects.alloc_subregion_at_any_array_index(?alloc, ?region) :-
+  static_subobjects.alloc_subregion_at_any_array_index(?alloc, ?region).
+unification_subobjects.alloc_subregion_at_array_index(?alloc, ?index, ?region) :-
+  static_subobjects.alloc_subregion_at_array_index(?alloc, ?index, ?region).
+
+.init unification_aliases = Aliases
+
+unification_aliases.alloc_subregion_at_field(?alloc, ?index, ?region) :-
+  unification_subobjects.alloc_subregion_at_field(?alloc, ?index, ?region).
+
+unification_aliases.alloc_subregion_at_array_index(?alloc, ?index, ?region) :-
+  unification_subobjects.alloc_subregion_at_array_index(?alloc, ?index, ?region).
+
+unification_aliases.alloc_subregion_at_any_array_index(?alloc, ?region) :-
+  unification_subobjects.alloc_subregion_at_any_array_index(?alloc, ?region).
+
+.init unification_lift = Lift
+
+unification_lift.alloc_may_alias(?alloc1, ?alloc2) :-
+  unification_aliases.alloc_may_alias(?alloc1, ?alloc2).
+
+unification_lift.alloc_subregion_at_path(?base, ?path, ?obj) :-
+  unification_subobjects.alloc_subregion_at_path(?base, ?path, ?obj).
+
+unification_lift.alloc_subregion_base(?base, ?obj) :-
+  unification_subobjects.alloc_subregion_base(?base, ?obj).
+
+unification_lift.reachable_context(?ctx, ?func) :-
+  unification.callgraph.reachable_context(?ctx, ?func).
+
+unification_lift.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+  unification.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
+
+unification_lift.ptr_points_to(?aCtx, ?alloc, ?ctx, ?ptr) :-
+  unification.ptr_points_to(?aCtx, ?alloc, ?ctx, ?ptr).
+
+unification_lift.var_points_to(?aCtx, ?alloc, ?ctx, ?var) :-
+  unification.var_points_to(?aCtx, ?alloc, ?ctx, ?var).
+
+alloc_region(?subAlloc, ?region) :-
+  unification_subobjects.alloc_subregion_base(?subAlloc, ?alloc),
+  alloc_region(?alloc, ?region).
+alloc_region(?alloc, "heap") :-
+  unification.exception_object.heap_allocation_by_alloc_exc(_, ?alloc).
+alloc_region(?alloc, "heap") :-
+  unification.type_indication.heap_allocation_by_type_instruction(_, _, ?alloc).
+alloc_region(?alloc, "heap") :-
+  unification_signatures.sig_allocation_type(?alloc, _).

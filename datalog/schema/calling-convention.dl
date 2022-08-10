@@ -1,0 +1,44 @@
+// http://llvm.org/docs/LangRef.html#callingconv
+// keywords: function_instruction; call_instruction; invoke_instruction
+
+.type CallingConvention <: symbol
+.decl calling_convention(conv:CallingConvention)
+
+.decl fast_calling_convention(conv:CallingConvention)
+.decl cold_calling_convention(conv:CallingConvention)
+.decl x86_fastcall_calling_convention(conv:CallingConvention)
+.decl x86_stdcall_calling_convention(conv:CallingConvention)
+.decl x86_thiscall_calling_convention(conv:CallingConvention)
+.decl intel_ocl_bi_calling_convention(conv:CallingConvention)
+.decl arm_aapcs_calling_convention(conv:CallingConvention)
+.decl arm_aapcs_vfp_calling_convention(conv:CallingConvention)
+.decl arm_apcs_calling_convention(conv:CallingConvention)
+.decl msp430_intr_calling_convention(conv:CallingConvention)
+.decl ptx_device_calling_convention(conv:CallingConvention)
+.decl ptx_kernel_calling_convention(conv:CallingConvention)
+
+calling_convention(cc) :- fast_calling_convention(cc).
+calling_convention(cc) :- cold_calling_convention(cc).
+calling_convention(cc) :- x86_fastcall_calling_convention(cc).
+calling_convention(cc) :- x86_stdcall_calling_convention(cc).
+calling_convention(cc) :- x86_thiscall_calling_convention(cc).
+calling_convention(cc) :- intel_ocl_bi_calling_convention(cc).
+calling_convention(cc) :- arm_aapcs_calling_convention(cc).
+calling_convention(cc) :- arm_aapcs_vfp_calling_convention(cc).
+calling_convention(cc) :- arm_apcs_calling_convention(cc).
+calling_convention(cc) :- msp430_intr_calling_convention(cc).
+calling_convention(cc) :- ptx_device_calling_convention(cc).
+calling_convention(cc) :- ptx_kernel_calling_convention(cc).
+
+fast_calling_convention("fastcc").
+cold_calling_convention("coldcc").
+x86_fastcall_calling_convention("x86_fastcallcc").
+x86_stdcall_calling_convention("x86_stdcallcc").
+x86_thiscall_calling_convention("x86_thiscallcc").
+intel_ocl_bi_calling_convention("intel_ocl_bicc").
+arm_aapcs_calling_convention("arm_aapcscc").
+arm_aapcs_vfp_calling_convention("arm_aapcs_vfpcc").
+arm_apcs_calling_convention("arm_apcscc").
+msp430_intr_calling_convention("msp430_intrcc").
+ptx_device_calling_convention("ptx_device").
+ptx_kernel_calling_convention("ptx_kernel").

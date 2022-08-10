@@ -1,0 +1,576 @@
+//------------------------------------------------------------------------------
+// [Definition of memory subregions (as subtypes of allocation)]
+//
+// We define a subregion as either (i) a field of an existing region
+// (which itself is either a subregion or a normal allocation), or
+// (ii) an array/pointer index of an existing region.
+//
+// In the second case, the index can be either a constant (which we
+// record) or a variable. This corresponds to two different
+// constructors, that in essence produce two distinct algebraic data
+// types (plus a single one for referencing struct fields).
+//
+// When the index is unknown on the other hand (variable case), there
+// is no index to record. In the string representation protocol as
+// well as in code documentation, we will represent the unknown index
+// with a star (*).
+//
+// As a final note, the need to create subregions stems from the fact
+// that in C, we can refer to field addresses, and at a later point
+// dereference them. This translates to a `getelementptr` instruction
+// that computes the offset from a base pointer variable and assigns
+// it to some other variable, which may then be supplied as the
+// address operand to a `load`/`store` instruction. These two
+// instructions may reside in different functions, so an
+// intraprocedural matching would not work.
+//
+// This is an important difference with the Java Bytecode IR, where no
+// such thing is possible and a single relation that connects two
+// abstract objects (memory allocations) through some field is
+// sufficient.
+//------------------------------------------------------------------------------
+
+//---------------------------------------------------------------
+// [Statically Possible Indices]
+//---------------------------------------------------------------
+
+// Find all statically possible pointer indices
+
+.decl _alloc_region(?region: Region)
+_alloc_region(?r) :- global_region(?r).
+_alloc_region(?r) :- heap_region(?r).
+_alloc_region(?r) :- stack_region(?r).
+
+.decl pointer_index(?region: Region, ?type: Type, ?index: ArrayIndex)
+
+pointer_index(?region, ?type, 0) :-
+  _alloc_region(?region),
+  type(?type).
+
+// TODO(lb): Use `gep_zero_index_offset` here.
+pointer_index(?region, ?type, ?finalIdx) :-
+  ( ( getelementptr_instruction_index(?insn, 0, ?indexOp)
+    , constant_to_int(?indexOp, ?index)
+    , getelementptr_instruction_base_type(?insn, ?declaredType)
+    , _alloc_region(?region)
+    )
+  ; ( getelementptr_constant_expression_index(?expr, 0, ?indexOp)
+    , constant_to_int(?indexOp, ?index)
+    , _getelementptr_constant_expression_base_type(?expr, ?declaredType)
+    , global_region(?region)
+    )
+  ),
+  ?index >= 0,
+  // The first index of a GEP always a pointer type.
+  pointer_type_has_component(?declaredType, ?declaredElemType),
+  ( ( type_compatible(?type, ?declaredElemType)
+    , type_has_size(?type, ?size)
+    )
+  ; // This case is not redundant with the previous in the case; there may be
+    // types ?type where there is no pointer_type_has_component(_, ?type).
+    // Conversely, there may be types that are not compatible, but such that
+    // pointer types to them are compatible (i8 and i64 vs. i8* and i64*).
+    ( pointer_type_has_component(?ptrType, ?type)
+    , type_compatible(?ptrType, ?declaredType)
+    , type_has_size(?type, ?size)
+    )
+  ),
+  // Adjust the index... (this calculation should match what's done for GEP)
+  ?size > 0,
+  type_has_size(?declaredElemType, ?declaredSize),
+  // Soufflé can still divide by zero here if it reorders clauses, so we take max
+  ?finalIdx = (?index * ?declaredSize) / max(?size, 1),
+  // Check that the type sizes divide evenly...
+  (?finalIdx * ?size) = (?index * ?declaredSize).
+
+.decl pointer_offset(?region: Region, ?type: Type, ?offset: SubregionOffset)
+
+// Still need [0] for unsized types, e.g., opaque structs.
+pointer_offset(?region, ?type, 0) :-
+  pointer_index(?region, ?type, 0).
+
+pointer_offset(?region, ?type, ?index * ?size) :-
+  pointer_index(?region, ?type, ?index),
+  type_has_size(?type, ?size).
+
+// Find all statically possible array indices
+
+.decl array_indices__no_typecomp(?region: Region, ?type: ArrayType, ?index: ArrayIndex)
+
+array_indices__no_typecomp(?region, ?declaredType, as(?constantIndex, ArrayIndex)) :-
+   ( ( getelementptr_instruction_index(?insn, ?index, ?indexOp)
+     , getelementptr_instruction_interm_type(?insn, ?index, ?declaredType)
+     , _alloc_region(?region)
+     )
+   ; ( getelementptr_constant_expression_index(?expr, ?index, ?indexOp)
+     , _getelementptr_constant_expression_interm_type(?expr, ?index, ?declaredType)
+     , global_region(?region)
+     )
+   ),
+   constant_to_int(?indexOp, ?constantIndex),
+   array_type(?declaredType).
+
+// Same thing, but also consider compatible array types
+
+.decl array_indices(?region: Region, ?type: ArrayType, ?index: ArrayIndex)
+
+array_indices(?region, ?type, ?constantIndex) :-
+  array_type(?type),
+  type_contains_pointer(?type),
+  type_compatible(?type, ?declaredType),
+  array_indices__no_typecomp(?region, ?declaredType, ?constantIndex).
+
+.decl array_offset(?region: Region, ?type: Type, ?offset: SubregionOffset)
+array_offset(?region, ?type, ?index * ?size) :-
+  array_indices(?region, ?type, ?index),
+  array_type_has_component(?type, ?elemType),
+  type_has_size(?elemType, ?size).
+
+//---------------------------------------------------------------
+// [Paths]
+//---------------------------------------------------------------
+
+// A "Path" describes how to reach a given suballocation from a basic allocation
+// through a chain of fields, indices, and pointers. Paths are used in the
+// handling of memcpy.
+//
+// Paths are snoc-lists of PathComponents, i.e. they are manipulated by adding
+// and popping PathComponents from the end.
+
+.type PathComponent
+  = EmptyPathComponent
+  | FieldPathComponent
+  | ArrayPathComponent
+
+.type EmptyPathComponent <: symbol
+.type FieldPathComponent <: symbol
+
+.type ArrayPathComponent
+  = ArrayIndexPathComponent
+  | AnyArrayIndexPathComponent
+
+.type ArrayIndexPathComponent <: symbol
+.type AnyArrayIndexPathComponent <: symbol
+
+.decl path_component(?component: PathComponent)
+.decl empty_path_component(?component: EmptyPathComponent)
+.decl empty_path(?path: Path)
+.decl path_component_at_field(?component: FieldPathComponent, ?field: FieldIndex)
+.decl path_component_at_index(?component: ArrayIndexPathComponent, ?index: ArrayIndex)
+.decl path_component_at_any_index(?component: AnyArrayIndexPathComponent)
+empty_path_component("").
+empty_path("").
+path_component_at_any_index("[*]").
+
+path_component(?component) :- empty_path_component(?component).
+path_component(?component) :- path_component_at_field(?component, _).
+path_component(?component) :- path_component_at_index(?component, _).
+path_component(?component) :- path_component_at_any_index(?component).
+
+.type Path <: symbol
+.decl path(?path: Path)
+.decl split_path(?path: Path, ?head: Path, ?tail: PathComponent) // AKA "unsnoc"
+.decl path_ends_in(?path: Path, ?component: PathComponent)
+.decl component_to_path(?component: PathComponent, ?path: Path) inline
+
+// Promotion from components to paths
+path(as(?component, Path))
+, component_to_path(?component, as(?component, Path))
+, path_ends_in(as(?component, Path), ?component)
+:-
+  path_component(?component).
+
+split_path(?path, ?pathHead, ?component) :-
+  component_to_path(?component, ?path),
+  empty_path_component(?empty),
+  component_to_path(?empty, ?pathHead).
+
+path_ends_in(?path, ?component) :- split_path(?path, _, ?component).
+
+.decl path_ends_in_array_index(?path: Path)
+path_ends_in_array_index(?path) :-
+  path_ends_in(?path, ?component),
+  path_component_at_index(?component, _).
+
+// The negation of path_component_at_index. It's necessary to "manually" negate to
+// avoid unstratified relations, see unification.dl.
+.decl not_array_index(?component: PathComponent)
+not_array_index(?component) :- empty_path_component(?component).
+not_array_index(?component) :- path_component_at_field(?component, _).
+not_array_index(?component) :- path_component_at_any_index(?component).
+
+//---------------------------------------------------------------
+// [Subregions]
+//---------------------------------------------------------------
+
+.type AllocSubregion
+  = FieldSubregion
+  | ArraySubregion
+
+.type FieldSubregion <: symbol
+
+.type ArraySubregion
+  = ArrayIndexSubregion
+  | AnyArrayIndexSubregion
+  
+.type ArrayIndexSubregion <: symbol
+.type AnyArrayIndexSubregion <: symbol
+
+.comp AllocSubobjects {
+
+  //----------------------------------------------------------------------------
+  // "Input"/declared rules
+  //
+  // https://souffle-lang.github.io/components#input-rules
+  //----------------------------------------------------------------------------
+
+  // NOTE(lb): To work properly, the relation `alloc_subregion_type` should be
+  // copied back into this `allocation_type` relation.
+  .decl allocation_type(?alloc:Allocation, ?type:Type) inline
+
+  .decl input_allocation_size(?alloc: Allocation, ?size: Bytes) inline
+
+  //----------------------------------------------------------------------------
+  // "Output"/defined rules
+  //
+  // By convention, rules that begin with an underscore are internal
+  // implementation details, and should not be accessed outside the component.
+  //----------------------------------------------------------------------------
+
+  // Every alloc_subregion has one:
+  //
+  // - base: immediate parent
+  // - component
+  // - root: ancestor that is a basic allocation
+  // - path: path from root
+  // - type
+  //
+  // We squash this into a big relation to save both space and time, and inline
+  // the projections.
+  .decl _alloc_subregion(
+    ?region: AllocSubregion,
+    ?base: Allocation,
+    ?component: PathComponent,
+    ?root: BasicAllocation,
+    ?path: Path,
+    ?type: Type)
+
+  .decl alloc_subregion(?allocSub: AllocSubregion) inline
+  alloc_subregion(?region) :-
+    _alloc_subregion(?region, _, _, _, _, _).
+
+  .decl alloc_subregion_base(?region: AllocSubregion, ?base: Allocation) inline
+  alloc_subregion_base(?region, ?base) :-
+    _alloc_subregion(?region, ?base, _, _, _, _).
+
+  .decl alloc_subregion_root(?region: AllocSubregion, ?root: Allocation) inline
+  alloc_subregion_root(?region, ?root) :-
+    _alloc_subregion(?region, _, _, ?root, _, _).
+
+  .decl alloc_subregion_type(?region: AllocSubregion, ?base: Type) inline
+  alloc_subregion_type(?region, ?type) :-
+    _alloc_subregion(?region, _, _, _, _, ?type).
+
+  .decl alloc_subregion_at_path_component(?base: Allocation, ?component: PathComponent, ?obj: AllocSubregion) inline
+  alloc_subregion_at_path_component(?base, ?component, ?obj) :-
+    _alloc_subregion(?obj, ?base, ?component, _, _, _).
+
+  .decl longest_path_to(?root: BasicAllocation, ?path: Path, ?alloc: AllocSubregion) inline
+  longest_path_to(?root, ?path, ?region) :-
+    _alloc_subregion(?region, _, _, ?root, ?path, _).
+
+  .decl alloc_subregion_at_path(?base: Allocation, ?str: Path, ?obj: Allocation)
+  alloc_subregion_at_path(?base, ?path, ?obj) :-
+    alloc_subregion_at_path_component(?base, ?component, ?obj),
+    component_to_path(?component, ?path).
+
+  allocation(?region) :- alloc_subregion(?region).
+
+  ptr_compatible_allocation(?alloc) :-
+    ptr_compatible_allocation(?baseAlloc),
+    alloc_subregion_base(?alloc, ?baseAlloc).
+
+  alloc_subregion_at_path(?base, ?path, ?base) :-
+    allocation(?base),
+    empty_path(?path).
+
+  alloc_subregion_at_path(?root, ?path, ?alloc) :-
+    longest_path_to(?root, ?path, ?alloc).
+
+  path(?path) :- longest_path_to(_, ?path, _).
+
+  path_component_at_index(as(?component, ArrayIndexPathComponent), ?idx) :-
+    alloc_subregion_at_array_index(?alloc, ?idx, ?subAlloc),
+    _alloc_subregion(?subAlloc, ?alloc, ?component, _, _, _).
+
+  path_component_at_field(as(?component, FieldPathComponent), ?field) :-
+    alloc_subregion_at_field(?alloc, ?field, ?subAlloc),
+    _alloc_subregion(?subAlloc, ?alloc, ?component, _, _, _).
+
+  split_path(?fullPath, ?start, ?end) :-
+    longest_path_to(?root, ?start, ?mid),
+    _alloc_subregion(?sub, ?mid, ?end, ?root, ?fullPath, _).
+
+  // Global allocations holding functions don't have any suballocations, it's
+  // illegal to add offsets to pointers to such allocations.
+  .decl _non_function_basic_allocation(?alloc: BasicAllocation)
+  _non_function_basic_allocation(?alloc) :-
+    basic_allocation(?alloc),
+    ! global_allocation_by_function(_, ?alloc).
+
+  //---------------------------------------------------------------
+  // [Field Selections]
+  //---------------------------------------------------------------
+
+  // Single constructor for field selections
+
+  .decl alloc_subregion_at_field(?alloc: Allocation, ?index: FieldIndex, ?region: FieldSubregion)
+
+  // Create every field sub-expression, once type for base object is
+  // established
+
+  _alloc_subregion(?newAlloc, ?alloc, ?component, ?root, cat(?path, ?component), ?fieldType)
+  , alloc_subregion_at_field(?alloc, ?field, ?newAlloc)
+  :-
+    allocation_type(?alloc, ?type),
+    // filter base allocations
+    longest_path_to(?root, ?path, ?alloc),
+    // determine type
+    struct_type(?type),
+    struct_type_field(?type, ?field, ?fieldType),
+    ?component = cat("/", to_string(?field)),
+    ( ( struct_type_field_name(?type,?field, ?fieldName)
+      , ?newAlloc = cat(?alloc, ".", ?fieldName, "/", to_string(?field))
+      )
+    ; ( !struct_type_field_name(?type,?field, _)
+      , ?newAlloc = cat(?alloc, ".?/", to_string(?field))
+      )
+    ).
+
+  //---------------------------------------------------------------
+  // [Array Element Selections: unknown *star* index]
+  //---------------------------------------------------------------
+
+  // Constructor for unknown array/pointer index
+  .decl alloc_subregion_at_any_array_index(?alloc: Allocation, ?region: AnyArrayIndexSubregion)
+
+  // Create star pointer index expression, once type for base object is
+  // established
+
+  _alloc_subregion(?newAlloc, ?alloc, ?component, ?alloc, ?path, ?type)
+  , alloc_subregion_at_any_array_index(?alloc, ?newAlloc)
+  :-
+    allocation_type(?alloc, ?type),
+    // base object
+    _non_function_basic_allocation(?alloc),
+    path_component_at_any_index(?component),
+    component_to_path(?component, ?path),
+    ?newAlloc=cat(?alloc, ?component).
+
+  // Create star array index expression, once type for base object is
+  // established
+
+  _alloc_subregion(?newAlloc, ?alloc, ?component, ?root, cat(?path, ?component), ?elementType)
+  , alloc_subregion_at_any_array_index(?alloc, ?newAlloc)
+  :-
+    allocation_type(?alloc, ?type),
+    array_type_has_component(?type, ?elementType),
+    // filter base allocations
+    longest_path_to(?root, ?path, ?alloc),
+    path_component_at_any_index(?component),
+    ?newAlloc = cat(?alloc, ?component).
+
+  //---------------------------------------------------------------
+  // [Array Element Selections: known index]
+  //---------------------------------------------------------------
+
+  .decl index_in_bounds(?alloc: Allocation, ?index: ArrayIndex)
+
+  index_in_bounds(?alloc, ?index) :-
+    _non_function_basic_allocation(?alloc),
+    input_allocation_size(?alloc, ?size),
+    allocation_type(?alloc, ?type),
+    alloc_region(?alloc, ?region),
+    type_has_size(?type, ?elemSize),
+    pointer_index(?region, ?type, ?index),
+    // While it is valid to create a pointer to one past the end of an array,
+    // such a pointer can't participate in loads or stores, so we don't track
+    // it (i.e., this is '<' and not '<=').
+    ?elemSize * ?index < ?size.
+
+  index_in_bounds(?alloc, ?index) :-
+    _non_function_basic_allocation(?alloc),
+    dynamically_sized_alloc(?alloc),
+    allocation_type(?alloc, ?type),
+    alloc_region(?alloc, ?region),
+    pointer_index(?region, ?type, ?index).
+
+  index_in_bounds(?alloc, ?index) :-
+    alloc_subregion(?alloc),
+    input_allocation_size(?alloc, ?size),
+    allocation_type(?alloc, ?type),
+    alloc_region(?alloc, ?region),
+    array_type_has_component(?type, ?elementType),
+    type_has_size(?elementType, ?elemSize),
+    array_indices(?region, ?type, ?index),
+    ?elemSize * ?index < ?size.
+
+  index_in_bounds(?alloc, ?index) :-
+    alloc_subregion(?alloc),
+    dynamically_sized_alloc(?alloc),
+    allocation_type(?alloc, ?type),
+    alloc_region(?alloc, ?region),
+    array_type(?type),
+    array_indices(?region, ?type, ?index).
+
+  // Constructor for constant array/pointer index
+
+  .decl alloc_subregion_at_array_index(?alloc: Allocation, ?index: ArrayIndex, ?region: ArrayIndexSubregion)
+
+  // Create every pointer index expression, once type for base object is
+  // established
+
+  _alloc_subregion(?newAlloc, ?alloc, ?component, ?alloc, ?component, ?type)
+  , alloc_subregion_at_array_index(?alloc, ?index, ?newAlloc)
+  :-
+    allocation_type(?alloc, ?type),
+    // base object
+    _non_function_basic_allocation(?alloc),
+    index_in_bounds(?alloc, ?index),
+    ?newAlloc= cat(?alloc, "[", to_string(?index), "]"),
+    ?component = cat("[", to_string(?index), "]").
+
+  // Create star array index expression, once type for base object is
+  // established
+
+  _alloc_subregion(?newAlloc, ?alloc, ?component, ?root, cat(?path, ?component), ?elementType)
+  , alloc_subregion_at_array_index(?alloc, ?index, ?newAlloc)
+  :-
+    // This needs to be a suballocation because indexes of basic allocations always
+    // index the pointer. Furthermore, if we don't filter out basic allocations
+    // here, we'll get duplicate suballocations with different types (duplicated
+    // with the above rule for basic allocations).
+    longest_path_to(?root, ?path, ?alloc),
+    allocation_type(?alloc, ?type),
+    array_type_has_component(?type, ?elementType),
+    index_in_bounds(?alloc, ?index),
+    ?newAlloc = cat(?alloc, "[", to_string(?index), "]"),
+    ?component = cat("[", to_string(?index), "]").
+
+  //---------------------------------------------------------------
+  // Offsets
+  //---------------------------------------------------------------
+
+  // Available for all non-[*] subregions.
+  .decl alloc_subregion_offset(?base: Allocation, ?subAlloc: AllocSubregion, ?offset: SubregionOffset)
+
+  alloc_subregion_offset(?base, ?subAlloc, ?offset) :-
+    alloc_subregion_at_field(?base, ?field, ?subAlloc),
+    allocation_type(?base, ?type),
+    struct_type_field_offset(?type, ?field, ?offset).
+
+  alloc_subregion_offset(?base, ?subAlloc, ?idx * ?size) :-
+    alloc_subregion_at_array_index(?base, ?idx, ?subAlloc),
+    allocation_type(?subAlloc, ?type),
+    type_has_size(?type, ?size).
+
+  //---------------------------------------------------------------
+  // Size
+  //---------------------------------------------------------------
+
+  // Suballocations at a given array index are of fixed size, the size of the
+  // element type.
+  allocation_size(?subAlloc, ?size) :-
+    alloc_subregion_at_array_index(?base, ?idx, ?subAlloc),
+    allocation_type(?subAlloc, ?type),
+    type_has_size(?type, ?size).
+
+  // The [*]-index is treated as a single suballocation.
+  allocation_size(?subAlloc, ?size) :-
+    alloc_subregion_at_any_array_index(?base, ?subAlloc),
+    allocation_type(?subAlloc, ?type),
+    type_has_size(?type, ?size).
+
+  // Padding is not included because it can't be read or written. This means the
+  // size of the children allocations may not sum to the size of the parent.
+  allocation_size(?fieldAlloc, ?size) :-
+    alloc_subregion_at_field(?base, ?field, ?fieldAlloc),
+    alloc_subregion_at_field(?base, ?field + 1, _),  // not the last field
+    allocation_type(?fieldAlloc, ?type),
+    type_has_size(?type, ?size).
+
+  // The last field of a struct might have additional space, e.g. a [0 x i8].
+  allocation_size(?subAlloc, ?size - ?offset) :-
+    alloc_subregion_at_field(?base, ?field, ?subAlloc),
+    allocation_type(?base, ?type),
+    struct_type_nfields(?type, ?field + 1),  // this is the last field
+    allocation_size(?base, ?size),
+    struct_type_field_offset(?type, ?field, ?offset).
+
+  // The last field of a struct may be dynamically sized if the parent is.
+  dynamically_sized_alloc(?subAlloc) :-
+    alloc_subregion_at_field(?base, ?field, ?subAlloc),
+    allocation_type(?base, ?type),
+    struct_type_nfields(?type, ?field + 1),  // this is the last field
+    dynamically_sized_alloc(?base).
+
+  //-------------------------------------------------------------------
+  // Subobject properties
+  //-------------------------------------------------------------------
+
+  //------------------------------------------------------------------------
+  // [Deprecated: Maximum Subobject Depth]
+  //
+  // Note that pointer arithmetic and other C idioms may cause infinite
+  // recursion and creation of new subobjects. For instance, the
+  // instruction: `ptr = ptr + 1` when translated to a `getelementptr`
+  // instruction, it will create a new subobject relative to the one
+  // that `ptr` points to with some offset. However, this subobject will
+  // again flow to the base variable `ptr` triggering the creation of
+  // yet a new subobject. This creation of new subobjects will continue
+  // indefinitely.
+  //
+  // DEPRECATED:
+  // To avoid non-termination we introduce a bound to object
+  // depth. Hence, we do not create a new subobject when this bound is
+  // going to be exceeded.
+  //
+  // Since we now create subobjects (e.g., by field access, or array
+  // indexing) *only* when the analysis has discovered the type of the
+  // base object, we no longer need a bound on object depth. Types alone
+  // are sufficient to prohibit infinite object recursion, since the
+  // type of the base object will always have a greater size compared to
+  // that of any of its subobjects. Hence, as the object depth grows,
+  // the object size will become smaller until it reaches zero (no
+  // infinite recursion is possible).
+  //------------------------------------------------------------------------
+
+  // field_sensitivity:max_depth[] = N ->
+  //    int[64](N).
+
+  // field_sensitivity:max_depth[] = 5.
+
+  // alloc_subregion(Alloc) -> allocation:depth[Alloc] = _.
+
+  // _may_expand_base_alloc(Alloc) -> allocation(Alloc).
+  // _may_expand_alloc_with_field(Alloc) -> allocation(Alloc).
+
+  // lang:isEntity[`_may_expand_base_alloc] = false.
+  // lang:isEntity[`_may_expand_alloc_with_field] = false.
+
+  // Allocation is allowed to create subobjects as maximum depth has not
+  // been reached
+
+  // _may_expand_base_alloc(Alloc) <-
+  //    field_sensitivity:max_depth[] = MaxDepth,
+  //    allocation:depth[Alloc] = N,
+  //    N < MaxDepth.
+}
+
+.init static_subobjects = AllocSubobjects
+
+static_subobjects.allocation_type(?alloc, ?type) :-
+  static_allocation_type(?alloc, ?type).
+
+static_allocation_type(?alloc, ?type) :-
+  static_subobjects.alloc_subregion_type(?alloc, ?type).

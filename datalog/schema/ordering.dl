@@ -1,0 +1,24 @@
+// Ordering as an enum
+.type Ordering <: symbol
+.decl ordering(o:Ordering)
+
+.decl unordered_ordering(o:Ordering)
+.decl monotonic_ordering(o:Ordering)
+.decl acquire_ordering(o:Ordering)
+.decl release_ordering(o:Ordering)
+.decl acq_rel_ordering(o:Ordering)
+.decl seq_cst_ordering(o:Ordering)
+
+ordering(o) :- unordered_ordering(o).
+ordering(o) :- monotonic_ordering(o).
+ordering(o) :- acquire_ordering(o).
+ordering(o) :- release_ordering(o).
+ordering(o) :- acq_rel_ordering(o).
+ordering(o) :- seq_cst_ordering(o).
+
+unordered_ordering("unordered").
+monotonic_ordering("monotonic").
+acquire_ordering("acquire").
+release_ordering("release").
+acq_rel_ordering("acq_rel").
+seq_cst_ordering("seq_cst").

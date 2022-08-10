@@ -1,0 +1,5 @@
+.type File <: symbol
+.type Line <: number
+
+// When true, this predicate enables all sanity checks of the project.
+.decl schema_sanity()

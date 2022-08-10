@@ -1,0 +1,31 @@
+// http://llvm.org/docs/LangRef.html#fence-instruction
+// keywords: memory; instruction
+
+.type FenceInstruction = Instruction
+.decl fence_instruction(instr:FenceInstruction)
+
+instruction(v) :- fence_instruction(v).
+
+.decl fence_instruction_ordering(instr:FenceInstruction, ordering:Ordering)
+
+
+//-------------------------------------------------------------------
+// [Constraints]
+//
+// They can only be given acquire, release, acq_rel, and seq_cst
+// orderings.
+//-------------------------------------------------------------------
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fence_instruction(Instr),
+   !fence_instruction_ordering(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fence_instruction(Instr),
+   fence_instruction_ordering(Instr, Ord),
+   !acquire_ordering(Ord),
+   !release_ordering(Ord),
+   !acq_rel_ordering(Ord),
+   !seq_cst_ordering(Ord).

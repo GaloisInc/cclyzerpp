@@ -1,0 +1,98 @@
+//---------------------------------------------------------
+// Dropping Contexts
+//---------------------------------------------------------
+
+.decl drop_context_by_invoc(?invoc: Instruction)
+.decl drop_context_item_by_invoc(?invoc: Instruction)
+
+// In some cases, it's best to *not* put a new item in the context at a
+// callsite, for example see "Precise and Scalable Points-to Analysis via
+// Data-Driven Context Tunneling".
+//
+// For callsite-sensitivity, we skip adding a new context item when it can be
+// statically proven that the function has exactly one callsite. In this case, the
+// callsite is not an informative context entry, whereas the caller's callsite
+// might be. This behavior leads to more contexts/precision, so is toggleable.
+//
+// Moreover, if the function takes no pointer arguments, the callsite can't have
+// *any* impact on the points-to facts in the body of the function, so we erase the
+// entire context. Similarly, if the function does not return any pointers, it
+// can't have any impact on the points-to facts in the caller.
+
+//---------------------------------------------------------
+// Functions With One Callsite
+//---------------------------------------------------------
+
+.decl num_direct_calls_to_func(?n: number, ?func: FunctionDecl)
+num_direct_calls_to_func(?n, ?func) :-
+  function_decl(?func),
+  ?n = count : _instr_calls_func(_, ?func).
+
+.decl call_or_invoke_instruction_fn_type(?instr: Instruction, ?type: Type)
+call_or_invoke_instruction_fn_type(?instr, ?fnType) :-
+  ( call_instruction_fn_type(?instr, ?fnType)
+  ; invoke_instruction_fn_type(?instr, ?fnType)
+  ).
+
+.decl indirect_call_or_invoke_instruction(?instr: Instruction)
+indirect_call_or_invoke_instruction(?instr) :-
+  indirect_call_instruction(?instr);
+  indirect_invoke_instruction(?instr).
+
+.decl num_indirect_calls_to_compatible_func(?n: number, ?func: FunctionDecl)
+num_indirect_calls_to_compatible_func(?n, ?func) :-
+  function_has_type(?func, ?targetType),
+  ?n = count : {
+    indirect_call_or_invoke_instruction(?instr),
+    call_or_invoke_instruction_fn_type(?instr, ?fnType),
+    type_compatible(?fnType, ?targetType)
+  }.
+
+.decl max_num_callsites(?func: FunctionDecl, ?n: number)
+max_num_callsites(?func, ?n1 + ?n2) :-
+  num_direct_calls_to_func(?n1, ?func),
+  num_indirect_calls_to_compatible_func(?n2, ?func).
+
+drop_context_item_by_invoc(?invoc) :-
+  user_option_value("drop_redundant_context_entries", "on"),
+  _instr_calls_func(?invoc, ?func),
+  max_num_callsites(?func, 1).
+
+//---------------------------------------------------------
+// Functions With No Pointer Arguments or Return Values
+//---------------------------------------------------------
+
+.decl type_contains_pointer(?type: Type)
+type_contains_pointer(?type) :-
+  type_has_subelement(?type, ?sub),
+  pointer_type(?sub).
+
+.decl function_type_has_pointer_arg(?funcType: FunctionType)
+function_type_has_pointer_arg(?funcType) :-
+  function_type_param(?funcType, _, ?paramType),
+  type_contains_pointer(?paramType).
+
+.decl function_type_has_no_pointer_args(?funcType: FunctionType)
+function_type_has_no_pointer_args(?funcType) :-
+  function_type(?funcType),
+  !function_type_has_pointer_arg(?funcType).
+
+.decl function_type_has_pointer_return(?funcType: FunctionType)
+function_type_has_pointer_return(?funcType) :-
+  function_type_return(?funcType, ?returnType),
+  type_contains_pointer(?returnType).
+
+.decl function_type_has_no_pointer_return(?funcType: FunctionType)
+function_type_has_no_pointer_return(?funcType) :-
+  function_type(?funcType),
+  !function_type_has_pointer_return(?funcType).
+
+drop_context_by_invoc(?invoc) :-
+  user_option_value("drop_redundant_contexts", "on"),
+  ( call_instruction_fn_operand(?invoc, ?funcOp)
+  ; invoke_instruction_fn_operand(?invoc, ?funcOp)
+  ),
+  operand_has_type(?funcOp, ?funcOpType),
+  pointer_type_has_component(?funcOpType, ?declaredType),
+  function_type_has_no_pointer_args(?declaredType),
+  function_type_has_no_pointer_return(?declaredType).

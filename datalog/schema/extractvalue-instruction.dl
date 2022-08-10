@@ -1,0 +1,92 @@
+// http://llvm.org/docs/LangRef.html#extractvalue-instruction
+// keywords: aggregate; instruction
+
+.type ExtractValueInstruction = Instruction
+.decl extractvalue_instruction(instr:ExtractValueInstruction)
+
+instruction(v) :- extractvalue_instruction(v).
+
+.decl extractvalue_instruction_base(instr:ExtractValueInstruction, aggregate:Operand)
+
+//------------------------
+// Aggregate Indices
+//------------------------
+
+.decl extractvalue_instruction_nindices(instr:ExtractValueInstruction, total:number)
+.decl extractvalue_instruction_index(instr:ExtractValueInstruction, i:number, idx:number)
+
+next_instruction_index(Instr, Index, Index + 1) :-
+   extractvalue_instruction_index(Instr, Index, _).
+
+
+//------------------------------------------------
+// The resulting type for each dereference.
+//------------------------------------------------
+
+.decl extractvalue_instruction_base_type(instr:ExtractValueInstruction, type:Type)
+.decl extractvalue_instruction_value_type(instr:ExtractValueInstruction, type:Type)
+.decl extractvalue_instruction_interm_type(instr:ExtractValueInstruction, i:number, type:Type)
+
+extractvalue_instruction_interm_type(Instr, 0, Type) :-
+   extractvalue_instruction_base(Instr, Aggregate),
+   operand_has_type(Aggregate, Type).
+
+extractvalue_instruction_interm_type(Instr, NextIndex, Type) :-
+   extractvalue_instruction_interm_type(Instr, Index, StructType),
+   extractvalue_instruction_index(Instr, Index, IdxValue),
+   struct_type_field(StructType, IdxValue, Type),
+   next_instruction_index(Instr, Index, NextIndex).
+
+extractvalue_instruction_interm_type(Instr, NextIndex, Type) :-
+   extractvalue_instruction_interm_type(Instr, Index, ArrayType),
+   array_type_has_component(ArrayType, Type),
+   next_instruction_index(Instr, Index, NextIndex).
+
+extractvalue_instruction_value_type(Instr, Type) :-
+   extractvalue_instruction_nindices(Instr, Total),
+   extractvalue_instruction_interm_type(Instr, Total, Type).
+
+extractvalue_instruction_base_type(Instr, Type) :-
+   extractvalue_instruction_interm_type(Instr, 0, Type).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+//  (1) The first operand of an ‘extractvalue‘ instruction is
+//      a value of struct or array type.
+//  (2) At least one index must be specified.
+//
+// The result is the value at the position in the aggregate specified
+// by the index operands.
+//------------------------------------------------------------------------------
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   extractvalue_instruction(Instr),
+   !extractvalue_instruction_base(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   extractvalue_instruction(Instr),
+   !extractvalue_instruction_nindices(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   extractvalue_instruction(Instr),
+   !extractvalue_instruction_index(Instr, 0, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   extractvalue_instruction_base_type(Instr, BaseType),
+   !aggregate_type(BaseType).   // c1
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   extractvalue_instruction_nindices(Instr, Total),
+   Total <= 0.                  // c2
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   extractvalue_instruction_value_type(Instr, Type),
+   !instruction_returns_type(Instr, Type). // creturn

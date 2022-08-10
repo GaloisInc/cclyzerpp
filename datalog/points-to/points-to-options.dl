@@ -1,0 +1,33 @@
+
+//------------------------------------------------------------------------------
+// [Handle Pointer Arithmetic]
+//
+// Handling pointer arithmetic in a sound way is quite expensive. It
+// may double the overall analysis time. Hence, it is optional and can
+// be turned on/off with the folowing configuration option.
+//------------------------------------------------------------------------------
+
+.decl analyze_pointer_arithmetic()
+
+analyze_pointer_arithmetic() :-
+   user_option_value("pointer_arithmetic","on").
+
+//------------------------------------------------------------------------------
+// [Handle optimized code]
+//
+// Similarly, handling optimized code requires a set of techniques
+// that may be completely redundant or even harmful for the precision
+// of the analysis, in the common case (non-optimized code). Hence, it
+// is optional and can be turned on/off with the folowing
+// configuration option.
+//
+// For instance, code optimizations may include inlined
+// constructors. In such a case, we cannot rely on the presence of a
+// call to a constructor after a heap allocation instruction, to be
+// able to identify the type of the allocation.
+//------------------------------------------------------------------------------
+
+.decl inlined_constructors()
+
+inlined_constructors() :-
+   user_option_value("optimized_code","on").

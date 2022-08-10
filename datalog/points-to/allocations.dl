@@ -1,0 +1,182 @@
+.decl build_stack_allocation(stackAlloc: StackAllocation, function: Function, type: Type, var: Variable) inline
+build_stack_allocation(stackAlloc, function, type, var) :-
+  function_has_name(function, funcName),
+  variable_has_name(var, varName),
+  stackAlloc = cat("*stack_alloc", funcName, "[", type, " ", varName, "]").
+
+.decl build_heap_allocation(heapAlloc: HeapAllocation, function: Function, type: Type, var: Variable) inline
+build_heap_allocation(heapAlloc, func, type, var) :-
+  function_has_name(func, funcName),
+  variable_has_name(var, varName),
+  heapAlloc = cat("*heap_alloc", funcName, "[", type, " ", varName, "]").
+
+// This file builds allocations for instructions that are reachable via either
+// the subset-based or unification-based analyses. The points-to facts aren't
+// always shared between them, but the set of basic allocations is.
+//
+// See subset-rules.dl and unification-rules.dl
+.decl any_reachable_function(?func: FunctionDecl) inline
+
+//---------------------------------------------------------------------
+// [Stack Allocations]
+//---------------------------------------------------------------------
+
+/// 1. Alloca Instructions
+
+stack_allocation(?stackAlloc),
+ stack_allocation_by_instruction(?instr, ?stackAlloc)
+ :-
+   alloca_instruction(?instr),
+   instruction_assigns_to(?instr, ?var),
+   instruction_in_function(?instr, ?instrFunc),
+   variable_has_type(?var,?type),
+   any_reachable_function(?instrFunc),
+   build_stack_allocation(?stackAlloc, ?instrFunc, ?type, ?var).
+
+static_allocation_type(?stackAlloc, ?type) :-
+   alloca_instruction(?instr),
+   alloca_instruction_type(?instr,?type),
+   stack_allocation_by_instruction(?instr, ?stackAlloc).
+
+/// 2. Parameters with pass-by-value semantics
+
+stack_allocation(?stackAlloc),
+ stack_allocation_by_parameter(?func, ?index, ?stackAlloc)
+ :-
+   function_param_by_value(?func, ?index),
+   function_param(?func, ?index, ?param),
+   variable_has_type(?param, ?type),
+   any_reachable_function(?func),
+   build_stack_allocation(?stackAlloc, ?func, ?type, ?param).
+
+static_allocation_type(?stackAlloc, ?type) :-
+   stack_allocation_by_parameter(?func, ?index, ?stackAlloc),
+   function_has_type(?func,?funcType),
+   function_type_param(?funcType, ?index, ?paramType),
+   pointer_type_has_component(?paramType, ?type).
+
+//---------------------------------------------------------------------
+// [Heap Allocations]
+//
+// In contrast to the other types of allocations, an allocation on the
+// heap is not always associated with a type (at least locally).
+//---------------------------------------------------------------------
+
+heap_allocation(?heapAlloc),
+heap_allocation_by_instruction(?instr, ?heapAlloc),
+static_allocation_type(?heapAlloc, ?elementType)
+ :-
+   heap_alloc_function(?func),
+   ( call_instruction_fn_target(?instr, ?func)
+   ; invoke_instruction_fn_target(?instr, ?func)),
+   instruction_assigns_to(?instr, ?var),
+   instruction_in_function(?instr,  ?instrFunc),
+
+   variable_has_type(?var, ?type),
+   pointer_type_has_component(?type, ?elementType),
+
+   any_reachable_function(?instrFunc),
+   build_heap_allocation(?heapAlloc, ?instrFunc, ?type, ?var).
+
+heap_allocation(?heapAlloc),
+heap_allocation_by_malloc(?insn, ?heapAlloc) :-
+  function_has_name(?func, "@malloc"),
+  call_instruction_fn_target(?insn, ?func),
+  heap_allocation_by_instruction(?insn, ?heapAlloc).
+
+heap_allocation(?heapAlloc),
+heap_allocation_by_calloc(?insn, ?heapAlloc) :-
+  function_has_name(?func, "@calloc"),
+  call_instruction_fn_target(?insn, ?func),
+  heap_allocation_by_instruction(?insn, ?heapAlloc).
+
+heap_allocation(?heapAlloc),
+heap_allocation_by_realloc(?insn, ?heapAlloc) :-
+  function_has_name(?func, "@realloc"),
+  call_instruction_fn_target(?insn, ?func),
+  heap_allocation_by_instruction(?insn, ?heapAlloc).
+
+heap_allocation(?heapAlloc),
+heap_allocation_by_mmap(?insn, ?heapAlloc) :-
+  function_has_name(?func, "@mmap"),
+  call_instruction_fn_target(?insn, ?func),
+  heap_allocation_by_instruction(?insn, ?heapAlloc).
+
+.comp Allocations {
+  //----------------------------------------------------------------------------
+  // "Input"/declared rules
+  //
+  // https://souffle-lang.github.io/components#input-rules
+  //----------------------------------------------------------------------------
+
+  .decl reachable_context(?ctx: Context, ?func: FunctionDecl) inline
+  .decl alloc_subregion_base(?region: AllocSubregion, ?base: Allocation) inline
+
+  //----------------------------------------------------------------------------
+  // "Output"/defined rules
+  //
+  // NOTE! This component can compute new points-to facts, and these need to be
+  // propagated back into the points-to component.
+  //----------------------------------------------------------------------------
+
+  .decl allocated_at(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable)
+  .decl alloc_with_ctx(?aCtx: Context, ?alloc: Allocation)
+
+  alloc_with_ctx(?aCtx, ?alloc) :- allocated_at(?aCtx, ?alloc, _, _).
+  alloc_with_ctx(?aCtx, ?alloc) :-
+    alloc_with_ctx(?aCtx, ?base),
+    alloc_subregion_base(?alloc, ?base).
+
+  alloc_with_ctx(?aCtx, ?alloc)
+  :- empty_alloc_context(?aCtx),
+     global_allocation(?alloc).
+
+  alloc_with_ctx(?aCtx, ?alloc)
+  :- empty_alloc_context(?aCtx),
+     non_allocation(?alloc).
+
+  alloc_with_ctx(?aCtx, ?alloc)
+  :- argv_var_points_to(?aCtx, ?alloc, _, _).
+
+  alloc_with_ctx(?aCtx, ?alloc)
+  :- empty_alloc_context(?aCtx),
+     argv_ptr_points_to(_, ?alloc).
+
+  allocated_at(?newCtx, ?stackAlloc, ?ctx, ?var)
+  :-
+    stack_allocation_by_instruction(?instr, ?stackAlloc),
+    instruction_assigns_to(?instr, ?var),
+    instruction_in_function(?instr, ?instrFunc),
+    reachable_context(?ctx, ?instrFunc),
+    record(?newCtx, ?stackAlloc, ?ctx).
+
+  allocated_at(?newCtx, ?stackAlloc, ?ctx, ?param)
+  :-
+    stack_allocation_by_parameter(?func, ?index, ?stackAlloc),
+    function_param_by_value(?func, ?index),
+    function_param(?func, ?index, ?param),
+    reachable_context(?ctx, ?func),
+    record(?newCtx, ?stackAlloc, ?ctx).
+
+  allocated_at(?newCtx, ?heapAlloc, ?ctx, ?var)
+  :-
+    heap_allocation_by_instruction(?instr, ?heapAlloc),
+    instruction_assigns_to(?instr, ?var),
+    instruction_in_function(?instr,  ?instrFunc),
+    reachable_context(?ctx, ?instrFunc),
+    record(?newCtx, ?heapAlloc, ?ctx).
+}
+
+//------------------------------------------------
+// [Allocation Position Info]
+//------------------------------------------------
+
+allocation_pos(?alloc, ?line, ?column) :-
+   (stack_allocation_by_instruction(?insn, ?alloc);
+   heap_allocation_by_instruction(?insn, ?alloc)),
+   instruction_pos(?insn, ?line, ?column).
+
+allocation_pos(?alloc, ?line, ?column) :-
+   stack_allocation_by_parameter(?func, ?index, ?alloc),
+   function_param(?func, ?index, ?param),
+   variable_has_debug_decl_pos(?param, ?line, ?column).

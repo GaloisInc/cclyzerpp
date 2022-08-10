@@ -1,0 +1,71 @@
+// http://llvm.org/docs/LangRef.html#fptoui-to-instruction
+// keywords: conversion; unary; instruction
+
+.type FPToUIInstruction = Instruction
+.decl fptoui_instruction(instr:FPToUIInstruction)
+
+instruction(v) :- fptoui_instruction(v).
+
+.decl fptoui_instruction_from_operand(instr:FPToUIInstruction, val:Operand)
+.decl fptoui_instruction_to_type(instr:FPToUIInstruction, type:Type)
+
+
+// Helper predicate
+
+.decl fptoui_instruction_from_type(instr:FPToUIInstruction, type:Type)
+
+fptoui_instruction_from_type(Instr, Type) :-
+   fptoui_instruction_from_operand(Instr, Operand),
+   operand_has_type(Operand, Type).
+
+
+//-------------------------------------------------------------------
+// [Constraints]
+//
+// 1) The ‘fptoui‘ instruction takes:
+//      (i)  a value to cast, which must be a scalar or vector
+//           floating point value,
+//      (ii) and a type to cast it to, which must be an integer
+//           type.
+//
+// 2) If the value to be casted is a vector floating point type:
+//      (i)  the type must be a vector integer type,
+//      (ii) with the same number of elements.
+//-------------------------------------------------------------------
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fptoui_instruction(Instr),
+   !fptoui_instruction_from_operand(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fptoui_instruction(Instr),
+   !fptoui_instruction_to_type(Instr, _).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fptoui_instruction(Instr),
+   fptoui_instruction_to_type(Instr, Type),
+   !instruction_returns_type(Instr, Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fptoui_instruction(Instr),
+   fptoui_instruction_from_type(Instr, Type),
+   !fp_type(Type),
+   !fp_vector_type(Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fptoui_instruction(Instr),
+   fptoui_instruction_to_type(Instr, Type),
+   !integer_type(Type),
+   !integer_vector_type(Type).
+
+schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fptoui_instruction(Instr),
+   fptoui_instruction_from_type(Instr, FromType),
+   fptoui_instruction_to_type(Instr, ToType),
+   !vector_compatible_types(FromType, ToType).
