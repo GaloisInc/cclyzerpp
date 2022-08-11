@@ -24,7 +24,7 @@ This discussion complements the in-code comments (rather than duplicating
 them), since this document purposefully doesn't discuss implementation issues.
 
 Introduction
-*******
+************
 
 The design space of pointer analyses is large and complex. Designs that achieve
 an adequate trade-off between precision, soundness, and performance are the
