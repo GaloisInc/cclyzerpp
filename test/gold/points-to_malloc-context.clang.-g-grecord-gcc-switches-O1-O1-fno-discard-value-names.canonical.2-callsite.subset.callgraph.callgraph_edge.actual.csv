@@ -1,0 +1,18 @@
+[<<main-context>>, nil]	<points-to_malloc-context.c>:fun1	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:0
+[<<main-context>>, nil]	<points-to_malloc-context.c>:fun2	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:2
+[<<main-context>>, nil]	<points-to_malloc-context.c>:fun3	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:4
+[<<main-context>>, nil]	<points-to_malloc-context.c>:fun4	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:6
+[<points-to_malloc-context.c>:fun1:0, [<<main-context>>, nil]]	<points-to_malloc-context.c>:malloc	[<<main-context>>, nil]	<points-to_malloc-context.c>:fun1:0
+[<points-to_malloc-context.c>:fun1:2, [<<main-context>>, nil]]	<points-to_malloc-context.c>:id	[<<main-context>>, nil]	<points-to_malloc-context.c>:fun1:2
+[<points-to_malloc-context.c>:fun2:0, [<<main-context>>, nil]]	<points-to_malloc-context.c>:malloc	[<<main-context>>, nil]	<points-to_malloc-context.c>:fun2:0
+[<points-to_malloc-context.c>:fun2:2, [<<main-context>>, nil]]	<points-to_malloc-context.c>:id	[<<main-context>>, nil]	<points-to_malloc-context.c>:fun2:2
+[<points-to_malloc-context.c>:fun3:0, [<<main-context>>, nil]]	<points-to_malloc-context.c>:id	[<<main-context>>, nil]	<points-to_malloc-context.c>:fun3:0
+[<points-to_malloc-context.c>:fun4:0, [<<main-context>>, nil]]	<points-to_malloc-context.c>:id	[<<main-context>>, nil]	<points-to_malloc-context.c>:fun4:0
+nil	<points-to_malloc-context.c>:llvm.dbg.value	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:1
+nil	<points-to_malloc-context.c>:llvm.dbg.value	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:3
+nil	<points-to_malloc-context.c>:llvm.dbg.value	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:5
+nil	<points-to_malloc-context.c>:llvm.dbg.value	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:7
+nil	<points-to_malloc-context.c>:llvm.dbg.value	[<points-to_malloc-context.c>:fun1:2, [<<main-context>>, nil]]	<points-to_malloc-context.c>:id:0
+nil	<points-to_malloc-context.c>:llvm.dbg.value	[<points-to_malloc-context.c>:fun2:2, [<<main-context>>, nil]]	<points-to_malloc-context.c>:id:0
+nil	<points-to_malloc-context.c>:llvm.dbg.value	[<points-to_malloc-context.c>:fun3:0, [<<main-context>>, nil]]	<points-to_malloc-context.c>:id:0
+nil	<points-to_malloc-context.c>:llvm.dbg.value	[<points-to_malloc-context.c>:fun4:0, [<<main-context>>, nil]]	<points-to_malloc-context.c>:id:0

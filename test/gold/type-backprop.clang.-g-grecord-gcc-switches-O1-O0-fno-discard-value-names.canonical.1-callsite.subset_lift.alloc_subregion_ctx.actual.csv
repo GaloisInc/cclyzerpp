@@ -1,0 +1,19 @@
+[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr][0]	*stack_alloc@main[i8*** %argv.addr]
+[<type-backprop.c>:use_double:5, nil]	*heap_alloc@my_calloc[i8* %call][0]	*heap_alloc@my_calloc[i8* %call]
+[<type-backprop.c>:use_double:5, nil]	*typed_heap_alloc@my_calloc[%struct.double_struct* %call][0]	*typed_heap_alloc@my_calloc[%struct.double_struct* %call]
+[<type-backprop.c>:use_double:5, nil]	*typed_heap_alloc@my_calloc[%struct.double_struct* %call][0].?/0	*typed_heap_alloc@my_calloc[%struct.double_struct* %call][0]
+[<type-backprop.c>:use_int:5, nil]	*heap_alloc@my_calloc[i8* %call][0]	*heap_alloc@my_calloc[i8* %call]
+[<type-backprop.c>:use_int:5, nil]	*typed_heap_alloc@my_calloc[%struct.int_struct* %call][0]	*typed_heap_alloc@my_calloc[%struct.int_struct* %call]
+[<type-backprop.c>:use_int:5, nil]	*typed_heap_alloc@my_calloc[%struct.int_struct* %call][0].?/0	*typed_heap_alloc@my_calloc[%struct.int_struct* %call][0]
+nil	*argv-alloc[0]	*argv-alloc
+nil	*argv[0]-alloc[0]	*argv[0]-alloc
+nil	*global_alloc@.str.1[0]	*global_alloc@.str.1
+nil	*global_alloc@.str.1[0][*]	*global_alloc@.str.1[0]
+nil	*global_alloc@.str[0]	*global_alloc@.str
+nil	*global_alloc@.str[0][*]	*global_alloc@.str[0]
+nil	*stack_alloc@print_double[%struct.double_struct** %s.addr][0]	*stack_alloc@print_double[%struct.double_struct** %s.addr]
+nil	*stack_alloc@print_int[%struct.int_struct** %s.addr][0]	*stack_alloc@print_int[%struct.int_struct** %s.addr]
+nil	*stack_alloc@use_double[%struct.double_struct** %s][0]	*stack_alloc@use_double[%struct.double_struct** %s]
+nil	*stack_alloc@use_double[double* %x][0]	*stack_alloc@use_double[double* %x]
+nil	*stack_alloc@use_int[%struct.int_struct** %s][0]	*stack_alloc@use_int[%struct.int_struct** %s]
+nil	*stack_alloc@use_int[i32* %x][0]	*stack_alloc@use_int[i32* %x]

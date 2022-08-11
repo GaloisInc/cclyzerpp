@@ -1,0 +1,135 @@
+[<<main-context>>, nil]	*stack_alloc@main[%class.Dog* %dog]	[<<main-context>>, nil]	*heap_alloc@main[i8* %call][8]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Dog* %dog]	[<<main-context>>, nil]	*typed_heap_alloc@main[%class.Animal** %call][1]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Dog* %dog][0]	[<<main-context>>, nil]	*heap_alloc@main[i8* %call][8]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Dog* %dog][0]	[<<main-context>>, nil]	*typed_heap_alloc@main[%class.Animal** %call][1]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Dog* %dog][0].?/0	[<<main-context>>, nil]	*heap_alloc@main[i8* %call][8]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Dog* %dog][0].?/0	[<<main-context>>, nil]	*typed_heap_alloc@main[%class.Animal** %call][1]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Dog* %dog][0].?/0.?/0	[<<main-context>>, nil]	*heap_alloc@main[i8* %call][8]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Dog* %dog][0].?/0.?/0	[<<main-context>>, nil]	*typed_heap_alloc@main[%class.Animal** %call][1]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama]	[<<main-context>>, nil]	*heap_alloc@main[i8* %call]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama]	[<<main-context>>, nil]	*heap_alloc@main[i8* %call][0]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama]	[<<main-context>>, nil]	*typed_heap_alloc@main[%class.Animal** %call]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama]	[<<main-context>>, nil]	*typed_heap_alloc@main[%class.Animal** %call][0]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama][0]	[<<main-context>>, nil]	*heap_alloc@main[i8* %call]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama][0]	[<<main-context>>, nil]	*heap_alloc@main[i8* %call][0]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama][0]	[<<main-context>>, nil]	*typed_heap_alloc@main[%class.Animal** %call]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama][0]	[<<main-context>>, nil]	*typed_heap_alloc@main[%class.Animal** %call][0]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama][0].?/0	[<<main-context>>, nil]	*heap_alloc@main[i8* %call]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama][0].?/0	[<<main-context>>, nil]	*heap_alloc@main[i8* %call][0]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama][0].?/0	[<<main-context>>, nil]	*typed_heap_alloc@main[%class.Animal** %call]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama][0].?/0	[<<main-context>>, nil]	*typed_heap_alloc@main[%class.Animal** %call][0]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama][0].?/0.?/0	[<<main-context>>, nil]	*heap_alloc@main[i8* %call]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama][0].?/0.?/0	[<<main-context>>, nil]	*heap_alloc@main[i8* %call][0]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama][0].?/0.?/0	[<<main-context>>, nil]	*typed_heap_alloc@main[%class.Animal** %call]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama][0].?/0.?/0	[<<main-context>>, nil]	*typed_heap_alloc@main[%class.Animal** %call][0]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle]	[<<main-context>>, nil]	*heap_alloc@main[i8* %call][16]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle]	[<<main-context>>, nil]	*typed_heap_alloc@main[%class.Animal** %call][2]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0]	[<<main-context>>, nil]	*heap_alloc@main[i8* %call][16]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0]	[<<main-context>>, nil]	*typed_heap_alloc@main[%class.Animal** %call][2]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0].?/0	[<<main-context>>, nil]	*heap_alloc@main[i8* %call][16]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0].?/0	[<<main-context>>, nil]	*typed_heap_alloc@main[%class.Animal** %call][2]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0].?/0.?/0	[<<main-context>>, nil]	*heap_alloc@main[i8* %call][16]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0].?/0.?/0	[<<main-context>>, nil]	*typed_heap_alloc@main[%class.Animal** %call][2]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0].?/0.?/0.?/0	[<<main-context>>, nil]	*heap_alloc@main[i8* %call][16]
+[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0].?/0.?/0.?/0	[<<main-context>>, nil]	*typed_heap_alloc@main[%class.Animal** %call][2]
+nil	*argv[0]-alloc	nil	*argv-alloc
+nil	*argv[0]-alloc	nil	*argv-alloc[0]
+nil	*argv[0]-alloc[0]	nil	*argv-alloc
+nil	*argv[0]-alloc[0]	nil	*argv-alloc[0]
+nil	*global_alloc@_ZNK3Dog3eatEv	nil	*global_alloc@_ZTV3Dog[0].?/0[2]
+nil	*global_alloc@_ZNK5Llama3eatEv	nil	*global_alloc@_ZTV5Llama[0].?/0[2]
+nil	*global_alloc@_ZNK6Poodle3eatEv	nil	*global_alloc@_ZTV6Poodle[0].?/0[2]
+nil	*global_alloc@_ZTI3Dog	nil	*global_alloc@_ZTI6Poodle[0].?/2
+nil	*global_alloc@_ZTI3Dog	nil	*global_alloc@_ZTV3Dog[0].?/0[1]
+nil	*global_alloc@_ZTI3Dog[0]	nil	*global_alloc@_ZTI6Poodle[0].?/2
+nil	*global_alloc@_ZTI3Dog[0]	nil	*global_alloc@_ZTV3Dog[0].?/0[1]
+nil	*global_alloc@_ZTI3Dog[0].?/0	nil	*global_alloc@_ZTI6Poodle[0].?/2
+nil	*global_alloc@_ZTI3Dog[0].?/0	nil	*global_alloc@_ZTV3Dog[0].?/0[1]
+nil	*global_alloc@_ZTI5Llama	nil	*global_alloc@_ZTV5Llama[0].?/0[1]
+nil	*global_alloc@_ZTI5Llama[0]	nil	*global_alloc@_ZTV5Llama[0].?/0[1]
+nil	*global_alloc@_ZTI5Llama[0].?/0	nil	*global_alloc@_ZTV5Llama[0].?/0[1]
+nil	*global_alloc@_ZTI6Animal	nil	*global_alloc@_ZTI3Dog[0].?/2
+nil	*global_alloc@_ZTI6Animal	nil	*global_alloc@_ZTI5Llama[0].?/2
+nil	*global_alloc@_ZTI6Animal	nil	*global_alloc@_ZTV6Animal[0].?/0[1]
+nil	*global_alloc@_ZTI6Animal[0]	nil	*global_alloc@_ZTI3Dog[0].?/2
+nil	*global_alloc@_ZTI6Animal[0]	nil	*global_alloc@_ZTI5Llama[0].?/2
+nil	*global_alloc@_ZTI6Animal[0]	nil	*global_alloc@_ZTV6Animal[0].?/0[1]
+nil	*global_alloc@_ZTI6Animal[0].?/0	nil	*global_alloc@_ZTI3Dog[0].?/2
+nil	*global_alloc@_ZTI6Animal[0].?/0	nil	*global_alloc@_ZTI5Llama[0].?/2
+nil	*global_alloc@_ZTI6Animal[0].?/0	nil	*global_alloc@_ZTV6Animal[0].?/0[1]
+nil	*global_alloc@_ZTI6Poodle	nil	*global_alloc@_ZTV6Poodle[0].?/0[1]
+nil	*global_alloc@_ZTI6Poodle[0]	nil	*global_alloc@_ZTV6Poodle[0].?/0[1]
+nil	*global_alloc@_ZTI6Poodle[0].?/0	nil	*global_alloc@_ZTV6Poodle[0].?/0[1]
+nil	*global_alloc@_ZTS3Dog	nil	*global_alloc@_ZTI3Dog[0].?/1
+nil	*global_alloc@_ZTS3Dog[0]	nil	*global_alloc@_ZTI3Dog[0].?/1
+nil	*global_alloc@_ZTS3Dog[0][*]	nil	*global_alloc@_ZTI3Dog[0].?/1
+nil	*global_alloc@_ZTS5Llama	nil	*global_alloc@_ZTI5Llama[0].?/1
+nil	*global_alloc@_ZTS5Llama[0]	nil	*global_alloc@_ZTI5Llama[0].?/1
+nil	*global_alloc@_ZTS5Llama[0][*]	nil	*global_alloc@_ZTI5Llama[0].?/1
+nil	*global_alloc@_ZTS6Animal	nil	*global_alloc@_ZTI6Animal[0].?/1
+nil	*global_alloc@_ZTS6Animal[0]	nil	*global_alloc@_ZTI6Animal[0].?/1
+nil	*global_alloc@_ZTS6Animal[0][*]	nil	*global_alloc@_ZTI6Animal[0].?/1
+nil	*global_alloc@_ZTS6Poodle	nil	*global_alloc@_ZTI6Poodle[0].?/1
+nil	*global_alloc@_ZTS6Poodle[0]	nil	*global_alloc@_ZTI6Poodle[0].?/1
+nil	*global_alloc@_ZTS6Poodle[0][*]	nil	*global_alloc@_ZTI6Poodle[0].?/1
+nil	*global_alloc@_ZTV3Dog[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Dog* %dog]
+nil	*global_alloc@_ZTV3Dog[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Dog* %dog][0]
+nil	*global_alloc@_ZTV3Dog[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Dog* %dog][0].?/0
+nil	*global_alloc@_ZTV3Dog[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Dog* %dog][0].?/0.?/0
+nil	*global_alloc@_ZTV3Dog[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle]
+nil	*global_alloc@_ZTV3Dog[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0]
+nil	*global_alloc@_ZTV3Dog[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0].?/0
+nil	*global_alloc@_ZTV3Dog[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0].?/0.?/0
+nil	*global_alloc@_ZTV3Dog[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0].?/0.?/0.?/0
+nil	*global_alloc@_ZTV5Llama[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama]
+nil	*global_alloc@_ZTV5Llama[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama][0]
+nil	*global_alloc@_ZTV5Llama[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama][0].?/0
+nil	*global_alloc@_ZTV5Llama[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama][0].?/0.?/0
+nil	*global_alloc@_ZTV6Animal[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Dog* %dog]
+nil	*global_alloc@_ZTV6Animal[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Dog* %dog][0]
+nil	*global_alloc@_ZTV6Animal[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Dog* %dog][0].?/0
+nil	*global_alloc@_ZTV6Animal[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Dog* %dog][0].?/0.?/0
+nil	*global_alloc@_ZTV6Animal[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama]
+nil	*global_alloc@_ZTV6Animal[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama][0]
+nil	*global_alloc@_ZTV6Animal[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama][0].?/0
+nil	*global_alloc@_ZTV6Animal[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Llama* %llama][0].?/0.?/0
+nil	*global_alloc@_ZTV6Animal[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle]
+nil	*global_alloc@_ZTV6Animal[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0]
+nil	*global_alloc@_ZTV6Animal[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0].?/0
+nil	*global_alloc@_ZTV6Animal[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0].?/0.?/0
+nil	*global_alloc@_ZTV6Animal[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0].?/0.?/0.?/0
+nil	*global_alloc@_ZTV6Poodle[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle]
+nil	*global_alloc@_ZTV6Poodle[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0]
+nil	*global_alloc@_ZTV6Poodle[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0].?/0
+nil	*global_alloc@_ZTV6Poodle[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0].?/0.?/0
+nil	*global_alloc@_ZTV6Poodle[0].?/0[2]	[<<main-context>>, nil]	*stack_alloc@main[%class.Poodle* %poodle][0].?/0.?/0.?/0
+nil	*global_alloc@_ZTVN10__cxxabiv117__class_type_infoE[2]	nil	*global_alloc@_ZTI6Animal
+nil	*global_alloc@_ZTVN10__cxxabiv117__class_type_infoE[2]	nil	*global_alloc@_ZTI6Animal[0]
+nil	*global_alloc@_ZTVN10__cxxabiv117__class_type_infoE[2]	nil	*global_alloc@_ZTI6Animal[0].?/0
+nil	*global_alloc@_ZTVN10__cxxabiv120__si_class_type_infoE[2]	nil	*global_alloc@_ZTI3Dog
+nil	*global_alloc@_ZTVN10__cxxabiv120__si_class_type_infoE[2]	nil	*global_alloc@_ZTI3Dog[0]
+nil	*global_alloc@_ZTVN10__cxxabiv120__si_class_type_infoE[2]	nil	*global_alloc@_ZTI3Dog[0].?/0
+nil	*global_alloc@_ZTVN10__cxxabiv120__si_class_type_infoE[2]	nil	*global_alloc@_ZTI5Llama
+nil	*global_alloc@_ZTVN10__cxxabiv120__si_class_type_infoE[2]	nil	*global_alloc@_ZTI5Llama[0]
+nil	*global_alloc@_ZTVN10__cxxabiv120__si_class_type_infoE[2]	nil	*global_alloc@_ZTI5Llama[0].?/0
+nil	*global_alloc@_ZTVN10__cxxabiv120__si_class_type_infoE[2]	nil	*global_alloc@_ZTI6Poodle
+nil	*global_alloc@_ZTVN10__cxxabiv120__si_class_type_infoE[2]	nil	*global_alloc@_ZTI6Poodle[0]
+nil	*global_alloc@_ZTVN10__cxxabiv120__si_class_type_infoE[2]	nil	*global_alloc@_ZTI6Poodle[0].?/0
+nil	*global_alloc@__cxa_pure_virtual	nil	*global_alloc@_ZTV6Animal[0].?/0[2]
+nil	*null*	nil	*global_alloc@_ZTV3Dog
+nil	*null*	nil	*global_alloc@_ZTV3Dog[0]
+nil	*null*	nil	*global_alloc@_ZTV3Dog[0].?/0
+nil	*null*	nil	*global_alloc@_ZTV3Dog[0].?/0[0]
+nil	*null*	nil	*global_alloc@_ZTV5Llama
+nil	*null*	nil	*global_alloc@_ZTV5Llama[0]
+nil	*null*	nil	*global_alloc@_ZTV5Llama[0].?/0
+nil	*null*	nil	*global_alloc@_ZTV5Llama[0].?/0[0]
+nil	*null*	nil	*global_alloc@_ZTV6Animal
+nil	*null*	nil	*global_alloc@_ZTV6Animal[0]
+nil	*null*	nil	*global_alloc@_ZTV6Animal[0].?/0
+nil	*null*	nil	*global_alloc@_ZTV6Animal[0].?/0[0]
+nil	*null*	nil	*global_alloc@_ZTV6Poodle
+nil	*null*	nil	*global_alloc@_ZTV6Poodle[0]
+nil	*null*	nil	*global_alloc@_ZTV6Poodle[0].?/0
+nil	*null*	nil	*global_alloc@_ZTV6Poodle[0].?/0[0]
+nil	*unknown*	nil	*unknown*

@@ -1,0 +1,3 @@
+<virtual.cpp>:main:0	*stack_alloc@main[%class.Llama* %llama]
+<virtual.cpp>:main:1	*stack_alloc@main[%class.Dog* %dog]
+<virtual.cpp>:main:2	*stack_alloc@main[%class.Poodle* %poodle]

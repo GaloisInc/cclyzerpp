@@ -1,0 +1,14 @@
+nil	*argv-alloc	[<<main-context>>, nil]	<recurse.c>:main:%argv
+nil	*global_alloc@.str.1	nil	<recurse.c>:countdown:5:2:@.str.1
+nil	*global_alloc@.str.1[0]	nil	<recurse.c>:countdown:5:1:getelementptr inbounds ([4 x i8], [4 x i8]* @.str.1, i64 0, i64 0)
+nil	*global_alloc@.str.1[0][*]	nil	<recurse.c>:countdown:5:1:getelementptr inbounds ([4 x i8], [4 x i8]* @.str.1, i64 0, i64 0)
+nil	*global_alloc@countdown	[<<main-context>>, nil]	<recurse.c>:main:2:0:@countdown
+nil	*global_alloc@countdown	nil	<recurse.c>:countdown:7:0:@countdown
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<recurse.c>:main:0:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<recurse.c>:main:1:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	nil	<recurse.c>:countdown:0:0:@llvm.dbg.value
+nil	*global_alloc@printf	nil	<recurse.c>:countdown:5:0:@printf
+nil	*global_alloc@puts	nil	<recurse.c>:countdown:3:0:@puts
+nil	*global_alloc@str	nil	<recurse.c>:countdown:3:2:@str
+nil	*global_alloc@str[0]	nil	<recurse.c>:countdown:3:1:getelementptr inbounds ([5 x i8], [5 x i8]* @str, i64 0, i64 0)
+nil	*global_alloc@str[0][*]	nil	<recurse.c>:countdown:3:1:getelementptr inbounds ([5 x i8], [5 x i8]* @str, i64 0, i64 0)

@@ -1,0 +1,61 @@
+[<<main-context>>, nil]	<allocation-sizes.c>:atoi	[<<main-context>>, nil]	<allocation-sizes.c>:main:12
+[<<main-context>>, nil]	<allocation-sizes.c>:getenv	[<<main-context>>, nil]	<allocation-sizes.c>:main:11
+[<<main-context>>, nil]	<allocation-sizes.c>:llvm.stackrestore	[<<main-context>>, nil]	<allocation-sizes.c>:main:93
+[<<main-context>>, nil]	<allocation-sizes.c>:llvm.stacksave	[<<main-context>>, nil]	<allocation-sizes.c>:main:24
+[<allocation-sizes.c>:main:17, nil]	<allocation-sizes.c>:malloc	[<<main-context>>, nil]	<allocation-sizes.c>:main:17
+[<allocation-sizes.c>:main:31, nil]	<allocation-sizes.c>:malloc	[<<main-context>>, nil]	<allocation-sizes.c>:main:31
+[<allocation-sizes.c>:main:35, nil]	<allocation-sizes.c>:malloc	[<<main-context>>, nil]	<allocation-sizes.c>:main:35
+[<allocation-sizes.c>:main:42, nil]	<allocation-sizes.c>:malloc	[<<main-context>>, nil]	<allocation-sizes.c>:main:42
+[<allocation-sizes.c>:main:45, nil]	<allocation-sizes.c>:llvm.memset.p0i8.i64	[<allocation-sizes.c>:main:45, nil]	<allocation-sizes.c>:set:12
+[<allocation-sizes.c>:main:45, nil]	<allocation-sizes.c>:set	[<<main-context>>, nil]	<allocation-sizes.c>:main:45
+[<allocation-sizes.c>:main:46, nil]	<allocation-sizes.c>:llvm.memset.p0i8.i64	[<allocation-sizes.c>:main:46, nil]	<allocation-sizes.c>:set:12
+[<allocation-sizes.c>:main:46, nil]	<allocation-sizes.c>:set	[<<main-context>>, nil]	<allocation-sizes.c>:main:46
+[<allocation-sizes.c>:main:49, nil]	<allocation-sizes.c>:llvm.memset.p0i8.i64	[<allocation-sizes.c>:main:49, nil]	<allocation-sizes.c>:set:12
+[<allocation-sizes.c>:main:49, nil]	<allocation-sizes.c>:set	[<<main-context>>, nil]	<allocation-sizes.c>:main:49
+[<allocation-sizes.c>:main:51, nil]	<allocation-sizes.c>:llvm.memset.p0i8.i64	[<allocation-sizes.c>:main:51, nil]	<allocation-sizes.c>:set:12
+[<allocation-sizes.c>:main:51, nil]	<allocation-sizes.c>:set	[<<main-context>>, nil]	<allocation-sizes.c>:main:51
+[<allocation-sizes.c>:main:53, nil]	<allocation-sizes.c>:llvm.memset.p0i8.i64	[<allocation-sizes.c>:main:53, nil]	<allocation-sizes.c>:set:12
+[<allocation-sizes.c>:main:53, nil]	<allocation-sizes.c>:set	[<<main-context>>, nil]	<allocation-sizes.c>:main:53
+[<allocation-sizes.c>:main:55, nil]	<allocation-sizes.c>:llvm.memset.p0i8.i64	[<allocation-sizes.c>:main:55, nil]	<allocation-sizes.c>:set:12
+[<allocation-sizes.c>:main:55, nil]	<allocation-sizes.c>:set	[<<main-context>>, nil]	<allocation-sizes.c>:main:55
+[<allocation-sizes.c>:main:57, nil]	<allocation-sizes.c>:llvm.memset.p0i8.i64	[<allocation-sizes.c>:main:57, nil]	<allocation-sizes.c>:set:12
+[<allocation-sizes.c>:main:57, nil]	<allocation-sizes.c>:set	[<<main-context>>, nil]	<allocation-sizes.c>:main:57
+[<allocation-sizes.c>:main:59, nil]	<allocation-sizes.c>:llvm.memset.p0i8.i64	[<allocation-sizes.c>:main:59, nil]	<allocation-sizes.c>:set:12
+[<allocation-sizes.c>:main:59, nil]	<allocation-sizes.c>:set	[<<main-context>>, nil]	<allocation-sizes.c>:main:59
+[<allocation-sizes.c>:main:62, nil]	<allocation-sizes.c>:llvm.memset.p0i8.i64	[<allocation-sizes.c>:main:62, nil]	<allocation-sizes.c>:set:12
+[<allocation-sizes.c>:main:62, nil]	<allocation-sizes.c>:set	[<<main-context>>, nil]	<allocation-sizes.c>:main:62
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<<main-context>>, nil]	<allocation-sizes.c>:main:10
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<<main-context>>, nil]	<allocation-sizes.c>:main:20
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<<main-context>>, nil]	<allocation-sizes.c>:main:21
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<<main-context>>, nil]	<allocation-sizes.c>:main:28
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<<main-context>>, nil]	<allocation-sizes.c>:main:29
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<<main-context>>, nil]	<allocation-sizes.c>:main:30
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<<main-context>>, nil]	<allocation-sizes.c>:main:34
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<<main-context>>, nil]	<allocation-sizes.c>:main:38
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<allocation-sizes.c>:main:45, nil]	<allocation-sizes.c>:set:3
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<allocation-sizes.c>:main:45, nil]	<allocation-sizes.c>:set:5
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<allocation-sizes.c>:main:46, nil]	<allocation-sizes.c>:set:3
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<allocation-sizes.c>:main:46, nil]	<allocation-sizes.c>:set:5
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<allocation-sizes.c>:main:49, nil]	<allocation-sizes.c>:set:3
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<allocation-sizes.c>:main:49, nil]	<allocation-sizes.c>:set:5
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<allocation-sizes.c>:main:51, nil]	<allocation-sizes.c>:set:3
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<allocation-sizes.c>:main:51, nil]	<allocation-sizes.c>:set:5
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<allocation-sizes.c>:main:53, nil]	<allocation-sizes.c>:set:3
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<allocation-sizes.c>:main:53, nil]	<allocation-sizes.c>:set:5
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<allocation-sizes.c>:main:55, nil]	<allocation-sizes.c>:set:3
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<allocation-sizes.c>:main:55, nil]	<allocation-sizes.c>:set:5
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<allocation-sizes.c>:main:57, nil]	<allocation-sizes.c>:set:3
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<allocation-sizes.c>:main:57, nil]	<allocation-sizes.c>:set:5
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<allocation-sizes.c>:main:59, nil]	<allocation-sizes.c>:set:3
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<allocation-sizes.c>:main:59, nil]	<allocation-sizes.c>:set:5
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<allocation-sizes.c>:main:62, nil]	<allocation-sizes.c>:set:3
+nil	<allocation-sizes.c>:llvm.dbg.declare	[<allocation-sizes.c>:main:62, nil]	<allocation-sizes.c>:set:5
+nil	<allocation-sizes.c>:rand	[<allocation-sizes.c>:main:45, nil]	<allocation-sizes.c>:set:8
+nil	<allocation-sizes.c>:rand	[<allocation-sizes.c>:main:46, nil]	<allocation-sizes.c>:set:8
+nil	<allocation-sizes.c>:rand	[<allocation-sizes.c>:main:49, nil]	<allocation-sizes.c>:set:8
+nil	<allocation-sizes.c>:rand	[<allocation-sizes.c>:main:51, nil]	<allocation-sizes.c>:set:8
+nil	<allocation-sizes.c>:rand	[<allocation-sizes.c>:main:53, nil]	<allocation-sizes.c>:set:8
+nil	<allocation-sizes.c>:rand	[<allocation-sizes.c>:main:55, nil]	<allocation-sizes.c>:set:8
+nil	<allocation-sizes.c>:rand	[<allocation-sizes.c>:main:57, nil]	<allocation-sizes.c>:set:8
+nil	<allocation-sizes.c>:rand	[<allocation-sizes.c>:main:59, nil]	<allocation-sizes.c>:set:8
+nil	<allocation-sizes.c>:rand	[<allocation-sizes.c>:main:62, nil]	<allocation-sizes.c>:set:8

@@ -1,0 +1,8 @@
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%foo
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%ref.tmp
+[<<main-context>>, nil]	*stack_alloc@main[i32* %argc.addr]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%argc.addr
+[<<main-context>>, nil]	*stack_alloc@main[i32* %ehselector.slot]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%ehselector.slot
+[<<main-context>>, nil]	*stack_alloc@main[i32* %retval]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%retval
+[<<main-context>>, nil]	*stack_alloc@main[i8** %exn.slot]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%exn.slot
+[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%argv.addr
+nil	*argv-alloc	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%argv

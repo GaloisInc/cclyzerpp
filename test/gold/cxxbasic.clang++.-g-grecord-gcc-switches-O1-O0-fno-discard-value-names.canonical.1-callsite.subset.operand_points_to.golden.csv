@@ -1,0 +1,58 @@
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%foo
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%ref.tmp
+[<<main-context>>, nil]	*stack_alloc@main[i32* %argc.addr]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%argc.addr
+[<<main-context>>, nil]	*stack_alloc@main[i32* %ehselector.slot]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%ehselector.slot
+[<<main-context>>, nil]	*stack_alloc@main[i32* %retval]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%retval
+[<<main-context>>, nil]	*stack_alloc@main[i8** %exn.slot]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%exn.slot
+[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%argv.addr
+nil	*argv-alloc	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%argv
+nil	*global_alloc@.str	[<<main-context>>, nil]	<cxxbasic.cpp>:main:14:2:@.str
+nil	*global_alloc@.str.1	[<<main-context>>, nil]	<cxxbasic.cpp>:main:20:3:@.str.1
+nil	*global_alloc@.str.1	[<<main-context>>, nil]	<cxxbasic.cpp>:main:40:3:@.str.1
+nil	*global_alloc@.str.1[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:20:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
+nil	*global_alloc@.str.1[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:40:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
+nil	*global_alloc@.str.1[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:20:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
+nil	*global_alloc@.str.1[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:40:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
+nil	*global_alloc@.str.2	[<<main-context>>, nil]	<cxxbasic.cpp>:main:38:2:@.str.2
+nil	*global_alloc@.str.2[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:38:1:getelementptr inbounds ([4 x i8], [4 x i8]* @.str.2, i64 0, i64 0)
+nil	*global_alloc@.str.2[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:38:1:getelementptr inbounds ([4 x i8], [4 x i8]* @.str.2, i64 0, i64 0)
+nil	*global_alloc@.str[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:14:1:getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i64 0, i64 0)
+nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:14:1:getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i64 0, i64 0)
+nil	*global_alloc@_ZNSaIcEC1Ev	[<<main-context>>, nil]	<cxxbasic.cpp>:main:13:0:@_ZNSaIcEC1Ev
+nil	*global_alloc@_ZNSaIcED1Ev	[<<main-context>>, nil]	<cxxbasic.cpp>:main:15:0:@_ZNSaIcED1Ev
+nil	*global_alloc@_ZNSaIcED1Ev	[<<main-context>>, nil]	<cxxbasic.cpp>:main:29:0:@_ZNSaIcED1Ev
+nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1EPKcRKS3_	[<<main-context>>, nil]	<cxxbasic.cpp>:main:14:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1EPKcRKS3_
+nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev	[<<main-context>>, nil]	<cxxbasic.cpp>:main:36:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev
+nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev	[<<main-context>>, nil]	<cxxbasic.cpp>:main:44:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev
+nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSEPKc	[<<main-context>>, nil]	<cxxbasic.cpp>:main:38:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSEPKc
+nil	*global_alloc@_ZNSt8ios_base4InitC1Ev	[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxx_global_var_init:0:0:@_ZNSt8ios_base4InitC1Ev
+nil	*global_alloc@_ZNSt8ios_base4InitC1Ev	nil	<cxxbasic.cpp>:__cxx_global_var_init:0:0:@_ZNSt8ios_base4InitC1Ev
+nil	*global_alloc@_ZNSt8ios_base4InitD1Ev	[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxx_global_var_init:1:1:bitcast (void (%"class.std::ios_base::Init"*)* @_ZNSt8ios_base4InitD1Ev to void (i8*)*)
+nil	*global_alloc@_ZNSt8ios_base4InitD1Ev	[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxx_global_var_init:1:2:@_ZNSt8ios_base4InitD1Ev
+nil	*global_alloc@_ZNSt8ios_base4InitD1Ev	nil	<cxxbasic.cpp>:__cxx_global_var_init:1:1:bitcast (void (%"class.std::ios_base::Init"*)* @_ZNSt8ios_base4InitD1Ev to void (i8*)*)
+nil	*global_alloc@_ZNSt8ios_base4InitD1Ev	nil	<cxxbasic.cpp>:__cxx_global_var_init:1:2:@_ZNSt8ios_base4InitD1Ev
+nil	*global_alloc@_ZSt4cout	[<<main-context>>, nil]	<cxxbasic.cpp>:main:20:1:@_ZSt4cout
+nil	*global_alloc@_ZSt4cout	[<<main-context>>, nil]	<cxxbasic.cpp>:main:40:1:@_ZSt4cout
+nil	*global_alloc@_ZStL8__ioinit	[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxx_global_var_init:0:1:@_ZStL8__ioinit
+nil	*global_alloc@_ZStL8__ioinit	[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxx_global_var_init:1:4:@_ZStL8__ioinit
+nil	*global_alloc@_ZStL8__ioinit	nil	<cxxbasic.cpp>:__cxx_global_var_init:0:1:@_ZStL8__ioinit
+nil	*global_alloc@_ZStL8__ioinit	nil	<cxxbasic.cpp>:__cxx_global_var_init:1:4:@_ZStL8__ioinit
+nil	*global_alloc@_ZStL8__ioinit[0].?/0	[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxx_global_var_init:1:3:getelementptr inbounds (%"class.std::ios_base::Init", %"class.std::ios_base::Init"* @_ZStL8__ioinit, i32 0, i32 0)
+nil	*global_alloc@_ZStL8__ioinit[0].?/0	nil	<cxxbasic.cpp>:__cxx_global_var_init:1:3:getelementptr inbounds (%"class.std::ios_base::Init", %"class.std::ios_base::Init"* @_ZStL8__ioinit, i32 0, i32 0)
+nil	*global_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc	[<<main-context>>, nil]	<cxxbasic.cpp>:main:20:0:@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+nil	*global_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc	[<<main-context>>, nil]	<cxxbasic.cpp>:main:40:0:@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+nil	*global_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c	[<<main-context>>, nil]	<cxxbasic.cpp>:main:22:0:@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c
+nil	*global_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c	[<<main-context>>, nil]	<cxxbasic.cpp>:main:42:0:@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c
+nil	*global_alloc@_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE	[<<main-context>>, nil]	<cxxbasic.cpp>:main:21:0:@_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE
+nil	*global_alloc@_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE	[<<main-context>>, nil]	<cxxbasic.cpp>:main:41:0:@_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE
+nil	*global_alloc@__cxa_atexit	[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxx_global_var_init:1:0:@__cxa_atexit
+nil	*global_alloc@__cxa_atexit	nil	<cxxbasic.cpp>:__cxx_global_var_init:1:0:@__cxa_atexit
+nil	*global_alloc@__cxx_global_var_init	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:0:0:@__cxx_global_var_init
+nil	*global_alloc@__dso_handle	[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxx_global_var_init:1:7:@__dso_handle
+nil	*global_alloc@__dso_handle	nil	<cxxbasic.cpp>:__cxx_global_var_init:1:7:@__dso_handle
+nil	*global_alloc@__gxx_personality_v0	[<<main-context>>, nil]	<cxxbasic.cpp>:main:0:bitcast (i32 (...)* @__gxx_personality_v0 to i8*)
+nil	*global_alloc@__gxx_personality_v0	[<<main-context>>, nil]	<cxxbasic.cpp>:main:1:@__gxx_personality_v0
+nil	*global_alloc@llvm.dbg.declare	[<<main-context>>, nil]	<cxxbasic.cpp>:main:11:0:@llvm.dbg.declare
+nil	*global_alloc@llvm.dbg.declare	[<<main-context>>, nil]	<cxxbasic.cpp>:main:12:0:@llvm.dbg.declare
+nil	*global_alloc@llvm.dbg.declare	[<<main-context>>, nil]	<cxxbasic.cpp>:main:9:0:@llvm.dbg.declare
+nil	*global_alloc@rand	[<<main-context>>, nil]	<cxxbasic.cpp>:main:16:0:@rand

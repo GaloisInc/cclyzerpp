@@ -1,0 +1,107 @@
+*argv-alloc[*]	8
+*argv-alloc[0]	8
+*argv[0]-alloc[*]	8
+*argv[0]-alloc[0]	8
+*global_alloc@.str	13
+*global_alloc@.str[*]	13
+*global_alloc@.str[*][*]	1
+*global_alloc@.str[0]	13
+*global_alloc@.str[0][*]	1
+*global_alloc@dynamic_size_global	8
+*global_alloc@dynamic_size_global[*]	8
+*global_alloc@dynamic_size_global[0]	8
+*global_alloc@large_const_size_global	512
+*global_alloc@large_const_size_global[*]	512
+*global_alloc@large_const_size_global[*][*]	4
+*global_alloc@large_const_size_global[0]	512
+*global_alloc@large_const_size_global[0][*]	4
+*global_alloc@small_const_size_global	32
+*global_alloc@small_const_size_global[*]	32
+*global_alloc@small_const_size_global[*][*]	4
+*global_alloc@small_const_size_global[0]	32
+*global_alloc@small_const_size_global[0][*]	4
+*heap_alloc@main[i8* %call2][*]	1
+*heap_alloc@main[i8* %call2][0]	1
+*heap_alloc@main[i8* %call2][4]	1
+*heap_alloc@main[i8* %call3]	32
+*heap_alloc@main[i8* %call3][*]	1
+*heap_alloc@main[i8* %call3][0]	1
+*heap_alloc@main[i8* %call3][4]	1
+*heap_alloc@main[i8* %call4]	512
+*heap_alloc@main[i8* %call4][*]	1
+*heap_alloc@main[i8* %call4][0]	1
+*heap_alloc@main[i8* %call4][4]	1
+*heap_alloc@main[i8* %call7][*]	1
+*heap_alloc@main[i8* %call7][0]	1
+*heap_alloc@main[i8* %call7][4]	1
+*stack_alloc@main[[128 x i32]* %large_const_size_stack]	512
+*stack_alloc@main[[128 x i32]* %large_const_size_stack][*]	512
+*stack_alloc@main[[128 x i32]* %large_const_size_stack][*][*]	4
+*stack_alloc@main[[128 x i32]* %large_const_size_stack][0]	512
+*stack_alloc@main[[128 x i32]* %large_const_size_stack][0][*]	4
+*stack_alloc@main[[8 x i32]* %small_const_size_stack]	32
+*stack_alloc@main[[8 x i32]* %small_const_size_stack][*]	32
+*stack_alloc@main[[8 x i32]* %small_const_size_stack][*][*]	4
+*stack_alloc@main[[8 x i32]* %small_const_size_stack][0]	32
+*stack_alloc@main[[8 x i32]* %small_const_size_stack][0][*]	4
+*stack_alloc@main[i32* %dyn]	4
+*stack_alloc@main[i32* %dyn][*]	4
+*stack_alloc@main[i32* %dyn][0]	4
+*stack_alloc@main[i32* %retval]	4
+*stack_alloc@main[i32* %retval][*]	4
+*stack_alloc@main[i32* %retval][0]	4
+*stack_alloc@main[i32* %vla][*]	4
+*stack_alloc@main[i32* %vla][0]	4
+*stack_alloc@main[i32* %vla][1]	4
+*stack_alloc@main[i32** %dynamic_size_heap]	8
+*stack_alloc@main[i32** %dynamic_size_heap][*]	8
+*stack_alloc@main[i32** %dynamic_size_heap][0]	8
+*stack_alloc@main[i32** %large_const_size_heap]	8
+*stack_alloc@main[i32** %large_const_size_heap][*]	8
+*stack_alloc@main[i32** %large_const_size_heap][0]	8
+*stack_alloc@main[i32** %small_const_size_heap]	8
+*stack_alloc@main[i32** %small_const_size_heap][*]	8
+*stack_alloc@main[i32** %small_const_size_heap][0]	8
+*stack_alloc@main[i64* %__vla_expr0]	8
+*stack_alloc@main[i64* %__vla_expr0][*]	8
+*stack_alloc@main[i64* %__vla_expr0][0]	8
+*stack_alloc@main[i8** %saved_stack]	8
+*stack_alloc@main[i8** %saved_stack][*]	8
+*stack_alloc@main[i8** %saved_stack][0]	8
+*stack_alloc@set[i32* %sz.addr]	4
+*stack_alloc@set[i32* %sz.addr][*]	4
+*stack_alloc@set[i32* %sz.addr][0]	4
+*stack_alloc@set[i32** %buf.addr]	8
+*stack_alloc@set[i32** %buf.addr][*]	8
+*stack_alloc@set[i32** %buf.addr][0]	8
+*typed_heap_alloc@main[i32* %call2][*]	4
+*typed_heap_alloc@main[i32* %call2][0]	4
+*typed_heap_alloc@main[i32* %call2][1]	4
+*typed_heap_alloc@main[i32* %call3]	32
+*typed_heap_alloc@main[i32* %call3][*]	4
+*typed_heap_alloc@main[i32* %call3][0]	4
+*typed_heap_alloc@main[i32* %call3][1]	4
+*typed_heap_alloc@main[i32* %call4]	512
+*typed_heap_alloc@main[i32* %call4][*]	4
+*typed_heap_alloc@main[i32* %call4][0]	4
+*typed_heap_alloc@main[i32* %call4][1]	4
+*typed_heap_alloc@main[i32* %call7][*]	4
+*typed_heap_alloc@main[i32* %call7][0]	4
+*typed_heap_alloc@main[i32* %call7][1]	4
+*typed_heap_alloc@main[i8* %call2][*]	1
+*typed_heap_alloc@main[i8* %call2][0]	1
+*typed_heap_alloc@main[i8* %call2][4]	1
+*typed_heap_alloc@main[i8* %call3]	32
+*typed_heap_alloc@main[i8* %call3][*]	1
+*typed_heap_alloc@main[i8* %call3][0]	1
+*typed_heap_alloc@main[i8* %call3][4]	1
+*typed_heap_alloc@main[i8* %call4]	512
+*typed_heap_alloc@main[i8* %call4][*]	1
+*typed_heap_alloc@main[i8* %call4][0]	1
+*typed_heap_alloc@main[i8* %call4][4]	1
+*typed_heap_alloc@main[i8* %call7][*]	1
+*typed_heap_alloc@main[i8* %call7][0]	1
+*typed_heap_alloc@main[i8* %call7][4]	1
+*typed_stack_alloc@main[i8* %vla][*]	1
+*typed_stack_alloc@main[i8* %vla][0]	1
+*typed_stack_alloc@main[i8* %vla][4]	1

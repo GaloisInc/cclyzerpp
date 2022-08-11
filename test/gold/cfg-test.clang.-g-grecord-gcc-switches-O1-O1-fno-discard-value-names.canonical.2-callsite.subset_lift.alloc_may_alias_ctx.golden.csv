@@ -1,0 +1,13 @@
+nil	*argv-alloc	*argv-alloc
+nil	*argv-alloc	*argv-alloc[0]
+nil	*argv-alloc[0]	*argv-alloc
+nil	*argv-alloc[0]	*argv-alloc[0]
+nil	*argv[0]-alloc	*argv[0]-alloc
+nil	*argv[0]-alloc	*argv[0]-alloc[0]
+nil	*argv[0]-alloc[0]	*argv[0]-alloc
+nil	*argv[0]-alloc[0]	*argv[0]-alloc[0]
+nil	*global_alloc@bar	*global_alloc@bar
+nil	*global_alloc@baz	*global_alloc@baz
+nil	*global_alloc@foo	*global_alloc@foo
+nil	*global_alloc@global	*global_alloc@global
+nil	*global_alloc@llvm.dbg.value	*global_alloc@llvm.dbg.value

@@ -1,0 +1,204 @@
+*argv-alloc[*]	8
+*argv-alloc[0]	8
+*argv[0]-alloc[*]	8
+*argv[0]-alloc[0]	8
+*argv[0]-alloc[1]	8
+*argv[0]-alloc[2]	8
+*global_alloc@.str	11
+*global_alloc@.str.1	9
+*global_alloc@.str.1[*]	9
+*global_alloc@.str.1[*][*]	1
+*global_alloc@.str.1[0]	9
+*global_alloc@.str.1[0][*]	1
+*global_alloc@.str.2	12
+*global_alloc@.str.2[*]	12
+*global_alloc@.str.2[*][*]	1
+*global_alloc@.str.2[0]	12
+*global_alloc@.str.2[0][*]	1
+*global_alloc@.str[*]	11
+*global_alloc@.str[*][*]	1
+*global_alloc@.str[0]	11
+*global_alloc@.str[0][*]	1
+*global_alloc@_ZTI3Dog	24
+*global_alloc@_ZTI3Dog[*]	24
+*global_alloc@_ZTI3Dog[*].?/0	8
+*global_alloc@_ZTI3Dog[*].?/1	8
+*global_alloc@_ZTI3Dog[*].?/2	8
+*global_alloc@_ZTI3Dog[0]	24
+*global_alloc@_ZTI3Dog[0].?/0	8
+*global_alloc@_ZTI3Dog[0].?/1	8
+*global_alloc@_ZTI3Dog[0].?/2	8
+*global_alloc@_ZTI5Llama	24
+*global_alloc@_ZTI5Llama[*]	24
+*global_alloc@_ZTI5Llama[*].?/0	8
+*global_alloc@_ZTI5Llama[*].?/1	8
+*global_alloc@_ZTI5Llama[*].?/2	8
+*global_alloc@_ZTI5Llama[0]	24
+*global_alloc@_ZTI5Llama[0].?/0	8
+*global_alloc@_ZTI5Llama[0].?/1	8
+*global_alloc@_ZTI5Llama[0].?/2	8
+*global_alloc@_ZTI6Animal	16
+*global_alloc@_ZTI6Animal[*]	16
+*global_alloc@_ZTI6Animal[*].?/0	8
+*global_alloc@_ZTI6Animal[*].?/1	8
+*global_alloc@_ZTI6Animal[0]	16
+*global_alloc@_ZTI6Animal[0].?/0	8
+*global_alloc@_ZTI6Animal[0].?/1	8
+*global_alloc@_ZTI6Poodle	24
+*global_alloc@_ZTI6Poodle[*]	24
+*global_alloc@_ZTI6Poodle[*].?/0	8
+*global_alloc@_ZTI6Poodle[*].?/1	8
+*global_alloc@_ZTI6Poodle[*].?/2	8
+*global_alloc@_ZTI6Poodle[0]	24
+*global_alloc@_ZTI6Poodle[0].?/0	8
+*global_alloc@_ZTI6Poodle[0].?/1	8
+*global_alloc@_ZTI6Poodle[0].?/2	8
+*global_alloc@_ZTS3Dog	5
+*global_alloc@_ZTS3Dog[*]	5
+*global_alloc@_ZTS3Dog[*][*]	1
+*global_alloc@_ZTS3Dog[0]	5
+*global_alloc@_ZTS3Dog[0][*]	1
+*global_alloc@_ZTS5Llama	7
+*global_alloc@_ZTS5Llama[*]	7
+*global_alloc@_ZTS5Llama[*][*]	1
+*global_alloc@_ZTS5Llama[0]	7
+*global_alloc@_ZTS5Llama[0][*]	1
+*global_alloc@_ZTS6Animal	8
+*global_alloc@_ZTS6Animal[*]	8
+*global_alloc@_ZTS6Animal[*][*]	1
+*global_alloc@_ZTS6Animal[0]	8
+*global_alloc@_ZTS6Animal[0][*]	1
+*global_alloc@_ZTS6Poodle	8
+*global_alloc@_ZTS6Poodle[*]	8
+*global_alloc@_ZTS6Poodle[*][*]	1
+*global_alloc@_ZTS6Poodle[0]	8
+*global_alloc@_ZTS6Poodle[0][*]	1
+*global_alloc@_ZTV3Dog	24
+*global_alloc@_ZTV3Dog[*]	24
+*global_alloc@_ZTV3Dog[*].?/0	24
+*global_alloc@_ZTV3Dog[*].?/0[*]	8
+*global_alloc@_ZTV3Dog[*].?/0[0]	8
+*global_alloc@_ZTV3Dog[*].?/0[1]	8
+*global_alloc@_ZTV3Dog[*].?/0[2]	8
+*global_alloc@_ZTV3Dog[0]	24
+*global_alloc@_ZTV3Dog[0].?/0	24
+*global_alloc@_ZTV3Dog[0].?/0[*]	8
+*global_alloc@_ZTV3Dog[0].?/0[0]	8
+*global_alloc@_ZTV3Dog[0].?/0[1]	8
+*global_alloc@_ZTV3Dog[0].?/0[2]	8
+*global_alloc@_ZTV5Llama	24
+*global_alloc@_ZTV5Llama[*]	24
+*global_alloc@_ZTV5Llama[*].?/0	24
+*global_alloc@_ZTV5Llama[*].?/0[*]	8
+*global_alloc@_ZTV5Llama[*].?/0[0]	8
+*global_alloc@_ZTV5Llama[*].?/0[1]	8
+*global_alloc@_ZTV5Llama[*].?/0[2]	8
+*global_alloc@_ZTV5Llama[0]	24
+*global_alloc@_ZTV5Llama[0].?/0	24
+*global_alloc@_ZTV5Llama[0].?/0[*]	8
+*global_alloc@_ZTV5Llama[0].?/0[0]	8
+*global_alloc@_ZTV5Llama[0].?/0[1]	8
+*global_alloc@_ZTV5Llama[0].?/0[2]	8
+*global_alloc@_ZTV6Animal	24
+*global_alloc@_ZTV6Animal[*]	24
+*global_alloc@_ZTV6Animal[*].?/0	24
+*global_alloc@_ZTV6Animal[*].?/0[*]	8
+*global_alloc@_ZTV6Animal[*].?/0[0]	8
+*global_alloc@_ZTV6Animal[*].?/0[1]	8
+*global_alloc@_ZTV6Animal[*].?/0[2]	8
+*global_alloc@_ZTV6Animal[0]	24
+*global_alloc@_ZTV6Animal[0].?/0	24
+*global_alloc@_ZTV6Animal[0].?/0[*]	8
+*global_alloc@_ZTV6Animal[0].?/0[0]	8
+*global_alloc@_ZTV6Animal[0].?/0[1]	8
+*global_alloc@_ZTV6Animal[0].?/0[2]	8
+*global_alloc@_ZTV6Poodle	24
+*global_alloc@_ZTV6Poodle[*]	24
+*global_alloc@_ZTV6Poodle[*].?/0	24
+*global_alloc@_ZTV6Poodle[*].?/0[*]	8
+*global_alloc@_ZTV6Poodle[*].?/0[0]	8
+*global_alloc@_ZTV6Poodle[*].?/0[1]	8
+*global_alloc@_ZTV6Poodle[*].?/0[2]	8
+*global_alloc@_ZTV6Poodle[0]	24
+*global_alloc@_ZTV6Poodle[0].?/0	24
+*global_alloc@_ZTV6Poodle[0].?/0[*]	8
+*global_alloc@_ZTV6Poodle[0].?/0[0]	8
+*global_alloc@_ZTV6Poodle[0].?/0[1]	8
+*global_alloc@_ZTV6Poodle[0].?/0[2]	8
+*global_alloc@_ZTVN10__cxxabiv117__class_type_infoE[*]	8
+*global_alloc@_ZTVN10__cxxabiv117__class_type_infoE[0]	8
+*global_alloc@_ZTVN10__cxxabiv117__class_type_infoE[1]	8
+*global_alloc@_ZTVN10__cxxabiv117__class_type_infoE[2]	8
+*global_alloc@_ZTVN10__cxxabiv120__si_class_type_infoE[*]	8
+*global_alloc@_ZTVN10__cxxabiv120__si_class_type_infoE[0]	8
+*global_alloc@_ZTVN10__cxxabiv120__si_class_type_infoE[1]	8
+*global_alloc@_ZTVN10__cxxabiv120__si_class_type_infoE[2]	8
+*heap_alloc@main[i8* %call]	24
+*heap_alloc@main[i8* %call][*]	1
+*heap_alloc@main[i8* %call][0]	1
+*heap_alloc@main[i8* %call][16]	1
+*heap_alloc@main[i8* %call][8]	1
+*stack_alloc@_Z12someone_eatsR6Animal[%class.Animal** %animal.addr]	8
+*stack_alloc@_Z12someone_eatsR6Animal[%class.Animal** %animal.addr][*]	8
+*stack_alloc@_Z12someone_eatsR6Animal[%class.Animal** %animal.addr][0]	8
+*stack_alloc@_Z13everyone_eatsPP6Animalj[%class.Animal*** %animals.addr]	8
+*stack_alloc@_Z13everyone_eatsPP6Animalj[%class.Animal*** %animals.addr][*]	8
+*stack_alloc@_Z13everyone_eatsPP6Animalj[%class.Animal*** %animals.addr][0]	8
+*stack_alloc@_Z13everyone_eatsPP6Animalj[i32* %i]	4
+*stack_alloc@_Z13everyone_eatsPP6Animalj[i32* %i][*]	4
+*stack_alloc@_Z13everyone_eatsPP6Animalj[i32* %i][0]	4
+*stack_alloc@_Z13everyone_eatsPP6Animalj[i32* %len.addr]	4
+*stack_alloc@_Z13everyone_eatsPP6Animalj[i32* %len.addr][*]	4
+*stack_alloc@_Z13everyone_eatsPP6Animalj[i32* %len.addr][0]	4
+*stack_alloc@_ZN3DogC2Ev[%class.Dog** %this.addr]	8
+*stack_alloc@_ZN3DogC2Ev[%class.Dog** %this.addr][*]	8
+*stack_alloc@_ZN3DogC2Ev[%class.Dog** %this.addr][0]	8
+*stack_alloc@_ZN5LlamaC2Ev[%class.Llama** %this.addr]	8
+*stack_alloc@_ZN5LlamaC2Ev[%class.Llama** %this.addr][*]	8
+*stack_alloc@_ZN5LlamaC2Ev[%class.Llama** %this.addr][0]	8
+*stack_alloc@_ZN6AnimalC2Ev[%class.Animal** %this.addr]	8
+*stack_alloc@_ZN6AnimalC2Ev[%class.Animal** %this.addr][*]	8
+*stack_alloc@_ZN6AnimalC2Ev[%class.Animal** %this.addr][0]	8
+*stack_alloc@_ZN6PoodleC2Ev[%class.Poodle** %this.addr]	8
+*stack_alloc@_ZN6PoodleC2Ev[%class.Poodle** %this.addr][*]	8
+*stack_alloc@_ZN6PoodleC2Ev[%class.Poodle** %this.addr][0]	8
+*stack_alloc@_ZNK3Dog3eatEv[%class.Dog** %this.addr]	8
+*stack_alloc@_ZNK3Dog3eatEv[%class.Dog** %this.addr][*]	8
+*stack_alloc@_ZNK3Dog3eatEv[%class.Dog** %this.addr][0]	8
+*stack_alloc@_ZNK5Llama3eatEv[%class.Llama** %this.addr]	8
+*stack_alloc@_ZNK5Llama3eatEv[%class.Llama** %this.addr][*]	8
+*stack_alloc@_ZNK5Llama3eatEv[%class.Llama** %this.addr][0]	8
+*stack_alloc@_ZNK6Poodle3eatEv[%class.Poodle** %this.addr]	8
+*stack_alloc@_ZNK6Poodle3eatEv[%class.Poodle** %this.addr][*]	8
+*stack_alloc@_ZNK6Poodle3eatEv[%class.Poodle** %this.addr][0]	8
+*stack_alloc@main[%class.Animal*** %animals]	8
+*stack_alloc@main[%class.Animal*** %animals][*]	8
+*stack_alloc@main[%class.Animal*** %animals][0]	8
+*stack_alloc@main[%class.Dog* %dog]	8
+*stack_alloc@main[%class.Dog* %dog][*]	8
+*stack_alloc@main[%class.Dog* %dog][*].?/0	8
+*stack_alloc@main[%class.Dog* %dog][*].?/0.?/0	8
+*stack_alloc@main[%class.Dog* %dog][0]	8
+*stack_alloc@main[%class.Dog* %dog][0].?/0	8
+*stack_alloc@main[%class.Dog* %dog][0].?/0.?/0	8
+*stack_alloc@main[%class.Llama* %llama]	8
+*stack_alloc@main[%class.Llama* %llama][*]	8
+*stack_alloc@main[%class.Llama* %llama][*].?/0	8
+*stack_alloc@main[%class.Llama* %llama][*].?/0.?/0	8
+*stack_alloc@main[%class.Llama* %llama][0]	8
+*stack_alloc@main[%class.Llama* %llama][0].?/0	8
+*stack_alloc@main[%class.Llama* %llama][0].?/0.?/0	8
+*stack_alloc@main[%class.Poodle* %poodle]	8
+*stack_alloc@main[%class.Poodle* %poodle][*]	8
+*stack_alloc@main[%class.Poodle* %poodle][*].?/0	8
+*stack_alloc@main[%class.Poodle* %poodle][*].?/0.?/0	8
+*stack_alloc@main[%class.Poodle* %poodle][*].?/0.?/0.?/0	8
+*stack_alloc@main[%class.Poodle* %poodle][0]	8
+*stack_alloc@main[%class.Poodle* %poodle][0].?/0	8
+*stack_alloc@main[%class.Poodle* %poodle][0].?/0.?/0	8
+*stack_alloc@main[%class.Poodle* %poodle][0].?/0.?/0.?/0	8
+*typed_heap_alloc@main[%class.Animal** %call]	24
+*typed_heap_alloc@main[%class.Animal** %call][*]	8
+*typed_heap_alloc@main[%class.Animal** %call][0]	8
+*typed_heap_alloc@main[%class.Animal** %call][1]	8
+*typed_heap_alloc@main[%class.Animal** %call][2]	8

@@ -1,0 +1,45 @@
+*global_alloc@global_obj	8
+*global_alloc@global_obj[*]	8
+*global_alloc@global_obj[*].?/0	4
+*global_alloc@global_obj[*].?/1	4
+*global_alloc@global_obj[0]	8
+*global_alloc@global_obj[0].?/0	4
+*global_alloc@global_obj[0].?/1	4
+*heap_alloc@fun1[i8* %call]	8
+*heap_alloc@fun1[i8* %call][*]	1
+*heap_alloc@fun1[i8* %call][0]	1
+*heap_alloc@fun2[i8* %call]	8
+*heap_alloc@fun2[i8* %call][*]	1
+*heap_alloc@fun2[i8* %call][0]	1
+*stack_alloc@id[%struct.obj** %x.addr]	8
+*stack_alloc@id[%struct.obj** %x.addr][*]	8
+*stack_alloc@id[%struct.obj** %x.addr][0]	8
+*stack_alloc@main[%struct.obj** %a]	8
+*stack_alloc@main[%struct.obj** %a][*]	8
+*stack_alloc@main[%struct.obj** %a][0]	8
+*stack_alloc@main[%struct.obj** %b]	8
+*stack_alloc@main[%struct.obj** %b][*]	8
+*stack_alloc@main[%struct.obj** %b][0]	8
+*stack_alloc@main[%struct.obj** %c]	8
+*stack_alloc@main[%struct.obj** %c][*]	8
+*stack_alloc@main[%struct.obj** %c][0]	8
+*stack_alloc@main[%struct.obj** %d]	8
+*stack_alloc@main[%struct.obj** %d][*]	8
+*stack_alloc@main[%struct.obj** %d][0]	8
+*stack_alloc@main[i32* %retval]	4
+*stack_alloc@main[i32* %retval][*]	4
+*stack_alloc@main[i32* %retval][0]	4
+*typed_heap_alloc@fun1[%struct.obj* %call]	8
+*typed_heap_alloc@fun1[%struct.obj* %call][*]	8
+*typed_heap_alloc@fun1[%struct.obj* %call][*].?/0	4
+*typed_heap_alloc@fun1[%struct.obj* %call][*].?/1	4
+*typed_heap_alloc@fun1[%struct.obj* %call][0]	8
+*typed_heap_alloc@fun1[%struct.obj* %call][0].?/0	4
+*typed_heap_alloc@fun1[%struct.obj* %call][0].?/1	4
+*typed_heap_alloc@fun2[%struct.obj* %call]	8
+*typed_heap_alloc@fun2[%struct.obj* %call][*]	8
+*typed_heap_alloc@fun2[%struct.obj* %call][*].?/0	4
+*typed_heap_alloc@fun2[%struct.obj* %call][*].?/1	4
+*typed_heap_alloc@fun2[%struct.obj* %call][0]	8
+*typed_heap_alloc@fun2[%struct.obj* %call][0].?/0	4
+*typed_heap_alloc@fun2[%struct.obj* %call][0].?/1	4

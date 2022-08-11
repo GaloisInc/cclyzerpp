@@ -1,0 +1,257 @@
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa]	*stack_alloc@main[%struct.sockaddr_in* %sa]
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa]	*stack_alloc@main[%struct.sockaddr_in* %sa][0]
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa]	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/0
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0]	*stack_alloc@main[%struct.sockaddr_in* %sa]
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0]	*stack_alloc@main[%struct.sockaddr_in* %sa][0]
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0]	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/0
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/0	*stack_alloc@main[%struct.sockaddr_in* %sa]
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/0	*stack_alloc@main[%struct.sockaddr_in* %sa][0]
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/0	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/0
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/1	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/1
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/2	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/2
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/2	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/2.?/0
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/2.?/0	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/2
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/2.?/0	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/2.?/0
+nil	*argv-alloc	*argv-alloc
+nil	*argv-alloc	*argv-alloc[0]
+nil	*argv-alloc[0]	*argv-alloc
+nil	*argv-alloc[0]	*argv-alloc[0]
+nil	*argv[0]-alloc	*argv[0]-alloc
+nil	*argv[0]-alloc	*argv[0]-alloc[0]
+nil	*argv[0]-alloc[0]	*argv[0]-alloc
+nil	*argv[0]-alloc[0]	*argv[0]-alloc[0]
+nil	*global_alloc@.str	*global_alloc@.str
+nil	*global_alloc@.str	*global_alloc@.str[0]
+nil	*global_alloc@.str.1	*global_alloc@.str.1
+nil	*global_alloc@.str.1	*global_alloc@.str.1[0]
+nil	*global_alloc@.str.10	*global_alloc@.str.10
+nil	*global_alloc@.str.10	*global_alloc@.str.10[0]
+nil	*global_alloc@.str.10[0]	*global_alloc@.str.10
+nil	*global_alloc@.str.10[0]	*global_alloc@.str.10[0]
+nil	*global_alloc@.str.10[0][*]	*global_alloc@.str.10[0][*]
+nil	*global_alloc@.str.11	*global_alloc@.str.11
+nil	*global_alloc@.str.11	*global_alloc@.str.11[0]
+nil	*global_alloc@.str.11[0]	*global_alloc@.str.11
+nil	*global_alloc@.str.11[0]	*global_alloc@.str.11[0]
+nil	*global_alloc@.str.11[0][*]	*global_alloc@.str.11[0][*]
+nil	*global_alloc@.str.12	*global_alloc@.str.12
+nil	*global_alloc@.str.12	*global_alloc@.str.12[0]
+nil	*global_alloc@.str.12[0]	*global_alloc@.str.12
+nil	*global_alloc@.str.12[0]	*global_alloc@.str.12[0]
+nil	*global_alloc@.str.12[0][*]	*global_alloc@.str.12[0][*]
+nil	*global_alloc@.str.13	*global_alloc@.str.13
+nil	*global_alloc@.str.13	*global_alloc@.str.13[0]
+nil	*global_alloc@.str.13[0]	*global_alloc@.str.13
+nil	*global_alloc@.str.13[0]	*global_alloc@.str.13[0]
+nil	*global_alloc@.str.13[0][*]	*global_alloc@.str.13[0][*]
+nil	*global_alloc@.str.14	*global_alloc@.str.14
+nil	*global_alloc@.str.14	*global_alloc@.str.14[0]
+nil	*global_alloc@.str.14[0]	*global_alloc@.str.14
+nil	*global_alloc@.str.14[0]	*global_alloc@.str.14[0]
+nil	*global_alloc@.str.14[0][*]	*global_alloc@.str.14[0][*]
+nil	*global_alloc@.str.15	*global_alloc@.str.15
+nil	*global_alloc@.str.15	*global_alloc@.str.15[0]
+nil	*global_alloc@.str.15[0]	*global_alloc@.str.15
+nil	*global_alloc@.str.15[0]	*global_alloc@.str.15[0]
+nil	*global_alloc@.str.15[0][*]	*global_alloc@.str.15[0][*]
+nil	*global_alloc@.str.16	*global_alloc@.str.16
+nil	*global_alloc@.str.16	*global_alloc@.str.16[0]
+nil	*global_alloc@.str.16[0]	*global_alloc@.str.16
+nil	*global_alloc@.str.16[0]	*global_alloc@.str.16[0]
+nil	*global_alloc@.str.16[0][*]	*global_alloc@.str.16[0][*]
+nil	*global_alloc@.str.17	*global_alloc@.str.17
+nil	*global_alloc@.str.17	*global_alloc@.str.17[0]
+nil	*global_alloc@.str.17[0]	*global_alloc@.str.17
+nil	*global_alloc@.str.17[0]	*global_alloc@.str.17[0]
+nil	*global_alloc@.str.17[0][*]	*global_alloc@.str.17[0][*]
+nil	*global_alloc@.str.18	*global_alloc@.str.18
+nil	*global_alloc@.str.18	*global_alloc@.str.18[0]
+nil	*global_alloc@.str.18[0]	*global_alloc@.str.18
+nil	*global_alloc@.str.18[0]	*global_alloc@.str.18[0]
+nil	*global_alloc@.str.18[0][*]	*global_alloc@.str.18[0][*]
+nil	*global_alloc@.str.19	*global_alloc@.str.19
+nil	*global_alloc@.str.19	*global_alloc@.str.19[0]
+nil	*global_alloc@.str.19[0]	*global_alloc@.str.19
+nil	*global_alloc@.str.19[0]	*global_alloc@.str.19[0]
+nil	*global_alloc@.str.19[0][*]	*global_alloc@.str.19[0][*]
+nil	*global_alloc@.str.1[0]	*global_alloc@.str.1
+nil	*global_alloc@.str.1[0]	*global_alloc@.str.1[0]
+nil	*global_alloc@.str.1[0][*]	*global_alloc@.str.1[0][*]
+nil	*global_alloc@.str.2	*global_alloc@.str.2
+nil	*global_alloc@.str.2	*global_alloc@.str.2[0]
+nil	*global_alloc@.str.20	*global_alloc@.str.20
+nil	*global_alloc@.str.20	*global_alloc@.str.20[0]
+nil	*global_alloc@.str.20[0]	*global_alloc@.str.20
+nil	*global_alloc@.str.20[0]	*global_alloc@.str.20[0]
+nil	*global_alloc@.str.20[0][*]	*global_alloc@.str.20[0][*]
+nil	*global_alloc@.str.22	*global_alloc@.str.22
+nil	*global_alloc@.str.22	*global_alloc@.str.22[0]
+nil	*global_alloc@.str.22[0]	*global_alloc@.str.22
+nil	*global_alloc@.str.22[0]	*global_alloc@.str.22[0]
+nil	*global_alloc@.str.22[0][*]	*global_alloc@.str.22[0][*]
+nil	*global_alloc@.str.23	*global_alloc@.str.23
+nil	*global_alloc@.str.23	*global_alloc@.str.23[0]
+nil	*global_alloc@.str.23[0]	*global_alloc@.str.23
+nil	*global_alloc@.str.23[0]	*global_alloc@.str.23[0]
+nil	*global_alloc@.str.23[0][*]	*global_alloc@.str.23[0][*]
+nil	*global_alloc@.str.2[0]	*global_alloc@.str.2
+nil	*global_alloc@.str.2[0]	*global_alloc@.str.2[0]
+nil	*global_alloc@.str.2[0][*]	*global_alloc@.str.2[0][*]
+nil	*global_alloc@.str.3	*global_alloc@.str.3
+nil	*global_alloc@.str.3	*global_alloc@.str.3[0]
+nil	*global_alloc@.str.3[0]	*global_alloc@.str.3
+nil	*global_alloc@.str.3[0]	*global_alloc@.str.3[0]
+nil	*global_alloc@.str.3[0][*]	*global_alloc@.str.3[0][*]
+nil	*global_alloc@.str.4	*global_alloc@.str.4
+nil	*global_alloc@.str.4	*global_alloc@.str.4[0]
+nil	*global_alloc@.str.4[0]	*global_alloc@.str.4
+nil	*global_alloc@.str.4[0]	*global_alloc@.str.4[0]
+nil	*global_alloc@.str.4[0][*]	*global_alloc@.str.4[0][*]
+nil	*global_alloc@.str.5	*global_alloc@.str.5
+nil	*global_alloc@.str.5	*global_alloc@.str.5[0]
+nil	*global_alloc@.str.5[0]	*global_alloc@.str.5
+nil	*global_alloc@.str.5[0]	*global_alloc@.str.5[0]
+nil	*global_alloc@.str.5[0][*]	*global_alloc@.str.5[0][*]
+nil	*global_alloc@.str.6	*global_alloc@.str.6
+nil	*global_alloc@.str.6	*global_alloc@.str.6[0]
+nil	*global_alloc@.str.6[0]	*global_alloc@.str.6
+nil	*global_alloc@.str.6[0]	*global_alloc@.str.6[0]
+nil	*global_alloc@.str.6[0][*]	*global_alloc@.str.6[0][*]
+nil	*global_alloc@.str.7	*global_alloc@.str.7
+nil	*global_alloc@.str.7	*global_alloc@.str.7[0]
+nil	*global_alloc@.str.7[0]	*global_alloc@.str.7
+nil	*global_alloc@.str.7[0]	*global_alloc@.str.7[0]
+nil	*global_alloc@.str.7[0][*]	*global_alloc@.str.7[0][*]
+nil	*global_alloc@.str.8	*global_alloc@.str.8
+nil	*global_alloc@.str.8	*global_alloc@.str.8[0]
+nil	*global_alloc@.str.8[0]	*global_alloc@.str.8
+nil	*global_alloc@.str.8[0]	*global_alloc@.str.8[0]
+nil	*global_alloc@.str.8[0][*]	*global_alloc@.str.8[0][*]
+nil	*global_alloc@.str.9	*global_alloc@.str.9
+nil	*global_alloc@.str.9	*global_alloc@.str.9[0]
+nil	*global_alloc@.str.9[0]	*global_alloc@.str.9
+nil	*global_alloc@.str.9[0]	*global_alloc@.str.9[0]
+nil	*global_alloc@.str.9[0][*]	*global_alloc@.str.9[0][*]
+nil	*global_alloc@.str[0]	*global_alloc@.str
+nil	*global_alloc@.str[0]	*global_alloc@.str[0]
+nil	*global_alloc@.str[0][*]	*global_alloc@.str[0][*]
+nil	*global_alloc@TOO_FEW_ARGS	*global_alloc@TOO_FEW_ARGS
+nil	*global_alloc@TOO_FEW_ARGS	*global_alloc@TOO_FEW_ARGS[0]
+nil	*global_alloc@TOO_FEW_ARGS[0]	*global_alloc@TOO_FEW_ARGS
+nil	*global_alloc@TOO_FEW_ARGS[0]	*global_alloc@TOO_FEW_ARGS[0]
+nil	*global_alloc@__PRETTY_FUNCTION__.handle	*global_alloc@__PRETTY_FUNCTION__.handle
+nil	*global_alloc@__PRETTY_FUNCTION__.handle	*global_alloc@__PRETTY_FUNCTION__.handle[0]
+nil	*global_alloc@__PRETTY_FUNCTION__.handle[0]	*global_alloc@__PRETTY_FUNCTION__.handle
+nil	*global_alloc@__PRETTY_FUNCTION__.handle[0]	*global_alloc@__PRETTY_FUNCTION__.handle[0]
+nil	*global_alloc@__PRETTY_FUNCTION__.handle[0][*]	*global_alloc@__PRETTY_FUNCTION__.handle[0][*]
+nil	*global_alloc@__PRETTY_FUNCTION__.handle_loop	*global_alloc@__PRETTY_FUNCTION__.handle_loop
+nil	*global_alloc@__PRETTY_FUNCTION__.handle_loop	*global_alloc@__PRETTY_FUNCTION__.handle_loop[0]
+nil	*global_alloc@__PRETTY_FUNCTION__.handle_loop[0]	*global_alloc@__PRETTY_FUNCTION__.handle_loop
+nil	*global_alloc@__PRETTY_FUNCTION__.handle_loop[0]	*global_alloc@__PRETTY_FUNCTION__.handle_loop[0]
+nil	*global_alloc@__PRETTY_FUNCTION__.handle_loop[0][*]	*global_alloc@__PRETTY_FUNCTION__.handle_loop[0][*]
+nil	*global_alloc@__PRETTY_FUNCTION__.hex_str	*global_alloc@__PRETTY_FUNCTION__.hex_str
+nil	*global_alloc@__PRETTY_FUNCTION__.hex_str	*global_alloc@__PRETTY_FUNCTION__.hex_str[0]
+nil	*global_alloc@__PRETTY_FUNCTION__.hex_str[0]	*global_alloc@__PRETTY_FUNCTION__.hex_str
+nil	*global_alloc@__PRETTY_FUNCTION__.hex_str[0]	*global_alloc@__PRETTY_FUNCTION__.hex_str[0]
+nil	*global_alloc@__PRETTY_FUNCTION__.hex_str[0][*]	*global_alloc@__PRETTY_FUNCTION__.hex_str[0][*]
+nil	*global_alloc@__PRETTY_FUNCTION__.parse	*global_alloc@__PRETTY_FUNCTION__.parse
+nil	*global_alloc@__PRETTY_FUNCTION__.parse	*global_alloc@__PRETTY_FUNCTION__.parse[0]
+nil	*global_alloc@__PRETTY_FUNCTION__.parse[0]	*global_alloc@__PRETTY_FUNCTION__.parse
+nil	*global_alloc@__PRETTY_FUNCTION__.parse[0]	*global_alloc@__PRETTY_FUNCTION__.parse[0]
+nil	*global_alloc@__PRETTY_FUNCTION__.parse[0][*]	*global_alloc@__PRETTY_FUNCTION__.parse[0][*]
+nil	*global_alloc@__assert_fail	*global_alloc@__assert_fail
+nil	*global_alloc@accept	*global_alloc@accept
+nil	*global_alloc@accept_loop	*global_alloc@accept_loop
+nil	*global_alloc@bind	*global_alloc@bind
+nil	*global_alloc@close	*global_alloc@close
+nil	*global_alloc@cmd_read	*global_alloc@cmd_read
+nil	*global_alloc@cmd_write	*global_alloc@cmd_write
+nil	*global_alloc@exit	*global_alloc@exit
+nil	*global_alloc@fclose	*global_alloc@fclose
+nil	*global_alloc@fgets_unlocked	*global_alloc@fgets_unlocked
+nil	*global_alloc@fopen	*global_alloc@fopen
+nil	*global_alloc@fprintf	*global_alloc@fprintf
+nil	*global_alloc@fread_unlocked	*global_alloc@fread_unlocked
+nil	*global_alloc@free	*global_alloc@free
+nil	*global_alloc@fwrite	*global_alloc@fwrite
+nil	*global_alloc@handle	*global_alloc@handle
+nil	*global_alloc@handle_loop	*global_alloc@handle_loop
+nil	*global_alloc@hex_str	*global_alloc@hex_str
+nil	*global_alloc@hex_str.hex_digits	*global_alloc@hex_str.hex_digits
+nil	*global_alloc@hex_str.hex_digits[*]	*global_alloc@hex_str.hex_digits[*]
+nil	*global_alloc@hex_str.hex_digits[0][*]	*global_alloc@hex_str.hex_digits[0][*]
+nil	*global_alloc@key	*global_alloc@key
+nil	*global_alloc@listen	*global_alloc@listen
+nil	*global_alloc@llvm.dbg.declare	*global_alloc@llvm.dbg.declare
+nil	*global_alloc@llvm.dbg.value	*global_alloc@llvm.dbg.value
+nil	*global_alloc@llvm.lifetime.end.p0i8	*global_alloc@llvm.lifetime.end.p0i8
+nil	*global_alloc@llvm.lifetime.start.p0i8	*global_alloc@llvm.lifetime.start.p0i8
+nil	*global_alloc@llvm.memset.p0i8.i64	*global_alloc@llvm.memset.p0i8.i64
+nil	*global_alloc@malloc	*global_alloc@malloc
+nil	*global_alloc@new_cmd	*global_alloc@new_cmd
+nil	*global_alloc@notes_malloc	*global_alloc@notes_malloc
+nil	*global_alloc@notes_strdup	*global_alloc@notes_strdup
+nil	*global_alloc@oom	*global_alloc@oom
+nil	*global_alloc@parse	*global_alloc@parse
+nil	*global_alloc@printf	*global_alloc@printf
+nil	*global_alloc@puts	*global_alloc@puts
+nil	*global_alloc@recv	*global_alloc@recv
+nil	*global_alloc@send	*global_alloc@send
+nil	*global_alloc@shutdown	*global_alloc@shutdown
+nil	*global_alloc@socket	*global_alloc@socket
+nil	*global_alloc@stderr	*global_alloc@stderr
+nil	*global_alloc@strchr	*global_alloc@strchr
+nil	*global_alloc@strcmp	*global_alloc@strcmp
+nil	*global_alloc@strdup	*global_alloc@strdup
+nil	*global_alloc@strlen	*global_alloc@strlen
+nil	*heap_alloc@hex_str[i8* %call]	*heap_alloc@hex_str[i8* %call]
+nil	*heap_alloc@hex_str[i8* %call][*]	*heap_alloc@hex_str[i8* %call][*]
+nil	*heap_alloc@hex_str[i8* %call][*]	*heap_alloc@hex_str[i8* %call][64]
+nil	*heap_alloc@hex_str[i8* %call][64]	*heap_alloc@hex_str[i8* %call][*]
+nil	*heap_alloc@hex_str[i8* %call][64]	*heap_alloc@hex_str[i8* %call][64]
+nil	*heap_alloc@notes_malloc[i8* %call]	*heap_alloc@notes_malloc[i8* %call]
+nil	*heap_alloc@notes_malloc[i8* %call]	*heap_alloc@notes_malloc[i8* %call][0]
+nil	*heap_alloc@notes_malloc[i8* %call][0]	*heap_alloc@notes_malloc[i8* %call]
+nil	*heap_alloc@notes_malloc[i8* %call][0]	*heap_alloc@notes_malloc[i8* %call][0]
+nil	*heap_alloc@notes_malloc[i8* %call][8]	*heap_alloc@notes_malloc[i8* %call][8]
+nil	*stack_alloc@cmd_read[[1024 x i8]* %data]	*stack_alloc@cmd_read[[1024 x i8]* %data]
+nil	*stack_alloc@cmd_read[[1024 x i8]* %data]	*stack_alloc@cmd_read[[1024 x i8]* %data][0]
+nil	*stack_alloc@cmd_read[[1024 x i8]* %data][0]	*stack_alloc@cmd_read[[1024 x i8]* %data]
+nil	*stack_alloc@cmd_read[[1024 x i8]* %data][0]	*stack_alloc@cmd_read[[1024 x i8]* %data][0]
+nil	*stack_alloc@cmd_read[[1024 x i8]* %data][0][*]	*stack_alloc@cmd_read[[1024 x i8]* %data][0][*]
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req]	*stack_alloc@handle_loop[[1024 x i8]* %req]
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req]	*stack_alloc@handle_loop[[1024 x i8]* %req][0]
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][*]	*stack_alloc@handle_loop[[1024 x i8]* %req][*]
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][*]	*stack_alloc@handle_loop[[1024 x i8]* %req][0]
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0]	*stack_alloc@handle_loop[[1024 x i8]* %req]
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0]	*stack_alloc@handle_loop[[1024 x i8]* %req][*]
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0]	*stack_alloc@handle_loop[[1024 x i8]* %req][0]
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]
+nil	*stack_alloc@key[[32 x i8]* %data]	*stack_alloc@key[[32 x i8]* %data]
+nil	*stack_alloc@key[[32 x i8]* %data]	*stack_alloc@key[[32 x i8]* %data][0]
+nil	*stack_alloc@key[[32 x i8]* %data][*]	*stack_alloc@key[[32 x i8]* %data][*]
+nil	*stack_alloc@key[[32 x i8]* %data][*]	*stack_alloc@key[[32 x i8]* %data][0]
+nil	*stack_alloc@key[[32 x i8]* %data][0]	*stack_alloc@key[[32 x i8]* %data]
+nil	*stack_alloc@key[[32 x i8]* %data][0]	*stack_alloc@key[[32 x i8]* %data][*]
+nil	*stack_alloc@key[[32 x i8]* %data][0]	*stack_alloc@key[[32 x i8]* %data][0]
+nil	*stack_alloc@key[[32 x i8]* %data][0][*]	*stack_alloc@key[[32 x i8]* %data][0][*]
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/1	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/1
+nil	*typed_heap_alloc@notes_malloc[i32* %call]	*typed_heap_alloc@notes_malloc[i32* %call]
+nil	*typed_heap_alloc@notes_malloc[i32* %call]	*typed_heap_alloc@notes_malloc[i32* %call][0]
+nil	*typed_heap_alloc@notes_malloc[i32* %call][0]	*typed_heap_alloc@notes_malloc[i32* %call]
+nil	*typed_heap_alloc@notes_malloc[i32* %call][0]	*typed_heap_alloc@notes_malloc[i32* %call][0]
+nil	*typed_heap_alloc@notes_malloc[i32* %call][2]	*typed_heap_alloc@notes_malloc[i32* %call][2]
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	*typed_heap_alloc@notes_malloc[i8* %call]
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	*typed_heap_alloc@notes_malloc[i8* %call][0]
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	*typed_heap_alloc@notes_malloc[i8* %call]
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	*typed_heap_alloc@notes_malloc[i8* %call][0]
+nil	*typed_heap_alloc@notes_malloc[i8* %call][8]	*typed_heap_alloc@notes_malloc[i8* %call][8]

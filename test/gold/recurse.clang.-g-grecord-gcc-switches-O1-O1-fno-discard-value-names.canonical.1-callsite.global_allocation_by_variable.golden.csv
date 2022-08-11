@@ -1,0 +1,2 @@
+<recurse.c>:@.str.1	*global_alloc@.str.1
+<recurse.c>:@str	*global_alloc@str

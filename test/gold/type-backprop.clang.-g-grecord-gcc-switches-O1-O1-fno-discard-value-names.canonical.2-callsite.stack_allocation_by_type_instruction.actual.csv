@@ -1,0 +1,1 @@
+i8	<type-backprop.c>:use_int:0	*typed_stack_alloc@use_int[i8* %x]

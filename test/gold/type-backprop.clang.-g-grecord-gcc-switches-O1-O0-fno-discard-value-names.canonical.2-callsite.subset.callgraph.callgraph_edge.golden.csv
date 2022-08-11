@@ -1,0 +1,22 @@
+[<type-backprop.c>:print_double:7, nil]	<type-backprop.c>:printf	nil	<type-backprop.c>:print_double:7
+[<type-backprop.c>:print_int:7, nil]	<type-backprop.c>:printf	nil	<type-backprop.c>:print_int:7
+[<type-backprop.c>:use_double:5, nil]	<type-backprop.c>:malloc	[<type-backprop.c>:use_double:5, nil]	<type-backprop.c>:my_calloc:9
+[<type-backprop.c>:use_double:5, nil]	<type-backprop.c>:my_calloc	nil	<type-backprop.c>:use_double:5
+[<type-backprop.c>:use_int:5, nil]	<type-backprop.c>:malloc	[<type-backprop.c>:use_int:5, nil]	<type-backprop.c>:my_calloc:9
+[<type-backprop.c>:use_int:5, nil]	<type-backprop.c>:my_calloc	nil	<type-backprop.c>:use_int:5
+nil	<type-backprop.c>:llvm.dbg.declare	[<<main-context>>, nil]	<type-backprop.c>:main:3
+nil	<type-backprop.c>:llvm.dbg.declare	[<<main-context>>, nil]	<type-backprop.c>:main:5
+nil	<type-backprop.c>:llvm.dbg.declare	[<type-backprop.c>:use_double:5, nil]	<type-backprop.c>:my_calloc:3
+nil	<type-backprop.c>:llvm.dbg.declare	[<type-backprop.c>:use_double:5, nil]	<type-backprop.c>:my_calloc:5
+nil	<type-backprop.c>:llvm.dbg.declare	[<type-backprop.c>:use_int:5, nil]	<type-backprop.c>:my_calloc:3
+nil	<type-backprop.c>:llvm.dbg.declare	[<type-backprop.c>:use_int:5, nil]	<type-backprop.c>:my_calloc:5
+nil	<type-backprop.c>:llvm.dbg.declare	nil	<type-backprop.c>:print_double:2
+nil	<type-backprop.c>:llvm.dbg.declare	nil	<type-backprop.c>:print_int:2
+nil	<type-backprop.c>:llvm.dbg.declare	nil	<type-backprop.c>:use_double:2
+nil	<type-backprop.c>:llvm.dbg.declare	nil	<type-backprop.c>:use_double:4
+nil	<type-backprop.c>:llvm.dbg.declare	nil	<type-backprop.c>:use_int:2
+nil	<type-backprop.c>:llvm.dbg.declare	nil	<type-backprop.c>:use_int:4
+nil	<type-backprop.c>:print_double	nil	<type-backprop.c>:use_double:12
+nil	<type-backprop.c>:print_int	nil	<type-backprop.c>:use_int:12
+nil	<type-backprop.c>:use_double	[<<main-context>>, nil]	<type-backprop.c>:main:7
+nil	<type-backprop.c>:use_int	[<<main-context>>, nil]	<type-backprop.c>:main:6

@@ -1,0 +1,13 @@
+[<<main-context>>, nil]	<functiontable.c>:time	[<<main-context>>, nil]	<functiontable.c>:main:9
+[<functiontable.c>:bar:0, nil]	<functiontable.c>:printf	nil	<functiontable.c>:bar:0
+[<functiontable.c>:baz:0, nil]	<functiontable.c>:printf	nil	<functiontable.c>:baz:0
+[<functiontable.c>:foo:0, nil]	<functiontable.c>:printf	nil	<functiontable.c>:foo:0
+[<functiontable.c>:main:14, [<<main-context>>, nil]]	<functiontable.c>:llvm.memcpy.p0i8.p0i8.i64	[<<main-context>>, nil]	<functiontable.c>:main:14
+nil	<functiontable.c>:bar	[<<main-context>>, nil]	<functiontable.c>:main:20
+nil	<functiontable.c>:baz	[<<main-context>>, nil]	<functiontable.c>:main:20
+nil	<functiontable.c>:foo	[<<main-context>>, nil]	<functiontable.c>:main:20
+nil	<functiontable.c>:llvm.dbg.declare	[<<main-context>>, nil]	<functiontable.c>:main:12
+nil	<functiontable.c>:llvm.dbg.declare	[<<main-context>>, nil]	<functiontable.c>:main:6
+nil	<functiontable.c>:llvm.dbg.declare	[<<main-context>>, nil]	<functiontable.c>:main:8
+nil	<functiontable.c>:rand	[<<main-context>>, nil]	<functiontable.c>:main:15
+nil	<functiontable.c>:srand	[<<main-context>>, nil]	<functiontable.c>:main:11

@@ -1,0 +1,6 @@
+*argv-alloc[*]	8
+*argv-alloc[0]	8
+*argv[0]-alloc[*]	8
+*argv[0]-alloc[0]	8
+*global_alloc@global[*]	4
+*global_alloc@global[0]	4

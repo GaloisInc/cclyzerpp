@@ -1,0 +1,7 @@
+nil	<recurse.c>:countdown	[<<main-context>>, nil]	<recurse.c>:main:2
+nil	<recurse.c>:countdown	nil	<recurse.c>:countdown:7
+nil	<recurse.c>:llvm.dbg.value	[<<main-context>>, nil]	<recurse.c>:main:0
+nil	<recurse.c>:llvm.dbg.value	[<<main-context>>, nil]	<recurse.c>:main:1
+nil	<recurse.c>:llvm.dbg.value	nil	<recurse.c>:countdown:0
+nil	<recurse.c>:printf	nil	<recurse.c>:countdown:5
+nil	<recurse.c>:puts	nil	<recurse.c>:countdown:3
