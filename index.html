@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>cclyzer++ &#8212; cclyzer++ 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Architecture" href="architecture.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="cclyzer">
+<h1>cclyzer++<a class="headerlink" href="#cclyzer" title="Permalink to this headline">¶</a></h1>
+<p>cclyzer++ is a precise and scalable global pointer analysis for LLVM code. The
+output of cclyzer++ can be used for a variety of program analysis tasks,
+including:</p>
+<ul class="simple">
+<li><p>Creation of callgraphs with precise handling of indirect function calls and
+virtual method calls</p></li>
+<li><p>Precise inter-procedural control- and data-flow analysis</p></li>
+<li><p>Answering may-alias and must-not-alias queries</p></li>
+</ul>
+<p>See the <a class="reference internal" href="design.html#design"><span class="std std-ref">design documentation</span></a> for further explanation and
+examples of the output of cclyzer++.</p>
+<p>cclyzer++ is field- and array-sensitive, performs on-the-fly callgraph
+construction, and supports many different configurations of
+<a class="reference internal" href="design.html#context-sensitivity"><span class="std std-ref">context-sensitivity</span></a> including <em>k</em>-callsite
+sensitivity. It has subset-based (Andersen style) and unification-based
+(Steensgaard style) analyses. cclyzer++ is written in <a class="reference external" href="https://souffle-lang.github.io/">Soufflé Datalog</a>, and so
+is highly parallel. cclyzer++ was derived from <a class="reference external" href="https://yanniss.github.io/cclyzer-sas16.pdf">cclyzer</a>.</p>
+<p>cclyzer++ is not currently actively developed or maintained by Galois, Inc.</p>
+<div class="section" id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#the-fact-generator">The Fact Generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#c-interface">C++ Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Building and Running</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="build.html#building-the-fact-generator">Building the Fact Generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build.html#configuring-the-analysis">Configuring the Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build.html#running-the-analysis">Running the Analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Analysis Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="design.html#purpose">Purpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html#abstraction">Abstraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html#an-aside-on-assignments-loads-and-stores">An Aside on Assignments, Loads, and Stores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html#array-and-field-sensitivity">Array- and Field-Sensitivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html#context-sensitivity">Context-Sensitivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html#heap-cloning">Heap Cloning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html#type-back-propagation">Type Back-Propagation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html#undefined-behavior">Undefined Behavior</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#running-tests">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#performance-tuning">Performance Tuning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Analysis Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="implementation.html#context-sensitivity-via-records">Context-Sensitivity via Records</a></li>
+<li class="toctree-l2"><a class="reference internal" href="implementation.html#unification-based-analysis-via-subsumption-and-choice">Unification-Based Analysis via Subsumption and Choice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="implementation.html#shared-code-via-components">Shared Code via Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="implementation.html#project-files">Project Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="implementation.html#assertions">Assertions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#notable-features">Notable Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#language-support">Language Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#bibliography">Bibliography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#comparison-to-cclyzer">Comparison to cclyzer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#project-status">Project Status</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="signatures.html">Signatures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="signatures.html#kinds-of-signatures">Kinds of Signatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signatures.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="unsoundness.html">Sources of Unsoundness</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="unsoundness.html#suballocations-and-type-back-propagation">Suballocations and Type Back-Propagation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsoundness.html#language-coverage">Language Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsoundness.html#type-based-heuristics">Type-Based Heuristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsoundness.html#external-functions">External Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+<div class="section" id="acknowledgments">
+<h2>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">¶</a></h2>
+<p>This material is based upon work supported by the United States Air Force and
+Defense Advanced Research Project Agency (DARPA) under Contract No.
+FA8750-19-C-0004. Any opinions, findings and conclusions or recommendations
+expressed in this material are those of the author(s) and do not necessarily
+reflect the views of the United States Air Force or DARPA. Approved for Public
+Release, Distribution Unlimited.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">cclyzer++</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Building and Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Analysis Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Analysis Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signatures.html">Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unsoundness.html">Sources of Unsoundness</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="architecture.html" title="next chapter">Architecture</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Galois Inc..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

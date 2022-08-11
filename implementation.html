@@ -1,0 +1,419 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Analysis Implementation &#8212; cclyzer++ 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Legal" href="legal.html" />
+    <link rel="prev" title="Development" href="dev.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="analysis-implementation">
+<h1>Analysis Implementation<a class="headerlink" href="#analysis-implementation" title="Permalink to this headline">¶</a></h1>
+<p>cclyzer++ is written in <a class="reference external" href="https://souffle-lang.github.io/">Soufflé Datalog</a> to achieve a balance between ease of
+implementation and performance, see <a class="reference external" href="https://dl.acm.org/doi/10.1145/1639949.1640108">Strictly declarative specification of
+sophisticated points-to analyses</a> for the reasoning behind this
+choice. cclyzer++ uses a variety of extensions to vanilla Datalog, each is
+detailed below.</p>
+<div class="section" id="context-sensitivity-via-records">
+<h2>Context-Sensitivity via Records<a class="headerlink" href="#context-sensitivity-via-records" title="Permalink to this headline">¶</a></h2>
+<p>Contexts are represented as a cons-list of context items using Soufflé’s
+<a class="reference external" href="https://souffle-lang.github.io/types#record-types">records</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">From</span> <span class="n">context</span><span class="o">/</span><span class="n">interface</span><span class="o">.</span><span class="n">dl</span>
+<span class="o">.</span><span class="n">type</span> <span class="n">ContextItem</span> <span class="o">&lt;</span><span class="p">:</span> <span class="n">symbol</span>
+<span class="o">.</span><span class="n">type</span> <span class="n">Context</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">head</span> <span class="p">:</span> <span class="n">ContextItem</span><span class="p">,</span>
+    <span class="n">tail</span> <span class="p">:</span> <span class="n">Context</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>In principle, there’s no need to <em>k</em>-bound these contexts - one could instead
+not insert repeated context entries and still guarantee termination in
+principle. In practice, <em>k</em>-bounding is necessary for the analysis to terminate
+in a reasonable time on all but the most trivial of programs.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Context</span></code> datatype represents both contexts and allocation contexts.</p>
+</div>
+<div class="section" id="unification-based-analysis-via-subsumption-and-choice">
+<span id="impl-unification"></span><h2>Unification-Based Analysis via Subsumption and Choice<a class="headerlink" href="#unification-based-analysis-via-subsumption-and-choice" title="Permalink to this headline">¶</a></h2>
+<p>The unification-based analysis is fairly unusual. Such an analysis wouldn’t
+normally be written in vanilla Datalog, which lacks access to the datastructures
+that make it performant (see discussion in the points-to <a class="reference external" href="http://yanniss.github.io/points-to-tutorial15.pdf">tutorial</a>). However,
+Soufflé provides features that make it possible to write a high-performance
+unification-based analysis.</p>
+<p>The unification-based analysis works by <em>merging</em> or <em>unifying</em> allocations that
+flow to the same place. Consider the following program:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">u</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">v</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">x</span><span class="p">;</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">u</span><span class="p">;</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">v</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In the unification-based analysis, the allocations <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code> and
+<code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code> both flow to the variable <code class="docutils literal notranslate"><span class="pre">x</span></code>, so they would be
+<em>unified</em>, and treated identically by the rest of the analysis. Ignoring
+context-sensitivity and heap cloning for the sake of presentation, the output of
+the analysis would conceptually be something like</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ptr_points_to</span></code>: (empty)</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">var_points_to</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;u</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;v</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> points to <em>the set</em> <code class="docutils literal notranslate"><span class="pre">{*stack_alloc&#64;main[u],</span> <span class="pre">*stack_alloc&#64;main[v]}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code> points to <em>the set</em> <code class="docutils literal notranslate"><span class="pre">{*stack_alloc&#64;main[u],</span> <span class="pre">*stack_alloc&#64;main[v]}</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>The stack allocations of <code class="docutils literal notranslate"><span class="pre">u</span></code> and <code class="docutils literal notranslate"><span class="pre">v</span></code> are said to be <em>merged</em>, <em>unified</em>, or
+<em>in the same equivalence class</em>. This is represented by a binary relation
+<code class="docutils literal notranslate"><span class="pre">unify</span></code> over (allocation, allocation context) pairs (or just allocations when
+not considering heap cloning).</p>
+<div class="section" id="subsumption">
+<h3>Subsumption<a class="headerlink" href="#subsumption" title="Permalink to this headline">¶</a></h3>
+<p>Soufflé’s <code class="docutils literal notranslate"><span class="pre">eqrel</span></code> <a class="reference external" href="https://souffle-lang.github.io/relations#equivalence-relations">data structure</a> seems suited to represent merged
+allocations—a unification-based analysis featured in the evaluation section of
+<a class="reference external" href="https://ieeexplore.ieee.org/document/8891656">the paper that introduced it</a>. However, Galois <a class="reference external" href="https://github.com/souffle-lang/souffle/issues/2054">encountered
+some performance issues</a> when implementing an analysis based on
+<code class="docutils literal notranslate"><span class="pre">eqrel</span></code>. Luckily, Soufflé has a feature called <a class="reference external" href="https://souffle-lang.github.io/subsumption">subsumption</a> which can be
+used to emulate a union-find structure without some of the difficulties of
+<code class="docutils literal notranslate"><span class="pre">eqrel</span></code>.</p>
+<p>The following snippet schematically demonstrates how to build a union-find-like
+structure using subsumption. <code class="docutils literal notranslate"><span class="pre">base</span></code> is some arbitrary binary relation over
+numbers, which represents whatever pairs need to be inserted into an equivalence
+relation. The relation <code class="docutils literal notranslate"><span class="pre">union_find</span></code> relates numbers (on the RHS) to their
+equivalence class representatives (on the LHS). <code class="docutils literal notranslate"><span class="pre">union_find</span></code> eventually
+guarantees that the equivalence class representative is the minimum of the
+members of the equivalence class (though any way of uniquely choosing a
+representative would do).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">decl</span> <span class="n">base</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">number</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">number</span><span class="p">)</span>
+<span class="o">.</span><span class="n">input</span> <span class="n">base</span>
+<span class="n">base</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="p">:</span><span class="o">-</span> <span class="n">base</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">_</span><span class="p">);</span> <span class="n">base</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span>
+
+<span class="o">.</span><span class="n">decl</span> <span class="n">eq</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">number</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="n">eqrel</span>
+<span class="n">eq</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="p">:</span><span class="o">-</span> <span class="n">base</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span>
+
+<span class="o">.</span><span class="n">decl</span> <span class="n">union_find</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">number</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="n">btree_delete</span>
+<span class="n">union_find</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="p">:</span><span class="o">-</span> <span class="n">base</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">y</span><span class="o">.</span>                   <span class="o">//</span> <span class="n">rule</span> <span class="c1">#1</span>
+<span class="n">union_find</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="p">:</span><span class="o">-</span> <span class="n">base</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="o">.</span>                   <span class="o">//</span> <span class="n">rule</span> <span class="c1">#2</span>
+<span class="n">union_find</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span> <span class="p">:</span><span class="o">-</span> <span class="n">union_find</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">union_find</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span><span class="o">.</span>   <span class="o">//</span> <span class="n">rule</span> <span class="c1">#3</span>
+<span class="n">union_find</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">&lt;=</span>                                       <span class="o">//</span> <span class="n">rule</span> <span class="c1">#4</span>
+  <span class="n">union_find</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="p">:</span><span class="o">-</span>
+    <span class="n">z</span> <span class="o">&lt;</span> <span class="n">x</span><span class="o">.</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">union_find</span></code> requires a bit more ceremony than <code class="docutils literal notranslate"><span class="pre">eq</span></code>. Rules #1 and #2 insert
+all the pairs in <code class="docutils literal notranslate"><span class="pre">base</span></code>. Rule #3 states that if <code class="docutils literal notranslate"><span class="pre">x</span></code> is the representative of
+the equivalence class of <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> is the representative of the
+equivalence class of <code class="docutils literal notranslate"><span class="pre">z</span></code>, then <code class="docutils literal notranslate"><span class="pre">x</span></code> is the representative of the equivalence
+class of <code class="docutils literal notranslate"><span class="pre">z</span></code>. This is analogous to what happens during the <code class="docutils literal notranslate"><span class="pre">find</span></code> operation
+on union-find structures, when existing nodes’ parents are modified. Rule #4
+removes redundant facts using subsumption: if <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">z</span></code> are both potential
+representative for <code class="docutils literal notranslate"><span class="pre">y</span></code>’s equivalence class, and <code class="docutils literal notranslate"><span class="pre">z</span></code> is less than <code class="docutils literal notranslate"><span class="pre">x</span></code>, then
+delete the fact that says that <code class="docutils literal notranslate"><span class="pre">x</span></code> is a possible representative.</p>
+<p>To check that <code class="docutils literal notranslate"><span class="pre">eq</span></code> and <code class="docutils literal notranslate"><span class="pre">union_find</span></code> really represent the same equivalence
+relation, the following assertions may be added (they “pass” when they are
+empty):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.decl assert_same1(x: number, y: number)
+assert_same1(x, y) :-
+  eq(x, y),
+  union_find(z, x),
+  ! union_find(z, y).
+
+.decl assert_same2(x: number, y: number)
+assert_same2(x, y) :-
+  union_find(z, x),
+  union_find(z, y),
+  ! eq(x, y).
+</pre></div>
+</div>
+</div>
+<div class="section" id="choice">
+<h3>Choice<a class="headerlink" href="#choice" title="Permalink to this headline">¶</a></h3>
+<p>Besides a way to efficiently merge points-to sets, the other key component of a
+performant unification-based analysis is a way to avoid propagating redundant
+facts throughout the analysis (i.e., there should be only one points-to fact per
+unified allocation set). cclyzer++ uses <cite>Soufflé’s ``choice-domain`</cite> feature
+&lt;<a class="reference external" href="https://souffle-lang.github.io/choice">choice-domain</a>&gt;`_ to non-deterministically choose a single (allocation,
+allocation context) pair from each equivalence class for each (variable,
+context) pair.</p>
+<p>To illustrate this point, again consider the program from <a class="reference internal" href="#impl-unification">the beginning of this
+section</a> (and again ignore context sensitivity and heap
+cloning). Then the unification analysis with <code class="docutils literal notranslate"><span class="pre">choice-domain</span></code> would
+non-deterministically compute <em>either</em> of the following results:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ptr_points_to</span></code>: (empty)</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">var_points_to</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;u</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;v</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">unify</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code> is unified with <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>or</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ptr_points_to</span></code>: (empty)</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">var_points_to</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;u</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;v</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">unify</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code> is unified with <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>A post-processing step replaces each points-to fact with a <em>canonical</em> one,
+where the canonical (allocation, allocation context) pair is the minimal one
+under some arbitrary total order. If <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code> is less than
+<code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code> under this order, then the “finalized” results
+would have <em>all</em> the variables <code class="docutils literal notranslate"><span class="pre">&amp;u</span></code>, <code class="docutils literal notranslate"><span class="pre">&amp;v</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>, and <code class="docutils literal notranslate"><span class="pre">y</span></code> pointing to
+<code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code>. See <code class="docutils literal notranslate"><span class="pre">unification.dl</span></code> on the details of total order
+and finalization process.</p>
+</div>
+</div>
+<div class="section" id="shared-code-via-components">
+<h2>Shared Code via Components<a class="headerlink" href="#shared-code-via-components" title="Permalink to this headline">¶</a></h2>
+<p>The subset- and unification-based analyses share code via <a class="reference external" href="https://souffle-lang.github.io/components">components</a>. As a
+representative example, the <code class="docutils literal notranslate"><span class="pre">StripCtx</span></code> component provides context-insensitive
+projections of the core points-to relations. These rules are agnostic to the
+style of the analysis, they only require that the “input relations”
+(<code class="docutils literal notranslate"><span class="pre">callgraph_edge</span></code>, <code class="docutils literal notranslate"><span class="pre">*_points_to</span></code>) have appropriate arities and types.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.comp StripCtx {
+  .decl callgraph_edge(?calleeCtx: Context, ?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: Instruction) inline
+  .decl operand_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?operand: Operand) inline
+  .decl ptr_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?ptr: Allocation) inline
+  .decl var_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable) inline
+
+  .decl stripctx_callgraph_edge(?callee: FunctionDecl, ?callerInstr: Instruction)
+  stripctx_callgraph_edge(?callee, ?callerInstr) :-
+    callgraph_edge(_, ?callee, _, ?callerInstr).
+
+  .decl stripctx_var_points_to(?alloc: Allocation, ?var: Variable)
+  stripctx_var_points_to(?alloc, ?var) :-
+    var_points_to(_, ?alloc, _, ?var).
+
+  .decl stripctx_ptr_points_to(?to: Allocation, ?from: Allocation)
+  stripctx_ptr_points_to(?to, ?from) :-
+    ptr_points_to(_, ?to, _, ?from).
+
+  .decl stripctx_operand_points_to(?to: Allocation, ?from: Operand)
+  stripctx_operand_points_to(?to, ?from) :-
+    operand_points_to(_, ?to, _, ?from).
+}
+</pre></div>
+</div>
+<p>This component is then <em>instantiated</em> in the core pointer analysis component,
+which both the subset- and unification-based analyses derive from. The points-to
+relations are copied to the inputs of the <code class="docutils literal notranslate"><span class="pre">StripCtx</span></code> component.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.comp PointsTo {
+  // ...
+
+  .init stripctx = StripCtx
+
+  stripctx.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr) :-
+    callgraph.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr).
+
+  stripctx.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+    operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
+
+  stripctx.ptr_points_to(?aCtx, ?alloc, ?ctx, ?ptr) :-
+    ptr_points_to(?aCtx, ?alloc, ?ctx, ?ptr).
+
+  stripctx.var_points_to(?aCtx, ?alloc, ?ctx, ?var) :-
+    var_points_to(?aCtx, ?alloc, ?ctx, ?var).
+
+  // ...
+}
+
+.comp SubsetPointsTo : PointsTo {
+  // ...
+}
+
+.init subset = SubsetPointsTo
+
+.comp UnificationPointsTo : PointsTo {
+  // ...
+}
+
+.init unification = UnificationPointsTo
+
+// Can refer to subset.stripctx.stripctx_callgraph_edge,
+// unification.stripctx.stripctx_var_points_to, etc.
+</pre></div>
+</div>
+<p>In this way, both analysis have their own, separate version of these rules,
+while sharing the implementation. Other components require different ways of
+setting up their input relations depending on the analysis, these are
+instantiated in <code class="docutils literal notranslate"><span class="pre">subset.dl</span></code> and <code class="docutils literal notranslate"><span class="pre">unification.dl</span></code> instead of in the
+<code class="docutils literal notranslate"><span class="pre">PointsTo</span></code> component.</p>
+<p>All rules that depend (even indirectly) on the points-to relations are
+parameterized on them. This means that the subset and unification analyses can
+actually be run <em>at the same time</em> (or in sequence) during the same run of the
+overall Datalog program. At the moment, this is mostly used for testing - in
+particular, there are <a class="reference internal" href="#assertions">assertions</a> to the effect that the results
+of the unification analysis are a superset of those of the subset analysis.</p>
+</div>
+<div class="section" id="project-files">
+<span id="project"></span><h2>Project Files<a class="headerlink" href="#project-files" title="Permalink to this headline">¶</a></h2>
+<p>Like C, the Soufflé language has no native notion of splitting a program into
+multiple files. Soufflé uses the C pre-processor to concatenate many files into
+a single translation unit. cclyzer++ has several top-level “project files” that
+<code class="docutils literal notranslate"><span class="pre">#include</span></code> different subsets of the Datalog files, for different purposes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">debug.project</span></code> includes all the files in cclyzer++, and exports almost all
+of the relations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">subset.project</span></code> includes only the files necessary to run the subset
+analysis and export the core points-to relations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">subset-and-unification.project</span></code> includes only the files necessary to run
+the both the subset and unification analyses and export the core points-to
+relations for both.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unification.project</span></code> includes only the files necessary to run the
+unification analysis and export the core points-to relations.</p></li>
+</ul>
+</div>
+<div class="section" id="assertions">
+<span id="id1"></span><h2>Assertions<a class="headerlink" href="#assertions" title="Permalink to this headline">¶</a></h2>
+<p>The file <code class="docutils literal notranslate"><span class="pre">points-to/assertions.dl</span></code> contains several “assertion relations”,
+which have names starting with <code class="docutils literal notranslate"><span class="pre">assert_</span></code>. The assertions “fail” when they are
+inhabited - but it’s up to the consumer of the analysis to actually check if
+this occurred and take appropriate action. Assertions are not included in the
+points-to <a class="reference internal" href="#project">project files</a>, as they can be quite expensive to check
+and are primarily intended for use in testing the analysis.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">cclyzer++</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Building and Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Analysis Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Analysis Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#context-sensitivity-via-records">Context-Sensitivity via Records</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unification-based-analysis-via-subsumption-and-choice">Unification-Based Analysis via Subsumption and Choice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#shared-code-via-components">Shared Code via Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#project-files">Project Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#assertions">Assertions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signatures.html">Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unsoundness.html">Sources of Unsoundness</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="dev.html" title="previous chapter">Development</a></li>
+      <li>Next: <a href="legal.html" title="next chapter">Legal</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Galois Inc..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/implementation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Overview &#8212; cclyzer++ 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Signatures" href="signatures.html" />
+    <link rel="prev" title="Legal" href="legal.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="notable-features">
+<h2>Notable Features<a class="headerlink" href="#notable-features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="subset-and-unification-analyses">
+<h3>Subset and Unification Analyses<a class="headerlink" href="#subset-and-unification-analyses" title="Permalink to this headline">¶</a></h3>
+<p>There are two widely-used paradigms in constructing pointer analyses:
+subset-based and unification-based. Unification-based analyses are generally
+highly scalable, but less precise than comparable subset-based analyses.
+cclyzer++ provides both.</p>
+<p>See the <a class="reference internal" href="implementation.html#impl-unification"><span class="std std-ref">implementation documentation</span></a> for information
+about the unification-based analysis.</p>
+</div>
+<div class="section" id="configurable-context-sensitivity-and-heap-cloning">
+<span id="conf-context-sensitivity"></span><h3>Configurable Context Sensitivity and Heap Cloning<a class="headerlink" href="#configurable-context-sensitivity-and-heap-cloning" title="Permalink to this headline">¶</a></h3>
+<p>Context-sensitive pointer analyses are often more precise than
+context-insensitive ones, but their performance is less predictable. cclyzer++
+provides a variety of context sensitivity strategies and depths, including
+<em>k</em>-callsite. The choice of context sensitivity can be <a class="reference internal" href="build.html#configuration"><span class="std std-ref">configured at
+runtime</span></a>.</p>
+<p>cclyzer++ also performs <a class="reference internal" href="design.html#clone"><span class="std std-ref">heap cloning</span></a>, matching whichever strategy
+is chosen for context-sensitivity.</p>
+</div>
+<div class="section" id="modeling-library-functions">
+<h3>Modeling Library Functions<a class="headerlink" href="#modeling-library-functions" title="Permalink to this headline">¶</a></h3>
+<p>cclyzer++ supports modeling external functions with <em>signatures</em> which summarize
+their effect on memory. Signatures can be used to model functions from libc or
+other external libraries. Such models are crucial for soundness. See
+<a class="reference internal" href="signatures.html#signatures"><span class="std std-ref">Signatures</span></a> for details on how to create signatures.</p>
+</div>
+</div>
+<div class="section" id="language-support">
+<h2>Language Support<a class="headerlink" href="#language-support" title="Permalink to this headline">¶</a></h2>
+<p>cclyzer++ has primarily been tested on LLVM code produced by Clang 10 when
+compiling from C and C++ for x86_64. Your mileage may vary with other languages,
+compilers, and targets.</p>
+</div>
+<div class="section" id="bibliography">
+<h2>Bibliography<a class="headerlink" href="#bibliography" title="Permalink to this headline">¶</a></h2>
+<p>The following papers significantly influenced the development of cclyzer++.</p>
+<ul class="simple">
+<li><p>Bravenboer, M. and Smaragdakis, Y., 2009, October. Strictly declarative
+specification of sophisticated points-to analyses. In <em>Proceedings of the 24th
+ACM SIGPLAN conference on Object oriented programming systems languages and
+applications</em> (pp. 243-262).</p></li>
+<li><p>Balatsouras, G. and Smaragdakis, Y., 2016, September. Structure-sensitive
+points-to analysis for C and C++. In <em>International Static Analysis Symposium</em>
+(pp. 84-104). Springer, Berlin, Heidelberg.</p></li>
+</ul>
+<p>The pointer analysis <a class="reference external" href="http://yanniss.github.io/points-to-tutorial15.pdf">tutorial</a> of Smaragdakis and Balatsouras was also quite
+helpful.</p>
+</div>
+<div class="section" id="comparison-to-cclyzer">
+<h2>Comparison to cclyzer<a class="headerlink" href="#comparison-to-cclyzer" title="Permalink to this headline">¶</a></h2>
+<p>As mentioned above, cclyzer++ is based on cclyzer. The major differences are that
+cclyzer++</p>
+<ul class="simple">
+<li><p>supports LLVM 10</p></li>
+<li><p>is implemented in Soufflé rather than LogicBlox</p></li>
+<li><p>has <a class="reference internal" href="architecture.html#cpp"><span class="std std-ref">a C++ interface</span></a>, rather than a Python one</p></li>
+<li><p>has runtime-configurable context-sensitivity and heap-cloning</p></li>
+<li><p>features a <a class="reference internal" href="implementation.html#impl-unification"><span class="std std-ref">unification-based analysis</span></a></p></li>
+<li><p>allows modeling external functions with <a class="reference internal" href="signatures.html#signatures"><span class="std std-ref">signatures</span></a></p></li>
+<li><p>drops certain uninformative contexts (see <code class="docutils literal notranslate"><span class="pre">drop.dl</span></code>)</p></li>
+</ul>
+<p>On the less impactful side, cclyzer++ also</p>
+<ul class="simple">
+<li><p>includes <a class="reference internal" href="implementation.html#assertions"><span class="std std-ref">assertions</span></a> about correctness</p></li>
+<li><p>improves on the heuristic that controls array suballocations (see
+<code class="docutils literal notranslate"><span class="pre">allocations-subobjects.dl</span></code>)</p></li>
+<li><p>tracks suballocation sizes and offsets (see <code class="docutils literal notranslate"><span class="pre">allocations-subobjects.dl</span></code>)</p></li>
+<li><p>soundly handles <code class="docutils literal notranslate"><span class="pre">argv</span></code></p></li>
+<li><p>has additional documentation (both code-level comments and higher-level
+documents such as this one)</p></li>
+</ul>
+<p>Many thanks to the authors of cclyzer for their contributions! The cclyzer
+license is included with the source distribution of cclyzer++ as
+<code class="docutils literal notranslate"><span class="pre">LICENSE-cclyzer.txt</span></code>.</p>
+</div>
+<div class="section" id="project-status">
+<h2>Project Status<a class="headerlink" href="#project-status" title="Permalink to this headline">¶</a></h2>
+<p>cclyzer++ is not currently actively developed or maintained by Galois, Inc.
+Points of contact are: Langston Barrett (email: langston at galois dot com)
+Scott Moore (email: scott at galois dot com).</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">cclyzer++</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Building and Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Analysis Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Analysis Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#notable-features">Notable Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#language-support">Language Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bibliography">Bibliography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#comparison-to-cclyzer">Comparison to cclyzer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#project-status">Project Status</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="signatures.html">Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unsoundness.html">Sources of Unsoundness</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="legal.html" title="previous chapter">Legal</a></li>
+      <li>Next: <a href="signatures.html" title="next chapter">Signatures</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Galois Inc..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/overview.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

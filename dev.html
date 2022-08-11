@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Development &#8212; cclyzer++ 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Analysis Implementation" href="implementation.html" />
+    <link rel="prev" title="Analysis Design" href="design.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="development">
+<h1>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="running-tests">
+<h2>Running Tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
+<p>The tests are run with <a class="reference external" href="https://docs.pytest.org">Pytest</a>. They require compiling cclyzer++ first.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake --build build -j <span class="k">$(</span>nproc<span class="k">)</span>
+pytest test/
+</pre></div>
+</div>
+<p>To make new golden tests, set <code class="docutils literal notranslate"><span class="pre">MAKE_GOLD_TESTS=1</span></code> in the environment. To run
+extra tests, set <code class="docutils literal notranslate"><span class="pre">EXTRA_TESTS=1</span></code>.</p>
+</div>
+<div class="section" id="performance-tuning">
+<h2>Performance Tuning<a class="headerlink" href="#performance-tuning" title="Permalink to this headline">¶</a></h2>
+<p>Soufflé has <a class="reference external" href="tuning">some</a> <a class="reference external" href="profiler">documentation</a> on improving
+performance. In addition to what’s stated there, it’s often helpful to look
+at Soufflé’s RAM IR by passing the <code class="docutils literal notranslate"><span class="pre">--show=transformed-ram</span></code> flag to Soufflé.
+The RAM representation explicitly shows the effect of query plans (<code class="docutils literal notranslate"><span class="pre">.plan</span></code>
+<a class="reference external" href="plan">directives</a> and <a class="reference external" href="https://souffle-lang.github.io/handtuning#sideways-information-passing-strategy">SIPS</a>) and semi-naïve evaluation.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">cclyzer++</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Building and Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Analysis Design</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#running-tests">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#performance-tuning">Performance Tuning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Analysis Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signatures.html">Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unsoundness.html">Sources of Unsoundness</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="design.html" title="previous chapter">Analysis Design</a></li>
+      <li>Next: <a href="implementation.html" title="next chapter">Analysis Implementation</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Galois Inc..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/dev.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Architecture &#8212; cclyzer++ 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Building and Running" href="build.html" />
+    <link rel="prev" title="cclyzer++" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="architecture">
+<span id="id1"></span><h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h1>
+<p>cclyzer++ is written in Datalog. Like a SQL database, Datalog views the world in
+terms of relations (AKA tables or sets of tuples). The inputs and outputs of
+the analysis are directories of CSV files, each representing a relation.
+cclyzer++ includes utilities to generate and consume these CSV files.</p>
+<div class="section" id="the-fact-generator">
+<h2>The Fact Generator<a class="headerlink" href="#the-fact-generator" title="Permalink to this headline">¶</a></h2>
+<p>The fact generator is an LLVM pass that consumes LLVM modules and outputs facts
+that can be fed to the analysis. It doesn’t do much pre-processing of the
+information, rather just outputs a table-based view of the module’s AST.</p>
+<p>The fact generator is also used to configure the analysis parameters, namely the
+type and amount of context sensitivity and points-to signatures. See the
+<a class="reference internal" href="build.html#configuration"><span class="std std-ref">documentation on configuring the analysis</span></a> for more
+details.</p>
+</div>
+<div class="section" id="c-interface">
+<span id="cpp"></span><h2>C++ Interface<a class="headerlink" href="#c-interface" title="Permalink to this headline">¶</a></h2>
+<p>The C++ interface is an LLVM pass that wraps both the fact generator and the
+analysis itself. It can be used via <code class="docutils literal notranslate"><span class="pre">opt</span></code> (see <a class="reference internal" href="build.html#opt"><span class="std std-ref">With Opt</span></a>) or as a C++
+library. Its library interface exposes the core output relations (e.g.,
+<code class="docutils literal notranslate"><span class="pre">var_points_to</span></code>) of the pointer analysis in terms of LLVM objects (e.g.,
+<code class="docutils literal notranslate"><span class="pre">llvm::Value</span></code>) rather than their serialized string representations that appear
+in the CSV files. See <code class="docutils literal notranslate"><span class="pre">PointerAnalysis.h</span></code> and <code class="docutils literal notranslate"><span class="pre">PointerAnalysis.cpp</span></code> for more
+details on this interface.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">cclyzer++</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-fact-generator">The Fact Generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-interface">C++ Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Building and Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Analysis Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Analysis Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signatures.html">Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unsoundness.html">Sources of Unsoundness</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">cclyzer++</a></li>
+      <li>Next: <a href="build.html" title="next chapter">Building and Running</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Galois Inc..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/architecture.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

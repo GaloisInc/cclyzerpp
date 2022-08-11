@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Building and Running &#8212; cclyzer++ 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Analysis Design" href="design.html" />
+    <link rel="prev" title="Architecture" href="architecture.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="building-and-running">
+<h1>Building and Running<a class="headerlink" href="#building-and-running" title="Permalink to this headline">¶</a></h1>
+<p>cclyzer++ requires Soufflé version <cite>fce85d9</cite>; see the <a class="reference external" href="https://souffle-lang.github.io/build">Soufflé build
+documentation</a> for information on how to download and install Soufflé.</p>
+<p>The build also requires a few Boost C++ libraries. Here’s how to get them on
+Ubuntu 20.04:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get install libboost-system-dev libboost-filesystem-dev libboost-iostreams-dev libboost-program-options-dev
+</pre></div>
+</div>
+<div class="section" id="building-the-fact-generator">
+<h2>Building the Fact Generator<a class="headerlink" href="#building-the-fact-generator" title="Permalink to this headline">¶</a></h2>
+<p>To build the fact generator, run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake -G Ninja -B build -S .
+cmake --build build -j <span class="k">$(</span>nproc<span class="k">)</span> --target factgen-exe
+</pre></div>
+</div>
+<p>You should now see an executable at <code class="docutils literal notranslate"><span class="pre">build/factgen-exe</span></code>. See <a class="reference internal" href="architecture.html#architecture"><span class="std std-ref">the
+architecture documentation</span></a> for more information on the role of
+the fact generator.</p>
+</div>
+<div class="section" id="configuring-the-analysis">
+<span id="configuration"></span><h2>Configuring the Analysis<a class="headerlink" href="#configuring-the-analysis" title="Permalink to this headline">¶</a></h2>
+<p>The analysis is configured via command-line arguments passed to the fact
+generator, primarily <code class="docutils literal notranslate"><span class="pre">--context-sensitivity</span></code> and <code class="docutils literal notranslate"><span class="pre">--signatures</span></code>. For
+example,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>factgen-exe --out-dir &lt;fact-dir&gt; --signatures sigs.json --context-sensitivity <span class="m">1</span>-callsite prog.bc
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">prog.bc</span></code> is an LLVM bitcode module. The valid settings for context
+sensitivity are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">insensitive</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1-callsite</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2-callsite</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3-callsite</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">4-callsite</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">5-callsite</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">6-callsite</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">7-callsite</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">8-callsite</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">9-callsite</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1-caller</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2-caller</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3-caller</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">4-caller</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">5-caller</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">6-caller</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">7-caller</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">8-caller</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">9-caller</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1-file</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2-file</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3-file</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">4-file</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">5-file</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">6-file</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">7-file</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">8-file</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">9-file</span></code></p></li>
+</ul>
+<p>Run <code class="docutils literal notranslate"><span class="pre">factgen-exe</span> <span class="pre">--help</span></code> to see the full list of options.</p>
+</div>
+<div class="section" id="running-the-analysis">
+<h2>Running the Analysis<a class="headerlink" href="#running-the-analysis" title="Permalink to this headline">¶</a></h2>
+<p>Soufflé ships with an interpreter and a <em>synthesizer</em>, which outputs C++ code
+that can be compiled by Clang. Accordingly, there are three ways to run the
+analysis:</p>
+<ul class="simple">
+<li><p>Directly via the Soufflé interpreter</p></li>
+<li><p>By synthesizing the Datalog to C++ and then either
+- compiling the C++ via Clang to a standalone executable
+- compiling the C++ via Clang to a shared library that gets loaded by LLVM’s <code class="docutils literal notranslate"><span class="pre">opt</span></code> and used by the C++ interface</p></li>
+</ul>
+<div class="section" id="with-souffle">
+<h3>With Soufflé<a class="headerlink" href="#with-souffle" title="Permalink to this headline">¶</a></h3>
+<p>Here’s how to run the subset analysis via the Soufflé interpreter:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>souffle --fact-dir &lt;fact-dir&gt; --output-dir &lt;output-dir&gt; datalog/subset.project
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">fact-dir</span></code> was the directory passed to the <code class="docutils literal notranslate"><span class="pre">--out-dir</span></code> option of the
+fact generator. Pass <code class="docutils literal notranslate"><span class="pre">-j</span> <span class="pre">&lt;n&gt;</span></code> to parallelize the analysis across <em>n</em> threads.
+See <a class="reference external" href="run-souffle">the Soufflé documentation</a> for more details.</p>
+<p>To synthesize and compile the analysis, run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>souffle --generate<span class="o">=</span>subset.cpp datalog/subset.project
+souffle-compile.py subset.cpp
+subset --facts &lt;fact-dir&gt; --output &lt;output-dir&gt; -j &lt;n&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="with-opt">
+<span id="opt"></span><h3>With Opt<a class="headerlink" href="#with-opt" title="Permalink to this headline">¶</a></h3>
+<p>To synthesize C++ code, compile it to a shared library, and compile the C++
+interface, install LLVM and run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake --build build -j <span class="k">$(</span>nproc<span class="k">)</span> --target PAPass
+opt --disable-output --load<span class="o">=</span>build/libSoufflePA.so --load<span class="o">=</span>build/libPAPass.so -cclyzer --context-sensitivity<span class="o">=</span><span class="m">1</span>-callsite --datalog-analysis<span class="o">=</span>subset prog.bc
+</pre></div>
+</div>
+<p>(You could also run CMake without specifying <code class="docutils literal notranslate"><span class="pre">--target</span> <span class="pre">PAPass</span></code>.) Run
+<code class="docutils literal notranslate"><span class="pre">opt</span> <span class="pre">--load=build/libSoufflePA.so</span> <span class="pre">--load=build/libPAPass.so</span> <span class="pre">--help</span></code> to see
+more options - though many of them are irrelevant.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">cclyzer++</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Building and Running</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#building-the-fact-generator">Building the Fact Generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuring-the-analysis">Configuring the Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-analysis">Running the Analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Analysis Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Analysis Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signatures.html">Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unsoundness.html">Sources of Unsoundness</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="architecture.html" title="previous chapter">Architecture</a></li>
+      <li>Next: <a href="design.html" title="next chapter">Analysis Design</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Galois Inc..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/build.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,449 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Signatures &#8212; cclyzer++ 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Sources of Unsoundness" href="unsoundness.html" />
+    <link rel="prev" title="Overview" href="overview.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="signatures">
+<span id="id1"></span><h1>Signatures<a class="headerlink" href="#signatures" title="Permalink to this headline">¶</a></h1>
+<p>cclyzer++ can model the behavior of external code via <em>signatures</em> that describe
+the salient features of the code that is not available for analysis. Signatures
+are provided as a JSON file to the fact generator. The top level of the JSON
+should be a list, and each entry should have the form:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;function_name&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;signatures&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;signature_name&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="n">signature</span> <span class="n">arguments</span> <span class="o">...</span> <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="o">...</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">function_name</span></code> is a regular expression that matches the mangled
+(LLVM-level) function name.</p>
+<p>If a signature should be applied multiple times with different arguments, it
+should appear multiple times in the list. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;function_name&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;signatures&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;pts_arg_memcpy_arg&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="p">],</span>
+      <span class="s2">&quot;pts_arg_memcpy_arg&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="kinds-of-signatures">
+<h2>Kinds of Signatures<a class="headerlink" href="#kinds-of-signatures" title="Permalink to this headline">¶</a></h2>
+<p><code class="code docutils literal notranslate"><span class="pre">-</span> <span class="pre">pts_none:</span> <span class="pre">[]</span></code></p>
+<blockquote>
+<div><p>Used to indicate that the function has no points-to relevant
+behavior and that the function should not be reported as missing
+points-to signatures.</p>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-</span> <span class="pre">pts_return_alloc:</span> <span class="pre">[]</span></code></p>
+<blockquote>
+<div><p>Allocates a new memory object with type compatible with the
+callsite’s return type.</p>
+<dl>
+<dt>Example:</dt><dd><p><code class="code docutils literal notranslate"><span class="pre">pts_return_alloc:</span> <span class="pre">[]</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="n">example</span><span class="p">();</span>
+<span class="nb">int</span> <span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="n">example</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Variables <code class="code docutils literal notranslate"><span class="pre">a</span></code> and <code class="code docutils literal notranslate"><span class="pre">b</span></code> will point to distinct allocations of type <code class="code docutils literal notranslate"><span class="pre">int</span></code>.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-</span> <span class="pre">pts_return_alloc_once:</span> <span class="pre">[]</span></code></p>
+<blockquote>
+<div><p>The pointer returned by this function at any callsite will point
+to the same allocation. Can be used to model libraries which
+return a pointer to a static internal location.</p>
+<dl>
+<dt>Example:</dt><dd><p><code class="code docutils literal notranslate"><span class="pre">pts_return_alloc_once:</span> <span class="pre">[]</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="n">example</span><span class="p">();</span>
+<span class="nb">int</span> <span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="n">example</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Variables <code class="code docutils literal notranslate"><span class="pre">a</span></code> and <code class="code docutils literal notranslate"><span class="pre">b</span></code> will point to the same allocation of type <code class="code docutils literal notranslate"><span class="pre">int</span></code>.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-</span> <span class="pre">pts_return_aliases_arg:</span> <span class="pre">[</span> <span class="pre">&lt;arg</span> <span class="pre">index&gt;</span> <span class="pre">]</span></code></p>
+<blockquote>
+<div><p>The pointer returned by this function may point to any
+type-compatible allocation pointed to by the argument at the
+specified index.</p>
+<dl>
+<dt>Example:</dt><dd><p><code class="code docutils literal notranslate"><span class="pre">pts_return_aliases_arg:</span> <span class="pre">[</span> <span class="pre">1</span> <span class="pre">]</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nb">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nb">int</span> <span class="o">*</span><span class="n">c</span> <span class="o">=</span> <span class="n">example</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Variable <code class="code docutils literal notranslate"><span class="pre">c</span></code> will point to the stack allocation for variable <code class="code docutils literal notranslate"><span class="pre">b</span></code>.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-</span> <span class="pre">pts_return_aliases_arg_reachable:</span> <span class="pre">[</span> <span class="pre">&lt;arg</span> <span class="pre">index&gt;</span> <span class="pre">]</span></code></p>
+<blockquote>
+<div><p>The pointer returned by this function may point to any
+type-compatible allocation that is reachable in the points-to
+graph from the argument at the specified index.</p>
+<p>Can be used to model functions that extract interior pointers
+from arguments.</p>
+<dl>
+<dt>Example:</dt><dd><p><code class="code docutils literal notranslate"><span class="pre">pts_return_aliases_arg:</span> <span class="pre">[</span> <span class="pre">1</span> <span class="pre">]</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">container</span> <span class="p">{</span> <span class="nb">int</span> <span class="o">*</span><span class="n">internal</span><span class="p">;</span> <span class="p">};</span>
+<span class="nb">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nb">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">struct</span> <span class="n">container</span> <span class="k">as</span> <span class="o">=</span> <span class="p">{</span> <span class="o">.</span><span class="n">internal</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span> <span class="p">};</span>
+<span class="n">struct</span> <span class="n">container</span> <span class="n">bs</span> <span class="o">=</span> <span class="p">{</span> <span class="o">.</span><span class="n">internal</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">b</span> <span class="p">};</span>
+<span class="nb">int</span> <span class="o">*</span><span class="n">c</span> <span class="o">=</span> <span class="n">example</span><span class="p">(</span><span class="o">&amp;</span><span class="k">as</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">bs</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Variable <code class="code docutils literal notranslate"><span class="pre">c</span></code> will point to the stack allocation for variable <code class="code docutils literal notranslate"><span class="pre">b</span></code>.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-</span> <span class="pre">pts_return_points_to_global:</span> <span class="pre">[</span> <span class="pre">&lt;global</span> <span class="pre">name&gt;</span> <span class="pre">]</span></code></p>
+<blockquote>
+<div><p>The pointer returned by this function points to the allocation
+corresponding to the named global (which must be defined in the
+program under analysis).</p>
+<dl>
+<dt>Example:</dt><dd><p><code class="code docutils literal notranslate"><span class="pre">pts_return_points_to_global:</span> <span class="pre">[</span> <span class="pre">test</span> <span class="pre">]</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">test</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+<span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">int</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="n">example</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Variable <code class="code docutils literal notranslate"><span class="pre">a</span></code> will point to the global allocation for <code class="code docutils literal notranslate"><span class="pre">test</span></code>.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-</span> <span class="pre">pts_return_aliases_global:</span> <span class="pre">[</span> <span class="pre">&lt;global</span> <span class="pre">name&gt;</span> <span class="pre">]</span></code></p>
+<blockquote>
+<div><p>The pointer returned by this function may point to any
+type-compatible allocation pointed to by the named global (which
+must be defined in the program under analysis).</p>
+<dl>
+<dt>Example:</dt><dd><p><code class="code docutils literal notranslate"><span class="pre">pts_return_aliases_global:</span> <span class="pre">[</span> <span class="pre">testptr</span> <span class="pre">]</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">test</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="nb">int</span> <span class="o">*</span><span class="n">testptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">test</span><span class="p">;</span>
+
+<span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">int</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="n">example</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Variable <code class="code docutils literal notranslate"><span class="pre">a</span></code> will point to the global allocation for <code class="code docutils literal notranslate"><span class="pre">test</span></code>.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-</span> <span class="pre">pts_return_aliases_global_reachable:</span> <span class="pre">[</span> <span class="pre">&lt;global</span> <span class="pre">name&gt;</span> <span class="pre">]</span></code></p>
+<blockquote>
+<div><p>The pointer returned by this function may point to any
+type-compatible allocation that is reachable in the points-to
+graph from the named global (which must be defined in the program
+under analysis).</p>
+<dl>
+<dt>Example:</dt><dd><p><code class="code docutils literal notranslate"><span class="pre">pts_return_aliases_global_reachable:</span> <span class="pre">[</span> <span class="pre">testptr</span> <span class="pre">]</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">container</span> <span class="p">{</span> <span class="nb">int</span> <span class="o">*</span><span class="n">internal</span><span class="p">;</span> <span class="p">};</span>
+
+<span class="nb">int</span> <span class="n">test</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="n">struct</span> <span class="n">container</span> <span class="n">teststruct</span> <span class="o">=</span> <span class="p">{</span> <span class="o">.</span><span class="n">internal</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">test</span> <span class="p">};</span>
+<span class="nb">int</span> <span class="o">*</span><span class="n">testptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">teststruct</span><span class="p">;</span>
+
+<span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">int</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="n">example</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>Variable <code class="code docutils literal notranslate"><span class="pre">a</span></code> will point to the global allocation for <code class="code docutils literal notranslate"><span class="pre">test</span></code>.</p>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-</span> <span class="pre">pts_arg_alloc:</span> <span class="pre">[</span> <span class="pre">&lt;arg</span> <span class="pre">index&gt;</span> <span class="pre">]</span></code></p>
+<blockquote>
+<div><p>Allocates a new memory object with type compatible with the
+specified argument’s pointer type and updates the points-to set of
+the pointer.</p>
+<dl>
+<dt>Example:</dt><dd><p><code class="code docutils literal notranslate"><span class="pre">pts_arg_alloc:</span> <span class="pre">[</span> <span class="pre">1</span> <span class="pre">]</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="n">nullptr</span><span class="p">;</span>
+<span class="nb">int</span> <span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="n">nullptr</span><span class="p">;</span>
+<span class="nb">int</span> <span class="o">*</span><span class="n">c</span> <span class="o">=</span> <span class="n">nullptr</span><span class="p">;</span>
+<span class="nb">int</span> <span class="o">*</span><span class="n">d</span> <span class="o">=</span> <span class="n">nullptr</span><span class="p">;</span>
+<span class="n">example</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
+<span class="n">example</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Variables <code class="code docutils literal notranslate"><span class="pre">b</span></code> and <code class="code docutils literal notranslate"><span class="pre">d</span></code> will point to distinct
+allocations of type <code class="code docutils literal notranslate"><span class="pre">int</span></code>. Variables <code class="code docutils literal notranslate"><span class="pre">a</span></code> and <code class="code docutils literal notranslate"><span class="pre">c</span></code> will not
+point to any allocations.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-</span> <span class="pre">pts_arg_alloc_once:</span> <span class="pre">[</span> <span class="pre">&lt;arg</span> <span class="pre">index&gt;</span> <span class="pre">]</span></code></p>
+<blockquote>
+<div><p>Any pointers pointed-to by callsite arguments at the specified index
+will point to the same allocation. Can be used to model libraries which
+assign pointers to static locations into output variables.</p>
+<dl>
+<dt>Example:</dt><dd><p><code class="code docutils literal notranslate"><span class="pre">pts_arg_alloc_once:</span> <span class="pre">[</span> <span class="pre">1</span> <span class="pre">]</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="n">nullptr</span><span class="p">;</span>
+<span class="nb">int</span> <span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="n">nullptr</span><span class="p">;</span>
+<span class="nb">int</span> <span class="o">*</span><span class="n">c</span> <span class="o">=</span> <span class="n">nullptr</span><span class="p">;</span>
+<span class="nb">int</span> <span class="o">*</span><span class="n">d</span> <span class="o">=</span> <span class="n">nullptr</span><span class="p">;</span>
+<span class="n">example</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
+<span class="n">example</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Variables <code class="code docutils literal notranslate"><span class="pre">b</span></code> and <code class="code docutils literal notranslate"><span class="pre">d</span></code> will point to the same allocation
+of type <code class="code docutils literal notranslate"><span class="pre">int</span></code>.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-</span> <span class="pre">pts_arg_memcpy_arg:</span> <span class="pre">[</span> <span class="pre">&lt;destination</span> <span class="pre">arg</span> <span class="pre">index&gt;,</span> <span class="pre">&lt;source</span> <span class="pre">arg</span> <span class="pre">index&gt;</span> <span class="pre">]</span></code></p>
+<blockquote>
+<div><p>Points-to sets will be updated as if the memory pointed to by the
+source argument might have been copied to the memory pointed to by
+the destination argument.</p>
+<dl>
+<dt>Example:</dt><dd><p><code class="code docutils literal notranslate"><span class="pre">pts_arg_memcpy_arg:</span> <span class="pre">[</span> <span class="pre">0,</span> <span class="pre">1</span> <span class="pre">]</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nb">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nb">int</span> <span class="o">*</span><span class="n">ap</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+<span class="nb">int</span> <span class="o">*</span><span class="n">bp</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">;</span>
+<span class="n">example</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ap</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">bp</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Variable <code class="code docutils literal notranslate"><span class="pre">ap</span></code> will point to the allocations for both
+variables <code class="code docutils literal notranslate"><span class="pre">a</span></code> and <code class="code docutils literal notranslate"><span class="pre">b</span></code>. The points-to set of variable
+<code class="code docutils literal notranslate"><span class="pre">bp</span></code> will be unchanged and still refer only to <code class="code docutils literal notranslate"><span class="pre">b</span></code>.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-</span> <span class="pre">pts_arg_memcpy_arg_reachable:</span> <span class="pre">[</span> <span class="pre">&lt;destination</span> <span class="pre">arg</span> <span class="pre">index&gt;,</span> <span class="pre">&lt;source</span> <span class="pre">arg</span> <span class="pre">index&gt;</span> <span class="pre">]</span></code></p>
+<blockquote>
+<div><p>Points-to sets will be updated as if any type-compatible  memory
+allocation reachable from the source argument might have been copied
+to the memory pointed to by the destination argument.</p>
+<dl>
+<dt>Example:</dt><dd><p><code class="code docutils literal notranslate"><span class="pre">pts_arg_memcpy_arg_reachable:</span> <span class="pre">[</span> <span class="pre">0,</span> <span class="pre">1</span> <span class="pre">]</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">container</span> <span class="p">{</span> <span class="nb">int</span> <span class="o">*</span><span class="n">internal</span><span class="p">;</span> <span class="p">};</span>
+<span class="nb">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nb">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">struct</span> <span class="n">container</span> <span class="n">sb</span> <span class="o">=</span> <span class="p">{</span><span class="o">.</span><span class="n">internal</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">};</span>
+<span class="nb">int</span> <span class="o">*</span><span class="n">ap</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+<span class="n">struct</span> <span class="n">container</span> <span class="o">*</span><span class="n">sbp</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">sb</span><span class="p">;</span>
+<span class="n">example</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ap</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sbp</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Variable <code class="code docutils literal notranslate"><span class="pre">ap</span></code> will point to the allocations for both
+variables <code class="code docutils literal notranslate"><span class="pre">a</span></code> and <code class="code docutils literal notranslate"><span class="pre">b</span></code>. The points-to set of variable
+<code class="code docutils literal notranslate"><span class="pre">sbp</span></code> and <code class="code docutils literal notranslate"><span class="pre">sb.internal</span></code> will be unchanged.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-</span> <span class="pre">pts_arg_memcpy_global:</span> <span class="pre">[</span> <span class="pre">&lt;destination</span> <span class="pre">arg</span> <span class="pre">index&gt;,</span> <span class="pre">&lt;global</span> <span class="pre">name&gt;</span> <span class="pre">]</span></code></p>
+<blockquote>
+<div><p>Points-to sets will be updated as if the named global might have
+been copied to the memory pointed to by the destination argument.</p>
+<dl>
+<dt>Example:</dt><dd><p><code class="code docutils literal notranslate"><span class="pre">pts_arg_memcpy_arg:</span> <span class="pre">[</span> <span class="pre">0,</span> <span class="pre">test_struct</span> <span class="pre">]</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">container</span> <span class="p">{</span> <span class="nb">int</span> <span class="o">*</span><span class="n">internal</span><span class="p">;</span> <span class="p">};</span>
+<span class="n">test_int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">struct</span> <span class="n">container</span> <span class="n">test_struct</span> <span class="o">=</span> <span class="p">{</span><span class="o">.</span><span class="n">internal</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">global_int</span><span class="p">};</span>
+
+<span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">struct</span> <span class="n">container</span> <span class="n">a</span><span class="p">;</span>
+  <span class="n">example</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Variable <code class="code docutils literal notranslate"><span class="pre">a.internal</span></code> will point to the global allocation
+<code class="code docutils literal notranslate"><span class="pre">test_int</span></code>.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-</span> <span class="pre">pts_arg_memcpy_global_reachable:</span> <span class="pre">[</span> <span class="pre">&lt;destination</span> <span class="pre">arg</span> <span class="pre">index&gt;,</span> <span class="pre">&lt;global</span> <span class="pre">name&gt;</span> <span class="pre">]</span></code></p>
+<blockquote>
+<div><p>Points-to sets will be updated as if the named global or any data
+reachable from it might have been copied to the memory pointed to by
+the destination argument.</p>
+<dl>
+<dt>Example:</dt><dd><p><code class="code docutils literal notranslate"><span class="pre">pts_arg_memcpy_global_reachable:</span> <span class="pre">[</span> <span class="pre">0,</span> <span class="pre">test_struct</span> <span class="pre">]</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">container</span> <span class="p">{</span> <span class="nb">int</span> <span class="o">*</span><span class="n">internal</span><span class="p">;</span> <span class="p">};</span>
+<span class="n">test_int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">struct</span> <span class="n">container</span> <span class="n">test_struct</span> <span class="o">=</span> <span class="p">{</span><span class="o">.</span><span class="n">internal</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">global_int</span><span class="p">};</span>
+
+<span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="nb">int</span> <span class="o">*</span><span class="n">ap</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+  <span class="n">example</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ap</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Variable <code class="code docutils literal notranslate"><span class="pre">ap</span></code> will point to the global allocation <code class="code docutils literal notranslate"><span class="pre">test_int</span></code>.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-</span> <span class="pre">pts_arg_points_to_global:</span> <span class="pre">[</span> <span class="pre">&lt;destination</span> <span class="pre">arg</span> <span class="pre">index&gt;,</span> <span class="pre">&lt;global</span> <span class="pre">name&gt;</span> <span class="pre">]</span></code></p>
+<blockquote>
+<div><p>The points-to set of the pointer pointed to by the specified
+argument will be updated to include the allocation corresponding to
+the named global.</p>
+<dl>
+<dt>Example:</dt><dd><p><code class="code docutils literal notranslate"><span class="pre">pts_arg_points_to_global:</span> <span class="pre">[</span> <span class="pre">0,</span> <span class="pre">test_int</span> <span class="pre">]</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test_int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="nb">int</span> <span class="o">*</span><span class="n">ap</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+  <span class="n">example</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ap</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Variable <code class="code docutils literal notranslate"><span class="pre">ap</span></code> will point to the global alocation <code class="code docutils literal notranslate"><span class="pre">test_int</span></code>.</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>The libc function <code class="code docutils literal notranslate"><span class="pre">close</span></code> has no visible effect on memory. It can be
+modeled as</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;^close$&quot;</span><span class="p">,</span> <span class="s2">&quot;signatures&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;pts_none&quot;</span><span class="p">:</span> <span class="p">[]}]}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">fgetc(3)</span></code> says:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">char</span> <span class="o">*</span><span class="n">fgets</span><span class="p">(</span><span class="n">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="nb">int</span> <span class="n">size</span><span class="p">,</span> <span class="n">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">)</span>
+
+<span class="n">gets</span><span class="p">()</span> <span class="ow">and</span> <span class="n">fgets</span><span class="p">()</span> <span class="k">return</span> <span class="n">s</span> <span class="n">on</span> <span class="n">success</span><span class="p">,</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This behavior can be modeled by the following signature:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;^fgets$&quot;</span><span class="p">,</span> <span class="s2">&quot;signatures&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;pts_return_aliases_arg&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]}]}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">cclyzer++</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Building and Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Analysis Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Analysis Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Signatures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#kinds-of-signatures">Kinds of Signatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="unsoundness.html">Sources of Unsoundness</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="overview.html" title="previous chapter">Overview</a></li>
+      <li>Next: <a href="unsoundness.html" title="next chapter">Sources of Unsoundness</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Galois Inc..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/signatures.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

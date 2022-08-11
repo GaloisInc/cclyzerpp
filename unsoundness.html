@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Sources of Unsoundness &#8212; cclyzer++ 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Signatures" href="signatures.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="sources-of-unsoundness">
+<span id="unsoundness"></span><h1>Sources of Unsoundness<a class="headerlink" href="#sources-of-unsoundness" title="Permalink to this headline">¶</a></h1>
+<p>cclyzer++ is not completely sound. Instead, it prioritizes <em>usefulness</em> over
+soundness, making it “soundy” (see <a class="reference external" href="http://soundiness.org/">http://soundiness.org/</a>). The following
+sections the discuss known, notable sources of unsoundness.</p>
+<div class="section" id="suballocations-and-type-back-propagation">
+<span id="suballoc-unsoundness"></span><h2>Suballocations and Type Back-Propagation<a class="headerlink" href="#suballocations-and-type-back-propagation" title="Permalink to this headline">¶</a></h2>
+<p>cclyzer++ creates <a class="reference internal" href="design.html#suballocations"><span class="std std-ref">suballocations</span></a> based on an
+allocation’s type. However, <a class="reference internal" href="design.html#backprop"><span class="std std-ref">Type Back-Propagation</span></a> can result in an allocation having
+multiple assigned types, and cclyzer++ doesn’t consider aliasing between the
+suballocations of the various “variants” of the allocation which have different
+types. The following example <a class="footnote-reference brackets" href="#f1" id="id1">1</a> demonstrates this issue.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span> <span class="kt">int32_t</span> <span class="n">i1</span><span class="p">;</span> <span class="kt">int32_t</span> <span class="n">i2</span><span class="p">;</span> <span class="p">}</span> <span class="n">a</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span> <span class="kt">int16_t</span> <span class="n">j1</span><span class="p">;</span> <span class="kt">int16_t</span> <span class="n">j2</span><span class="p">;</span> <span class="kt">int32_t</span> <span class="n">j3</span><span class="p">;</span> <span class="p">}</span> <span class="n">b</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+  <span class="n">a</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
+  <span class="n">b</span> <span class="o">*</span><span class="n">q</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="p">)</span><span class="n">p</span><span class="p">;</span>
+  <span class="kt">int32_t</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">i1</span><span class="p">;</span>
+  <span class="kt">int16_t</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">j2</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Due to <a class="reference internal" href="design.html#backprop"><span class="std std-ref">type back-propagation</span></a>, cclyzer++ will create three
+separate abstract allocations to represent allocations to represent the single
+call to <code class="docutils literal notranslate"><span class="pre">malloc</span></code>:</p>
+<ul class="simple">
+<li><p>An “untyped” allocation of type <code class="docutils literal notranslate"><span class="pre">i8</span></code>, call it <code class="docutils literal notranslate"><span class="pre">*heap_alloc&#64;main[p]</span></code></p></li>
+<li><p>An allocation of type <code class="docutils literal notranslate"><span class="pre">a</span></code>, call it <code class="docutils literal notranslate"><span class="pre">*typed_heap_alloc&#64;main[p,</span> <span class="pre">a]</span></code></p></li>
+<li><p>An allocation of type <code class="docutils literal notranslate"><span class="pre">b</span></code>, call it <code class="docutils literal notranslate"><span class="pre">*typed_heap_alloc&#64;main[p,</span> <span class="pre">b]</span></code></p></li>
+</ul>
+<p>The allocation <code class="docutils literal notranslate"><span class="pre">*heap_alloc&#64;main[p,</span> <span class="pre">a]</span></code> would have field suballocations
+<code class="docutils literal notranslate"><span class="pre">*heap_alloc&#64;main[p].i1</span></code> and <code class="docutils literal notranslate"><span class="pre">*heap_alloc&#64;main[p].i2</span></code>, and similarly for
+<code class="docutils literal notranslate"><span class="pre">*typed_heap_alloc&#64;main[p,</span> <span class="pre">b]</span></code>. The issue is that the variable <code class="docutils literal notranslate"><span class="pre">y</span></code> points to
+<code class="docutils literal notranslate"><span class="pre">*typed_heap_alloc&#64;main[p,</span> <span class="pre">b].j2</span></code>, but the analysis doesn’t keep track of the
+overlap between <code class="docutils literal notranslate"><span class="pre">*heap_alloc&#64;main[p,</span> <span class="pre">b].j2</span></code> and <code class="docutils literal notranslate"><span class="pre">*heap_alloc&#64;main[p,</span> <span class="pre">a].i1</span></code>,
+so stores to one won’t be reflected in loads from the other.</p>
+</div>
+<div class="section" id="language-coverage">
+<h2>Language Coverage<a class="headerlink" href="#language-coverage" title="Permalink to this headline">¶</a></h2>
+<p>cclyzer++ doesn’t handle several tricky features of LLVM. The following features
+could probably have an impact on the soundness of a pointer analysis results but
+are not yet supported:</p>
+<ul class="simple">
+<li><p>Inline assembly</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">llvm.global_ctors</span></code> and <code class="docutils literal notranslate"><span class="pre">llvm.global_dtors</span></code> intrinsic global variables</p></li>
+<li><dl class="simple">
+<dt>Exception handling instructions:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">catchpad</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">catchret</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">catchswitch</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cleanuppad</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cleanupret</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">landingpad</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resume</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Other difficult instructions:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">addrspacecast</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">callbr</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inttoptr</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ptrtoint</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">va_arg</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Several LLVM intrinsics:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">llvm.memmove</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">llvm.ptrmask</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">llvm.stackrestore</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">llvm.stacksave</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">llvm.va_end</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">llvm.va_start</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">llvm.vp.ptrtoint</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Code generator intrinsics</p></li>
+<li><dl class="simple">
+<dt>Vector-related constant expressions, including</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">extractelement</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">insertelement</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shufflevector</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Vector-related instructions, including</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">extractelement</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">insertelement</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shufflevector</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Vector-related intrinsics, including</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">llvm.masked.load</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">llvm.masked.store</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Anything related to parallelism and concurrency, including instructions like
+<code class="docutils literal notranslate"><span class="pre">cmpxchg</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ptrtoint</span></code> and <code class="docutils literal notranslate"><span class="pre">inttoptr</span></code> constant expressions</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">addrspacecast</span></code> constant expression</p></li>
+</ul>
+<p>The analysis also doesn’t use any LLVM pointer metadata like <code class="docutils literal notranslate"><span class="pre">llvm.lifetime.*</span></code>
+or <code class="docutils literal notranslate"><span class="pre">dereferencable</span></code> to improve precision.</p>
+<div class="section" id="poison-and-undef">
+<h3>Poison and Undef<a class="headerlink" href="#poison-and-undef" title="Permalink to this headline">¶</a></h3>
+<p>The analysis doesn’t do anything with poison or <code class="docutils literal notranslate"><span class="pre">undef</span></code> values - it doesn’t
+create points-to facts for them and it doesn’t detect when they may be created
+or how they may be propagated.</p>
+</div>
+</div>
+<div class="section" id="type-based-heuristics">
+<h2>Type-Based Heuristics<a class="headerlink" href="#type-based-heuristics" title="Permalink to this headline">¶</a></h2>
+<p>cclyzer++ uses type-compatibility heuristics to filter out “infeasible” points-to
+facts. In particular, the rules for handling <code class="docutils literal notranslate"><span class="pre">memcpy</span></code> and <code class="docutils literal notranslate"><span class="pre">getelementptr</span></code>
+use a notion of type compatibility to propagate fewer facts. This is probably
+usually OK, but likely leads to unsoundness in similar situations to <a class="reference internal" href="#suballoc-unsoundness"><span class="std std-ref">the
+one described for suballocations</span></a>.</p>
+</div>
+<div class="section" id="external-functions">
+<h2>External Functions<a class="headerlink" href="#external-functions" title="Permalink to this headline">¶</a></h2>
+<p>External functions without sound <a class="reference internal" href="signatures.html#signatures"><span class="std std-ref">signatures</span></a> may have
+effects on points-to relations that aren’t captured by the analysis.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Example adapted from: Sui, Y., Fan, X., Zhou, H. and Xue, J., 2018.
+Loop-oriented pointer analysis for automatic simd vectorization. <em>ACM
+Transactions on Embedded Computing Systems (TECS)</em>, 17(2), pp.1-31.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">cclyzer++</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Building and Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Analysis Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Analysis Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signatures.html">Signatures</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Sources of Unsoundness</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#suballocations-and-type-back-propagation">Suballocations and Type Back-Propagation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#language-coverage">Language Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#type-based-heuristics">Type-Based Heuristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#external-functions">External Functions</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="signatures.html" title="previous chapter">Signatures</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Galois Inc..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/unsoundness.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
