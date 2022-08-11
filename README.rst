@@ -15,11 +15,10 @@ including:
 * Answering may-alias and must-not-alias queries
 
 cclyzer++ is field- and array-sensitive, performs on-the-fly callgraph
-construction, and supports many different configurations of `context-sensitivity
-<context-sensitivity_>`_ including *k*-callsite sensitivity. It has subset-based
-(Andersen style) and unification-based (Steensgaard style) analyses. cclyzer++
-is written in `Soufflé Datalog`_, and so is highly parallel. cclyzer++ was
-derived from `cclyzer`_.
+construction, and supports many different configurations of context-sensitivity
+including *k*-callsite sensitivity. It has subset-based (Andersen style) and
+unification-based (Steensgaard style) analyses. cclyzer++ is written in `Soufflé
+Datalog`_, and so is highly parallel. cclyzer++ was derived from `cclyzer`_.
 
 See the `documentation <doc_>`_ for more information about cczlyer++, including
 examples of its output.
