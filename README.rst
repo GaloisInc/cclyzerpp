@@ -21,7 +21,7 @@ unification-based (Steensgaard style) analyses. cclyzer++ is written in `Souffl√
 Datalog`_, and so is highly parallel. cclyzer++ was derived from `cclyzer`_.
 
 See the `documentation <doc_>`_ for more information about cczlyer++, including
-examples of its output.
+examples of its output. Documentation is also available `online`_.
 
 Acknowledgments
 ---------------
@@ -36,3 +36,4 @@ Release, Distribution Unlimited.
 .. _cclyzer: https://yanniss.github.io/cclyzer-sas16.pdf
 .. _Souffl√© Datalog: https://souffle-lang.github.io/
 .. _doc: doc/index.rst
+.. _online: https://galoisinc.github.io/cclyzerpp
