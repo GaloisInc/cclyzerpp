@@ -1,0 +1,4 @@
+<allocation-sizes.c>:main:20	*heap_alloc@main[i8* %call3]
+<allocation-sizes.c>:main:23	*heap_alloc@main[i8* %call4]
+<allocation-sizes.c>:main:26	*heap_alloc@main[i8* %call7]
+<allocation-sizes.c>:main:7	*heap_alloc@main[i8* %call2]

@@ -1,0 +1,4 @@
+<functiontable.c>:@__const.main.table	*global_alloc@__const.main.table
+<functiontable.c>:@str	*global_alloc@str
+<functiontable.c>:@str.3	*global_alloc@str.3
+<functiontable.c>:@str.4	*global_alloc@str.4

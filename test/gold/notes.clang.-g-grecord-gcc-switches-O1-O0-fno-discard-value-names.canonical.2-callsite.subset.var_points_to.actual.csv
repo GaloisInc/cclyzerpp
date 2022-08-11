@@ -1,0 +1,459 @@
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa]	[<<main-context>>, nil]	<notes.c>:main:%1
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa]	[<<main-context>>, nil]	<notes.c>:main:%3
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa]	[<<main-context>>, nil]	<notes.c>:main:%sa
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa]	[<<main-context>>, nil]	<notes.c>:main:%sin_family
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0]	[<<main-context>>, nil]	<notes.c>:main:%sin_family
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/0	[<<main-context>>, nil]	<notes.c>:main:%sin_family
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/1	[<<main-context>>, nil]	<notes.c>:main:%sin_port
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/2	[<<main-context>>, nil]	<notes.c>:main:%s_addr
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/2	[<<main-context>>, nil]	<notes.c>:main:%sin_addr
+[<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/2.?/0	[<<main-context>>, nil]	<notes.c>:main:%s_addr
+[<<main-context>>, nil]	*stack_alloc@main[i32* %exit_code]	[<<main-context>>, nil]	<notes.c>:main:%exit_code
+[<<main-context>>, nil]	*stack_alloc@main[i32* %retval]	[<<main-context>>, nil]	<notes.c>:main:%retval
+[<<main-context>>, nil]	*stack_alloc@main[i32* %socket_fd]	[<<main-context>>, nil]	<notes.c>:main:%socket_fd
+[<notes.c>:cmd_read:10, nil]	*stack_alloc@notes_strdup[i8** %p]	[<notes.c>:cmd_read:10, nil]	<notes.c>:notes_strdup:%p
+[<notes.c>:cmd_read:10, nil]	*stack_alloc@notes_strdup[i8** %s.addr]	[<notes.c>:cmd_read:10, nil]	<notes.c>:notes_strdup:%s.addr
+[<notes.c>:cmd_read:20, nil]	*stack_alloc@notes_strdup[i8** %p]	[<notes.c>:cmd_read:20, nil]	<notes.c>:notes_strdup:%p
+[<notes.c>:cmd_read:20, nil]	*stack_alloc@notes_strdup[i8** %s.addr]	[<notes.c>:cmd_read:20, nil]	<notes.c>:notes_strdup:%s.addr
+[<notes.c>:cmd_read:30, nil]	*stack_alloc@notes_strdup[i8** %p]	[<notes.c>:cmd_read:30, nil]	<notes.c>:notes_strdup:%p
+[<notes.c>:cmd_read:30, nil]	*stack_alloc@notes_strdup[i8** %s.addr]	[<notes.c>:cmd_read:30, nil]	<notes.c>:notes_strdup:%s.addr
+[<notes.c>:cmd_write:10, nil]	*stack_alloc@notes_strdup[i8** %p]	[<notes.c>:cmd_write:10, nil]	<notes.c>:notes_strdup:%p
+[<notes.c>:cmd_write:10, nil]	*stack_alloc@notes_strdup[i8** %s.addr]	[<notes.c>:cmd_write:10, nil]	<notes.c>:notes_strdup:%s.addr
+[<notes.c>:cmd_write:17, nil]	*stack_alloc@notes_strdup[i8** %p]	[<notes.c>:cmd_write:17, nil]	<notes.c>:notes_strdup:%p
+[<notes.c>:cmd_write:17, nil]	*stack_alloc@notes_strdup[i8** %s.addr]	[<notes.c>:cmd_write:17, nil]	<notes.c>:notes_strdup:%s.addr
+[<notes.c>:handle:19, nil]	*stack_alloc@notes_strdup[i8** %p]	[<notes.c>:handle:19, nil]	<notes.c>:notes_strdup:%p
+[<notes.c>:handle:19, nil]	*stack_alloc@notes_strdup[i8** %s.addr]	[<notes.c>:handle:19, nil]	<notes.c>:notes_strdup:%s.addr
+[<notes.c>:handle:41, nil]	*stack_alloc@notes_strdup[i8** %p]	[<notes.c>:handle:41, nil]	<notes.c>:notes_strdup:%p
+[<notes.c>:handle:41, nil]	*stack_alloc@notes_strdup[i8** %s.addr]	[<notes.c>:handle:41, nil]	<notes.c>:notes_strdup:%s.addr
+nil	*global_alloc@.str	[<notes.c>:cmd_read:10, nil]	<notes.c>:notes_strdup:%0
+nil	*global_alloc@.str	[<notes.c>:cmd_read:10, nil]	<notes.c>:notes_strdup:%s
+nil	*global_alloc@.str	[<notes.c>:cmd_write:10, nil]	<notes.c>:notes_strdup:%0
+nil	*global_alloc@.str	[<notes.c>:cmd_write:10, nil]	<notes.c>:notes_strdup:%s
+nil	*global_alloc@.str	nil	<notes.c>:cmd_read:%1
+nil	*global_alloc@.str	nil	<notes.c>:cmd_write:%1
+nil	*global_alloc@.str.16	[<notes.c>:cmd_write:17, nil]	<notes.c>:notes_strdup:%0
+nil	*global_alloc@.str.16[0]	[<notes.c>:cmd_write:17, nil]	<notes.c>:notes_strdup:%0
+nil	*global_alloc@.str.16[0]	[<notes.c>:cmd_write:17, nil]	<notes.c>:notes_strdup:%s
+nil	*global_alloc@.str.16[0][*]	[<notes.c>:cmd_write:17, nil]	<notes.c>:notes_strdup:%0
+nil	*global_alloc@.str.16[0][*]	[<notes.c>:cmd_write:17, nil]	<notes.c>:notes_strdup:%s
+nil	*global_alloc@.str.23	[<notes.c>:cmd_read:20, nil]	<notes.c>:notes_strdup:%0
+nil	*global_alloc@.str.23[0]	[<notes.c>:cmd_read:20, nil]	<notes.c>:notes_strdup:%0
+nil	*global_alloc@.str.23[0]	[<notes.c>:cmd_read:20, nil]	<notes.c>:notes_strdup:%s
+nil	*global_alloc@.str.23[0][*]	[<notes.c>:cmd_read:20, nil]	<notes.c>:notes_strdup:%0
+nil	*global_alloc@.str.23[0][*]	[<notes.c>:cmd_read:20, nil]	<notes.c>:notes_strdup:%s
+nil	*global_alloc@.str.3	[<notes.c>:handle:19, nil]	<notes.c>:notes_strdup:%0
+nil	*global_alloc@.str.3[0]	[<notes.c>:handle:19, nil]	<notes.c>:notes_strdup:%0
+nil	*global_alloc@.str.3[0]	[<notes.c>:handle:19, nil]	<notes.c>:notes_strdup:%s
+nil	*global_alloc@.str.3[0][*]	[<notes.c>:handle:19, nil]	<notes.c>:notes_strdup:%0
+nil	*global_alloc@.str.3[0][*]	[<notes.c>:handle:19, nil]	<notes.c>:notes_strdup:%s
+nil	*global_alloc@.str.4	[<notes.c>:handle:41, nil]	<notes.c>:notes_strdup:%0
+nil	*global_alloc@.str.4[0]	[<notes.c>:handle:41, nil]	<notes.c>:notes_strdup:%0
+nil	*global_alloc@.str.4[0]	[<notes.c>:handle:41, nil]	<notes.c>:notes_strdup:%s
+nil	*global_alloc@.str.4[0][*]	[<notes.c>:handle:41, nil]	<notes.c>:notes_strdup:%0
+nil	*global_alloc@.str.4[0][*]	[<notes.c>:handle:41, nil]	<notes.c>:notes_strdup:%s
+nil	*global_alloc@.str[0]	[<notes.c>:cmd_read:10, nil]	<notes.c>:notes_strdup:%0
+nil	*global_alloc@.str[0]	[<notes.c>:cmd_read:10, nil]	<notes.c>:notes_strdup:%s
+nil	*global_alloc@.str[0]	[<notes.c>:cmd_write:10, nil]	<notes.c>:notes_strdup:%0
+nil	*global_alloc@.str[0]	[<notes.c>:cmd_write:10, nil]	<notes.c>:notes_strdup:%s
+nil	*global_alloc@.str[0]	nil	<notes.c>:cmd_read:%1
+nil	*global_alloc@.str[0]	nil	<notes.c>:cmd_write:%1
+nil	*global_alloc@.str[0][*]	[<notes.c>:cmd_read:10, nil]	<notes.c>:notes_strdup:%0
+nil	*global_alloc@.str[0][*]	[<notes.c>:cmd_read:10, nil]	<notes.c>:notes_strdup:%s
+nil	*global_alloc@.str[0][*]	[<notes.c>:cmd_write:10, nil]	<notes.c>:notes_strdup:%0
+nil	*global_alloc@.str[0][*]	[<notes.c>:cmd_write:10, nil]	<notes.c>:notes_strdup:%s
+nil	*global_alloc@.str[0][*]	nil	<notes.c>:cmd_read:%1
+nil	*global_alloc@.str[0][*]	nil	<notes.c>:cmd_write:%1
+nil	*global_alloc@hex_str.hex_digits[*]	nil	<notes.c>:hex_str:%arrayidx16
+nil	*global_alloc@hex_str.hex_digits[*]	nil	<notes.c>:hex_str:%arrayidx9
+nil	*global_alloc@hex_str.hex_digits[0][*]	nil	<notes.c>:hex_str:%arrayidx16
+nil	*global_alloc@hex_str.hex_digits[0][*]	nil	<notes.c>:hex_str:%arrayidx9
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:cmd_write:%10
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:cmd_write:%3
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:cmd_write:%5
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:cmd_write:%9
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:cmd_write:%call6
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:handle:%11
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:handle:%12
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:handle:%call5
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:handle_loop:%10
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:handle_loop:%12
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:handle_loop:%13
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:handle_loop:%15
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:handle_loop:%call18
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:hex_str:%10
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:hex_str:%16
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:hex_str:%20
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:hex_str:%22
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:hex_str:%call
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:key:%8
+nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:key:%call9
+nil	*heap_alloc@hex_str[i8* %call][*]	nil	<notes.c>:hex_str:%arrayidx11
+nil	*heap_alloc@hex_str[i8* %call][*]	nil	<notes.c>:hex_str:%arrayidx19
+nil	*heap_alloc@hex_str[i8* %call][*]	nil	<notes.c>:hex_str:%arrayidx21
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:cmd_write:%10
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:cmd_write:%3
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:cmd_write:%5
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:cmd_write:%9
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:cmd_write:%call6
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:handle:%11
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:handle:%12
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:handle:%call5
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:handle_loop:%10
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:handle_loop:%12
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:handle_loop:%13
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:handle_loop:%15
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:handle_loop:%call18
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:hex_str:%10
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:hex_str:%16
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:hex_str:%20
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:hex_str:%22
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:key:%8
+nil	*heap_alloc@hex_str[i8* %call][0]	nil	<notes.c>:key:%call9
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:handle:%10
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:handle:%2
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:handle:%3
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:handle:%5
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:handle:%7
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:handle:%9
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:handle:%c
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:handle:%call
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:new_cmd:%0
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:new_cmd:%2
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:new_cmd:%4
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:new_cmd:%5
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:new_cmd:%c1
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:new_cmd:%call
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:notes_malloc:%1
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:notes_malloc:%2
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:notes_malloc:%call
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%11
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%12
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%13
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%14
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%15
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%7
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%9
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%c
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%c12
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%c17
+nil	*heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%call4
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:handle:%10
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:handle:%2
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:handle:%3
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:handle:%5
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:handle:%7
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:handle:%9
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:handle:%c
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:handle:%call
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:new_cmd:%0
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:new_cmd:%2
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:new_cmd:%4
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:new_cmd:%5
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:new_cmd:%c1
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:new_cmd:%call
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:notes_malloc:%1
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:notes_malloc:%2
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%11
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%12
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%13
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%14
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%15
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%7
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%9
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%c
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%c12
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%c17
+nil	*heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%call4
+nil	*null*	nil	<notes.c>:cmd_read:%0
+nil	*null*	nil	<notes.c>:cmd_read:%2
+nil	*null*	nil	<notes.c>:cmd_read:%arg
+nil	*null*	nil	<notes.c>:cmd_write:%0
+nil	*null*	nil	<notes.c>:cmd_write:%10
+nil	*null*	nil	<notes.c>:cmd_write:%2
+nil	*null*	nil	<notes.c>:cmd_write:%3
+nil	*null*	nil	<notes.c>:cmd_write:%5
+nil	*null*	nil	<notes.c>:cmd_write:%7
+nil	*null*	nil	<notes.c>:cmd_write:%9
+nil	*null*	nil	<notes.c>:cmd_write:%arg
+nil	*null*	nil	<notes.c>:cmd_write:%call6
+nil	*null*	nil	<notes.c>:handle:%10
+nil	*null*	nil	<notes.c>:handle:%11
+nil	*null*	nil	<notes.c>:handle:%12
+nil	*null*	nil	<notes.c>:handle:%2
+nil	*null*	nil	<notes.c>:handle:%3
+nil	*null*	nil	<notes.c>:handle:%5
+nil	*null*	nil	<notes.c>:handle:%6
+nil	*null*	nil	<notes.c>:handle:%7
+nil	*null*	nil	<notes.c>:handle:%8
+nil	*null*	nil	<notes.c>:handle:%9
+nil	*null*	nil	<notes.c>:handle:%c
+nil	*null*	nil	<notes.c>:handle:%call
+nil	*null*	nil	<notes.c>:handle:%call5
+nil	*null*	nil	<notes.c>:handle_loop:%10
+nil	*null*	nil	<notes.c>:handle_loop:%12
+nil	*null*	nil	<notes.c>:handle_loop:%13
+nil	*null*	nil	<notes.c>:handle_loop:%15
+nil	*null*	nil	<notes.c>:handle_loop:%call18
+nil	*null*	nil	<notes.c>:key:%8
+nil	*null*	nil	<notes.c>:new_cmd:%3
+nil	*null*	nil	<notes.c>:new_cmd:%arg
+nil	*null*	nil	<notes.c>:parse:%15
+nil	*null*	nil	<notes.c>:parse:%5
+nil	*stack_alloc@accept_loop[i32* %connection_fd]	nil	<notes.c>:accept_loop:%connection_fd
+nil	*stack_alloc@accept_loop[i32* %retval]	nil	<notes.c>:accept_loop:%retval
+nil	*stack_alloc@accept_loop[i32* %socket_fd.addr]	nil	<notes.c>:accept_loop:%socket_fd.addr
+nil	*stack_alloc@cmd_read[%struct._IO_FILE** %f]	nil	<notes.c>:cmd_read:%f
+nil	*stack_alloc@cmd_read[[1024 x i8]* %data]	[<notes.c>:cmd_read:30, nil]	<notes.c>:notes_strdup:%0
+nil	*stack_alloc@cmd_read[[1024 x i8]* %data]	[<notes.c>:cmd_read:30, nil]	<notes.c>:notes_strdup:%s
+nil	*stack_alloc@cmd_read[[1024 x i8]* %data]	nil	<notes.c>:cmd_read:%arraydecay
+nil	*stack_alloc@cmd_read[[1024 x i8]* %data]	nil	<notes.c>:cmd_read:%arraydecay8
+nil	*stack_alloc@cmd_read[[1024 x i8]* %data]	nil	<notes.c>:cmd_read:%data
+nil	*stack_alloc@cmd_read[[1024 x i8]* %data][0]	[<notes.c>:cmd_read:30, nil]	<notes.c>:notes_strdup:%0
+nil	*stack_alloc@cmd_read[[1024 x i8]* %data][0]	[<notes.c>:cmd_read:30, nil]	<notes.c>:notes_strdup:%s
+nil	*stack_alloc@cmd_read[[1024 x i8]* %data][0]	nil	<notes.c>:cmd_read:%arraydecay
+nil	*stack_alloc@cmd_read[[1024 x i8]* %data][0]	nil	<notes.c>:cmd_read:%arraydecay8
+nil	*stack_alloc@cmd_read[[1024 x i8]* %data][0][*]	[<notes.c>:cmd_read:30, nil]	<notes.c>:notes_strdup:%0
+nil	*stack_alloc@cmd_read[[1024 x i8]* %data][0][*]	[<notes.c>:cmd_read:30, nil]	<notes.c>:notes_strdup:%s
+nil	*stack_alloc@cmd_read[[1024 x i8]* %data][0][*]	nil	<notes.c>:cmd_read:%arraydecay
+nil	*stack_alloc@cmd_read[[1024 x i8]* %data][0][*]	nil	<notes.c>:cmd_read:%arraydecay8
+nil	*stack_alloc@cmd_read[i8** %arg.addr]	nil	<notes.c>:cmd_read:%arg.addr
+nil	*stack_alloc@cmd_read[i8** %retval]	nil	<notes.c>:cmd_read:%retval
+nil	*stack_alloc@cmd_write[%struct._IO_FILE** %f]	nil	<notes.c>:cmd_write:%f
+nil	*stack_alloc@cmd_write[i8** %arg.addr]	nil	<notes.c>:cmd_write:%arg.addr
+nil	*stack_alloc@cmd_write[i8** %k]	nil	<notes.c>:cmd_write:%k
+nil	*stack_alloc@cmd_write[i8** %retval]	nil	<notes.c>:cmd_write:%retval
+nil	*stack_alloc@handle[%struct.cmd** %cmd]	nil	<notes.c>:handle:%cmd
+nil	*stack_alloc@handle[i8** %req.addr]	nil	<notes.c>:handle:%req.addr
+nil	*stack_alloc@handle[i8** %resp]	nil	<notes.c>:handle:%resp
+nil	*stack_alloc@handle[i8** %retval]	nil	<notes.c>:handle:%retval
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req]	nil	<notes.c>:handle:%0
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req]	nil	<notes.c>:handle:%1
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req]	nil	<notes.c>:handle:%req
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req]	nil	<notes.c>:handle_loop:%arraydecay
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req]	nil	<notes.c>:handle_loop:%arraydecay17
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req]	nil	<notes.c>:handle_loop:%arrayidx
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req]	nil	<notes.c>:handle_loop:%req
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req]	nil	<notes.c>:parse:%0
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req]	nil	<notes.c>:parse:%1
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req]	nil	<notes.c>:parse:%10
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req]	nil	<notes.c>:parse:%6
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req]	nil	<notes.c>:parse:%8
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req]	nil	<notes.c>:parse:%req
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][*]	nil	<notes.c>:handle_loop:%arrayidx15
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][*]	nil	<notes.c>:handle_loop:%arrayidx8
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][*]	nil	<notes.c>:handle_loop:%arrayidx9
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0]	nil	<notes.c>:handle:%0
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0]	nil	<notes.c>:handle:%1
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0]	nil	<notes.c>:handle:%req
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0]	nil	<notes.c>:handle_loop:%arraydecay
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0]	nil	<notes.c>:handle_loop:%arraydecay17
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0]	nil	<notes.c>:handle_loop:%arrayidx
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0]	nil	<notes.c>:parse:%0
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0]	nil	<notes.c>:parse:%1
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0]	nil	<notes.c>:parse:%10
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0]	nil	<notes.c>:parse:%6
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0]	nil	<notes.c>:parse:%8
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0]	nil	<notes.c>:parse:%req
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	nil	<notes.c>:handle:%0
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	nil	<notes.c>:handle:%1
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	nil	<notes.c>:handle:%req
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	nil	<notes.c>:handle_loop:%arraydecay
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	nil	<notes.c>:handle_loop:%arraydecay17
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	nil	<notes.c>:handle_loop:%arrayidx
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	nil	<notes.c>:handle_loop:%arrayidx15
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	nil	<notes.c>:handle_loop:%arrayidx8
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	nil	<notes.c>:handle_loop:%arrayidx9
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	nil	<notes.c>:parse:%0
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	nil	<notes.c>:parse:%1
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	nil	<notes.c>:parse:%10
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	nil	<notes.c>:parse:%6
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	nil	<notes.c>:parse:%8
+nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	nil	<notes.c>:parse:%req
+nil	*stack_alloc@handle_loop[i32* %connection_fd.addr]	nil	<notes.c>:handle_loop:%connection_fd.addr
+nil	*stack_alloc@handle_loop[i64* %read]	nil	<notes.c>:handle_loop:%read
+nil	*stack_alloc@handle_loop[i8** %response]	nil	<notes.c>:handle_loop:%response
+nil	*stack_alloc@hex_str[i32* %i]	nil	<notes.c>:hex_str:%i
+nil	*stack_alloc@hex_str[i32* %j]	nil	<notes.c>:hex_str:%j
+nil	*stack_alloc@hex_str[i64* %in_len.addr]	nil	<notes.c>:hex_str:%in_len.addr
+nil	*stack_alloc@hex_str[i64* %out_len]	nil	<notes.c>:hex_str:%out_len
+nil	*stack_alloc@hex_str[i8** %in.addr]	nil	<notes.c>:hex_str:%in.addr
+nil	*stack_alloc@hex_str[i8** %out]	nil	<notes.c>:hex_str:%out
+nil	*stack_alloc@key[%struct._IO_FILE** %f]	nil	<notes.c>:key:%f
+nil	*stack_alloc@key[[32 x i8]* %data]	nil	<notes.c>:hex_str:%1
+nil	*stack_alloc@key[[32 x i8]* %data]	nil	<notes.c>:hex_str:%12
+nil	*stack_alloc@key[[32 x i8]* %data]	nil	<notes.c>:hex_str:%6
+nil	*stack_alloc@key[[32 x i8]* %data]	nil	<notes.c>:hex_str:%in
+nil	*stack_alloc@key[[32 x i8]* %data]	nil	<notes.c>:key:%arraydecay
+nil	*stack_alloc@key[[32 x i8]* %data]	nil	<notes.c>:key:%arraydecay8
+nil	*stack_alloc@key[[32 x i8]* %data]	nil	<notes.c>:key:%data
+nil	*stack_alloc@key[[32 x i8]* %data][*]	nil	<notes.c>:hex_str:%arrayidx
+nil	*stack_alloc@key[[32 x i8]* %data][*]	nil	<notes.c>:hex_str:%arrayidx13
+nil	*stack_alloc@key[[32 x i8]* %data][*]	nil	<notes.c>:key:%add.ptr
+nil	*stack_alloc@key[[32 x i8]* %data][0]	nil	<notes.c>:hex_str:%1
+nil	*stack_alloc@key[[32 x i8]* %data][0]	nil	<notes.c>:hex_str:%12
+nil	*stack_alloc@key[[32 x i8]* %data][0]	nil	<notes.c>:hex_str:%6
+nil	*stack_alloc@key[[32 x i8]* %data][0]	nil	<notes.c>:hex_str:%in
+nil	*stack_alloc@key[[32 x i8]* %data][0]	nil	<notes.c>:key:%arraydecay
+nil	*stack_alloc@key[[32 x i8]* %data][0]	nil	<notes.c>:key:%arraydecay8
+nil	*stack_alloc@key[[32 x i8]* %data][0][*]	nil	<notes.c>:hex_str:%1
+nil	*stack_alloc@key[[32 x i8]* %data][0][*]	nil	<notes.c>:hex_str:%12
+nil	*stack_alloc@key[[32 x i8]* %data][0][*]	nil	<notes.c>:hex_str:%6
+nil	*stack_alloc@key[[32 x i8]* %data][0][*]	nil	<notes.c>:hex_str:%arrayidx
+nil	*stack_alloc@key[[32 x i8]* %data][0][*]	nil	<notes.c>:hex_str:%arrayidx13
+nil	*stack_alloc@key[[32 x i8]* %data][0][*]	nil	<notes.c>:hex_str:%in
+nil	*stack_alloc@key[[32 x i8]* %data][0][*]	nil	<notes.c>:key:%add.ptr
+nil	*stack_alloc@key[[32 x i8]* %data][0][*]	nil	<notes.c>:key:%arraydecay
+nil	*stack_alloc@key[[32 x i8]* %data][0][*]	nil	<notes.c>:key:%arraydecay8
+nil	*stack_alloc@key[i32* %i]	nil	<notes.c>:key:%i
+nil	*stack_alloc@key[i64* %ret]	nil	<notes.c>:key:%ret
+nil	*stack_alloc@key[i8** %retval]	nil	<notes.c>:key:%retval
+nil	*stack_alloc@new_cmd[%struct.cmd** %cmd]	nil	<notes.c>:new_cmd:%cmd
+nil	*stack_alloc@new_cmd[i32* %c.addr]	nil	<notes.c>:new_cmd:%c.addr
+nil	*stack_alloc@new_cmd[i8** %arg.addr]	nil	<notes.c>:new_cmd:%arg.addr
+nil	*stack_alloc@notes_malloc[i64* %sz.addr]	nil	<notes.c>:notes_malloc:%sz.addr
+nil	*stack_alloc@notes_malloc[i8** %p]	nil	<notes.c>:notes_malloc:%p
+nil	*stack_alloc@parse[%struct.cmd** %cmd]	nil	<notes.c>:parse:%cmd
+nil	*stack_alloc@parse[%struct.cmd** %retval]	nil	<notes.c>:parse:%retval
+nil	*stack_alloc@parse[i8** %arg]	nil	<notes.c>:parse:%arg
+nil	*stack_alloc@parse[i8** %req.addr]	nil	<notes.c>:parse:%req.addr
+nil	*stack_alloc@parse[i8** %space]	nil	<notes.c>:parse:%space
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:handle:%10
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:handle:%2
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:handle:%3
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:handle:%5
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:handle:%7
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:handle:%9
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:handle:%c
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:handle:%call
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:new_cmd:%0
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:new_cmd:%2
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:new_cmd:%4
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:new_cmd:%5
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:new_cmd:%c1
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:new_cmd:%call
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:notes_malloc:%1
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:notes_malloc:%2
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:notes_malloc:%call
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:parse:%11
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:parse:%12
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:parse:%13
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:parse:%14
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:parse:%15
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:parse:%7
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:parse:%9
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:parse:%c
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:parse:%c12
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:parse:%c17
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	nil	<notes.c>:parse:%call4
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:handle:%10
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:handle:%2
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:handle:%3
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:handle:%5
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:handle:%7
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:handle:%9
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:handle:%c
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:handle:%call
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:new_cmd:%0
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:new_cmd:%2
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:new_cmd:%4
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:new_cmd:%5
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:new_cmd:%c1
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:new_cmd:%call
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:notes_malloc:%1
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:notes_malloc:%2
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:parse:%11
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:parse:%12
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:parse:%13
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:parse:%14
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:parse:%15
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:parse:%7
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:parse:%9
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:parse:%c
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:parse:%c12
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:parse:%c17
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	nil	<notes.c>:parse:%call4
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:handle:%10
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:handle:%2
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:handle:%3
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:handle:%5
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:handle:%7
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:handle:%9
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:handle:%c
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:handle:%call
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:new_cmd:%0
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:new_cmd:%2
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:new_cmd:%4
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:new_cmd:%5
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:new_cmd:%c1
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:new_cmd:%call
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:notes_malloc:%1
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:notes_malloc:%2
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:parse:%11
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:parse:%12
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:parse:%13
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:parse:%14
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:parse:%15
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:parse:%7
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:parse:%9
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:parse:%c
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:parse:%c12
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:parse:%c17
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	nil	<notes.c>:parse:%call4
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/1	nil	<notes.c>:handle:%arg
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/1	nil	<notes.c>:handle:%arg7
+nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/1	nil	<notes.c>:new_cmd:%arg2
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:handle:%10
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:handle:%2
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:handle:%3
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:handle:%5
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:handle:%7
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:handle:%9
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:handle:%c
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:handle:%call
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:new_cmd:%0
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:new_cmd:%2
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:new_cmd:%4
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:new_cmd:%5
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:new_cmd:%c1
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:new_cmd:%call
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:notes_malloc:%1
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:notes_malloc:%2
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:notes_malloc:%call
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%11
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%12
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%13
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%14
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%15
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%7
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%9
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%c
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%c12
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%c17
+nil	*typed_heap_alloc@notes_malloc[i8* %call]	nil	<notes.c>:parse:%call4
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:handle:%10
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:handle:%2
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:handle:%3
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:handle:%5
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:handle:%7
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:handle:%9
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:handle:%c
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:handle:%call
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:new_cmd:%0
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:new_cmd:%2
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:new_cmd:%4
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:new_cmd:%5
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:new_cmd:%c1
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:new_cmd:%call
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:notes_malloc:%1
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:notes_malloc:%2
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%11
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%12
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%13
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%14
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%15
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%7
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%9
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%c
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%c12
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%c17
+nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	nil	<notes.c>:parse:%call4

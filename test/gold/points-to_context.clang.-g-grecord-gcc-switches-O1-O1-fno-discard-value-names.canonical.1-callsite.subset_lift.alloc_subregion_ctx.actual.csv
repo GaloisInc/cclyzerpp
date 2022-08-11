@@ -1,0 +1,6 @@
+[<<main-context>>, nil]	*stack_alloc@main[i32* %a][0]	*stack_alloc@main[i32* %a]
+[<<main-context>>, nil]	*stack_alloc@main[i32* %b][0]	*stack_alloc@main[i32* %b]
+[<<main-context>>, nil]	*stack_alloc@main[i32** %pa][0]	*stack_alloc@main[i32** %pa]
+[<<main-context>>, nil]	*stack_alloc@main[i32** %pb][0]	*stack_alloc@main[i32** %pb]
+[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %a][0]	*typed_stack_alloc@main[i8* %a]
+[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %b][0]	*typed_stack_alloc@main[i8* %b]

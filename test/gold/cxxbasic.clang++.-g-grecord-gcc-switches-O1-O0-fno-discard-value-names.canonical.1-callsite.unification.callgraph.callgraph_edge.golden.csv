@@ -1,0 +1,22 @@
+[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSaIcEC1Ev	[<<main-context>>, nil]	<cxxbasic.cpp>:main:13
+[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1EPKcRKS3_	[<<main-context>>, nil]	<cxxbasic.cpp>:main:14
+[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSEPKc	[<<main-context>>, nil]	<cxxbasic.cpp>:main:38
+[<<startup-context>>, nil]	<cxxbasic.cpp>:_ZNSt8ios_base4InitC1Ev	[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxx_global_var_init:0
+[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxa_atexit	[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxx_global_var_init:1
+[<cxxbasic.cpp>:main:15, nil]	<cxxbasic.cpp>:_ZNSaIcED1Ev	[<<main-context>>, nil]	<cxxbasic.cpp>:main:15
+[<cxxbasic.cpp>:main:20, nil]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc	[<<main-context>>, nil]	<cxxbasic.cpp>:main:20
+[<cxxbasic.cpp>:main:21, nil]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE	[<<main-context>>, nil]	<cxxbasic.cpp>:main:21
+[<cxxbasic.cpp>:main:22, nil]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c	[<<main-context>>, nil]	<cxxbasic.cpp>:main:22
+[<cxxbasic.cpp>:main:29, nil]	<cxxbasic.cpp>:_ZNSaIcED1Ev	[<<main-context>>, nil]	<cxxbasic.cpp>:main:29
+[<cxxbasic.cpp>:main:36, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev	[<<main-context>>, nil]	<cxxbasic.cpp>:main:36
+[<cxxbasic.cpp>:main:40, nil]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc	[<<main-context>>, nil]	<cxxbasic.cpp>:main:40
+[<cxxbasic.cpp>:main:41, nil]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE	[<<main-context>>, nil]	<cxxbasic.cpp>:main:41
+[<cxxbasic.cpp>:main:42, nil]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c	[<<main-context>>, nil]	<cxxbasic.cpp>:main:42
+[<cxxbasic.cpp>:main:44, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev	[<<main-context>>, nil]	<cxxbasic.cpp>:main:44
+nil	<cxxbasic.cpp>:_ZNSt8ios_base4InitC1Ev	nil	<cxxbasic.cpp>:__cxx_global_var_init:0
+nil	<cxxbasic.cpp>:__cxa_atexit	nil	<cxxbasic.cpp>:__cxx_global_var_init:1
+nil	<cxxbasic.cpp>:__cxx_global_var_init	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:0
+nil	<cxxbasic.cpp>:llvm.dbg.declare	[<<main-context>>, nil]	<cxxbasic.cpp>:main:11
+nil	<cxxbasic.cpp>:llvm.dbg.declare	[<<main-context>>, nil]	<cxxbasic.cpp>:main:12
+nil	<cxxbasic.cpp>:llvm.dbg.declare	[<<main-context>>, nil]	<cxxbasic.cpp>:main:9
+nil	<cxxbasic.cpp>:rand	[<<main-context>>, nil]	<cxxbasic.cpp>:main:16

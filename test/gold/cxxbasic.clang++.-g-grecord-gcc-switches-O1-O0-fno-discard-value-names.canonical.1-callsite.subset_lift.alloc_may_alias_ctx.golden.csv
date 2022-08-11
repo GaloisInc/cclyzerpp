@@ -1,0 +1,57 @@
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]
+[<<main-context>>, nil]	*stack_alloc@main[i32* %argc.addr]	*stack_alloc@main[i32* %argc.addr]
+[<<main-context>>, nil]	*stack_alloc@main[i32* %ehselector.slot]	*stack_alloc@main[i32* %ehselector.slot]
+[<<main-context>>, nil]	*stack_alloc@main[i32* %retval]	*stack_alloc@main[i32* %retval]
+[<<main-context>>, nil]	*stack_alloc@main[i8** %exn.slot]	*stack_alloc@main[i8** %exn.slot]
+[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr]	*stack_alloc@main[i8*** %argv.addr]
+[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr]	*stack_alloc@main[i8*** %argv.addr][0]
+[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr][0]	*stack_alloc@main[i8*** %argv.addr]
+[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr][0]	*stack_alloc@main[i8*** %argv.addr][0]
+nil	*argv-alloc	*argv-alloc
+nil	*argv-alloc	*argv-alloc[0]
+nil	*argv-alloc[0]	*argv-alloc
+nil	*argv-alloc[0]	*argv-alloc[0]
+nil	*argv[0]-alloc	*argv[0]-alloc
+nil	*argv[0]-alloc	*argv[0]-alloc[0]
+nil	*argv[0]-alloc[0]	*argv[0]-alloc
+nil	*argv[0]-alloc[0]	*argv[0]-alloc[0]
+nil	*global_alloc@.str	*global_alloc@.str
+nil	*global_alloc@.str	*global_alloc@.str[0]
+nil	*global_alloc@.str.1	*global_alloc@.str.1
+nil	*global_alloc@.str.1	*global_alloc@.str.1[0]
+nil	*global_alloc@.str.1[0]	*global_alloc@.str.1
+nil	*global_alloc@.str.1[0]	*global_alloc@.str.1[0]
+nil	*global_alloc@.str.1[0][*]	*global_alloc@.str.1[0][*]
+nil	*global_alloc@.str.2	*global_alloc@.str.2
+nil	*global_alloc@.str.2	*global_alloc@.str.2[0]
+nil	*global_alloc@.str.2[0]	*global_alloc@.str.2
+nil	*global_alloc@.str.2[0]	*global_alloc@.str.2[0]
+nil	*global_alloc@.str.2[0][*]	*global_alloc@.str.2[0][*]
+nil	*global_alloc@.str[0]	*global_alloc@.str
+nil	*global_alloc@.str[0]	*global_alloc@.str[0]
+nil	*global_alloc@.str[0][*]	*global_alloc@.str[0][*]
+nil	*global_alloc@_GLOBAL__sub_I_cxxbasic.cpp	*global_alloc@_GLOBAL__sub_I_cxxbasic.cpp
+nil	*global_alloc@_ZNSaIcEC1Ev	*global_alloc@_ZNSaIcEC1Ev
+nil	*global_alloc@_ZNSaIcED1Ev	*global_alloc@_ZNSaIcED1Ev
+nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1EPKcRKS3_	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1EPKcRKS3_
+nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev
+nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSEPKc	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSEPKc
+nil	*global_alloc@_ZNSt8ios_base4InitC1Ev	*global_alloc@_ZNSt8ios_base4InitC1Ev
+nil	*global_alloc@_ZNSt8ios_base4InitD1Ev	*global_alloc@_ZNSt8ios_base4InitD1Ev
+nil	*global_alloc@_ZSt4cout	*global_alloc@_ZSt4cout
+nil	*global_alloc@_ZStL8__ioinit	*global_alloc@_ZStL8__ioinit
+nil	*global_alloc@_ZStL8__ioinit	*global_alloc@_ZStL8__ioinit[0].?/0
+nil	*global_alloc@_ZStL8__ioinit[0].?/0	*global_alloc@_ZStL8__ioinit
+nil	*global_alloc@_ZStL8__ioinit[0].?/0	*global_alloc@_ZStL8__ioinit[0].?/0
+nil	*global_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc	*global_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+nil	*global_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c	*global_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c
+nil	*global_alloc@_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE	*global_alloc@_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE
+nil	*global_alloc@__cxa_atexit	*global_alloc@__cxa_atexit
+nil	*global_alloc@__cxx_global_var_init	*global_alloc@__cxx_global_var_init
+nil	*global_alloc@__dso_handle	*global_alloc@__dso_handle
+nil	*global_alloc@__gxx_personality_v0	*global_alloc@__gxx_personality_v0
+nil	*global_alloc@llvm.dbg.declare	*global_alloc@llvm.dbg.declare
+nil	*global_alloc@llvm.global_ctors[0][0].?/1	*global_alloc@llvm.global_ctors[0][0].?/1
+nil	*global_alloc@llvm.global_ctors[0][0].?/2	*global_alloc@llvm.global_ctors[0][0].?/2
+nil	*global_alloc@rand	*global_alloc@rand

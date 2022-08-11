@@ -1,0 +1,14 @@
+nil	*argv[0]-alloc	nil	*argv-alloc
+nil	*argv[0]-alloc	nil	*argv-alloc[0]
+nil	*argv[0]-alloc[0]	nil	*argv-alloc
+nil	*argv[0]-alloc[0]	nil	*argv-alloc[0]
+nil	*global_alloc@.str	nil	*global_alloc@TOO_FEW_ARGS
+nil	*global_alloc@.str	nil	*global_alloc@TOO_FEW_ARGS[0]
+nil	*global_alloc@.str[0]	nil	*global_alloc@TOO_FEW_ARGS
+nil	*global_alloc@.str[0]	nil	*global_alloc@TOO_FEW_ARGS[0]
+nil	*global_alloc@.str[0][*]	nil	*global_alloc@TOO_FEW_ARGS
+nil	*global_alloc@.str[0][*]	nil	*global_alloc@TOO_FEW_ARGS[0]
+nil	*null*	nil	*heap_alloc@notes_malloc[i8* %call][8]
+nil	*null*	nil	*typed_heap_alloc@notes_malloc[i32* %call][2]
+nil	*null*	nil	*typed_heap_alloc@notes_malloc[i8* %call][8]
+nil	*unknown*	nil	*unknown*

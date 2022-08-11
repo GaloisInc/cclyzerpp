@@ -1,0 +1,2 @@
+<type-backprop.c>:use_double:0	*stack_alloc@use_double[double* %x]
+<type-backprop.c>:use_int:0	*stack_alloc@use_int[i32* %x]

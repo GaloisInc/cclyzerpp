@@ -1,0 +1,17 @@
+nil	<cfg-test.c>:bar	[<<main-context>>, nil]	<cfg-test.c>:main:28
+nil	<cfg-test.c>:bar	nil	<cfg-test.c>:foo:11
+nil	<cfg-test.c>:bar	nil	<cfg-test.c>:foo:7
+nil	<cfg-test.c>:baz	[<<main-context>>, nil]	<cfg-test.c>:main:21
+nil	<cfg-test.c>:foo	[<<main-context>>, nil]	<cfg-test.c>:main:19
+nil	<cfg-test.c>:foo	[<<main-context>>, nil]	<cfg-test.c>:main:24
+nil	<cfg-test.c>:llvm.dbg.declare	[<<main-context>>, nil]	<cfg-test.c>:main:10
+nil	<cfg-test.c>:llvm.dbg.declare	[<<main-context>>, nil]	<cfg-test.c>:main:12
+nil	<cfg-test.c>:llvm.dbg.declare	[<<main-context>>, nil]	<cfg-test.c>:main:13
+nil	<cfg-test.c>:llvm.dbg.declare	[<<main-context>>, nil]	<cfg-test.c>:main:15
+nil	<cfg-test.c>:llvm.dbg.declare	[<<main-context>>, nil]	<cfg-test.c>:main:17
+nil	<cfg-test.c>:llvm.dbg.declare	[<<main-context>>, nil]	<cfg-test.c>:main:22
+nil	<cfg-test.c>:llvm.dbg.declare	[<<main-context>>, nil]	<cfg-test.c>:main:26
+nil	<cfg-test.c>:llvm.dbg.declare	nil	<cfg-test.c>:bar:2
+nil	<cfg-test.c>:llvm.dbg.declare	nil	<cfg-test.c>:foo:4
+nil	<cfg-test.c>:llvm.dbg.declare	nil	<cfg-test.c>:foo:5
+nil	<cfg-test.c>:llvm.dbg.declare	nil	<cfg-test.c>:foo:9

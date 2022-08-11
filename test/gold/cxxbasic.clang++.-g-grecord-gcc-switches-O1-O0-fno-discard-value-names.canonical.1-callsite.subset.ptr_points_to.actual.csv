@@ -1,0 +1,11 @@
+nil	*argv-alloc	[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr]
+nil	*argv-alloc	[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr][0]
+nil	*argv-alloc[0]	[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr]
+nil	*argv-alloc[0]	[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr][0]
+nil	*argv[0]-alloc	nil	*argv-alloc
+nil	*argv[0]-alloc	nil	*argv-alloc[0]
+nil	*argv[0]-alloc[0]	nil	*argv-alloc
+nil	*argv[0]-alloc[0]	nil	*argv-alloc[0]
+nil	*global_alloc@_GLOBAL__sub_I_cxxbasic.cpp	nil	*global_alloc@llvm.global_ctors[0][0].?/1
+nil	*null*	nil	*global_alloc@llvm.global_ctors[0][0].?/2
+nil	*unknown*	nil	*unknown*

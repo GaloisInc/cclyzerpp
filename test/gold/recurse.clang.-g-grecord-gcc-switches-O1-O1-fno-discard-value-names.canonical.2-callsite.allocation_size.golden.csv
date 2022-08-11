@@ -1,0 +1,14 @@
+*argv-alloc[*]	8
+*argv-alloc[0]	8
+*argv[0]-alloc[*]	8
+*argv[0]-alloc[0]	8
+*global_alloc@.str.1	4
+*global_alloc@.str.1[*]	4
+*global_alloc@.str.1[*][*]	1
+*global_alloc@.str.1[0]	4
+*global_alloc@.str.1[0][*]	1
+*global_alloc@str	5
+*global_alloc@str[*]	5
+*global_alloc@str[*][*]	1
+*global_alloc@str[0]	5
+*global_alloc@str[0][*]	1

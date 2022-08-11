@@ -1,0 +1,7 @@
+<cxxbasic.cpp>:main:0	*stack_alloc@main[i32* %retval]
+<cxxbasic.cpp>:main:1	*stack_alloc@main[i32* %argc.addr]
+<cxxbasic.cpp>:main:2	*stack_alloc@main[i8*** %argv.addr]
+<cxxbasic.cpp>:main:3	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]
+<cxxbasic.cpp>:main:4	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]
+<cxxbasic.cpp>:main:5	*stack_alloc@main[i8** %exn.slot]
+<cxxbasic.cpp>:main:6	*stack_alloc@main[i32* %ehselector.slot]

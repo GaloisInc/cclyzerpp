@@ -1,0 +1,60 @@
+[<<main-context>>, nil]	*stack_alloc@main[i32* %a]	[<<main-context>>, nil]	<points-to_context.c>:f:%x
+[<<main-context>>, nil]	*stack_alloc@main[i32* %a]	[<<main-context>>, nil]	<points-to_context.c>:main:%1
+[<<main-context>>, nil]	*stack_alloc@main[i32* %a]	[<<main-context>>, nil]	<points-to_context.c>:main:%4
+[<<main-context>>, nil]	*stack_alloc@main[i32* %a]	[<<main-context>>, nil]	<points-to_context.c>:main:%a
+[<<main-context>>, nil]	*stack_alloc@main[i32* %a]	[<points-to_context.c>:f:2, nil]	<points-to_context.c>:h:%x
+[<<main-context>>, nil]	*stack_alloc@main[i32* %a][0]	[<<main-context>>, nil]	<points-to_context.c>:main:%4
+[<<main-context>>, nil]	*stack_alloc@main[i32* %b]	[<<main-context>>, nil]	<points-to_context.c>:g:%x
+[<<main-context>>, nil]	*stack_alloc@main[i32* %b]	[<<main-context>>, nil]	<points-to_context.c>:main:%3
+[<<main-context>>, nil]	*stack_alloc@main[i32* %b]	[<<main-context>>, nil]	<points-to_context.c>:main:%6
+[<<main-context>>, nil]	*stack_alloc@main[i32* %b]	[<<main-context>>, nil]	<points-to_context.c>:main:%b
+[<<main-context>>, nil]	*stack_alloc@main[i32* %b]	[<points-to_context.c>:g:2, nil]	<points-to_context.c>:h:%x
+[<<main-context>>, nil]	*stack_alloc@main[i32* %b][0]	[<<main-context>>, nil]	<points-to_context.c>:main:%6
+[<<main-context>>, nil]	*stack_alloc@main[i32** %pa]	[<<main-context>>, nil]	<points-to_context.c>:f:%px
+[<<main-context>>, nil]	*stack_alloc@main[i32** %pa]	[<<main-context>>, nil]	<points-to_context.c>:main:%0
+[<<main-context>>, nil]	*stack_alloc@main[i32** %pa]	[<<main-context>>, nil]	<points-to_context.c>:main:%pa
+[<<main-context>>, nil]	*stack_alloc@main[i32** %pa]	[<points-to_context.c>:f:2, nil]	<points-to_context.c>:h:%px
+[<<main-context>>, nil]	*stack_alloc@main[i32** %pb]	[<<main-context>>, nil]	<points-to_context.c>:g:%px
+[<<main-context>>, nil]	*stack_alloc@main[i32** %pb]	[<<main-context>>, nil]	<points-to_context.c>:main:%2
+[<<main-context>>, nil]	*stack_alloc@main[i32** %pb]	[<<main-context>>, nil]	<points-to_context.c>:main:%pb
+[<<main-context>>, nil]	*stack_alloc@main[i32** %pb]	[<points-to_context.c>:g:2, nil]	<points-to_context.c>:h:%px
+[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %a]	[<<main-context>>, nil]	<points-to_context.c>:f:%x
+[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %a]	[<<main-context>>, nil]	<points-to_context.c>:main:%1
+[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %a]	[<<main-context>>, nil]	<points-to_context.c>:main:%4
+[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %a]	[<<main-context>>, nil]	<points-to_context.c>:main:%a
+[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %a]	[<points-to_context.c>:f:2, nil]	<points-to_context.c>:h:%x
+[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %a][0]	[<<main-context>>, nil]	<points-to_context.c>:main:%4
+[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %b]	[<<main-context>>, nil]	<points-to_context.c>:g:%x
+[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %b]	[<<main-context>>, nil]	<points-to_context.c>:main:%3
+[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %b]	[<<main-context>>, nil]	<points-to_context.c>:main:%6
+[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %b]	[<<main-context>>, nil]	<points-to_context.c>:main:%b
+[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %b]	[<points-to_context.c>:g:2, nil]	<points-to_context.c>:h:%x
+[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %b][0]	[<<main-context>>, nil]	<points-to_context.c>:main:%6
+nil	*global_alloc@f	[<<main-context>>, nil]	<points-to_context.c>:main:18:0:@f
+nil	*global_alloc@g	[<<main-context>>, nil]	<points-to_context.c>:main:21:0:@g
+nil	*global_alloc@h	[<<main-context>>, nil]	<points-to_context.c>:f:2:0:@h
+nil	*global_alloc@h	[<<main-context>>, nil]	<points-to_context.c>:g:2:0:@h
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<points-to_context.c>:f:0:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<points-to_context.c>:f:1:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<points-to_context.c>:g:0:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<points-to_context.c>:g:1:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<points-to_context.c>:main:14:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<points-to_context.c>:main:16:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<points-to_context.c>:main:17:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<points-to_context.c>:main:19:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<points-to_context.c>:main:20:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<points-to_context.c>:main:23:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<points-to_context.c>:main:26:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<points-to_context.c>:main:8:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<points-to_context.c>:f:2, nil]	<points-to_context.c>:h:0:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<points-to_context.c>:f:2, nil]	<points-to_context.c>:h:1:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<points-to_context.c>:g:2, nil]	<points-to_context.c>:h:0:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<points-to_context.c>:g:2, nil]	<points-to_context.c>:h:1:0:@llvm.dbg.value
+nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<points-to_context.c>:main:29:0:@llvm.lifetime.end.p0i8
+nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<points-to_context.c>:main:30:0:@llvm.lifetime.end.p0i8
+nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<points-to_context.c>:main:31:0:@llvm.lifetime.end.p0i8
+nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<points-to_context.c>:main:32:0:@llvm.lifetime.end.p0i8
+nil	*global_alloc@llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<points-to_context.c>:main:11:0:@llvm.lifetime.start.p0i8
+nil	*global_alloc@llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<points-to_context.c>:main:13:0:@llvm.lifetime.start.p0i8
+nil	*global_alloc@llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<points-to_context.c>:main:5:0:@llvm.lifetime.start.p0i8
+nil	*global_alloc@llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<points-to_context.c>:main:7:0:@llvm.lifetime.start.p0i8

@@ -1,0 +1,26 @@
+*argv-alloc[*]	8
+*argv-alloc[0]	8
+*argv[0]-alloc[*]	8
+*argv[0]-alloc[0]	8
+*global_alloc@.str	6
+*global_alloc@.str.1	4
+*global_alloc@.str.1[*]	4
+*global_alloc@.str.1[*][*]	1
+*global_alloc@.str.1[0]	4
+*global_alloc@.str.1[0][*]	1
+*global_alloc@.str[*]	6
+*global_alloc@.str[*][*]	1
+*global_alloc@.str[0]	6
+*global_alloc@.str[0][*]	1
+*stack_alloc@countdown[i32* %x.addr]	4
+*stack_alloc@countdown[i32* %x.addr][*]	4
+*stack_alloc@countdown[i32* %x.addr][0]	4
+*stack_alloc@main[i32* %argc.addr]	4
+*stack_alloc@main[i32* %argc.addr][*]	4
+*stack_alloc@main[i32* %argc.addr][0]	4
+*stack_alloc@main[i32* %retval]	4
+*stack_alloc@main[i32* %retval][*]	4
+*stack_alloc@main[i32* %retval][0]	4
+*stack_alloc@main[i8*** %argv.addr]	8
+*stack_alloc@main[i8*** %argv.addr][*]	8
+*stack_alloc@main[i8*** %argv.addr][0]	8
