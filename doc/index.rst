@@ -24,6 +24,8 @@ sensitivity. It has subset-based (Andersen style) and unification-based
 (Steensgaard style) analyses. cclyzer++ is written in `Soufflé Datalog`_, and so
 is highly parallel. cclyzer++ was derived from `cclyzer`_.
 
+Documentation is also available `online`_.
+
 cclyzer++ is not currently actively developed or maintained by Galois, Inc.
 
 Table of Contents
@@ -62,6 +64,7 @@ Release, Distribution Unlimited.
 
 .. _cclyzer: https://yanniss.github.io/cclyzer-sas16.pdf
 .. _Soufflé Datalog: https://souffle-lang.github.io/
+.. _online: https://galoisinc.github.io/cclyzerpp
 
 .. _run-souffle: https://souffle-lang.github.io/execute
 .. _plan: https://souffle-lang.github.io/rules#query-plan
