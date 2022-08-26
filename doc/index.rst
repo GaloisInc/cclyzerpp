@@ -28,6 +28,12 @@ Documentation is also available `online`_.
 
 cclyzer++ is not currently actively developed or maintained by Galois, Inc.
 
+.. note::
+    You may also want to peruse the `Release Announcement
+    <https://galois.com/blog/2022/08/cclyzer-scalable-and-precise-pointer-analysis-for-llvm/>`_
+    and `Visual Guide to Pointer Analysis
+    <https://galois.com/blog/2022/08/cclyzer/>`_ blog posts.
+
 Table of Contents
 -----------------
 
