@@ -136,6 +136,7 @@ static auto get_interface(Analysis which) -> std::unique_ptr<PAInterface> {
     case Analysis::UNIFICATION:
       return PAInterface::create("unification");
   }
+  assert(false && "unreachable");
 }
 
 static auto callgraph_edge(Analysis which) -> std::string {
@@ -149,6 +150,7 @@ static auto callgraph_edge(Analysis which) -> std::string {
     case Analysis::UNIFICATION:
       return "unification.callgraph.callgraph_edge";
   }
+  assert(false && "unreachable");
 }
 
 static auto alloc_may_alias(Analysis which) -> std::string {
@@ -162,6 +164,7 @@ static auto alloc_may_alias(Analysis which) -> std::string {
     case Analysis::UNIFICATION:
       return "unification_lift.alloc_may_alias_ctx";
   }
+  assert(false && "unreachable");
 }
 
 static auto alloc_must_alias(Analysis which) -> std::string {
@@ -175,6 +178,7 @@ static auto alloc_must_alias(Analysis which) -> std::string {
     case Analysis::UNIFICATION:
       return "unification_lift.alloc_must_alias_ctx";
   }
+  assert(false && "unreachable");
 }
 
 static auto alloc_subregion(Analysis which) -> std::string {
@@ -188,6 +192,7 @@ static auto alloc_subregion(Analysis which) -> std::string {
     case Analysis::UNIFICATION:
       return "unification_lift.alloc_subregion_ctx";
   }
+  assert(false && "unreachable");
 }
 
 static auto alloc_contains(Analysis which) -> std::string {
@@ -201,6 +206,7 @@ static auto alloc_contains(Analysis which) -> std::string {
     case Analysis::UNIFICATION:
       return "unification_lift.alloc_contains_ctx";
   }
+  assert(false && "unreachable");
 }
 
 static auto ptr_points_to(Analysis which) -> std::string {
@@ -214,6 +220,7 @@ static auto ptr_points_to(Analysis which) -> std::string {
     case Analysis::UNIFICATION:
       return "unification.ptr_points_to_final";
   }
+  assert(false && "unreachable");
 }
 
 static auto operand_points_to(Analysis which) -> std::string {
@@ -227,6 +234,7 @@ static auto operand_points_to(Analysis which) -> std::string {
     case Analysis::UNIFICATION:
       return "unification.operand_points_to_final";
   }
+  assert(false && "unreachable");
 }
 
 static auto var_points_to(Analysis which) -> std::string {
@@ -240,6 +248,7 @@ static auto var_points_to(Analysis which) -> std::string {
     case Analysis::UNIFICATION:
       return "unification.var_points_to_final";
   }
+  assert(false && "unreachable");
 }
 
 static auto allocation_size(Analysis which) -> std::string {
@@ -253,6 +262,7 @@ static auto allocation_size(Analysis which) -> std::string {
     case Analysis::UNIFICATION:
       return "unification_lift.allocation_size_ctx";
   }
+  assert(false && "unreachable");
 }
 
 static auto allocation_by_instruction(Analysis which) -> std::string {
@@ -266,6 +276,7 @@ static auto allocation_by_instruction(Analysis which) -> std::string {
     case Analysis::UNIFICATION:
       return "unification_lift.allocation_by_instruction_ctx";
   }
+  assert(false && "unreachable");
 }
 
 auto LegacyPointerAnalysis::runOnModule(llvm::Module &mod) -> bool {
@@ -401,7 +412,7 @@ extern "C" LLVM_ATTRIBUTE_WEAK auto llvmGetPassPluginInfo()
                   [&] { return PointerAnalysis(); });
             });
       }};
-};
+}
 
 // Legacy pass manager registration
 
