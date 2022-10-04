@@ -1,3 +1,5 @@
+# See doc/docker.rst.
+
 # Image with all cclyzer++ development tools, i.e., everything needed by
 # cclyzer++ developers to build and test cclyzer++.
 
@@ -32,6 +34,7 @@ RUN apt-get update && \
       clang-${LLVM_VERSION} \
       clang-format-${LLVM_VERSION} \
       clang-tidy-${LLVM_VERSION} \
+      libomp-${LLVM_VERSION}-dev \
       llvm-${LLVM_VERSION} \
       llvm-${LLVM_VERSION}-dev && \
     update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-${LLVM_VERSION} 60 && \
