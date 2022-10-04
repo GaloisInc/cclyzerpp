@@ -14,7 +14,7 @@
     <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Analysis Implementation" href="implementation.html" />
+    <link rel="next" title="Docker" href="docker.html" />
     <link rel="prev" title="Analysis Design" href="design.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -43,6 +43,11 @@ pytest test/
 </div>
 <p>To make new golden tests, set <code class="docutils literal notranslate"><span class="pre">MAKE_GOLD_TESTS=1</span></code> in the environment. To run
 extra tests, set <code class="docutils literal notranslate"><span class="pre">EXTRA_TESTS=1</span></code>.</p>
+</div>
+<div class="section" id="cutting-a-release">
+<h2>Cutting a Release<a class="headerlink" href="#cutting-a-release" title="Permalink to this headline">¶</a></h2>
+<p>Push a new tag that starts with <code class="docutils literal notranslate"><span class="pre">v</span></code>, e.g., <code class="docutils literal notranslate"><span class="pre">v0.2</span></code>, and the CI build will
+create a draft release on Github.</p>
 </div>
 <div class="section" id="performance-tuning">
 <h2>Performance Tuning<a class="headerlink" href="#performance-tuning" title="Permalink to this headline">¶</a></h2>
@@ -78,9 +83,11 @@ The RAM representation explicitly shows the effect of query plans (<code class="
 <li class="toctree-l1"><a class="reference internal" href="design.html">Analysis Design</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Development</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#running-tests">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cutting-a-release">Cutting a Release</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#performance-tuning">Performance Tuning</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implementation.html">Analysis Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
@@ -93,7 +100,7 @@ The RAM representation explicitly shows the effect of query plans (<code class="
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="design.html" title="previous chapter">Analysis Design</a></li>
-      <li>Next: <a href="implementation.html" title="next chapter">Analysis Implementation</a></li>
+      <li>Next: <a href="docker.html" title="next chapter">Docker</a></li>
   </ul></li>
 </ul>
 </div>

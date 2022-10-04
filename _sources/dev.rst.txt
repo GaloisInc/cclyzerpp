@@ -14,6 +14,12 @@ The tests are run with `Pytest`_. They require compiling cclyzer++ first.
 To make new golden tests, set ``MAKE_GOLD_TESTS=1`` in the environment. To run
 extra tests, set ``EXTRA_TESTS=1``.
 
+Cutting a Release
+*****************
+
+Push a new tag that starts with ``v``, e.g., ``v0.2``, and the CI build will
+create a draft release on Github.
+
 Performance Tuning
 ******************
 
