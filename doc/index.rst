@@ -43,6 +43,7 @@ Table of Contents
 
    architecture
    build
+   changelog
    design
    dev
    docker
