@@ -17,8 +17,19 @@ extra tests, set ``EXTRA_TESTS=1``.
 Cutting a Release
 *****************
 
-Push a new tag that starts with ``v``, e.g., ``v0.2``, and the CI build will
-create a draft release on Github.
+First, ensure that the :ref:`changelog` is up to date. Then, push a new tag that
+starts with ``v``, e.g., ``v0.2``, and the CI build will create a draft release
+on Github. Worked example:
+
+.. code-block:: shell
+
+  git checkout main
+  git pull
+  git tag -a v0.1 -m v0.1
+  git push --tags
+
+After waiting for the CI build, manually edit the release as required and hit
+"publish".
 
 Performance Tuning
 ******************

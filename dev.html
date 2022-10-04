@@ -46,8 +46,17 @@ extra tests, set <code class="docutils literal notranslate"><span class="pre">EX
 </div>
 <div class="section" id="cutting-a-release">
 <h2>Cutting a Release<a class="headerlink" href="#cutting-a-release" title="Permalink to this headline">¶</a></h2>
-<p>Push a new tag that starts with <code class="docutils literal notranslate"><span class="pre">v</span></code>, e.g., <code class="docutils literal notranslate"><span class="pre">v0.2</span></code>, and the CI build will
-create a draft release on Github.</p>
+<p>First, ensure that the <span class="xref std std-ref">changelog</span> is up to date. Then, push a new tag that
+starts with <code class="docutils literal notranslate"><span class="pre">v</span></code>, e.g., <code class="docutils literal notranslate"><span class="pre">v0.2</span></code>, and the CI build will create a draft release
+on Github. Worked example:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git checkout main
+git pull
+git tag -a v0.1 -m v0.1
+git push --tags
+</pre></div>
+</div>
+<p>After waiting for the CI build, manually edit the release as required and hit
+“publish”.</p>
 </div>
 <div class="section" id="performance-tuning">
 <h2>Performance Tuning<a class="headerlink" href="#performance-tuning" title="Permalink to this headline">¶</a></h2>
@@ -80,6 +89,7 @@ The RAM representation explicitly shows the effect of query plans (<code class="
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="build.html">Building and Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="design.html">Analysis Design</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Development</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#running-tests">Running Tests</a></li>
