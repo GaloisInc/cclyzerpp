@@ -42,9 +42,60 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker images
+      - name: Build and push dev image
         run: |
           ./scripts/gha-docker-build "dev" "cclyzerpp-dev"
+
+      - name: Build
+        run: |
+          # The `pull_request` event creates a merge commit, which means that
+          # `GITHUB_SHA` is not want we want: we need to do some additional
+          # sleuthing for these events to get the right commit.
+          if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+            ref="${ACTUAL_GITHUB_SHA_ON_PULL_REQUEST}"
+          else
+            ref="${GITHUB_SHA}"
+          fi
+
+          docker run \
+            --rm \
+            --mount type=bind,src=$PWD,target=/work \
+            --workdir /work \
+            "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
+            cmake -G Ninja -B build -S .
+
+          docker run \
+            --rm \
+            --mount type=bind,src=$PWD,target=/work \
+            --workdir /work \
+            "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
+            cmake --build build -j $(nproc)
+
+      - name: Upload build log
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: "cmake-logs"
+          path: "build/CMakeFiles/*.log"
+          if-no-files-found: error
+
+      - name: Run tests
+        run: |
+          # See previous comment
+          if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+            ref="${ACTUAL_GITHUB_SHA_ON_PULL_REQUEST}"
+          else
+            ref="${GITHUB_SHA}"
+          fi
+
+          docker run \
+            --rm -v $(pwd):/work \
+            --workdir /work \
+            "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
+            pytest -x
+
+      - name: Build and push dist image
+        run: |
           ./scripts/gha-docker-build "build" "cclyzerpp-build"
           ./scripts/gha-docker-build "dist" "cclyzerpp-dist"
 
