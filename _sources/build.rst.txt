@@ -1,8 +1,8 @@
 Building and Running
 ====================
 
-cclyzer++ requires Soufflé version `fce85d9`; see the `Soufflé build
-documentation`_ for information on how to download and install Soufflé.
+cclyzer++ requires Soufflé version 2.3; see the `Soufflé build documentation`_
+for information on how to download and install Soufflé.
 
 The build also requires a few Boost C++ libraries. Here's how to get them on
 Ubuntu 20.04:
