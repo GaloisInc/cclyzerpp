@@ -2,9 +2,8 @@ name: CI
 
 on:
   push:
-    # TODO(lb): Before merge:
-    # branches:
-    # - main
+    branches:
+    - main
   pull_request:
 
 env:
@@ -46,3 +45,18 @@ jobs:
           ./scripts/gha-docker-build "dev" "cclyzerpp-dev"
           ./scripts/gha-docker-build "build" "cclyzerpp-build"
           ./scripts/gha-docker-build "dist" "cclyzerpp-dist"
+
+  release:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+    steps:
+
+    - uses: actions/checkout@v3
+
+    - uses: ncipollo/release-action@v1
+      with:
+        draft: true
+        body: "See doc/changelog.rst"
+        token: ${{ secrets.GITHUB_TOKEN }}

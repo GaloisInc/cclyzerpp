@@ -45,6 +45,7 @@ Table of Contents
    build
    design
    dev
+   docker
    implementation
    legal
    overview
