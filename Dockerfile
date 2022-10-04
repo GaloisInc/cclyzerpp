@@ -34,7 +34,13 @@ RUN apt-get update && \
       clang-tidy-${LLVM_VERSION} \
       llvm-${LLVM_VERSION} \
       llvm-${LLVM_VERSION}-dev && \
+    update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-${LLVM_VERSION} 60 && \
+    update-alternatives --install /usr/bin/cc cc /usr/bin/clang-${LLVM_VERSION} 60 && \
+    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${LLVM_VERSION} 60 && \
+    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${LLVM_VERSION} 60 && \
+    update-alternatives --install /usr/bin/opt opt /usr/bin/opt-${LLVM_VERSION} 60 && \
     rm -rf /var/lib/apt/lists/*
+RUN pip install pytest
 # TODO(lb): Test dependencies
 
 # Image that builds cclyzer++
