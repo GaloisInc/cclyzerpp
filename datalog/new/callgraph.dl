@@ -1,0 +1,81 @@
+.comp Callgraph<Ctx> {
+
+  //----------------------------------------------------------------------------
+  // "Input"/declared rules
+  //
+  // https://souffle-lang.github.io/components#input-rules
+  //----------------------------------------------------------------------------
+
+  // Should set these all to the empty context for a context-insensitive
+  // analysis
+  .decl main_context(ctx: Ctx)
+  .decl startup_context(ctx: Ctx)
+  .decl exit_context(ctx: Ctx)
+
+  .decl merge(newCtx: Ctx, callerInstr: Instruction, callerCtx: Ctx) inline
+
+  //----------------------------------------------------------------------------
+  // "Virtual" rules
+  //
+  // To be implemented by components that inherit from this one.
+  //
+  // By convention, rules that begin with an underscore are internal
+  // implementation details, and should not be accessed outside the component.
+  //----------------------------------------------------------------------------
+
+  .decl _v_indirect_call_target(callee: FunctionDecl, callerInstr: Instruction, callerCtx: Ctx) inline
+
+  //----------------------------------------------------------------------------
+  // "Output"/defined rules
+  //----------------------------------------------------------------------------
+
+  .decl need_merge(callerInstr: Instruction, callerCtx: Ctx)
+  need_merge(instr, ctx) :-
+    ( call_instruction(instr)
+    ; invoke_instruction(instr)
+    ),
+    reachable_instruction(ctx, instr).
+
+  .decl reachable_instruction(calleeCtx: Ctx, instr: Instruction) inline
+  reachable_instruction(calleeCtx, instr) :-
+    reachable_context(callerCtx, caller),
+    instruction_in_function(caller, func).
+
+  .decl reachable_context(calleeCtx: Ctx, callee: FunctionDecl) inline
+
+  reachable_context(ctx, func) :-
+    ( main_function(func),
+      main_context(ctx)
+    ; called_at_startup(func),
+      startup_context(ctx)
+    ; called_at_exit(func),
+      exit_context(ctx)
+    ).
+
+  reachable_context(calleeCtx, callee) :-
+    callgraph_edge(calleeCtx, callee, _, _).
+
+  .decl callgraph_edge(calleeCtx: Ctx, callee: FunctionDecl, callerCtx: Ctx, callerInstr: Instruction)
+
+  callgraph_edge(calleeCtx, callee, callerCtx, callerInstr) :-
+    ( _instr_calls_func(instr, callee)  // direct calls
+    ; _v_indirect_call_target(callee, callerInstr, callerCtx)  // indirect
+    ),
+    reachable_instruction(callerCtx, callerInstr),
+    merge(calleeCtx, callerInstr, callerCtx).
+}
+
+.comp DirectCallgraph<Ctx> : Callgraph<Ctx> { }
+
+.comp TypeBasedCallgraph<Ctx> : Callgraph<Ctx> {
+  _v_indirect_call_target(callee, callerInstr, callerCtx) :- 
+    ( call_instruction_fn_operand(callerInstr, op)
+    ; invoke_instruction_fn_operand(callerInstr, op)
+    ),
+    variable(op),
+    reachable_instruction(callerCtx, callerInstr),
+    operand_has_type(op, opType),
+    pointer_type_has_component(opType, declaredType),
+    type_compatible(actualType, declaredType),
+    function_has_type(callee, actualType).
+}
