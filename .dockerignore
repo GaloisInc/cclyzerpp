@@ -1,6 +1,0 @@
-*
-!*.cpp
-!*.h
-!CMakeLists.txt
-!FactGenerator
-!datalog

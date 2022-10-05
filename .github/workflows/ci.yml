@@ -96,7 +96,6 @@ jobs:
 
       - name: Build and push dist image
         run: |
-          ./scripts/gha-docker-build "build" "cclyzerpp-build"
           ./scripts/gha-docker-build "dist" "cclyzerpp-dist"
 
   release:

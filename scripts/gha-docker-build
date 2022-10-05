@@ -23,11 +23,11 @@ else
   ref="${GITHUB_SHA}"
 fi
 
-target="${1}"
+file="${1}.dockerfile"
 name="${2}"
 
-if [[ -z "${target}" || -z "${name}" ]]; then
-  >&2 echo "Usage: gha-docker-build <dockerfile-target> <image-name>"
+if [[ -z "${file}" || -z "${name}" ]]; then
+  >&2 echo "Usage: gha-docker-build <dockerfile-name> <image-name>"
   exit 1
 fi
 
@@ -38,17 +38,18 @@ full_image_name="ghcr.io/galoisinc/${name}"
 # * The most recent `:main`-tagged image
 prev_ref=$(git rev-parse "${ref}~1" || true)
 
->&2 echo "Building ${full_image_name}:${ref} from ${target} target"
+>&2 echo "Building ${full_image_name}:${ref} from ${file}.dockerfile"
 
 # Do the actual build. We need to explicitly enable BuildKit's inline cache,
 # for reasons that I don't know.
+cd docker
 docker build \
+  --file "${file}" \
   --build-arg BUILDKIT_INLINE_CACHE=1 \
   --cache-from "${full_image_name}:${prev_ref}" \
   --cache-from "${full_image_name}:main" \
-  --target "${target}" \
   --tag "${full_image_name}:${ref}" \
-  .
+  ..
 
 docker push "${full_image_name}:${ref}"
 

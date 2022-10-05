@@ -1,6 +1,11 @@
 Building and Running
 ====================
 
+.. note::
+
+  You can download a pre-built Docker image with all of the build dependencies
+  rather than installing them on your host. See :doc:`docker` for details.
+
 cclyzer++ requires Soufflé version 2.3; see the `Soufflé build documentation`_
 for information on how to download and install Soufflé.
 
