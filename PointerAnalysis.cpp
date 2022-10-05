@@ -81,16 +81,7 @@ llvm::cl::opt<ContextSensitivity> context_sensitivity(
         clEnumValN(CALLER6, CALLER6_STRING, "depth 6 caller sensitive"),
         clEnumValN(CALLER7, CALLER7_STRING, "depth 7 caller sensitive"),
         clEnumValN(CALLER8, CALLER8_STRING, "depth 8 caller sensitive"),
-        clEnumValN(CALLER9, CALLER9_STRING, "depth 9 caller sensitive"),
-        clEnumValN(FILE1, FILE1_STRING, "depth 1 file sensitive"),
-        clEnumValN(FILE2, FILE2_STRING, "depth 2 file sensitive"),
-        clEnumValN(FILE3, FILE3_STRING, "depth 3 file sensitive"),
-        clEnumValN(FILE4, FILE4_STRING, "depth 4 file sensitive"),
-        clEnumValN(FILE5, FILE5_STRING, "depth 5 file sensitive"),
-        clEnumValN(FILE6, FILE6_STRING, "depth 6 file sensitive"),
-        clEnumValN(FILE7, FILE7_STRING, "depth 7 file sensitive"),
-        clEnumValN(FILE8, FILE8_STRING, "depth 8 file sensitive"),
-        clEnumValN(FILE9, FILE9_STRING, "depth 9 file sensitive")));
+        clEnumValN(CALLER9, CALLER9_STRING, "depth 9 caller sensitive")));
 
 auto PointerAnalysisAAResult::alias(
     const llvm::MemoryLocation &location,

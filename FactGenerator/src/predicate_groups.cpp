@@ -56,7 +56,6 @@ pred_t instruction::next("next_instruction");
 pred_t instruction::bb_entry("instruction_bb_entry");
 pred_t instruction::function("instruction_in_function");
 pred_t instruction::pos("instruction_pos");
-pred_t instruction::location("instruction_at_location");
 
 // Binary Instructions
 

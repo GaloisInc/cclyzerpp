@@ -51,15 +51,6 @@ user_option_valid_value("context_sensitivity","6-caller").
 user_option_valid_value("context_sensitivity","7-caller").
 user_option_valid_value("context_sensitivity","8-caller").
 user_option_valid_value("context_sensitivity","9-caller").
-user_option_valid_value("context_sensitivity","1-file").
-user_option_valid_value("context_sensitivity","2-file").
-user_option_valid_value("context_sensitivity","3-file").
-user_option_valid_value("context_sensitivity","4-file").
-user_option_valid_value("context_sensitivity","5-file").
-user_option_valid_value("context_sensitivity","6-file").
-user_option_valid_value("context_sensitivity","7-file").
-user_option_valid_value("context_sensitivity","8-file").
-user_option_valid_value("context_sensitivity","9-file").
 
 user_option_default("context_sensitivity","insensitive").
 

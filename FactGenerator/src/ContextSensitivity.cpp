@@ -46,25 +46,6 @@ auto operator>>(std::istream& in, ContextSensitivity& sensitivity)
   } else if (token == CALLER9_STD_STRING) {
     sensitivity = CALLER9;
 
-  } else if (token == FILE1_STD_STRING) {
-    sensitivity = FILE1;
-  } else if (token == FILE2_STD_STRING) {
-    sensitivity = FILE2;
-  } else if (token == FILE3_STD_STRING) {
-    sensitivity = FILE3;
-  } else if (token == FILE4_STD_STRING) {
-    sensitivity = FILE4;
-  } else if (token == FILE5_STD_STRING) {
-    sensitivity = FILE5;
-  } else if (token == FILE6_STD_STRING) {
-    sensitivity = FILE6;
-  } else if (token == FILE7_STD_STRING) {
-    sensitivity = FILE7;
-  } else if (token == FILE8_STD_STRING) {
-    sensitivity = FILE8;
-  } else if (token == FILE9_STD_STRING) {
-    sensitivity = FILE9;
-
   } else {
     in.setstate(std::ios_base::failbit);
   }

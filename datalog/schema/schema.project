@@ -69,18 +69,3 @@
 #include "va-arg-instruction.dl"
 
 #include "activate-sanity.dl"
-
-// DWARF-like Debug Metadata Info Extensions
-#include "debuginfo/tag.dl"
-#include "debuginfo/entry.dl"
-#include "debuginfo/file.dl"
-#include "debuginfo/subrange.dl"
-#include "debuginfo/namespace.dl"
-#include "debuginfo/enumerators.dl"
-#include "debuginfo/types.dl"
-#include "debuginfo/templates.dl"
-#include "debuginfo/imports.dl"
-#include "debuginfo/lexical_scopes.dl"
-#include "debuginfo/variable.dl"
-#include "debuginfo/subprogram.dl"
-#include "debuginfo/location.dl"

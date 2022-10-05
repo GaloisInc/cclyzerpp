@@ -28,15 +28,6 @@ enum ContextSensitivity {
   CALLER7,
   CALLER8,
   CALLER9,
-  FILE1,
-  FILE2,
-  FILE3,
-  FILE4,
-  FILE5,
-  FILE6,
-  FILE7,
-  FILE8,
-  FILE9,
 };
 
 constexpr char const* INSENSITIVE_STRING = "insensitive";
@@ -58,15 +49,6 @@ constexpr char const* CALLER6_STRING = "6-caller";
 constexpr char const* CALLER7_STRING = "7-caller";
 constexpr char const* CALLER8_STRING = "8-caller";
 constexpr char const* CALLER9_STRING = "9-caller";
-constexpr char const* FILE1_STRING = "1-file";
-constexpr char const* FILE2_STRING = "2-file";
-constexpr char const* FILE3_STRING = "3-file";
-constexpr char const* FILE4_STRING = "4-file";
-constexpr char const* FILE5_STRING = "5-file";
-constexpr char const* FILE6_STRING = "6-file";
-constexpr char const* FILE7_STRING = "7-file";
-constexpr char const* FILE8_STRING = "8-file";
-constexpr char const* FILE9_STRING = "9-file";
 
 const std::string INSENSITIVE_STD_STRING = std::string(INSENSITIVE_STRING);
 const std::string CALLSITE1_STD_STRING = std::string(CALLSITE1_STRING);
@@ -87,15 +69,6 @@ const std::string CALLER6_STD_STRING = std::string(CALLER6_STRING);
 const std::string CALLER7_STD_STRING = std::string(CALLER7_STRING);
 const std::string CALLER8_STD_STRING = std::string(CALLER8_STRING);
 const std::string CALLER9_STD_STRING = std::string(CALLER9_STRING);
-const std::string FILE1_STD_STRING = std::string(FILE1_STRING);
-const std::string FILE2_STD_STRING = std::string(FILE2_STRING);
-const std::string FILE3_STD_STRING = std::string(FILE3_STRING);
-const std::string FILE4_STD_STRING = std::string(FILE4_STRING);
-const std::string FILE5_STD_STRING = std::string(FILE5_STRING);
-const std::string FILE6_STD_STRING = std::string(FILE6_STRING);
-const std::string FILE7_STD_STRING = std::string(FILE7_STRING);
-const std::string FILE8_STD_STRING = std::string(FILE8_STRING);
-const std::string FILE9_STD_STRING = std::string(FILE9_STRING);
 
 // This needs to be kept in sync with user_options.dl.
 constexpr auto context_sensitivity_to_string(
@@ -155,34 +128,6 @@ constexpr auto context_sensitivity_to_string(
       break;
     case CALLER9:
       return CALLER9_STRING;
-      break;
-
-    case FILE1:
-      return FILE1_STRING;
-      break;
-    case FILE2:
-      return FILE2_STRING;
-      break;
-    case FILE3:
-      return FILE3_STRING;
-      break;
-    case FILE4:
-      return FILE4_STRING;
-      break;
-    case FILE5:
-      return FILE5_STRING;
-      break;
-    case FILE6:
-      return FILE6_STRING;
-      break;
-    case FILE7:
-      return FILE7_STRING;
-      break;
-    case FILE8:
-      return FILE8_STRING;
-      break;
-    case FILE9:
-      return FILE9_STRING;
       break;
 
     case INSENSITIVE:

@@ -45,15 +45,6 @@ class ContextSensitivity(Enum):
     CALLER7 = "7-caller"
     CALLER8 = "8-caller"
     CALLER9 = "9-caller"
-    FILE1 = "1-file"
-    FILE2 = "2-file"
-    FILE3 = "3-file"
-    FILE4 = "4-file"
-    FILE4 = "5-file"
-    FILE4 = "6-file"
-    FILE4 = "7-file"
-    FILE4 = "8-file"
-    FILE4 = "9-file"
 
     def __str__(self) -> str:
         """For inclusion in --help."""

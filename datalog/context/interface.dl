@@ -272,39 +272,6 @@ context_item_by_invoc_interim(?invoc, ?ctxItem) :-
   function_has_name(?func, ?name),
   ?ctxItem = ?name.
 
-.decl function_defined_in_file(?func: Function, ?filename: symbol)
-function_defined_in_file(?func, ?filename) :-
-  function_has_name(?func, cat("@", ?name)),
-  ( di?subprogram_linkage_name(?diSubprogram, ?name)
-  ; di?subprogram_name(?diSubprogram, ?name)
-  ),
-  di?subprogram_source_file(?diSubprogram, ?diFile),
-  di?file_filename(?diFile, ?filename).
-
-.decl context_item_by_function(?func: Function, ?item: symbol)
-context_item_by_function(?func, ?item) :-
-  function_defined_in_file(?func, ?item).
-context_item_by_function(?func, "<unknown-file>") :-
-  function(?func),
-  !function_defined_in_file(?func, _).
-
-context_item_by_invoc_interim(?invoc, ?ctxItem) :-
-  user_options("context_sensitivity", Config),
-  ( Config = "1-file"
-  ; Config = "2-file"
-  ; Config = "3-file"
-  ; Config = "4-file"
-  ; Config = "5-file"
-  ; Config = "6-file"
-  ; Config = "7-file"
-  ; Config = "8-file"
-  ; Config = "9-file"
-  ),
-  (call_instruction(?invoc); invoke_instruction(?invoc)),
-  instruction_in_function(?invoc, ?func),
-  context_item_by_function(?func, ?filename),
-  ?ctxItem = ?filename.
-
 //---------------------------------------------------------
 // Serialization
 //---------------------------------------------------------
