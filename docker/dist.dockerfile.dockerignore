@@ -1,0 +1,4 @@
+*
+!build/factgen-exe
+!build/libSoufflePA.so
+!build/libPAPass.so

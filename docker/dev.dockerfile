@@ -44,19 +44,4 @@ RUN apt-get update && \
     update-alternatives --install /usr/bin/opt opt /usr/bin/opt-${LLVM_VERSION} 60 && \
     rm -rf /var/lib/apt/lists/*
 RUN pip install pytest
-# TODO(lb): Test dependencies
-
-# Image that builds cclyzer++
-FROM dev as build
-SHELL ["/bin/bash", "-c", "-o", "pipefail"]
-WORKDIR /build
-COPY . .
-RUN cmake -G Ninja -B build -S . && \
-    cmake --build build -j $(nproc)
-
-# Image with runtime dependencies and a built version of cclyzer++
-#
-# TODO(lb): Build and install other binaries
-FROM dev as dist
-SHELL ["/bin/bash", "-c", "-o", "pipefail"]
-COPY --from=build /build/build/factgen-exe /usr/bin/factgen-exe
+# TODO(lb): Sphinx, Mypy
