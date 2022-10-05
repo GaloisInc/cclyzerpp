@@ -195,10 +195,6 @@ auto FactGenerator::processModule(
             unsigned column = location.getCol();
 
             writeFact(pred::instruction::pos, iref, line, column);
-
-            refmode_t locref = debugInfoProcessor.record_di_location(*location);
-
-            writeFact(pred::instruction::location, iref, locref);
           }
         }
 

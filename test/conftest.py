@@ -43,15 +43,6 @@ class ContextSensitivity(Enum):
     CALLER7 = "7-caller"
     CALLER8 = "8-caller"
     CALLER9 = "9-caller"
-    FILE1 = "1-file"
-    FILE2 = "2-file"
-    FILE3 = "3-file"
-    FILE4 = "4-file"
-    FILE5 = "5-file"
-    FILE6 = "6-file"
-    FILE7 = "7-file"
-    FILE8 = "8-file"
-    FILE9 = "9-file"
 
 
 PARENT: Path = Path(realpath(__file__)).parent
@@ -270,7 +261,6 @@ def pytest_generate_tests(metafunc):
                     ContextSensitivity.INSENSITIVE,
                     ContextSensitivity.CALLSITE1,
                     ContextSensitivity.CALLER1,
-                    ContextSensitivity.FILE1,
                 ),
             )
         else:
@@ -282,7 +272,5 @@ def pytest_generate_tests(metafunc):
                     ContextSensitivity.CALLSITE2,
                     ContextSensitivity.CALLER1,
                     ContextSensitivity.CALLER2,
-                    ContextSensitivity.FILE1,
-                    ContextSensitivity.FILE2,
                 ),
             )

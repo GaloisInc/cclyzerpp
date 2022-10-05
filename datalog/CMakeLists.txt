@@ -78,19 +78,6 @@ set(DL_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/schema/zext-instruction.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/fptoui-instruction.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/load-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/debuginfo/location.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/debuginfo/namespace.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/debuginfo/tag.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/debuginfo/variable.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/debuginfo/types.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/debuginfo/entry.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/debuginfo/imports.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/debuginfo/subrange.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/debuginfo/enumerators.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/debuginfo/subprogram.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/debuginfo/templates.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/debuginfo/file.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/debuginfo/lexical_scopes.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/fsub-instruction.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/extractelement-instruction.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/fptosi-instruction.dl

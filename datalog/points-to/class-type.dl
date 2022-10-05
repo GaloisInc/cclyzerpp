@@ -2,7 +2,7 @@
 // Class Types
 //-----------------
 
-//UNFINISHED (needs debuginfo)
+// UNFINISHED (needs debuginfo)
 
 // Class types are a subset of struct types
 .type ClassType = StructType
@@ -16,14 +16,12 @@
 // to identify class types, by searching for struct types with a
 // specific prefix (namely, `%class.`).
 class_type(?type) :-
-   !debuginfo_is_loaded(),
    struct_type(?type),
    ( contains("%class\\.", ?type)
    ; contains("%\"class\\.", ?type)
    ).
 
 class_type_name(?type, ?name) :-
-   !debuginfo_is_loaded(),
    struct_type(?type),
    !template_type(?type),
    contains("%\"class\\.", ?type),
@@ -31,7 +29,6 @@ class_type_name(?type, ?name) :-
    ?name = substr(?type, 8, (?n) - 8).
 
 class_type_name(?type, ?name) :-
-   !debuginfo_is_loaded(),
    struct_type(?type),
    !template_type(?type),
    contains("%class\\.", ?type),
@@ -39,7 +36,6 @@ class_type_name(?type, ?name) :-
    ?name = substr(?type, 7, (?n) - 7).
 
 class_type_name(?type, ?name) :-
-   !debuginfo_is_loaded(),
    struct_type(?type),
    !template_type(?type),
    contains("%\"struct\\.", ?type),
@@ -47,7 +43,6 @@ class_type_name(?type, ?name) :-
    ?name = substr(?type, 9, (?n) - 9).
 
 class_type_name(?type, ?name) :-
-   !debuginfo_is_loaded(),
    struct_type(?type),
    !template_type(?type),
    contains("%struct\\.", ?type),
@@ -66,7 +61,6 @@ class_type_name(?type, ?name) :-
 
 .decl class_type_typeinfo(?classType: ClassType, ?typeInfo: GlobalVariable)
 
-
 // Extract class name from unmangled type info name. The latter is of
 // the form: typeinfo for CLASS-NAME
 .decl _typeinfo_class_name(?typeInfo: GlobalVariable, ?className: symbol)
@@ -77,7 +71,7 @@ _typeinfo_class_name(?typeInfo, ?className) :-
    ?n = strlen(?tIName),
    ?className = substr(?tIName, 13, ?n - 13).
 
-
+// TODO(lb): Remove me!
 .decl _typeinfo_by_class_name(?className: symbol , ?typeInfo: GlobalVariable)
 _typeinfo_by_class_name(?className, ?typeInfo) :-
    _typeinfo_class_name(?typeInfo, ?className).
@@ -86,7 +80,6 @@ _typeinfo_by_class_name(?className, ?typeInfo) :-
 class_type_typeinfo(?classType, ?typeInfo) :-
    class_type_name(?classType, ?className),
    _typeinfo_by_class_name(?className, ?typeInfo).
-
 
 // Extract class name from unmangled vtable name. The latter is of the
 // form: vtable for CLASS-NAME
@@ -107,18 +100,10 @@ class_type_vtable(?classType, ?vt) :-
    class_type_name(?classType, ?className),
    _vtable_class_name(?vt, ?className),
    _vtable_by_class_name(?className, ?vt).
-/*
-// Sanity check
-class_type:vtable[ClassType] = VTable
- , vtable:typeinfo[VTable] = TypeInfo
- ->
-   class_type:typeinfo[ClassType] = TypeInfo.
-*/
 
 //------------------------------------------------------------------------------
 // Recovering Class Hierarchy
 //------------------------------------------------------------------------------
-
 
 .decl primary_superclass(?type: ClassType, ?superType: ClassType)
 .decl secondary_superclass(?superType: ClassType, ?type: ClassType)
@@ -260,19 +245,10 @@ unpadded_struct_type(?type) :-
    struct_type(?type),
    match(".*\\.base",?type).
 
-// Defined in debuginfo module
-.decl template_type_name(?name: symbol)
 .decl template_typeinfo(?typeInfo: GlobalVariable)
 
 // Typeinfo objects of template types
 template_typeinfo(?typeInfo) :-
-   debuginfo_is_loaded(),
-   template_type_name(?name),
-   _typeinfo_by_class_name(?name, ?typeInfo).
-
-// Fallback when no debug info has been loaded
-template_typeinfo(?typeInfo) :-
-   !debuginfo_is_loaded(),
    match(".*<.*>", ?name),
    _typeinfo_by_class_name(?name, ?typeInfo).
 
