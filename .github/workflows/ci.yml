@@ -92,7 +92,7 @@ jobs:
             --rm -v $(pwd):/work \
             --workdir /work \
             "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
-            pytest -x
+            pytest -x -n=$(nproc)
 
       - name: Build and push dist image
         run: |

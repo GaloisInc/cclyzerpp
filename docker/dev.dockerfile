@@ -43,5 +43,5 @@ RUN apt-get update && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${LLVM_VERSION} 60 && \
     update-alternatives --install /usr/bin/opt opt /usr/bin/opt-${LLVM_VERSION} 60 && \
     rm -rf /var/lib/apt/lists/*
-RUN pip install pytest
+RUN pip install pytest pytest-xdist
 # TODO(lb): Sphinx, Mypy
