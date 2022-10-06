@@ -34,9 +34,9 @@ constant_references_function(FC, Func) :-
 
 // Retrieve variable names from constants
 constant_references_variable(GC, GVar) :-
-  global_variable_constant(GC),
-  global_variable_constant_name(GC, Name),
-  global_variable_has_name(GVar, Name).
+  global_var_constant(GC),
+  global_var_constant_name(GC, Name),
+  global_var_name(GVar, Name).
 
 
 // A constant may be enclosed by a bitcast constant

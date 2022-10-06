@@ -3,11 +3,11 @@
 .decl initialized_by_constant(?alloc: Allocation, ?constant: Constant)
 
 initialized_by_constant(?baseAlloc, ?init) :-
-   global_variable_has_initializer(?var, ?init),
+   global_var_initializer(?var, ?init),
    global_allocation_by_variable(?var, ?baseAlloc).
 
 initialized_by_constant(?alloc, ?init) :-
-   global_variable_has_initializer(?var, ?init),
+   global_var_initializer(?var, ?init),
    global_allocation_by_variable(?var, ?baseAlloc),
    static_subobjects.alloc_subregion_at_array_index(?baseAlloc, 0, ?alloc).
 

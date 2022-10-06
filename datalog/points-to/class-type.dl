@@ -61,12 +61,12 @@ class_type_name(?type, ?name) :-
 
 .decl class_type_typeinfo(?classType: ClassType, ?typeInfo: GlobalVariable)
 
-// Extract class name from unmangled type info name. The latter is of
+// Extract class name from demangled type info name. The latter is of
 // the form: typeinfo for CLASS-NAME
 .decl _typeinfo_class_name(?typeInfo: GlobalVariable, ?className: symbol)
 _typeinfo_class_name(?typeInfo, ?className) :-
    typeinfo(?typeInfo),
-   global_variable_has_unmangled_name(?typeInfo, ?tIName),
+   global_var_demangled_name(?typeInfo, ?tIName),
    contains("typeinfo for ", ?tIName),
    ?n = strlen(?tIName),
    ?className = substr(?tIName, 13, ?n - 13).
@@ -81,15 +81,15 @@ class_type_typeinfo(?classType, ?typeInfo) :-
    class_type_name(?classType, ?className),
    _typeinfo_by_class_name(?className, ?typeInfo).
 
-// Extract class name from unmangled vtable name. The latter is of the
+// Extract class name from demangled vtable name. The latter is of the
 // form: vtable for CLASS-NAME
 .decl _vtable_class_name(?vt: GlobalVariable, ?className: symbol)
 _vtable_class_name(?vt, ?className) :-
    vtable(?vt, _),
-   global_variable_has_unmangled_name(?vt, ?unmangledName),
-   contains("vtable for ", ?unmangledName),
-   ?n = strlen(?unmangledName),
-   ?className = substr(?unmangledName, 11, ?n - 11).
+   global_var_demangled_name(?vt, ?demangledName),
+   contains("vtable for ", ?demangledName),
+   ?n = strlen(?demangledName),
+   ?className = substr(?demangledName, 11, ?n - 11).
 
 .decl _vtable_by_class_name(?className: symbol, ?vt: GlobalVariable)
 _vtable_by_class_name(?className, ?vt) :-

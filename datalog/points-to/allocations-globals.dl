@@ -9,8 +9,8 @@
 global_allocation(?alloc),
 global_allocation_by_variable(?gVar, ?alloc)
  :-
-   global_variable(?gVar),
-   global_variable_has_name(?gVar, ?name),
+   global_var(?gVar),
+   global_var_name(?gVar, ?name),
    ?alloc = cat("*global_alloc",?name).
 
 /// 2. Function Allocations
@@ -25,7 +25,7 @@ global_allocation_by_function(?func, ?alloc)
    ?alloc = cat("*global_alloc",?name).
 
 global_allocation_by_name(?globalName, ?alloc) :-
-   global_variable_has_name(?global, ?globalName),
+   global_var_name(?global, ?globalName),
    global_allocation_by_variable(?global, ?alloc).
 
 global_allocation_by_name(?globalName, ?alloc) :-
@@ -38,4 +38,4 @@ static_allocation_type(?alloc, ?type) :-
 
 static_allocation_type(?alloc, ?type) :-
    global_allocation_by_variable(?gVar, ?alloc),
-   global_variable_has_type(?gVar, ?type).
+   global_var_type(?gVar, ?type).

@@ -8,7 +8,7 @@
 .decl cxx_new_function(?func: FunctionDecl)
 
 // Consider only functions with a single parameter of integer type, no
-// definition, and whose unmangled name contains the keyword `new`
+// definition, and whose demangled name contains the keyword `new`
 
 cxx_new_function(?func),
    heap_alloc_function(?func)

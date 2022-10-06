@@ -1,33 +1,33 @@
 // http://llvm.org/docs/LangRef.html#global-variables
 
 .type GlobalVariable <: symbol
-.decl global_variable(gv:GlobalVariable)
-.decl global_variable_has_type(gv:GlobalVariable, type:Type)
-.decl global_variable_has_name(gv:GlobalVariable, name:GlobalVarName)
-.decl global_variable_has_unmangled_name(gv:GlobalVariable, name:symbol)
-.decl global_variable_has_flag(gv:GlobalVariable, flag:Flag)
-.decl global_variable_has_linkage_type(gv:GlobalVariable, link:LinkageType)
-.decl global_variable_has_initializer(gv:GlobalVariable, init:Constant)
-.decl global_variable_has_visibility(gv:GlobalVariable, vis:Visibility)
-.decl global_variable_in_section(gv:GlobalVariable, sect:symbol)
-.decl global_variable_in_threadlocal_mode(gv:GlobalVariable, mode:ThreadLocalMode)
-.decl global_variable_aligned_to(gv:GlobalVariable, alignment:number)
+.decl global_var(gv:GlobalVariable)
+.decl global_var_type(gv:GlobalVariable, type:Type)
+.decl global_var_name(gv:GlobalVariable, name:GlobalVarName)
+.decl global_var_demangled_name(gv:GlobalVariable, name:symbol)
+.decl global_var_flag(gv:GlobalVariable, flag:Flag)
+.decl global_var_linkage_type(gv:GlobalVariable, link:LinkageType)
+.decl global_var_initializer(gv:GlobalVariable, init:Constant)
+.decl global_var_visibility(gv:GlobalVariable, vis:Visibility)
+.decl global_var_in_section(gv:GlobalVariable, sect:symbol)
+.decl global_var_threadlocal_mode(gv:GlobalVariable, mode:ThreadLocalMode)
+.decl global_var_aligned_to(gv:GlobalVariable, alignment:number)
 
-flag(Flag) :- global_variable_has_flag(_, Flag).
+flag(Flag) :- global_var_flag(_, Flag).
 
 
 // For constraints
-.decl schema_invalid_global_variable(gv:GlobalVariable, file:File, line:Line)
+.decl schema_invalid_global_var(gv:GlobalVariable, file:File, line:Line)
 
-schema_invalid_global_variable(GVar, __FILE__, __LINE__) :-
+schema_invalid_global_var(GVar, __FILE__, __LINE__) :-
    schema_sanity(),
-   global_variable(GVar),
-   !global_variable_has_visibility(GVar, _).
+   global_var(GVar),
+   !global_var_visibility(GVar, _).
 
-schema_invalid_global_variable(GVar, __FILE__, __LINE__) :-
+schema_invalid_global_var(GVar, __FILE__, __LINE__) :-
    schema_sanity(),
-   global_variable(GVar),
-   !global_variable_has_linkage_type(GVar, _).
+   global_var(GVar),
+   !global_var_linkage_type(GVar, _).
 
 
 //------------------------------------------------------------------------------
@@ -42,10 +42,10 @@ schema_invalid_global_variable(GVar, __FILE__, __LINE__) :-
 //
 //------------------------------------------------------------------------------
 
-.decl global_variable_is_constant(gv:GlobalVariable)
+.decl global_var_is_constant(gv:GlobalVariable)
 
-global_variable_is_constant(GVar) :-
-   global_variable_has_flag(GVar, "constant").
+global_var_is_constant(GVar) :-
+   global_var_flag(GVar, "constant").
 
 
 //------------------------------------------------------------------------------

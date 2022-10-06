@@ -69,8 +69,9 @@ void FactGenerator::writeGlobalVar(
   refmode_t varType = recordType(gv.getType()->getElementType());
   refmode_t thrLocMode = refmode(gv.getThreadLocalMode());
 
-  // Record unmangled variable name
-  writeFact(pred::global_var::unmangl_name, id, demangle(gv.getName().data()));
+  // Record demangled variable name
+  writeFact(
+      pred::global_var::demangled_name, id, demangle(gv.getName().data()));
 
   // Record external linkage
   if (!gv.hasInitializer() && gv.hasExternalLinkage())

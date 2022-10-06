@@ -88,7 +88,7 @@ ptr_compatible_allocation(?alloc) :-
 // would change their contents
 ptr_compatible_allocation(?alloc) :-
    global_allocation_by_variable(?globalVar,?alloc),
-   ! global_variable_constant(?globalVar).
+   ! global_var_constant(?globalVar).
 
 //-------------------------------------
 // Additional pseudo-allocation types

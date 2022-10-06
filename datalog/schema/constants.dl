@@ -37,7 +37,7 @@
 .decl fp_constant(c:FPConstant)
 .decl nullptr_constant(c:NullPtrConstant)
 .decl function_constant(c:FunctionConstant)
-.decl global_variable_constant(c:GlobalVariableConstant)
+.decl global_var_constant(c:GlobalVariableConstant)
 .decl constant_array(c:ConstantArray)
 .decl constant_struct(c:ConstantStruct)
 .decl constant_vector(c:ConstantVector)
@@ -52,7 +52,7 @@ constant(c) :-
    constant_expression(c)
  ; constant_array(c)
  ; constant_struct(c)
- ; global_variable_constant(c)
+ ; global_var_constant(c)
  ; integer_constant(c)
  ; fp_constant(c)
  ; nullptr_constant(c)
@@ -83,28 +83,28 @@ schema_invalid_constant(Constant, __FILE__, __LINE__) :-
 // Constant that references global variable
 //---------------------------------------------
 
-.decl global_variable_constant_name(c:GlobalVariableConstant, name:symbol)
-.decl global_variable_constant_reference(c:GlobalVariableConstant, gv:GlobalVariable)
+.decl global_var_constant_name(c:GlobalVariableConstant, name:symbol)
+.decl global_var_constant_reference(c:GlobalVariableConstant, gv:GlobalVariable)
 
-global_variable_constant_reference(C, GVar) :-
-   global_variable_constant_name(C, Name),
-   global_variable_has_name(GVar, Name).
-
-schema_invalid_constant(Constant, __FILE__, __LINE__) :-
-   schema_sanity(),
-   global_variable_constant(Constant),
-   !global_variable_constant_name(Constant, _).
+global_var_constant_reference(C, GVar) :-
+   global_var_constant_name(C, Name),
+   global_var_name(GVar, Name).
 
 schema_invalid_constant(Constant, __FILE__, __LINE__) :-
    schema_sanity(),
-   global_variable_constant(Constant),
-   !global_variable_constant_reference(Constant, _).
+   global_var_constant(Constant),
+   !global_var_constant_name(Constant, _).
 
 schema_invalid_constant(Constant, __FILE__, __LINE__) :-
    schema_sanity(),
-   global_variable_constant(Constant),
-   global_variable_constant_reference(Constant, GVar),
-   global_variable_has_type(GVar, Type),
+   global_var_constant(Constant),
+   !global_var_constant_reference(Constant, _).
+
+schema_invalid_constant(Constant, __FILE__, __LINE__) :-
+   schema_sanity(),
+   global_var_constant(Constant),
+   global_var_constant_reference(Constant, GVar),
+   global_var_type(GVar, Type),
    constant_has_type(Constant, PtrType),
    !pointer_type_has_component(PtrType, Type).
 
