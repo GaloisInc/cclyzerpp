@@ -39,6 +39,8 @@ instruction(v) :- cmpxchg_instruction(v).
 
 // Auxiliary
 
+.decl cmpxchg_instruction_type(instr:CmpXchgInstruction, type:Type)
+
 .decl cmpxchg_instruction_cmp_value_type(instr:CmpXchgInstruction, type:Type)
 
 cmpxchg_instruction_cmp_value_type(Instr, Type) :-

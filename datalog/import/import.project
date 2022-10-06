@@ -1,8 +1,5 @@
-#line 1 "import-entities.dl"
-#include "import-entities.dl"
-
-#line 1 "import-predicates.dl"
-#include "import-predicates.dl"
+#line 1 "import.dl"
+#include "import.dl"
 
 // TODO(lb): Delete this, see todo.dl
 #line 1 "todo.dl"
