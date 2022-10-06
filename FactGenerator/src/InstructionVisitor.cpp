@@ -591,11 +591,6 @@ void InstructionVisitor::visitDbgDeclareInst(const llvm::DbgDeclareInst &DDI) {
   // First visit it as a generic call instruction
   InstructionVisitor::visitCallInst(static_cast<const llvm::CallInst &>(DDI));
 
-  // Process debug info
-#if LLVM_VERSION_MAJOR < 13
-  gen.debugInfoProcessor.processDeclare(module, &DDI);
-#endif
-
   // TODO Move the entire debug location logic to debuginfo_variables.cpp
   const llvm::Value *address = DDI.getAddress();
 
@@ -623,16 +618,6 @@ void InstructionVisitor::visitDbgDeclareInst(const llvm::DbgDeclareInst &DDI) {
 
     gen.writeFact(pred::variable::pos, refmode, line, column);
   }
-}
-
-void InstructionVisitor::visitDbgValueInst(const llvm::DbgValueInst &DDI) {
-  // First visit it as a generic call instruction
-  InstructionVisitor::visitCallInst(static_cast<const llvm::CallInst &>(DDI));
-
-  // Process debug info
-#if LLVM_VERSION_MAJOR < 13
-  gen.debugInfoProcessor.processValue(module, &DDI);
-#endif
 }
 
 void InstructionVisitor::visitICmpInst(const llvm::ICmpInst &I) {

@@ -99,7 +99,6 @@ class cclyzer::InstructionVisitor
   void visitLandingPadInst(const llvm::LandingPadInst &);
   void visitCallInst(const llvm::CallInst &);
   void visitDbgDeclareInst(const llvm::DbgDeclareInst &);
-  void visitDbgValueInst(const llvm::DbgValueInst &);
   void visitVAArgInst(const llvm::VAArgInst &);
 
   // Vector Operations
