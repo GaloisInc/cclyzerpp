@@ -25,25 +25,10 @@
 .input instruction_in_function(IO="file", delimiter="\t", filename="instruction_in_function.csv.gz")
 .input next_instruction(IO="file", delimiter="\t", filename="next_instruction.csv.gz")
 
-.decl _basicblock_preds(v0:symbol, v1:symbol)
 .input _basicblock_preds(IO="file", delimiter="\t", filename="basicblock_preds.csv.gz")
 
-basicblock_predecessors(bb0, bb1) :-
-   _basicblock_preds(e0, e1),
-   variable_is_label(e0),
-   variable_is_label(e1),
-   basicblock_of_label(bb0, e0),
-   basicblock_of_label(bb1, e1).
 
-
-.decl _instruction_bb_entry(v0:symbol, v1:symbol)
 .input _instruction_bb_entry(IO="file", delimiter="\t", filename="instruction_bb_entry.csv.gz")
-
-instruction_in_basicblock(e0, bb) :-
-   _instruction_bb_entry(e0, e1),
-   instruction(e0),
-   variable_is_label(e1),
-   basicblock_of_label(bb, e1).
 
 
 .input load_instruction_ordering(IO="file", delimiter="\t", filename="load_instruction_ordering.csv.gz")
@@ -154,33 +139,13 @@ instruction_in_basicblock(e0, bb) :-
 .input indirectbr_instruction_nlabels(IO="file", delimiter="\t", filename="indirectbr_instruction_nlabels.csv.gz")
 .input phi_instruction_type(IO="file", delimiter="\t", filename="phi_instruction_type.csv.gz")
 .input phi_instruction_npairs(IO="file", delimiter="\t", filename="phi_instruction_npairs.csv.gz")
-.decl _phi_instruction_pair_label(v0:symbol, v1:number, v2:symbol)
-.decl _phi_instruction_pair_value(v0:symbol, v1:number, v2:symbol)
 .input _phi_instruction_pair_label(IO="file", delimiter="\t", filename="phi_instruction_pair_label.csv.gz")
 .input _phi_instruction_pair_value(IO="file", delimiter="\t", filename="phi_instruction_pair_value.csv.gz")
-
-phi_instruction_pair(v0, v1, [v2, v3]) :-
-   _phi_instruction_pair_value(v0, v1, v2),
-   phi_instruction(v0),
-   operand(v2),
-   _phi_instruction_pair_label(v0, v1, v3),
-   variable(v3).
-
 .input switch_instruction_operand(IO="file", delimiter="\t", filename="switch_instruction_operand.csv.gz")
 .input switch_instruction_default_label(IO="file", delimiter="\t", filename="switch_instruction_default_label.csv.gz")
 .input switch_instruction_ncases(IO="file", delimiter="\t", filename="switch_instruction_ncases.csv.gz")
-.decl _switch_instruction_case_label(v0:symbol, v1:number, v2:symbol)
-.decl _switch_instruction_case_value(v0:symbol, v1:number, v2:symbol)
 .input _switch_instruction_case_label(IO="file", delimiter="\t", filename="switch_instruction_case_label.csv.gz")
 .input _switch_instruction_case_value(IO="file", delimiter="\t", filename="switch_instruction_case_value.csv.gz")
-
-switch_instruction_case(v0, v1, [v2, v3]) :-
-   _switch_instruction_case_value(v0, v1, v2),
-   switch_instruction(v0),
-   constant(v2),
-   _switch_instruction_case_label(v0, v1, v3),
-   variable(v3).
-
 .input ret_instruction_value(IO="file", delimiter="\t", filename="ret_instruction_value.csv.gz")
 .input void_ret_instruction(IO="file", delimiter="\t", filename="void_ret_instruction.csv.gz")
 .input extractelement_instruction_base(IO="file", delimiter="\t", filename="extractelement_instruction_base.csv.gz")
@@ -233,16 +198,8 @@ switch_instruction_case(v0, v1, [v2, v3]) :-
 .input landingpad_instruction_is_cleanup(IO="file", delimiter="\t", filename="landingpad_instruction_is_cleanup.csv.gz")
 .input landingpad_instruction_nclauses(IO="file", delimiter="\t", filename="landingpad_instruction_nclauses.csv.gz")
 .input landingpad_instruction_type(IO="file", delimiter="\t", filename="landingpad_instruction_type.csv.gz")
-.decl _landingpad_instruction_catch_clause(v0:Instruction, v1:number, v2:Constant)
-.decl _landingpad_instruction_filter_clause(v0:Instruction, v1:number, v2:Constant)
 .input _landingpad_instruction_catch_clause(IO="file", delimiter="\t", filename="landingpad_instruction_catch_clause.csv.gz")
 .input _landingpad_instruction_filter_clause(IO="file", delimiter="\t", filename="landingpad_instruction_filter_clause.csv.gz")
-
-catch_clause([v2]), landingpad_instruction_clause(v0, v1, [v2]) :-
-   _landingpad_instruction_catch_clause(v0, v1, v2).
-
-filter_clause([v2]), landingpad_instruction_clause(v0, v1, [v2]) :-
-   _landingpad_instruction_filter_clause(v0, v1, v2).
 
 
 .input function_constant_fn_name(IO="file", delimiter="\t", filename="function_constant_fn_name.csv.gz")
@@ -277,31 +234,13 @@ filter_clause([v2]), landingpad_instruction_clause(v0, v1, [v2]) :-
 .input alias_has_type(IO="file", delimiter="\t", filename="alias_has_type.csv.gz")
 .input alias_has_linkage_type(IO="file", delimiter="\t", filename="alias_has_linkage_type.csv.gz")
 .input alias_has_visibility(IO="file", delimiter="\t", filename="alias_has_visibility.csv.gz")
-
-
-
-// anantoni: The following input relations have been commented out since Souffle does not support unsigned 64-bit
-// integers, which appear in several benchmarks
-//
-// .input constant_hashes_to(IO="file", delimiter="\t", filename="constant_hashes_to.csv.gz")
 .input constant_has_value(IO="file", delimiter="\t", filename="constant_has_value.csv.gz")
-
 
 .input constant_to_int(IO="file", delimiter="\t", filename="constant_to_int.csv.gz")
 
 
-.decl _constant_in_function(v0:Constant, v1:FunctionName)
-.decl _variable_in_function(v0:Variable, v1:FunctionName)
 .input _constant_in_function(IO="file", delimiter="\t", filename="constant_in_fn.csv.gz")
 .input _variable_in_function(IO="file", delimiter="\t", filename="variable_in_fn.csv.gz")
-
-constant_in_function(Constant, Function) :-
-   _constant_in_function(Constant, FuncName),
-   function_has_name(Function, FuncName).
-
-variable_in_function(Variable, Function) :-
-   _variable_in_function(Variable, FuncName),
-   function_has_name(Function, FuncName).
 
 .input variable_has_debug_source_name(IO="file", delimiter="\t", filename="variable_has_debug_source_name.csv.gz")
 .input variable_has_debug_decl_pos(IO="file", delimiter="\t", filename="variable_has_debug_decl_pos.csv.gz")

@@ -1,0 +1,55 @@
+// TODO(lb): Move these elsewhere! These were erroneously included in the
+// import*.dl files before these were derived from predicates.inc.
+
+.decl _basicblock_preds(v0:symbol, v1:symbol)
+basicblock_predecessors(bb0, bb1) :-
+   _basicblock_preds(e0, e1),
+   variable_is_label(e0),
+   variable_is_label(e1),
+   basicblock_of_label(bb0, e0),
+   basicblock_of_label(bb1, e1).
+
+.decl _instruction_bb_entry(v0:symbol, v1:symbol)
+instruction_in_basicblock(e0, bb) :-
+   _instruction_bb_entry(e0, e1),
+   instruction(e0),
+   variable_is_label(e1),
+   basicblock_of_label(bb, e1).
+
+.decl _phi_instruction_pair_label(v0:symbol, v1:number, v2:symbol)
+.decl _phi_instruction_pair_value(v0:symbol, v1:number, v2:symbol)
+phi_instruction_pair(v0, v1, [v2, v3]) :-
+   _phi_instruction_pair_value(v0, v1, v2),
+   phi_instruction(v0),
+   operand(v2),
+   _phi_instruction_pair_label(v0, v1, v3),
+   variable(v3).
+
+.decl _switch_instruction_case_label(v0:symbol, v1:number, v2:symbol)
+.decl _switch_instruction_case_value(v0:symbol, v1:number, v2:symbol)
+switch_instruction_case(v0, v1, [v2, v3]) :-
+   _switch_instruction_case_value(v0, v1, v2),
+   switch_instruction(v0),
+   constant(v2),
+   _switch_instruction_case_label(v0, v1, v3),
+   variable(v3).
+
+.decl _landingpad_instruction_catch_clause(v0:Instruction, v1:number, v2:Constant)
+.decl _landingpad_instruction_filter_clause(v0:Instruction, v1:number, v2:Constant)
+
+catch_clause([v2]), landingpad_instruction_clause(v0, v1, [v2]) :-
+   _landingpad_instruction_catch_clause(v0, v1, v2).
+
+filter_clause([v2]), landingpad_instruction_clause(v0, v1, [v2]) :-
+   _landingpad_instruction_filter_clause(v0, v1, v2).
+
+.decl _constant_in_function(v0:Constant, v1:FunctionName)
+.decl _variable_in_function(v0:Variable, v1:FunctionName)
+
+constant_in_function(Constant, Function) :-
+   _constant_in_function(Constant, FuncName),
+   function_has_name(Function, FuncName).
+
+variable_in_function(Variable, Function) :-
+   _variable_in_function(Variable, FuncName),
+   function_has_name(Function, FuncName).
