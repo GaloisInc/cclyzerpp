@@ -58,7 +58,7 @@ landingpad_instruction_pers_fn(Instr, PersFunction) :-
 
 landingpad(BB) :-
    invoke_instruction_exception_label(_, Label),
-   basicblock_of_label(BB, Label).
+   block_of_label(BB, Label).
 
 
 // Compute the segment of consecutive phi-instructions from starting
@@ -68,14 +68,14 @@ landingpad(BB) :-
 
 _landingpad_starting_phi(BB, Instr) :-
    landingpad(BB),
-   basicblock_first_instruction(BB, Instr),
+   block_first_instruction(BB, Instr),
    phi_instruction(Instr).
 
 _landingpad_starting_phi(BB, NextInstr) :-
    _landingpad_starting_phi(BB, Instr),
    next_instruction(Instr, NextInstr),
    phi_instruction(NextInstr),
-   instruction_in_basicblock(NextInstr, BB).
+   instruction_in_block(NextInstr, BB).
 
 
 // Compute the first non-phi instruction, per landing pad.
@@ -84,14 +84,14 @@ _landingpad_starting_phi(BB, NextInstr) :-
 
 _landingpad_first_nonphi(BB, Instr) :-
    landingpad(BB),
-   basicblock_first_instruction(BB, Instr),
+   block_first_instruction(BB, Instr),
    !phi_instruction(Instr).
 
 _landingpad_first_nonphi(BB, NextInstr) :-
    _landingpad_starting_phi(BB, Instr),
    next_instruction(Instr, NextInstr),
    !phi_instruction(NextInstr),
-   instruction_in_basicblock(NextInstr, BB).
+   instruction_in_block(NextInstr, BB).
 
 
 // Same as above, via different computation.
@@ -99,7 +99,7 @@ _landingpad_first_nonphi(BB, NextInstr) :-
 
 _landingpad_contains_landingpad_instruction(BB, Instr) :-
    landingpad_instruction(Instr),
-   instruction_in_basicblock(Instr, BB),
+   instruction_in_block(Instr, BB),
    landingpad(BB).
 
 
@@ -192,7 +192,7 @@ schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
 schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    landingpad(BB), !_valid_landingpad(BB),
-   basicblock_first_instruction(BB, Instr).
+   block_first_instruction(BB, Instr).
 
 
 // 3rd Constraint: in case of multiple landing pad instructions in a
@@ -206,7 +206,7 @@ schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
 schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    landingpad_instruction(Instr),
-   instruction_in_basicblock(Instr, BB),
+   instruction_in_block(Instr, BB),
    !landingpad(BB).
 
 
