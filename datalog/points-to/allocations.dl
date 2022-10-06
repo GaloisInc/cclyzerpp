@@ -1,12 +1,12 @@
-.decl build_stack_allocation(stackAlloc: StackAllocation, function: Function, type: Type, var: Variable) inline
-build_stack_allocation(stackAlloc, function, type, var) :-
-  function_has_name(function, funcName),
+.decl build_stack_allocation(stackAlloc: StackAllocation, func: Function, type: Type, var: Variable) inline
+build_stack_allocation(stackAlloc, func, type, var) :-
+  func_name(func, funcName),
   variable_has_name(var, varName),
   stackAlloc = cat("*stack_alloc", funcName, "[", type, " ", varName, "]").
 
-.decl build_heap_allocation(heapAlloc: HeapAllocation, function: Function, type: Type, var: Variable) inline
+.decl build_heap_allocation(heapAlloc: HeapAllocation, func: Function, type: Type, var: Variable) inline
 build_heap_allocation(heapAlloc, func, type, var) :-
-  function_has_name(func, funcName),
+  func_name(func, funcName),
   variable_has_name(var, varName),
   heapAlloc = cat("*heap_alloc", funcName, "[", type, " ", varName, "]").
 
@@ -15,7 +15,7 @@ build_heap_allocation(heapAlloc, func, type, var) :-
 // always shared between them, but the set of basic allocations is.
 //
 // See subset-rules.dl and unification-rules.dl
-.decl any_reachable_function(?func: FunctionDecl) inline
+.decl any_reachable_func(?func: FunctionDecl) inline
 
 //---------------------------------------------------------------------
 // [Stack Allocations]
@@ -28,9 +28,9 @@ stack_allocation(?stackAlloc),
  :-
    alloca_instruction(?instr),
    instruction_assigns_to(?instr, ?var),
-   instruction_in_function(?instr, ?instrFunc),
+   instruction_in_func(?instr, ?instrFunc),
    variable_has_type(?var,?type),
-   any_reachable_function(?instrFunc),
+   any_reachable_func(?instrFunc),
    build_stack_allocation(?stackAlloc, ?instrFunc, ?type, ?var).
 
 static_allocation_type(?stackAlloc, ?type) :-
@@ -43,16 +43,16 @@ static_allocation_type(?stackAlloc, ?type) :-
 stack_allocation(?stackAlloc),
  stack_allocation_by_parameter(?func, ?index, ?stackAlloc)
  :-
-   function_param_by_value(?func, ?index),
-   function_param(?func, ?index, ?param),
+   func_param_by_value(?func, ?index),
+   func_param(?func, ?index, ?param),
    variable_has_type(?param, ?type),
-   any_reachable_function(?func),
+   any_reachable_func(?func),
    build_stack_allocation(?stackAlloc, ?func, ?type, ?param).
 
 static_allocation_type(?stackAlloc, ?type) :-
    stack_allocation_by_parameter(?func, ?index, ?stackAlloc),
-   function_has_type(?func,?funcType),
-   function_type_param(?funcType, ?index, ?paramType),
+   func_ty(?func, ?funcType),
+   func_type_param(?funcType, ?index, ?paramType),
    pointer_type_has_component(?paramType, ?type).
 
 //---------------------------------------------------------------------
@@ -66,39 +66,39 @@ heap_allocation(?heapAlloc),
 heap_allocation_by_instruction(?instr, ?heapAlloc),
 static_allocation_type(?heapAlloc, ?elementType)
  :-
-   heap_alloc_function(?func),
+   heap_alloc_func(?func),
    ( call_instruction_fn_target(?instr, ?func)
    ; invoke_instruction_fn_target(?instr, ?func)),
    instruction_assigns_to(?instr, ?var),
-   instruction_in_function(?instr,  ?instrFunc),
+   instruction_in_func(?instr,  ?instrFunc),
 
    variable_has_type(?var, ?type),
    pointer_type_has_component(?type, ?elementType),
 
-   any_reachable_function(?instrFunc),
+   any_reachable_func(?instrFunc),
    build_heap_allocation(?heapAlloc, ?instrFunc, ?type, ?var).
 
 heap_allocation(?heapAlloc),
 heap_allocation_by_malloc(?insn, ?heapAlloc) :-
-  function_has_name(?func, "@malloc"),
+  func_name(?func, "@malloc"),
   call_instruction_fn_target(?insn, ?func),
   heap_allocation_by_instruction(?insn, ?heapAlloc).
 
 heap_allocation(?heapAlloc),
 heap_allocation_by_calloc(?insn, ?heapAlloc) :-
-  function_has_name(?func, "@calloc"),
+  func_name(?func, "@calloc"),
   call_instruction_fn_target(?insn, ?func),
   heap_allocation_by_instruction(?insn, ?heapAlloc).
 
 heap_allocation(?heapAlloc),
 heap_allocation_by_realloc(?insn, ?heapAlloc) :-
-  function_has_name(?func, "@realloc"),
+  func_name(?func, "@realloc"),
   call_instruction_fn_target(?insn, ?func),
   heap_allocation_by_instruction(?insn, ?heapAlloc).
 
 heap_allocation(?heapAlloc),
 heap_allocation_by_mmap(?insn, ?heapAlloc) :-
-  function_has_name(?func, "@mmap"),
+  func_name(?func, "@mmap"),
   call_instruction_fn_target(?insn, ?func),
   heap_allocation_by_instruction(?insn, ?heapAlloc).
 
@@ -146,15 +146,15 @@ heap_allocation_by_mmap(?insn, ?heapAlloc) :-
   :-
     stack_allocation_by_instruction(?instr, ?stackAlloc),
     instruction_assigns_to(?instr, ?var),
-    instruction_in_function(?instr, ?instrFunc),
+    instruction_in_func(?instr, ?instrFunc),
     reachable_context(?ctx, ?instrFunc),
     record(?newCtx, ?stackAlloc, ?ctx).
 
   allocated_at(?newCtx, ?stackAlloc, ?ctx, ?param)
   :-
     stack_allocation_by_parameter(?func, ?index, ?stackAlloc),
-    function_param_by_value(?func, ?index),
-    function_param(?func, ?index, ?param),
+    func_param_by_value(?func, ?index),
+    func_param(?func, ?index, ?param),
     reachable_context(?ctx, ?func),
     record(?newCtx, ?stackAlloc, ?ctx).
 
@@ -162,7 +162,7 @@ heap_allocation_by_mmap(?insn, ?heapAlloc) :-
   :-
     heap_allocation_by_instruction(?instr, ?heapAlloc),
     instruction_assigns_to(?instr, ?var),
-    instruction_in_function(?instr,  ?instrFunc),
+    instruction_in_func(?instr,  ?instrFunc),
     reachable_context(?ctx, ?instrFunc),
     record(?newCtx, ?heapAlloc, ?ctx).
 }
@@ -178,5 +178,5 @@ allocation_pos(?alloc, ?line, ?column) :-
 
 allocation_pos(?alloc, ?line, ?column) :-
    stack_allocation_by_parameter(?func, ?index, ?alloc),
-   function_param(?func, ?index, ?param),
+   func_param(?func, ?index, ?param),
    variable_has_debug_decl_pos(?param, ?line, ?column).

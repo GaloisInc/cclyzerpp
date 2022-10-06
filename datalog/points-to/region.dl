@@ -12,7 +12,7 @@ region(r) :- stack_region(r).
 heap_region("heap").
 stack_region("stack").
 global_region("global").
-region("function").
+region("func").
 region("null").
 region("unknown").
 
@@ -26,10 +26,10 @@ alloc_region(?alloc, "heap") :- heap_allocation(?alloc).
 alloc_region(?alloc, "heap") :- heap_allocation_by_new(_, ?alloc).
 alloc_region(?alloc, "stack") :- stack_allocation(?alloc).
 alloc_region(?alloc, "global") :- global_allocation_by_variable(_, ?alloc).
-// NOTE: Functions each get their own region because it's costly to unify functions
-// - each call to one becomes a call to each other function, causing many more
+// NOTE: Functions each get their own region because it's costly to unify funcs
+// - each call to one becomes a call to each other func, causing many more
 // contexts.
 alloc_region(?alloc, as(?func, Region)),
   region(as(?func, Region))
   :-
-  global_allocation_by_function(?func, ?alloc).
+  global_allocation_by_func(?func, ?alloc).

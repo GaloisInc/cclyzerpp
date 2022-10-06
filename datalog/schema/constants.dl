@@ -36,7 +36,7 @@
 .decl integer_constant(c:IntegerConstant)
 .decl fp_constant(c:FPConstant)
 .decl nullptr_constant(c:NullPtrConstant)
-.decl function_constant(c:FunctionConstant)
+.decl func_constant(c:FunctionConstant)
 .decl global_var_constant(c:GlobalVariableConstant)
 .decl constant_array(c:ConstantArray)
 .decl constant_struct(c:ConstantStruct)
@@ -56,7 +56,7 @@ constant(c) :-
  ; integer_constant(c)
  ; fp_constant(c)
  ; nullptr_constant(c)
- ; function_constant(c)
+ ; func_constant(c)
  ; undef_constant(c)
  ; poison_constant(c). // technically redundant - poison constants are also undef
 
@@ -68,15 +68,15 @@ constant_expression(c) :-
 
 
 //--------------------------------------
-// Constant that references function
+// Constant that references func
 //--------------------------------------
 
-.decl function_constant_fn_name(fc:FunctionConstant, name:symbol)
+.decl func_constant_fn_name(fc:FunctionConstant, name:symbol)
 
 schema_invalid_constant(Constant, __FILE__, __LINE__) :-
    schema_sanity(),
-   function_constant(Constant),
-   !function_constant_fn_name(Constant, _).
+   func_constant(Constant),
+   !func_constant_fn_name(Constant, _).
 
 
 //---------------------------------------------

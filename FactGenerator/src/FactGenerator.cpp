@@ -127,7 +127,7 @@ auto FactGenerator::processModule(
       // Record basic block entry as a label
       writeFact(pred::variable::id, bbRef);
       writeFact(pred::variable::type, bbRef, "label");
-      writeFact(pred::variable::in_function, bbRef, func.getName().str());
+      writeFact(pred::variable::in_func, bbRef, func.getName().str());
 
       // Record variable name part
       size_t idx = bbRef.find_last_of("%!");

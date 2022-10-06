@@ -46,6 +46,7 @@ enumerates abbreviations that are considered reasonable trade-offs in this
 space. This judgment is highly subjective, but must be made somehow.
 
 - ``asm``: Assembly
+- ``attr``: Attribute
 - ``block``: LLVM basic block
 - ``const``: Constant
 - ``global_var``: Global variable
@@ -54,6 +55,7 @@ space. This judgment is highly subjective, but must be made somehow.
 - ``gep``: ``getelementptr``
 - ``instr``: Instruction
 - ``int``: Integer
+- ``param``: Parameter
 - ``ptr``: Pointer
 - ``var``: Variable
 - ``vec``: Vector
@@ -62,7 +64,9 @@ Explicitly **not** further abbreviated:
 
 - ``array``
 - ``struct``
-- ``type``
+
+``type`` is for relations about types themselves, whereas ``ty`` is used for
+relating an entity *to* its type.
 
 Performance Tuning
 ******************

@@ -7,7 +7,7 @@
 // A column number in a source file
 .type ColumnNumber <: number
 
-// Name of a function
+// Name of a func
 .type FunctionName <: symbol
 
 // Name of a global variable
@@ -26,5 +26,5 @@
 // An index into a struct, e.g. in a getelementptr instruction
 .type FieldIndex <: number
 
-// An index of an argument to a function
+// An index of an argument to a func
 .type ArgumentIndex <: number

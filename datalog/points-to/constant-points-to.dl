@@ -1,5 +1,5 @@
 // A relation that tracks flow of allocations among program constants. Note that
-// references to global variables or functions are considered a type of constant in
+// references to global variables or funcs are considered a type of constant in
 // LLVM IR. Constant addresses are another type of constant that may point to
 // memory. Moreover, a constant may be expanded to a larger complex constant
 // (e.g., by a `bitcast` expression), through constant expressions.
@@ -16,7 +16,7 @@ constant_points_to(?constant, ?null) :-
    nullptr_constant(?constant),
    null_location(?null).
 
-// Global variable and function references is a common type of
+// Global variable and func references is a common type of
 // constants. They should be matched to the corresponding global
 // allocation.
 
@@ -26,14 +26,14 @@ constant_points_to(?constant, ?alloc) :-
    global_allocation_by_variable(?gVar, ?alloc).
 
 constant_points_to(?constant, ?alloc) :-
-   function_constant_fn_name(?constant, ?fName),
-   function_has_name(?func, ?fName),
-   global_allocation_by_function(?func, ?alloc).
+   func_constant_fn_name(?constant, ?fName),
+   func_name(?func, ?fName),
+   global_allocation_by_func(?func, ?alloc).
 
 constant_points_to(?constant, ?alloc) :-
    constant_references_variable(?constant, ?gVar),
    global_allocation_by_variable(?gVar, ?alloc).
 
 constant_points_to(?constant, ?alloc) :-
-   constant_references_function(?constant, ?func),
-   global_allocation_by_function(?func, ?alloc).
+   constant_references_func(?constant, ?func),
+   global_allocation_by_func(?func, ?alloc).

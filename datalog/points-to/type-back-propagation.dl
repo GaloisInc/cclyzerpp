@@ -84,9 +84,9 @@
      heap_allocation_by_instruction(?allocInstr, ?alloc),
      ty_indication(?type, ?aCtx, ?alloc),
      instruction_assigns_to(?allocInstr, ?var),
-     variable_in_function(?var, ?func),
+     variable_in_func(?var, ?func),
      variable_has_name(?var, ?name),
-     function_has_name(?func, ?funcName),
+     func_name(?func, ?funcName),
      pointer_type_has_component(?ptrType, ?type),
      ?typedAlloc= cat("*typed_heap_alloc", ?funcName, "[" , ?ptrType , " ", ?name, "]").
 
@@ -112,7 +112,7 @@
   // %4 = getelementptr inbounds %struct.foo, %struct.foo* %2, i64 0, i32 1,
   // store i8 %4, i8* @somebuf, align 4,
   // %5 = load i64, i64* %1, align 8,
-  // %6 = call i8 @function_with_foo_arg_passed_by_value(i64 %5)
+  // %6 = call i8 @func_foo_arg_passed_by_value(i64 %5)
   // ```
   // instead of:
   // ```
@@ -121,7 +121,7 @@
   // store i32 42, i32* %2, align 8,
   // %3 = getelementptr inbounds %struct.foo, %struct.foo* %2, i64 0, i32 1,
   // store i8 %3, i8* @somebuf, align 4,
-  // %4 = call i8 @function_with_foo_arg_passed_by_value(%struct.foo* %1)
+  // %4 = call i8 @func_foo_arg_passed_by_value(%struct.foo* %1)
   // ```
   //
   // Where this causes problems is that instructions like `%4 =
@@ -158,9 +158,9 @@
      stack_allocation_by_instruction(?allocInstr, ?alloc),
      stack_type_indication(?type, ?aCtx, ?alloc),
      instruction_assigns_to(?allocInstr, ?var),
-     variable_in_function(?var, ?func),
+     variable_in_func(?var, ?func),
      variable_has_name(?var, ?name),
-     function_has_name(?func, ?funcName),
+     func_name(?func, ?funcName),
      pointer_type_has_component(?ptrType, ?type),
      ?typedAlloc= cat("*typed_stack_alloc", ?funcName, "[", ?ptrType, " ", ?name, "]").
 

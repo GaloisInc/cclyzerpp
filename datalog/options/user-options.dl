@@ -77,11 +77,11 @@ user_option_valid_value("drop_redundant_contexts","off").
 user_option_default("drop_redundant_contexts","on").
 
 //------------------------------------------------------------------------------
-// [Marks all functions as reachable]
+// [Marks all funcs as reachable]
 //
 // This is useful if the artifact to be analyzed doesn't have any
 // known entry points (e.g., dynamic library). In such a case, it
-// makes sense to treat all functions defined therein as potential
+// makes sense to treat all funcs defined therein as potential
 // entry points.
 //------------------------------------------------------------------------------
 

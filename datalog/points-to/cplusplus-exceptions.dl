@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-// Exceptions - Important functions in the libc++ ABI
+// Exceptions - Important funcs in the libc++ ABI
 //------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------
@@ -22,13 +22,13 @@
 .decl cxx_alloc_exception(?func: FunctionDecl)
 
 cxx_alloc_exception(?func),
-   heap_alloc_function(?func)
+   heap_alloc_func(?func)
  :-
-   function_has_name(?func, "@__cxa_allocate_exception"),
-   function_has_type(?func, ?fType),
-   function_type_param(?fType, 0, ?type),
+   func_name(?func, "@__cxa_allocate_exception"),
+   func_ty(?func, ?fType),
+   func_type_param(?fType, 0, ?type),
    integer_type(?type),
-   function_type_nparams(?fType, 1).
+   func_type_nparams(?fType, 1).
 
 // Exception Object
 
@@ -123,18 +123,18 @@ sized_alloc_instr(?insn, as(?size, Bytes)) :-
 // This routine never returns.
 //-------------------------------------------------------------------------
 
-.decl cxx_throw_function(?func: FunctionDecl)
+.decl cxx_throw_func(?func: FunctionDecl)
 
-cxx_throw_function(?func) :-
-   function_has_name(?func, "@__cxa_throw"),
-   function_has_type(?func, ?fType),
-   function_type_param(?fType, 0, ?type1),
-   function_type_param(?fType, 1, ?type2),
-   function_type_param(?fType, 2, ?type3),
+cxx_throw_func(?func) :-
+   func_name(?func, "@__cxa_throw"),
+   func_ty(?func, ?fType),
+   func_type_param(?fType, 0, ?type1),
+   func_type_param(?fType, 1, ?type2),
+   func_type_param(?fType, 2, ?type3),
    pointer_type(?type1),
    pointer_type(?type2),
    pointer_type(?type3),
-   function_type_nparams(?fType, 3).
+   func_type_nparams(?fType, 3).
 
 
 //------------------------------------------------
@@ -180,7 +180,7 @@ typeinfo(?var),
 
   .decl _cxx_throw_instruction(?throwInsn: Instruction)
   _cxx_throw_instruction(?throwInsn) :-
-    cxx_throw_function(?throwFunc),
+    cxx_throw_func(?throwFunc),
     callgraph_edge(_, ?throwFunc, _, ?throwInsn).
 
   .decl _cxx_throw_instruction_exception(?excObj: ExceptionObject, ?throwInsn: Instruction)
@@ -204,7 +204,7 @@ typeinfo(?var),
     _cxx_throw_instruction(?throwInsn),
     actual_arg(?throwInsn, 2, ?dtorArg),
     stripctx_operand_points_to(?alloc, ?dtorArg),
-    function_by_location(?alloc, ?dtor).
+    func_by_location(?alloc, ?dtor).
 
   .decl _cxx_throw_instruction_no_dtor(?throwInsn: Instruction)
   _cxx_throw_instruction_no_dtor(?throwInsn) :-

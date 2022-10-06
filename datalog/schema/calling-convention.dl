@@ -1,5 +1,5 @@
 // http://llvm.org/docs/LangRef.html#callingconv
-// keywords: function_instruction; call_instruction; invoke_instruction
+// keywords: funcstruction; call_instruction; invoke_instruction
 
 .type CallingConvention <: symbol
 .decl calling_convention(conv:CallingConvention)

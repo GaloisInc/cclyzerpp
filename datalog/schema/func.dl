@@ -1,0 +1,163 @@
+// http://llvm.org/docs/LangRef.html#funcs
+
+//-----------------------------------------
+// Function definitions and declarations
+//-----------------------------------------
+
+.type FunctionDecl <: symbol
+.type Function = FunctionDecl
+
+.decl func_decl(func:FunctionDecl)
+.decl func(func:Function)
+
+func_decl(Func) :- func(Func).
+
+// !! Note: A func definition is encoded as a subtype of func
+// declaration, that adds a body of instructions. !!
+
+// For constraints
+.decl schema_invalid_func(func:FunctionDecl, file:File, line:Line)
+
+
+// TODO: how are varargs represented here?
+
+
+//---------------------------------
+// Mandatory name and type info
+//---------------------------------
+
+.decl func_ty(func:FunctionDecl, type:FunctionType)
+.decl func_name(func:FunctionDecl, name:FunctionName)
+
+// Unmangled name with type signature
+.decl func_signature(func:FunctionDecl, signature:symbol)
+
+schema_invalid_func(Func, __FILE__, __LINE__) :-
+   schema_sanity(),
+   func_decl(Func),
+   !func_ty(Func, _).
+
+schema_invalid_func(Func, __FILE__, __LINE__) :-
+   schema_sanity(),
+   func_decl(Func),
+   !func_name(Func, _).
+
+.decl schema_multiple_func_names(Func: FunctionDecl, file:File, line:Line)
+schema_multiple_func_names(Func, __FILE__, __LINE__) :-
+   schema_sanity(),
+   func_decl(Func),
+   func_name(Func,name1),
+   func_name(Func,name2),
+   name1!=name2.
+
+//----------------------------------------
+// Variables and Constants contained
+//----------------------------------------
+
+.decl constant_in_func(c:Constant, func:Function)
+.decl variable_in_func(v:Variable, func:Function)
+
+
+//-----------------------------------------------------------------
+// Optional func attrs (common for both declarations and
+// definitions)
+//-----------------------------------------------------------------
+
+.decl func_alignment(func:FunctionDecl, alignment:number)
+.decl func_linkage_type(func:FunctionDecl, link:LinkageType)
+.decl func_visibility(func:FunctionDecl, vis:Visibility)
+.decl func_calling_convention(func:FunctionDecl, cc:CallingConvention)
+.decl func_unnamed_addr(func:FunctionDecl)
+.decl func_gc(func:FunctionDecl, collector:symbol)
+.decl func_pers_fn(func:FunctionDecl, persfn:Constant)
+
+calling_convention(cc) :- func_calling_convention(_, cc).
+linkage_type(link) :- func_linkage_type(_, link).
+visibility(vis) :- func_visibility(_, vis).
+
+//-----------------------------------------------------------------
+// Optional func attrs (only for definitions)
+//-----------------------------------------------------------------
+
+.decl func_section(func:Function, section:symbol)
+
+
+//----------------------------------
+// Function (Formal) Parameters
+//----------------------------------
+
+.decl func_nparams(func:Function, total:number)
+
+func_nparams(Func, Total) :-
+   func(Func),
+   func_ty(Func, Type),
+   func_type_nparams(Type, Total).
+
+
+.decl func_param(func:Function, index:ArgumentIndex, param:Variable)
+
+
+//------------------------------------------------------------------------------
+// [Parameter Attributes]
+//
+// The return type and each parameter of a func type may have
+// a set of parameter attrs associated with them.
+//
+// Parameter attrs are used to communicate additional information
+// about the result or parameters of a func.
+//
+// Parameter attrs are considered to be part of the func,
+// not of the func type, so funcs with different parameter
+// attrs can have the same func type.
+//
+// Parameter attrs are simple keywords that follow the type specified.
+// If multiple parameter attrs are needed, they are space separated.
+//------------------------------------------------------------------------------
+
+.decl func_attr(func:FunctionDecl, attr:Attribute)
+.decl func_return_attr(func:FunctionDecl, attr:Attribute)
+.decl func_param_attr(func:FunctionDecl, index:ArgumentIndex, attr:Attribute)
+
+attr(Attr) :- func_attr(_, Attr).
+attr(Attr) :- func_return_attr(_, Attr).
+attr(Attr) :- func_param_attr(_, _, Attr).
+
+// Parameter is passed by value
+.decl func_param_by_value(func:Function, index:number)
+
+func_param_by_value(Func, Index) :-
+   func_param(Func, Index, _),
+   func_param_attr(Func, Index, ByValueAttr),
+   parameter_attr__byval(ByValueAttr).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// Number and types of parameters must match those declared
+// in the func type.
+//
+// The return type must also be compatible for the func
+// to be well-formed, but this is checked in ret-instruction
+// logic.
+//------------------------------------------------------------------------------
+
+schema_invalid_func(Func, __FILE__, __LINE__) :-
+   schema_sanity(),
+   func_ty(Func, Type),
+   func_param(Func, Index, Param),
+   func_type_param(Type, Index, ParamType),
+   !variable_has_type(Param, ParamType).
+
+schema_invalid_func(Func, __FILE__, __LINE__) :-
+   schema_sanity(),
+   func(Func),
+   func_ty(Func, Type),
+   func_type_param(Type, Index, _),
+   !func_param(Func, Index, _).
+
+schema_invalid_func(Func, __FILE__, __LINE__) :-
+   schema_sanity(),
+   func_ty(Func, Type),
+   func_param(Func, Index, _),
+   !func_type_param(Type, Index, _).

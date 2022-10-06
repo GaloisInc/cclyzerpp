@@ -15,7 +15,7 @@ terminator_instruction(v) :- resume_instruction(v).
 //
 // 1) The ‘resume‘ instruction requires one argument, which
 //    must have the same type as the result of any ‘landingpad‘
-//    instruction in the same function.
+//    instruction in the same func.
 //------------------------------------------------------------------------------
 
 schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
@@ -27,8 +27,8 @@ schema_invalid_instruction(ResumeInstr, __FILE__, __LINE__) :-
    schema_sanity(),
    resume_instruction(ResumeInstr),
    resume_instruction_operand(ResumeInstr, Operand),
-   instruction_in_function(ResumeInstr, Func),
-   instruction_in_function(LPadInstr, Func),
+   instruction_in_func(ResumeInstr, Func),
+   instruction_in_func(LPadInstr, Func),
    landingpad_instruction(LPadInstr),
    instruction_returns_type(LPadInstr, Type),
    !operand_has_type(Operand, Type).

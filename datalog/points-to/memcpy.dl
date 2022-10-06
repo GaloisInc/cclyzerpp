@@ -38,7 +38,7 @@
   .decl _memcpy_call(?ctx: Context, ?to: Operand, ?from: Operand, ?size: number)
 
   _memcpy_call(?callerCtx, ?to, ?from, ?size) :-
-    function_has_name(?callee, ?name),
+    func_name(?callee, ?name),
     (
     "@memcpy"=substr(?name,0,7);
     "@llvm.memcpy"=substr(?name,0,12)

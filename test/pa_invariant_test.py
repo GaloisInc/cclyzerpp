@@ -45,13 +45,13 @@ def test_pointer_analysis_invariants(run, every_program, context_sensitivity):
     # with other function types
     with gzip.open(out_files / "type_compatible.csv.gz", "rt") as f:
         compatible_types = {tuple(row) for row in csv.reader(f, delimiter="\t")}
-    with gzip.open(out_files / "function_type.csv.gz", "rt") as f:
-        function_types = {row[0] for row in csv.reader(f, delimiter="\t")}
+    with gzip.open(out_files / "func_type.csv.gz", "rt") as f:
+        func_types = {row[0] for row in csv.reader(f, delimiter="\t")}
     assert len(compatible_types) > 0
-    assert len(function_types) > 0
-    for function_type in function_types:
-        for compatible_type in {ty for (fun_ty, ty) in compatible_types if fun_ty == function_type}:
-            assert compatible_type in function_types
+    assert len(func_types) > 0
+    for func_type in func_types:
+        for compatible_type in {ty for (fun_ty, ty) in compatible_types if fun_ty == func_type}:
+            assert compatible_type in func_types
 
 
 @unique
@@ -159,34 +159,34 @@ _SPECS: FrozenSet[RelationSpec] = frozenset(
             properties=frozenset({(binary, frozenset({BinaryRelationProperty.FUNCTIONAL}))}),
         ),
         RelationSpec(
-            name="function_by_location",
+            name="func_by_location",
             types=(str, str),
             properties=frozenset({(binary, _ONE_TO_ONE)}),
         ),
         RelationSpec(
-            name="function_has_name",
+            name="func_name",
             types=(str, str),
             properties=frozenset({(binary, _ONE_TO_ONE)}),
         ),
         RelationSpec(
-            name="function_returns_value",
+            name="func_returns_value",
             types=(str, str),
             properties=frozenset({(binary, frozenset({BinaryRelationProperty.INJECTIVE}))}),
         ),
         RelationSpec(
-            name="function_type_nparams",
+            name="func_type_nparams",
             types=(str, int),
             properties=frozenset({(binary, frozenset({BinaryRelationProperty.FUNCTIONAL}))}),
         ),
         RelationSpec(
-            name="function_type_param",
+            name="func_type_param",
             types=(str, int, str),
             properties=frozenset(
                 {(lambda t, i, p: ((t, i), (p,)), frozenset({BinaryRelationProperty.FUNCTIONAL}))}
             ),
         ),
         RelationSpec(
-            name="function_type_return",
+            name="func_type_return",
             types=(str, str),
             properties=frozenset({(binary, frozenset({BinaryRelationProperty.FUNCTIONAL}))}),
         ),

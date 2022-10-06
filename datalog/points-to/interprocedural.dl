@@ -2,9 +2,9 @@
 //  [Interprocedural Logic]
 //------------------------------------------------------------------------------
 
-.decl function_by_location(?alloc: GlobalAllocation, ?callee: FunctionDecl)
-function_by_location(?alloc, ?callee) :-
-  global_allocation_by_function(?callee, ?alloc).
+.decl func_by_location(?alloc: GlobalAllocation, ?callee: FunctionDecl)
+func_by_location(?alloc, ?callee) :-
+  global_allocation_by_func(?callee, ?alloc).
 
 .comp Callgraph {
 
@@ -15,7 +15,7 @@ function_by_location(?alloc, ?callee) :-
   //----------------------------------------------------------------------------
 
   .decl called_at_exit(func: FunctionDecl) inline
-  .decl function_pointer_operand_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?operand: Operand) inline
+  .decl func_pointer_operand_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?operand: Operand) inline
 
   .decl merge(?newCtx: Context, ?callerInstr: Instruction, ?callerCtx: Context)
 
@@ -29,24 +29,24 @@ function_by_location(?alloc, ?callee) :-
   // Reachability
 
   .decl reachable_context(?ctx: Context, ?func: FunctionDecl)
-  .decl reachable_function(func: FunctionDecl)
+  .decl reachable_func(func: FunctionDecl)
   .decl reachable_instruction(instr: Instruction)
 
   reachable_context(?calleeCtx, ?callee) :-
      callgraph_edge(?calleeCtx, ?callee, _, _).
 
-  reachable_function(?func) :-
+  reachable_func(?func) :-
     reachable_context(_, ?func).
 
   reachable_instruction(Instr) :-
-    reachable_function(Func),
-    instruction_in_function(Instr, Func).
+    reachable_func(Func),
+    instruction_in_func(Instr, Func).
 
   // TODO: transition from startup to main?
 
   reachable_context(?ctx, ?func) :-
     ! insensitive(),
-    ( main_function(?func),
+    ( main_func(?func),
       main_context(?ctx)
     ; called_at_startup(?func),
       startup_context(?ctx)
@@ -57,7 +57,7 @@ function_by_location(?alloc, ?callee) :-
   reachable_context(?ctx, ?func) :-
     insensitive(),
     empty_context(?ctx),
-    ( main_function(?func)
+    ( main_func(?func)
     ; called_at_startup(?func)
     ; called_at_exit(?func)
     ).
@@ -66,7 +66,7 @@ function_by_location(?alloc, ?callee) :-
 
   reachable_store(?ctx, ?toAddress, ?value) :-
     reachable_context(?ctx, ?instrFunc),
-    instruction_in_function(?instr, ?instrFunc),
+    instruction_in_func(?instr, ?instrFunc),
     store_instruction_value(?instr, ?value),
     store_instruction_address(?instr, ?toAddress).
 
@@ -74,7 +74,7 @@ function_by_location(?alloc, ?callee) :-
 
   reachable_load(?ctx, ?toVar, ?fromAddress) :-
     reachable_context(?ctx, ?instrFunc),
-    instruction_in_function(?instr, ?instrFunc),
+    instruction_in_func(?instr, ?instrFunc),
     load_instruction_address(?instr, ?fromAddress),
     instruction_assigns_to(?instr, ?toVar).
 
@@ -82,7 +82,7 @@ function_by_location(?alloc, ?callee) :-
 
   .decl callgraph_edge(?calleeCtx: Context, ?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: Instruction)
 
-  // Direct function calls
+  // Direct func calls
 
   .decl _callgraph_edge_interim_direct_call(?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: Instruction)
 
@@ -90,7 +90,7 @@ function_by_location(?alloc, ?callee) :-
    :-
      direct_call_instruction(?callerInstr),
      call_instruction_fn_target(?callerInstr, ?callee),
-     instruction_in_function(?callerInstr, ?instrFunc),
+     instruction_in_func(?callerInstr, ?instrFunc),
      reachable_context(?callerCtx, ?instrFunc).
 
   callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr)
@@ -105,7 +105,7 @@ function_by_location(?alloc, ?callee) :-
    :-
      direct_call_instruction(?callerInstr),
      invoke_instruction_fn_target(?callerInstr, ?callee),
-     instruction_in_function(?callerInstr, ?instrFunc),
+     instruction_in_func(?callerInstr, ?instrFunc),
      reachable_context(?callerCtx, ?instrFunc).
 
   callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr)
@@ -115,7 +115,7 @@ function_by_location(?alloc, ?callee) :-
      merge(?calleeCtx, ?callerInstr, ?callerCtx).
 
 
-  // Indirect function calls (via function pointers)
+  // Indirect func calls (via func pointers)
 
   .decl _callgraph_edge_interim_indirect_call(?callee: FunctionDecl, ?callerCtx: Context, ?aCtx: Context, ?callerInstr: Instruction)
 
@@ -123,9 +123,9 @@ function_by_location(?alloc, ?callee) :-
    :-
      indirect_call_instruction(?callerInstr),
      call_instruction_fn_operand(?callerInstr, ?funcOp),
-     function_pointer_operand_points_to(?aCtx, ?funcLoc, ?callerCtx, ?funcOp),
-     function_by_location(?funcLoc, ?callee),
-     function_has_type(?callee, ?actualType),
+     func_pointer_operand_points_to(?aCtx, ?funcLoc, ?callerCtx, ?funcOp),
+     func_by_location(?funcLoc, ?callee),
+     func_ty(?callee, ?actualType),
      operand_has_type(?funcOp, ?funcOpType),
      pointer_type_has_component(?funcOpType, ?declaredType),
      type_compatible(?actualType, ?declaredType).
@@ -142,9 +142,9 @@ function_by_location(?alloc, ?callee) :-
    :-
      invoke_instruction(?callerInstr),
      invoke_instruction_fn_operand(?callerInstr, ?funcOp),
-     function_pointer_operand_points_to(?aCtx, ?funcLoc, ?callerCtx, ?funcOp),
-     function_by_location(?funcLoc, ?callee),
-     function_has_type(?callee, ?actualType),
+     func_pointer_operand_points_to(?aCtx, ?funcLoc, ?callerCtx, ?funcOp),
+     func_by_location(?funcLoc, ?callee),
+     func_ty(?callee, ?actualType),
      operand_has_type(?funcOp, ?funcOpType),
      pointer_type_has_component(?funcOpType, ?declaredType),
      type_compatible(?actualType, ?declaredType).
@@ -160,7 +160,7 @@ function_by_location(?alloc, ?callee) :-
 //  Interprocedural Assignments
 //------------------------------------------------------------------------------
 
-// Actual argument of function call
+// Actual argument of func call
 
 .decl actual_arg(?instr: Instruction, ?index: ArgumentIndex, ?argument: Operand)
 
@@ -170,17 +170,17 @@ actual_arg(?invokeInstr, ?index, ?argument) :-
 actual_arg(?callInstr, ?index, ?argument) :-
   call_instruction_arg(?callInstr, ?index, ?argument).
 
-.decl function_param_not_by_value(?callee: Function, ?index: ArgumentIndex, ?param: Variable)
+.decl func_param_not_by_value(?callee: Function, ?index: ArgumentIndex, ?param: Variable)
 
-function_param_not_by_value(?callee, ?index, ?param) :-
-  function_param(?callee, ?index, ?param),
-  !function_param_by_value(?callee, ?index).
+func_param_not_by_value(?callee, ?index, ?param) :-
+  func_param(?callee, ?index, ?param),
+  !func_param_by_value(?callee, ?index).
 
-.decl function_returns_value(?retValue: Operand, ?inFunction: Function)
+.decl func_returns_value(?retValue: Operand, ?inFunction: Function)
 
-function_returns_value(?retValue, ?inFunction) :-
+func_returns_value(?retValue, ?inFunction) :-
   ret_instruction_value(?retInsn, ?retValue),
-  instruction_in_function(?retInsn, ?inFunction).
+  instruction_in_func(?retInsn, ?inFunction).
 
 .comp InterpAssignment {
 
@@ -199,20 +199,20 @@ function_returns_value(?retValue, ?inFunction) :-
   // implementation details, and should not be accessed outside the component.
   //----------------------------------------------------------------------------
 
-  // Interprocedural assignment due to function call
+  // Interprocedural assignment due to func call
   .decl interp_assignment(?toCtx: Context, ?toVar: Variable, ?fromCtx: Context, ?fromValue: Operand)
 
   // Actual argument to formal parameter `assignment`
   interp_assignment(?calleeCtx, ?param, ?callerCtx, ?argument) :-
     callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr),
-    function_param_not_by_value(?callee, ?index, ?param),
+    func_param_not_by_value(?callee, ?index, ?param),
     actual_arg(?callerInstr, ?index, ?argument).
 
   // Returned value to target variable `assignment`
 
   interp_assignment(?callerCtx, ?toVar, ?calleeCtx, ?retValue) :-
     callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr),
-    function_returns_value(?retValue, ?callee),
+    func_returns_value(?retValue, ?callee),
     instruction_assigns_to(?callerInstr, ?toVar).
 
   //------------------------------------------------------------------------------
@@ -222,7 +222,7 @@ function_returns_value(?retValue, ?inFunction) :-
   // `va_arg` instruction
   //
   // TODO: model target-specific value `va_list` and calls to related
-  // LLVM intrinsic functions. Right now this may produce nothing
+  // LLVM intrinsic funcs. Right now this may produce nothing
 
   .decl _va_arg_target(?toVar: Variable, ?argType: Type, ?callee: Function)
 
@@ -230,13 +230,13 @@ function_returns_value(?retValue, ?inFunction) :-
     va_arg_instruction(?vAArgInstr),
     va_arg_instruction_type(?vAArgInstr, ?argType),
     instruction_assigns_to(?vAArgInstr, ?toVar),
-    instruction_in_function(?vAArgInstr, ?callee).
+    instruction_in_func(?vAArgInstr, ?callee).
 
   interp_assignment(?calleeCtx, ?toVar, ?callerCtx, ?argument) :-
     _va_arg_target(?toVar, ?argType, ?callee),
-    function_has_type(?callee, ?type),
-    function_type_has_varargs(?type),
-    function_type_nparams(?type, ?n),
+    func_ty(?callee, ?type),
+    func_type_has_varargs(?type),
+    func_type_nparams(?type, ?n),
     callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr),
     actual_arg(?callerInstr, ?index, ?argument),
     ?index >= ?n,
@@ -248,12 +248,12 @@ function_returns_value(?retValue, ?inFunction) :-
 //  Pass-by-value Semantics
 //------------------------------------------------------------------------------
 
-// Interprocedural memcpy due to function call
+// Interprocedural memcpy due to func call
 
 .decl memcpy_pass_by_value(?toCtx: Context, ?toVar: Variable, ?fromCtx: Context, ?fromValue: Operand)
 
-.decl function_by_value_param(?callee: Function, ?index: ArgumentIndex, ?param: Variable)
+.decl func_by_value_param(?callee: Function, ?index: ArgumentIndex, ?param: Variable)
 
-function_by_value_param(?callee, ?index, ?param) :-
-   function_param(?callee, ?index, ?param),
-   function_param_by_value(?callee, ?index).
+func_by_value_param(?callee, ?index, ?param) :-
+   func_param(?callee, ?index, ?param),
+   func_param_by_value(?callee, ?index).

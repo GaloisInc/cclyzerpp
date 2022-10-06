@@ -15,13 +15,13 @@ global_allocation_by_variable(?gVar, ?alloc)
 
 /// 2. Function Allocations
 global_allocation(?alloc),
-global_allocation_by_function(?func, ?alloc)
+global_allocation_by_func(?func, ?alloc)
  :-
-   (function(?func);
-   function_decl(?func),
-   !function_decl_to_defn(?func,_)),
+   (func(?func);
+   func_decl(?func),
+   !func_decl_to_defn(?func,_)),
 
-   function_has_name(?func, ?name),
+   func_name(?func, ?name),
    ?alloc = cat("*global_alloc",?name).
 
 global_allocation_by_name(?globalName, ?alloc) :-
@@ -29,12 +29,12 @@ global_allocation_by_name(?globalName, ?alloc) :-
    global_allocation_by_variable(?global, ?alloc).
 
 global_allocation_by_name(?globalName, ?alloc) :-
-   function_has_name(?global, ?globalName),
-   global_allocation_by_function(?global, ?alloc).
+   func_name(?global, ?globalName),
+   global_allocation_by_func(?global, ?alloc).
 
 static_allocation_type(?alloc, ?type) :-
-   global_allocation_by_function(?func, ?alloc),
-   function_has_type(?func,?type).
+   global_allocation_by_func(?func, ?alloc),
+   func_ty(?func, ?type).
 
 static_allocation_type(?alloc, ?type) :-
    global_allocation_by_variable(?gVar, ?alloc),

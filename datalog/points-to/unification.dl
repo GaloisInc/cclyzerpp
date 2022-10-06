@@ -26,7 +26,7 @@
   // [Relations with Choice]
   //-----------------------------------------------------------------------
 
-  // "choice-domain" introduces a functional dependency on ?ctx, ?var, ?region,
+  // "choice-domain" introduces a funcal dependency on ?ctx, ?var, ?region,
   // ?type, and ?info: only one result will be computed (non-deterministically) for
   // each (?ctx, ?var, ?region, ?type, ?info) tuple in the relation. Thus we will
   // choose *one* representative element of ?var's points-to set to record (for
@@ -40,7 +40,7 @@
   //
   // The entries in the choice-domain must agree with the rules that have
   // `unify` as their head atom/conclusion, i.e. those rules shouldn't cause
-  // any allocations to be unified unless they agree on all the attributes in
+  // any allocations to be unified unless they agree on all the attrs in
   // the choice-domain.
   //
   // The qualifiers are necessary for correctness as well. For each variable, we
@@ -53,10 +53,10 @@
   // equivalence class are treated identically by all the rules of the analysis. To
   // accomplish this, we can either
   //
-  // 1. copy the feature/attribute between unified allocations
-  // 2. never unify allocations that differ in some feature, adding the attribute
+  // 1. copy the feature/attr between unified allocations
+  // 2. never unify allocations that differ in some feature, adding the attr
   //    to the `choice-domain` (e.g. what's done for allocation types)
-  // 3. iterate over `unify` when producing inputs for rules that branch on the attribute.
+  // 3. iterate over `unify` when producing inputs for rules that branch on the attr.
   //
   // The rules for GEP branch on more features of allocations than any other rules.
   //
@@ -73,7 +73,7 @@
   // aren't suballocations of arr1[x] and arr2[x]. They need to be passed to the
   // GEP rules to be unified in the first place.
 
-  // Note that there is one "region" per function, which is important for
+  // Note that there is one "region" per func, which is important for
   // maintaining a precise callgraph, which is also crucial for analysis speed.
   .decl var_points_to_choice(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable, ?region: Region, ?type: Type, ?info: GEPAllocInfo) choice-domain (?ctx, ?var, ?region, ?type, ?info)
   .decl ptr_points_to_choice(?aCtx: Context, ?alloc: Allocation, ?ptrACtx: Context, ?ptrAlloc: Allocation, ?region: Region, ?type: Type, ?info: GEPAllocInfo) choice-domain (?ptrACtx, ?ptrAlloc, ?region, ?type, ?info)
@@ -420,7 +420,7 @@
     var_points_to_final(?reprCtx, ?repr, ?ctx, ?operand).
   operand_points_to_final(?reprCtx, ?repr, ?ctx, ?cons) :-
     empty_alloc_context(?aCtx),
-    constant_in_function(?cons, ?enclosingFunc),
+    constant_in_func(?cons, ?enclosingFunc),
     constant_points_to(?cons, ?alloc),
     callgraph.reachable_context(?ctx, ?enclosingFunc),
     unify_repr(?aCtx, ?alloc, ?reprCtx, ?repr).
@@ -652,8 +652,8 @@ static_subobjects.input_allocation_size(?alloc, ?size) :-
 // Copy in results from static subobjects
 unification_subobjects._alloc_subregion(?allocSub, ?base, ?component, ?root, ?path, ?type) :-
   static_subobjects._alloc_subregion(?allocSub, ?base, ?component, ?root, ?path, ?type).
-unification_subobjects._non_function_basic_allocation(?alloc) :-
-  static_subobjects._non_function_basic_allocation(?alloc).
+unification_subobjects._non_func_basic_allocation(?alloc) :-
+  static_subobjects._non_func_basic_allocation(?alloc).
 unification_subobjects.alloc_subregion_at_field(?alloc, ?index, ?region) :-
   static_subobjects.alloc_subregion_at_field(?alloc, ?index, ?region).
 unification_subobjects.alloc_subregion_at_any_array_index(?alloc, ?region) :-

@@ -263,9 +263,9 @@ template_typeinfo(?typeInfo) :-
 class_type_constructor(?ctor, ?type)
  :-
    struct_type(?type),
-   function_has_name(?ctor, ?funcName),
-   function_has_type(?ctor, ?fType),
-   function_type_param(?fType, 0, ?ptrType),
+   func_name(?ctor, ?funcName),
+   func_ty(?ctor, ?fType),
+   func_type_param(?fType, 0, ?ptrType),
    pointer_type_has_component(?ptrType, ?type),
    ( contains("C1", ?funcName)
    ; contains("C2", ?funcName)
@@ -276,9 +276,9 @@ class_type_constructor(?ctor, ?type)
 class_type_destructor(?dtor, ?type)
  :-
    struct_type(?type),
-   function_has_name(?dtor, ?funcName),
-   function_has_type(?dtor, ?fType),
-   function_type_param(?fType, 0, ?ptrType),
+   func_name(?dtor, ?funcName),
+   func_ty(?dtor, ?fType),
+   func_type_param(?fType, 0, ?ptrType),
    pointer_type_has_component(?ptrType, ?type),
    ( contains("D1", ?funcName)
    ; contains("D2", ?funcName)

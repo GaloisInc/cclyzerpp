@@ -27,7 +27,7 @@ terminator_instruction(v) :- indirectbr_instruction(v).
 //  (1) Address must be derived from a blockaddress constant.
 //
 //  (2) The ‘blockaddress‘ constant computes the address of the
-//      specified basic block in the specified function, and always
+//      specified basic block in the specified func, and always
 //      has an i8* type.
 //------------------------------------------------------------------------------
 

@@ -126,7 +126,7 @@ type_has_size(t, 16) :- ppc_fp128_type(t).
 //
 // keywords: derived; first class; aggregate
 // http://llvm.org/docs/LangRef.html#array-type
-// http://llvm.org/docs/LangRef.html#function-type
+// http://llvm.org/docs/LangRef.html#func-type
 // http://llvm.org/docs/LangRef.html#pointer-type
 // http://llvm.org/docs/LangRef.html#structure-type
 // http://llvm.org/docs/LangRef.html#vector-type
@@ -158,7 +158,7 @@ type_has_size(t, 16) :- ppc_fp128_type(t).
 .type OpaqueStructType <: symbol
 
 .decl derived_type(type:DerivedType)
-.decl function_type(type:FunctionType)
+.decl func_type(type:FunctionType)
 .decl pointer_type(type:PointerType)
 .decl vector_type(type:VectorType)
 .decl aggregate_type(type:AggregateType)
@@ -167,7 +167,7 @@ type_has_size(t, 16) :- ppc_fp128_type(t).
 .decl opaque_struct_type(type:OpaqueStructType)
 
 type(t) :- derived_type(t).
-derived_type(t) :- function_type(t).
+derived_type(t) :- func_type(t).
 derived_type(t) :- pointer_type(t).
 derived_type(t) :- vector_type(t).
 derived_type(t) :- aggregate_type(t).
@@ -184,7 +184,7 @@ struct_type(t) :- opaque_struct_type(t).
 
 type_is_firstclass(Type) :-
    type(Type),
-   !function_type(Type),
+   !func_type(Type),
    !void_type(Type).
 
 
@@ -217,20 +217,20 @@ int8_array_type(Type) :-
 // Function type
 //----------------------
 
-.decl function_type_has_varargs(type:FunctionType)
-.decl function_type_return(type:FunctionType, ret:Type)
-.decl function_type_param(type:FunctionType, index:ArgumentIndex, param:Type)
-.decl function_type_nparams(type:FunctionType, total:number)
+.decl func_type_has_varargs(type:FunctionType)
+.decl func_type_return(type:FunctionType, ret:Type)
+.decl func_type_param(type:FunctionType, index:ArgumentIndex, param:Type)
+.decl func_type_nparams(type:FunctionType, total:number)
 
 schema_invalid_type(Type, __FILE__, __LINE__) :-
    schema_sanity(),
-   function_type(Type),
-   !function_type_nparams(Type, _).
+   func_type(Type),
+   !func_type_nparams(Type, _).
 
 schema_invalid_type(Type, __FILE__, __LINE__) :-
    schema_sanity(),
-   function_type(Type),
-   function_type_return(Type, RetType),
+   func_type(Type),
+   func_type_return(Type, RetType),
    (metadata_type(RetType) ; label_type(RetType)).
 
 

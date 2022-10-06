@@ -22,7 +22,7 @@ schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
 //------------------------------------------------------------------------------
 // [Well Formed Functions]
 //
-// A function is not well formed if:
+// A func is not well formed if:
 //  (i)   it it has a non-void return type and contains a ‘ret‘
 //        instruction with no return value or
 //
@@ -32,34 +32,34 @@ schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
 //        instruction with a return value.
 //------------------------------------------------------------------------------
 
-.decl function_is_wellformed(func:Function)
-.decl function_is_illformed(func:Function)
+.decl func_is_wellformed(func:Function)
+.decl func_is_illformed(func:Function)
 
-function_is_wellformed(Func):-
-   function(Func),
-   !function_is_illformed(Func).
+func_is_wellformed(Func):-
+   func(Func),
+   !func_is_illformed(Func).
 
-function_is_illformed(Func) :-
+func_is_illformed(Func) :-
    void_ret_instruction(Instr),
-   instruction_in_function(Instr, Func),
-   function_has_type(Func, FuncType),
-   function_type_return(FuncType, RetType),
+   instruction_in_func(Instr, Func),
+   func_ty(Func, FuncType),
+   func_type_return(FuncType, RetType),
    !void_type(RetType).
 
-function_is_illformed(Func) :-
+func_is_illformed(Func) :-
    ret_instruction_value(Instr, Value),
-   instruction_in_function(Instr, Func),
-   function_has_type(Func, FuncType),
-   function_type_return(FuncType, RetType),
+   instruction_in_func(Instr, Func),
+   func_ty(Func, FuncType),
+   func_type_return(FuncType, RetType),
    !void_type(RetType),
    !operand_has_type(Value, RetType).
 
-function_is_illformed(Func) :-
+func_is_illformed(Func) :-
    ret_instruction(Instr),
    !void_ret_instruction(Instr),
-   instruction_in_function(Instr, Func),
-   function_has_type(Func, FuncType),
-   function_type_return(FuncType, RetType),
+   instruction_in_func(Instr, Func),
+   func_ty(Func, FuncType),
+   func_type_return(FuncType, RetType),
    void_type(RetType).
 
 

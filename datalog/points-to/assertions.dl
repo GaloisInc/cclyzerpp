@@ -27,7 +27,7 @@ assert_array_type_size(?type, ?numElems, ?elemSize, ?size) :-
 .decl assert_type_has_size(?type: Type)
 assert_type_has_size(?type) :-
   type(?type),
-  ! function_type(?type),
+  ! func_type(?type),
   ! opaque_struct_type(?type),
   ! void_type(?type),
   ! label_type(?type),
@@ -70,7 +70,7 @@ _assert_type_compatible_relaxed(?integerType, ?to) :-
 
 // The remaining rules consider pointer/array types compatible if the elements
 // they point to have compatible types, where compatibility is also relaxed
-// to allow function or struct types to be compatible up to a given argument
+// to allow func or struct types to be compatible up to a given argument
 // or field. This allows the relation to handle, e.g., pointers to a class or its
 // subclass, which are structs with a common prefix. The relation
 // `_assert_type_compatible_relaxed_inner` is used to prevent these rules
@@ -234,7 +234,7 @@ assert_global_allocations_have_one_type(?alloc) :-
 // variables. Their sizes should just be emitted by the fact generator.
 .decl failing_assert_global_allocations_have_sizes(?alloc: GlobalAllocation)
 failing_assert_global_allocations_have_sizes(?alloc) :-
-   // global_allocation includes "allocations" for functions, which naturally
+   // global_allocation includes "allocations" for funcs, which naturally
    // don't have sizes.
    global_allocation_by_variable(_, ?alloc),
    ! allocation_size(?alloc, _).
@@ -254,22 +254,22 @@ failing_assert_global_allocations_have_sizes(?alloc) :-
 assert_var_points_to_implies_reachable(?aCtx, ?alloc, ?ctx, ?toVar) :-
   subset.var_points_to(?aCtx, ?alloc, ?ctx, ?toVar),
   instruction_assigns_to(?instr, ?toVar),
-  instruction_in_function(?instr, ?instrFunc),
+  instruction_in_func(?instr, ?instrFunc),
   ! subset.callgraph.reachable_context(?ctx, ?instrFunc).
 
-// Instructions can't access variables defined outside their own function.
-.decl assert_bitcast_operand_in_same_function(?bitcastInstr: Instruction)
-assert_bitcast_operand_in_same_function(?bitcastInstr) :-
+// Instructions can't access variables defined outside their own func.
+.decl assert_bitcast_operand_in_same_func(?bitcastInstr: Instruction)
+assert_bitcast_operand_in_same_func(?bitcastInstr) :-
   bitcast_instruction_from_operand(?bitcastInstr, ?fromOperand),
   instruction_assigns_to(?instr, ?fromOperand),
-  instruction_in_function(?bitcastInstr, ?instrFunc),
-  ! instruction_in_function(?instr, ?instrFunc).
+  instruction_in_func(?bitcastInstr, ?instrFunc),
+  ! instruction_in_func(?instr, ?instrFunc).
 
 .decl assert_reachable_direct_calls_have_callees(?ctx: Context, ?call : Instruction)
 
 assert_reachable_direct_calls_have_callees(?ctx, ?call) :-
   subset.callgraph.reachable_context(?ctx, ?instrFunc),
-  instruction_in_function(?call, ?instrFunc),
+  instruction_in_func(?call, ?instrFunc),
   direct_call_instruction(?call),
   call_instruction_fn_operand(?call, ?funcOp),
   ! undef_constant(?funcOp),
@@ -388,7 +388,7 @@ assert_basic_or_path(?alloc) :-
 .decl assert_dynamic_or_known_size(?alloc: Allocation)
 assert_dynamic_or_known_size(?alloc) :-
   allocation(?alloc),
-  ! global_allocation_by_function(_, ?alloc),
+  ! global_allocation_by_func(_, ?alloc),
   ! allocation_size(?alloc, _),
   ! dynamically_sized_alloc(?alloc).
 

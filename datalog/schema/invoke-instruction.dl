@@ -10,7 +10,7 @@ terminator_instruction(v) :- invoke_instruction(v).
 // Function operand: can be either a constant or a variable
 .decl invoke_instruction_fn_operand(instr:InvokeInstruction, op:Operand)
 
-// Resolved function of invoke instruction. Initially empty.
+// Resolved func of invoke instruction. Initially empty.
 .decl invoke_instruction_fn_target(instr:InvokeInstruction, func:FunctionDecl)
 
 // If none is specified, the invoke defaults to using C
@@ -23,8 +23,8 @@ calling_convention(cc) :- invoke_instruction_with_calling_convention(_, cc).
 // [Direct and Indirect Invoke Instructions]
 //
 // Invoke-instructions are divided into direct invocations
-// that provide a function name, and indirect invocations
-// through a function pointer variable.
+// that provide a func name, and indirect invocations
+// through a func pointer variable.
 //---------------------------------------------------------------
 
 .decl direct_invoke_instruction(instr:InvokeInstruction)
@@ -44,17 +44,17 @@ indirect_invoke_instruction(Instr) :-
 //--------------------------------------------------
 
 .decl invoke_instruction_arg(instr:InvokeInstruction, i:ArgumentIndex, arg:Operand)
-.decl invoke_instruction_with_return_attribute(instr:InvokeInstruction, attr:Attribute)
-.decl invoke_instruction_with_param_attribute(instr:InvokeInstruction, i:ArgumentIndex, attr:Attribute)
-.decl invoke_instruction_with_fn_attribute(instr:InvokeInstruction, attr:Attribute)
+.decl invoke_instruction_with_return_attr(instr:InvokeInstruction, attr:Attribute)
+.decl invoke_instruction_with_param_attr(instr:InvokeInstruction, i:ArgumentIndex, attr:Attribute)
+.decl invoke_instruction_with_fn_attr(instr:InvokeInstruction, attr:Attribute)
 
-attribute(Attr) :- invoke_instruction_with_fn_attribute(_, Attr).
-attribute(Attr) :- invoke_instruction_with_return_attribute(_, Attr).
-attribute(Attr) :- invoke_instruction_with_param_attribute(_, _, Attr).
+attr(Attr) :- invoke_instruction_with_fn_attr(_, Attr).
+attr(Attr) :- invoke_instruction_with_return_attr(_, Attr).
+attr(Attr) :- invoke_instruction_with_param_attr(_, _, Attr).
 
 
 //-----------------------------
-// Signature (function type)
+// Signature (func type)
 //-----------------------------
 
 .decl invoke_instruction_fn_type(instr:InvokeInstruction, type:Type)
@@ -64,18 +64,18 @@ invoke_instruction_fn_type(Instr, FnType) :-
    invoke_instruction_fn_operand(Instr, FnOp),
    operand_has_type(FnOp, PtrType),
    pointer_type_has_component(PtrType, FnType),
-   function_type(FnType).
+   func_type(FnType).
 
 invoke_instruction_return_type(Instr, Type) :-
    invoke_instruction_fn_type(Instr, FnType),
-   function_type_return(FnType, Type).
+   func_type_return(FnType, Type).
 
 
 //------------------------------------------------------------------------------
 // [Labels]
 //
 // ‘normal label‘:
-//    the label reached when the called function executes a ‘ret‘
+//    the label reached when the called func executes a ‘ret‘
 //    instruction.
 //
 // ‘exception label‘:
@@ -90,17 +90,17 @@ invoke_instruction_return_type(Instr, Type) :-
 //------------------------------------------------------------------------------
 // [Constraints]
 //
-//  (1) Only ‘zeroext‘, ‘signext‘, and ‘inreg‘ attributes
+//  (1) Only ‘zeroext‘, ‘signext‘, and ‘inreg‘ attrs
 //      are valid for return values.
 //  (2) The type of the invoke instruction is also the type of
 //      the return value. Functions that return no value are
 //      marked void.
-//  (3) The function type shall be the signature of the pointer
-//      to function value being invoked. The argument types must
+//  (3) The func type shall be the signature of the pointer
+//      to func value being invoked. The argument types must
 //      match the types implied by this signature.
 //  (4) All arguments must be of first class type.
 //  (5) Only ‘noreturn‘, ‘nounwind‘, ‘readonly‘ and ‘readnone‘
-//      attributes are valid as function attributes.
+//      attrs are valid as func attrs.
 //  (6) The 'invoke' instruction' takes a 'normal label' and
 //  (7) an 'exceptional label'.
 //------------------------------------------------------------------------------
@@ -120,27 +120,27 @@ schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
    invoke_instruction(Instr),
    !invoke_instruction_exception_label(Instr, _).
 
-// attribute compatibility
+// attr compatibility
 schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
-   invoke_instruction_with_return_attribute(Instr, Attr),
-   !parameter_attribute__zeroext(Attr),
-   !parameter_attribute__signext(Attr),
-   !parameter_attribute__inreg(Attr),
-   !parameter_attribute__noalias(Attr),
-   !parameter_attribute__dereferenceable(Attr). // c1
+   invoke_instruction_with_return_attr(Instr, Attr),
+   !parameter_attr__zeroext(Attr),
+   !parameter_attr__signext(Attr),
+   !parameter_attr__inreg(Attr),
+   !parameter_attr__noalias(Attr),
+   !parameter_attr__dereferenceable(Attr). // c1
 
 schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
-   invoke_instruction_with_fn_attribute(Instr, Attr),
-   !function_attribute__noreturn(Attr),
-   !function_attribute__nounwind(Attr),
-   !function_attribute__readonly(Attr),
-   !function_attribute__readnone(Attr),
-   !function_attribute__cold(Attr),
-   !function_attribute__returns_twice(Attr),
-   !function_attribute__builtin(Attr),
-   !target_dependent_attribute(Attr). // c5
+   invoke_instruction_with_fn_attr(Instr, Attr),
+   !func_attr__noreturn(Attr),
+   !func_attr__nounwind(Attr),
+   !func_attr__readonly(Attr),
+   !func_attr__readnone(Attr),
+   !func_attr__cold(Attr),
+   !func_attr__returns_twice(Attr),
+   !func_attr__builtin(Attr),
+   !target_dependent_attr(Attr). // c5
 
 
 // Signature conformance
@@ -148,21 +148,21 @@ schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    invoke_instruction_arg(Instr, Index, _),
    invoke_instruction_fn_type(Instr, FnType),
-   !function_type_param(FnType, Index, _),
-   !function_type_has_varargs(FnType).
+   !func_type_param(FnType, Index, _),
+   !func_type_has_varargs(FnType).
 
 schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    invoke_instruction(Instr),
    !invoke_instruction_arg(Instr, Index, _),
    invoke_instruction_fn_type(Instr, FnType),
-   function_type_param(FnType, Index, _).
+   func_type_param(FnType, Index, _).
 
 schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    invoke_instruction_arg(Instr, Index, Arg),
    invoke_instruction_fn_type(Instr, FnType),
-   function_type_param(FnType, Index, ParamType),
+   func_type_param(FnType, Index, ParamType),
    !operand_has_type(Arg, ParamType). // c3
 
 schema_invalid_instruction(Instr, __FILE__, __LINE__) :-

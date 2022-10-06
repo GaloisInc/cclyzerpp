@@ -17,7 +17,7 @@ void FactGenerator::writeLocalVariables() {
     // Record variable entity with its type and containing function
     writeFact(pred::variable::id, varId);
     writeFact(pred::variable::type, varId, recordType(type));
-    writeFact(pred::variable::in_function, varId, funcname);
+    writeFact(pred::variable::in_func, varId, funcname);
 
     // Record variable name part
     size_t idx = varId.find_last_of("%!");

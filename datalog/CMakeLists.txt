@@ -1,7 +1,7 @@
 set(DL_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/import/import.dl
     ${CMAKE_CURRENT_LIST_DIR}/import/todo.dl
-    ${CMAKE_CURRENT_LIST_DIR}/symbol-lookup/resolve-function-calls.dl
+    ${CMAKE_CURRENT_LIST_DIR}/symbol-lookup/resolve-func-calls.dl
     ${CMAKE_CURRENT_LIST_DIR}/points-to/allocations-globals.dl
     ${CMAKE_CURRENT_LIST_DIR}/points-to/allocations-sizes.dl
     ${CMAKE_CURRENT_LIST_DIR}/points-to/allocations-type.dl
@@ -41,7 +41,7 @@ set(DL_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/schema/udiv-instruction.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/va-arg-instruction.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/debug.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/function.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/func.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/fcmp-instruction.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/fdiv-instruction.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/select-instruction.dl
@@ -101,7 +101,7 @@ set(DL_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/schema/switch-instruction.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/lshr-instruction.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/fpext-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/attribute.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/attr.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/landingpad-instruction.dl
     ${CMAKE_CURRENT_LIST_DIR}/callgraph/entry-points.dl
     ${CMAKE_CURRENT_LIST_DIR}/export/auxiliary-records.dl

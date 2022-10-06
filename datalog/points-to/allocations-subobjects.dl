@@ -21,7 +21,7 @@
 // that computes the offset from a base pointer variable and assigns
 // it to some other variable, which may then be supplied as the
 // address operand to a `load`/`store` instruction. These two
-// instructions may reside in different functions, so an
+// instructions may reside in different funcs, so an
 // intraprocedural matching would not work.
 //
 // This is an important difference with the Java Bytecode IR, where no
@@ -311,12 +311,12 @@ not_array_index(?component) :- path_component_at_any_index(?component).
     longest_path_to(?root, ?start, ?mid),
     _alloc_subregion(?sub, ?mid, ?end, ?root, ?fullPath, _).
 
-  // Global allocations holding functions don't have any suballocations, it's
+  // Global allocations holding funcs don't have any suballocations, it's
   // illegal to add offsets to pointers to such allocations.
-  .decl _non_function_basic_allocation(?alloc: BasicAllocation)
-  _non_function_basic_allocation(?alloc) :-
+  .decl _non_func_basic_allocation(?alloc: BasicAllocation)
+  _non_func_basic_allocation(?alloc) :-
     basic_allocation(?alloc),
-    ! global_allocation_by_function(_, ?alloc).
+    ! global_allocation_by_func(_, ?alloc).
 
   //---------------------------------------------------------------
   // [Field Selections]
@@ -362,7 +362,7 @@ not_array_index(?component) :- path_component_at_any_index(?component).
   :-
     allocation_type(?alloc, ?type),
     // base object
-    _non_function_basic_allocation(?alloc),
+    _non_func_basic_allocation(?alloc),
     path_component_at_any_index(?component),
     component_to_path(?component, ?path),
     ?newAlloc=cat(?alloc, ?component).
@@ -387,7 +387,7 @@ not_array_index(?component) :- path_component_at_any_index(?component).
   .decl index_in_bounds(?alloc: Allocation, ?index: ArrayIndex)
 
   index_in_bounds(?alloc, ?index) :-
-    _non_function_basic_allocation(?alloc),
+    _non_func_basic_allocation(?alloc),
     input_allocation_size(?alloc, ?size),
     allocation_type(?alloc, ?type),
     alloc_region(?alloc, ?region),
@@ -399,7 +399,7 @@ not_array_index(?component) :- path_component_at_any_index(?component).
     ?elemSize * ?index < ?size.
 
   index_in_bounds(?alloc, ?index) :-
-    _non_function_basic_allocation(?alloc),
+    _non_func_basic_allocation(?alloc),
     dynamically_sized_alloc(?alloc),
     allocation_type(?alloc, ?type),
     alloc_region(?alloc, ?region),
@@ -435,7 +435,7 @@ not_array_index(?component) :- path_component_at_any_index(?component).
   :-
     allocation_type(?alloc, ?type),
     // base object
-    _non_function_basic_allocation(?alloc),
+    _non_func_basic_allocation(?alloc),
     index_in_bounds(?alloc, ?index),
     ?newAlloc= cat(?alloc, "[", to_string(?index), "]"),
     ?component = cat("[", to_string(?index), "]").
