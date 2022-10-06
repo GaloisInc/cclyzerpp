@@ -38,16 +38,16 @@ basic_allocation(?alloc) :-
 .decl heap_allocation_by_instruction(?insn:CallInstruction, ?heapAlloc:HeapAllocation)
 .decl heap_allocation_by_type_instruction(?type:Type, ?insn:CallInstruction, ?heapAlloc:HeapAllocation)
 
-.decl global_allocation_by_function(?func:FunctionDecl, ?globalAlloc:GlobalAllocation)
+.decl global_allocation_by_func(?func:FunctionDecl, ?globalAlloc:GlobalAllocation)
 .decl global_allocation_by_variable(?var:GlobalVariable, ?globalAlloc:GlobalAllocation)
 .decl global_allocation_by_name(?global:GlobalName, ?globalAlloc:GlobalAllocation)
 
-.decl heap_alloc_function(?function:Function)
-heap_alloc_function(?func) :-
-   function_has_name(?func, "@malloc")
- ; function_has_name(?func, "@calloc")
- ; function_has_name(?func, "@realloc")
- ; function_has_name(?func, "@mmap").
+.decl heap_alloc_func(?func:Function)
+heap_alloc_func(?func) :-
+   func_name(?func, "@malloc")
+ ; func_name(?func, "@calloc")
+ ; func_name(?func, "@realloc")
+ ; func_name(?func, "@mmap").
 
 .decl heap_allocation_by_malloc(?insn:CallInstruction, ?heapAlloc:HeapAllocation)
 .decl heap_allocation_by_calloc(?insn:CallInstruction, ?heapAlloc:HeapAllocation)

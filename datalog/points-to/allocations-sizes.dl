@@ -90,31 +90,31 @@ allocation_size(?heapAlloc, ?size) :-
 .decl sized_alloc_instr(?insn: Instruction, ?size: Bytes)
 
 sized_alloc_instr(?insn, as(?size, Bytes)) :-
-   function_has_name(?func, "@malloc"),
+   func_name(?func, "@malloc"),
    call_instruction_fn_target(?insn, ?func),
    call_instruction_arg(?insn, 0, ?operand),
    constant_to_int(?operand, ?size).
 
 sized_alloc_instr(?insn, as(?size, Bytes)) :-
-   function_has_name(?func, "@malloc"),
+   func_name(?func, "@malloc"),
    invoke_instruction_fn_target(?insn, ?func),
    invoke_instruction_arg(?insn, 0, ?operand),
    constant_to_int(?operand, ?size).
 
 sized_alloc_instr(?insn, as(?size, Bytes)) :-
-   function_has_name(?func, "@realloc"),
+   func_name(?func, "@realloc"),
    invoke_instruction_fn_target(?insn, ?func),
    invoke_instruction_arg(?insn, 1, ?operand),
    constant_to_int(?operand, ?size).
 
 sized_alloc_instr(?insn, as(?size, Bytes)) :-
-   function_has_name(?func, "@realloc"),
+   func_name(?func, "@realloc"),
    call_instruction_fn_target(?insn, ?func),
    call_instruction_arg(?insn, 1, ?operand),
    constant_to_int(?operand, ?size).
 
 sized_alloc_instr(?insn, as(n, Bytes)) :-
-   function_has_name(?func, "@calloc"),
+   func_name(?func, "@calloc"),
    invoke_instruction_fn_target(?insn, ?func),
    invoke_instruction_arg(?insn, 0, ?nmembOp),
    invoke_instruction_arg(?insn, 1, ?sizeOp),
@@ -123,7 +123,7 @@ sized_alloc_instr(?insn, as(n, Bytes)) :-
    n = size * nmemb.
 
 sized_alloc_instr(?insn, as(n, Bytes)) :-
-   function_has_name(?func, "@calloc"),
+   func_name(?func, "@calloc"),
    call_instruction_fn_target(?insn, ?func),
    call_instruction_arg(?insn, 0, ?nmembOp),
    call_instruction_arg(?insn, 1, ?sizeOp),

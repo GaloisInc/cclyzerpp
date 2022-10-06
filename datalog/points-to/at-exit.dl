@@ -4,30 +4,30 @@
 // Signature:
 // int __cxa_atexit(void (*func) (void *), void * arg, void * dso_handle);
 //
-// Registers a destructor function to be called by exit() or when a
+// Registers a destructor func to be called by exit() or when a
 // shared library is unloaded.
 //
 // Its arguments are:
-//   * A pointer to the destructor function
+//   * A pointer to the destructor func
 //   * The receiver object of the call
 //   * A handle to the shared library
 //
 // This routine never returns.
 //------------------------------------------------------------------------------
 
-.decl cxx_atexit_function(?func: FunctionDecl)
+.decl cxx_atexit_func(?func: FunctionDecl)
 
-cxx_atexit_function(?func) :-
-   function_has_name(?func, "@__cxa_atexit"),
-   function_has_type(?func, ?fType),
-   function_type_param(?fType, 0, ?type1),
-   function_type_param(?fType, 1, ?type2),
-   function_type_param(?fType, 2, ?type3),
+cxx_atexit_func(?func) :-
+   func_name(?func, "@__cxa_atexit"),
+   func_ty(?func, ?fType),
+   func_type_param(?fType, 0, ?type1),
+   func_type_param(?fType, 1, ?type2),
+   func_type_param(?fType, 2, ?type3),
    pointer_type_has_component(?type1, ?compType1),
-   function_type(?compType1),
+   func_type(?compType1),
    integer_pointer_type(?type2),
    integer_pointer_type(?type3),
-   function_type_nparams(?fType, 3).
+   func_type_nparams(?fType, 3).
 
 
 // Model effects of `__cxa_atexit`
@@ -53,19 +53,19 @@ cxx_atexit_function(?func) :-
 
   .decl _registers_dtor_atexit(?callCtx: Context, ?dtorOperand: Operand, ?recvOperand: Operand)
   _registers_dtor_atexit(?callCtx, ?dtorOperand, ?recvOperand) :-
-    cxx_atexit_function(?atExit),
+    cxx_atexit_func(?atExit),
     callgraph_edge(_, ?atExit, ?callCtx, ?callInstr),
     call_instruction_arg(?callInstr, 0, ?dtorOperand),
     call_instruction_arg(?callInstr, 1, ?recvOperand).
 
-  // The following rule augments the logic about identifying functions
+  // The following rule augments the logic about identifying funcs
   // registered to run at program exit, so that it also works with
-  // function pointers.
+  // func pointers.
 
   .decl _registers_atexit(?callerCtx: Context, ?funcOp: Operand)
 
   _registers_atexit(?callerCtx, ?funcOp) :-
-    function_has_name(?atExit, "@atexit"),
+    func_name(?atExit, "@atexit"),
     callgraph_edge(_, ?atExit, ?callerCtx, ?callerInstr),
     actual_arg(?callerInstr, 0, ?funcOp).
 
@@ -76,15 +76,15 @@ cxx_atexit_function(?func) :-
   called_at_exit(?callback) :-
     _registers_atexit(?ctx, ?funcOp),
     operand_points_to(_, ?alloc, ?ctx, ?funcOp),
-    function_by_location(?alloc, ?callback).
+    func_by_location(?alloc, ?callback).
 
   called_at_exit(Callback) :-
-    function_has_name(AtExit, "@atexit"),
+    func_name(AtExit, "@atexit"),
     callgraph_edge(_, AtExit, _, CallerInstr),
     call_instruction_arg(CallerInstr, 0, Constant),
     // the following is a simplified version of logic that can only
-    // work with direct function calls
-    constant_references_function(Constant, Callback).
+    // work with direct func calls
+    constant_references_func(Constant, Callback).
 
   .decl _dtor_accepts_recv(?aCtx: Context, ?recvObj: GlobalAllocation , ?dtor: FunctionDecl)
 
@@ -95,9 +95,9 @@ cxx_atexit_function(?func) :-
     alloc_aliases(?recvObj, ?someObj),
     global_allocation(?recvObj),
     static_allocation_type(?recvObj, ?recvType),
-    function_by_location(?dtorObj, ?dtor),
-    function_has_type(?dtor, ?dtorType),
-    function_type_param(?dtorType, 0, ?ptrType),
+    func_by_location(?dtorObj, ?dtor),
+    func_ty(?dtor, ?dtorType),
+    func_type_param(?dtorType, 0, ?ptrType),
     pointer_type_has_component(?ptrType, ?recvType).
 
   called_at_exit(?dtor) :- _dtor_accepts_recv(_, _, ?dtor).
@@ -107,5 +107,5 @@ cxx_atexit_function(?func) :-
     exit_context(?exitCtx),
     _dtor_accepts_recv(?aCtx, ?recvObj, ?dtor),
     reachable_context(?exitCtx, ?dtor),
-    function_param(?dtor, 0, ?this).
+    func_param(?dtor, 0, ?this).
 }

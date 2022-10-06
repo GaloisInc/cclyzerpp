@@ -1,12 +1,12 @@
 // There is code to plot some of these statistics in ../../plot
 
-// The containing function of a variable
+// The containing func of a variable
 
-variable_in_function(?var, ?func) :-
-   _variable_in_function(?var, ?funcName),
-   function_has_name(?func, ?funcName).
+variable_in_func(?var, ?func) :-
+   _variable_in_func(?var, ?funcName),
+   func_name(?func, ?funcName).
 
-// Compute variables defined in reachable functions
+// Compute variables defined in reachable funcs
 
 .decl reachable_var(?var: Variable)
 .decl reachable_vars(?nVars: number)
@@ -29,8 +29,8 @@ variable_in_function(?var, ?func) :-
 .decl stripctx_var_alias(?var1 : Variable, ?var2 : Variable)
 
 reachable_var(?var) :-
-   variable_in_function(?var, ?func),
-   subset.callgraph.reachable_function(?func).
+   variable_in_func(?var, ?func),
+   subset.callgraph.reachable_func(?func).
 
 reachable_vars(?nVars) :-
    ?nVars = count : reachable_var(_).
@@ -159,32 +159,32 @@ _nallocs_by_pt_total[] = NVars
 //------------------------------------------------------------------------------
 
 // Intermediate relationship
-.decl function_calls_function(?caller: Function, ?callee: Function)
-function_calls_function(?caller, ?callee) :-
-  instruction_in_function(?callerInstr, ?caller),
+.decl func_calls_func(?caller: Function, ?callee: Function)
+func_calls_func(?caller, ?callee) :-
+  instruction_in_func(?callerInstr, ?caller),
   subset.callgraph.callgraph_edge(_, ?callee, _, ?callerInstr).
 
-// How many functions does this function call?
-.decl function_out_degree(?functionName: FunctionName, ?degree: number)
-// How many functions is this function called by?
-.decl function_in_degree(?functionName: FunctionName, ?degree: number)
-// How many functions call this number of functions?
-.decl functions_by_in_degree(?degree: number, ?functions: number)
-// How many functions are called by this number of functions?
-.decl functions_by_out_degree(?degree: number, ?functions: number)
+// How many funcs does this func call?
+.decl func_out_degree(?funcName: FunctionName, ?degree: number)
+// How many funcs is this func called by?
+.decl func_degree(?funcName: FunctionName, ?degree: number)
+// How many funcs call this number of funcs?
+.decl funcs_by_in_degree(?degree: number, ?funcs: number)
+// How many funcs are called by this number of funcs?
+.decl funcs_by_out_degree(?degree: number, ?funcs: number)
 
-function_out_degree(?functionName, ?degree) :-
-   function_has_name(?func, ?functionName),
-   ?degree = count : function_calls_function(?func, _).
+func_out_degree(?funcName, ?degree) :-
+   func_name(?func, ?funcName),
+   ?degree = count : func_calls_func(?func, _).
 
-function_in_degree(?functionName, ?degree) :-
-   function_has_name(?func, ?functionName),
-   ?degree = count : function_calls_function(_, ?func).
+func_degree(?funcName, ?degree) :-
+   func_name(?func, ?funcName),
+   ?degree = count : func_calls_func(_, ?func).
 
-functions_by_out_degree(?degree, ?functions) :-
-   function_out_degree(_, ?degree), // ground it
-   ?functions = count : function_out_degree(_, ?degree).
+funcs_by_out_degree(?degree, ?funcs) :-
+   func_out_degree(_, ?degree), // ground it
+   ?funcs = count : func_out_degree(_, ?degree).
 
-functions_by_in_degree(?degree, ?functions) :-
-   function_in_degree(_, ?degree), // ground it
-   ?functions = count : function_in_degree(_, ?degree).
+funcs_by_in_degree(?degree, ?funcs) :-
+   func_degree(_, ?degree), // ground it
+   ?funcs = count : func_degree(_, ?degree).

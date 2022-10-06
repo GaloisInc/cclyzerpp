@@ -127,7 +127,7 @@ local_exec_threadlocal_mode("thread_local(localexec)").
 // [Aliases]
 //
 // Aliases act as “second name” for the aliasee value
-// (which can be either function, global variable, another
+// (which can be either func, global variable, another
 // alias or bitcast of global value).
 //------------------------------------------------------------------------------
 

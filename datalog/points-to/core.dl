@@ -19,11 +19,11 @@
   _merge.reachable_context(?ctx, ?func) :-
     callgraph.reachable_context(?ctx, ?func).
 
-  callgraph.function_pointer_operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+  callgraph.func_pointer_operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
     operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
 
   memcpy_pass_by_value(?calleeCtx, ?param, ?callerCtx, ?argument) :-
-    function_by_value_param(?callee, ?index, ?param),
+    func_by_value_param(?callee, ?index, ?param),
     callgraph.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr),
     actual_arg(?callerInstr, ?index, ?argument).
 
@@ -34,7 +34,7 @@
   var_points_to(aCtx, argvAlloc, mainCtx, argvVar) :-
     argv_var_points_to(aCtx, argvAlloc, mainCtx, argvVar).
 
-  any_reachable_function(?func) :- callgraph.reachable_function(?func).
+  any_reachable_func(?func) :- callgraph.reachable_func(?func).
 
   //-----------------------------------------------------------------------
   // [Output Relations]
@@ -60,7 +60,7 @@
     unknown_location(?unknown),
     inttoptr_instruction(?instr),
     instruction_assigns_to(?instr, ?toVar),
-    instruction_in_function(?instr, ?instrFunc),
+    instruction_in_func(?instr, ?instrFunc),
     callgraph.reachable_context(?ctx, ?instrFunc).
 
   //----------------------------
@@ -89,23 +89,23 @@
 
   operand_points_to(?aCtx, ?alloc, ?ctx, ?cons) :-
     empty_alloc_context(?aCtx),
-    constant_in_function(?cons, ?enclosingFunc),
+    constant_in_func(?cons, ?enclosingFunc),
     constant_points_to(?cons, ?alloc),
     callgraph.reachable_context(?ctx, ?enclosingFunc).
 
   //------------------------------------------------------------------------------
-  // [Marks all functions as reachable]
+  // [Marks all funcs as reachable]
   //
   // This is useful if the artifact to be analyzed doesn't have any
   // known entry points (e.g., dynamic library). In such a case, it
-  // makes sense to treat all functions defined therein as potential
+  // makes sense to treat all funcs defined therein as potential
   // entry points.
   //------------------------------------------------------------------------------
 
   callgraph.reachable_context(?ctx, ?func) :-
     user_option_value("entrypoints", "library"),
     empty_context(?ctx),
-    function(?func).
+    func(?func).
 
   //-----------------------------------------------------------------------
   // [Re-exports]

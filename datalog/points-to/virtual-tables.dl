@@ -138,13 +138,13 @@ typeinfo_base_class(?typeinfo, ?offset, ?baseTypeinfo) :-
 
 // see RTTI Layout of Itanium C++ ABI
 
-// Find the functions stored inside each vtable
-.decl vtable_function(?vt: VirtualTable, ?index: number, ?func: FunctionDecl)
+// Find the funcs stored inside each vtable
+.decl vtable_func(?vt: VirtualTable, ?index: number, ?func: FunctionDecl)
 
-vtable_function(?vt,?index,?func) :-
+vtable_func(?vt,?index,?func) :-
    vtable(?vt, _),
    global_var_initializer(?vt,?init),
    constant_array_index(?init, ?index, ?funcAsInteger),
    bitcast_constant_expression_from(?funcAsInteger, ?funcConstant),
-   function_constant_fn_name(?funcConstant, ?funcName),
-   function_has_name(?func,?funcName).
+   func_constant_fn_name(?funcConstant, ?funcName),
+   func_name(?func,?funcName).

@@ -264,8 +264,8 @@ static_subobjects.input_allocation_size(?alloc, ?size) :-
 // Copy in results from static subobjects
 subset_subobjects._alloc_subregion(?allocSub, ?base, ?component, ?root, ?path, ?type) :-
   static_subobjects._alloc_subregion(?allocSub, ?base, ?component, ?root, ?path, ?type).
-subset_subobjects._non_function_basic_allocation(?alloc) :-
-  static_subobjects._non_function_basic_allocation(?alloc).
+subset_subobjects._non_func_basic_allocation(?alloc) :-
+  static_subobjects._non_func_basic_allocation(?alloc).
 subset_subobjects.alloc_subregion_at_field(?alloc, ?index, ?region) :-
   static_subobjects.alloc_subregion_at_field(?alloc, ?index, ?region).
 subset_subobjects.alloc_subregion_at_any_array_index(?alloc, ?region) :-

@@ -46,10 +46,10 @@ flag(Flag) :- instruction_has_flag(_, Flag).
 // The next instruction in the source file.
 .decl next_instruction(instr:Instruction, next:Instruction)
 
-// The function that contains the instruction
-.decl instruction_in_function(instr:Instruction, func:Function)
+// The func that contains the instruction
+.decl instruction_in_func(instr:Instruction, func:Function)
 
 schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    instruction(Instr),
-   !instruction_in_function(Instr, _).
+   !instruction_in_func(Instr, _).

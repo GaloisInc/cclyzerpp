@@ -70,7 +70,7 @@
 
   allocation_by_instruction_ctx(ctx, insn, actx, alloc) :-
     reachable_context(ctx, fun),
-    instruction_in_function(insn, fun),
+    instruction_in_func(insn, fun),
     allocation_by_instruction(insn, alloc),
     instruction_assigns_to(insn, var),
     var_points_to(actx, alloc, ctx, var).

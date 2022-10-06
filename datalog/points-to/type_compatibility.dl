@@ -42,28 +42,28 @@ type_compatible(?type1,?type2) :-
 .decl type_compatible_up_to_arg(?from:FunctionType, ?to:FunctionType, ?index:ArgumentIndex)
 
 type_compatible_up_to_arg(?from, ?to, 0) :-
-   function_type_return(?from, ?returnType1),
-   function_type_return(?to , ?returnType2),
+   func_type_return(?from, ?returnType1),
+   func_type_return(?to , ?returnType2),
    type_compatible(?returnType1, ?returnType2).
 
 type_compatible_up_to_arg(?from, ?to, i+1) :-
    type_compatible_up_to_arg(?from, ?to, i),
-   function_type_param(?from, i , ?param1),
-   function_type_param(?to, i , ?param2),
+   func_type_param(?from, i , ?param1),
+   func_type_param(?to, i , ?param2),
    type_compatible(?param1, ?param2).
 
 type_compatible(?from,?to) :-
-   function_type_nparams(?from, ?nparams),
-   function_type_nparams(?to, ?nparams),
+   func_type_nparams(?from, ?nparams),
+   func_type_nparams(?to, ?nparams),
    type_compatible_up_to_arg(?from, ?to, ?nparams).
 
 type_compatible(?from,?to) :-
-   function_type_nparams(?from, 0),
+   func_type_nparams(?from, 0),
    type_compatible_up_to_arg(?from, ?to, 0).
 
 type_compatible(?from,?to) :-
-   function_type_nparams(?to, ?nparams),
-   function_type_has_varargs(?to),
+   func_type_nparams(?to, ?nparams),
+   func_type_has_varargs(?to),
    type_compatible_up_to_arg(?from, ?to, ?nparams).
 
 // Array types
@@ -89,7 +89,7 @@ type_compatible(?ptrType1, ?ptrType2) :-
    pointer_type_has_component(?ptrType2 , ?type2),
    type_compatible(?type1, ?type2).
 
-// Any (non-function) pointer type can be seen as an array of bytes
+// Any (non-func) pointer type can be seen as an array of bytes
 
 type_compatible(?from, ?to) :-
    pointer_type_has_component(?to, ?i8),

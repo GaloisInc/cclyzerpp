@@ -21,40 +21,39 @@ void FactGenerator::writeFunction(
   refmode_t typeSignature = recordType(func.getFunctionType());
 
   // Record function type signature
-  writeFact(pred::function::type, funcref, typeSignature);
+  writeFact(pred::func::type, funcref, typeSignature);
 
   // Record function signature (name plus type signature) after
   // unmangling
-  writeFact(
-      pred::function::signature, funcref, demangle(func.getName().data()));
+  writeFact(pred::func::signature, funcref, demangle(func.getName().data()));
 
   // Record function linkage, visibility, alignment, and GC
-  if (!linkage.empty()) writeFact(pred::function::linkage, funcref, linkage);
+  if (!linkage.empty()) writeFact(pred::func::linkage, funcref, linkage);
 
   if (!visibility.empty())
-    writeFact(pred::function::visibility, funcref, visibility);
+    writeFact(pred::func::visibility, funcref, visibility);
 
   if (func.getAlignment())
-    writeFact(pred::function::alignment, funcref, func.getAlignment());
+    writeFact(pred::func::alignment, funcref, func.getAlignment());
 
-  if (func.hasGC()) writeFact(pred::function::gc, funcref, func.getGC());
+  if (func.hasGC()) writeFact(pred::func::gc, funcref, func.getGC());
 
   if (func.hasPersonalityFn()) {
     llvm::Constant *pers_fn = func.getPersonalityFn();
     refmode_t pers_fn_ref = writeConstant(*pers_fn);
 
-    writeFact(pred::function::pers_fn, funcref, pers_fn_ref);
+    writeFact(pred::func::pers_fn, funcref, pers_fn_ref);
   }
 
   // Record calling convection if it not defaults to C
   if (func.getCallingConv() != llvm::CallingConv::C) {
     refmode_t cconv = refmode(func.getCallingConv());
-    writeFact(pred::function::calling_conv, funcref, cconv);
+    writeFact(pred::func::calling_conv, funcref, cconv);
   }
 
   // Record function name
   const std::string funcname = "@" + func.getName().str();
-  writeFact(pred::function::name, funcref, funcname);
+  writeFact(pred::func::name, funcref, funcname);
 
   // Address not significant
 
@@ -63,7 +62,7 @@ void FactGenerator::writeFunction(
   // NB: for macOS LLVM-3.9.0svn this does not work, i.e. the test should be
   //#if LLVM_VERSION_MAJOR > 3 or equivalent to force else case
   if (func.hasGlobalUnnamedAddr()) {
-    writeFact(pred::function::unnamed_addr, funcref);
+    writeFact(pred::func::unnamed_addr, funcref);
   }
 
   // TODO Record appropriately
@@ -71,7 +70,7 @@ void FactGenerator::writeFunction(
   }
 #else
   if (func.hasUnnamedAddr()) {
-    writeFact(pred::function::unnamed_addr, funcref);
+    writeFact(pred::func::unnamed_addr, funcref);
   }
 #endif
 
@@ -80,31 +79,31 @@ void FactGenerator::writeFunction(
 
   if (Attrs.hasAttributes(Attributes::ReturnIndex))
     writeFact(
-        pred::function::ret_attr,
+        pred::func::ret_attr,
         funcref,
         Attrs.getAsString(Attributes::ReturnIndex));
 
-  writeFnAttributes<pred::function>(funcref, Attrs);
+  writeFnAttributes<pred::func>(funcref, Attrs);
 
   if (func.isDeclaration()) {
     // Record as a function declaration entity
-    writeFact(pred::function::id_decl, funcref);
+    writeFact(pred::func::id_decl, funcref);
 
     // Nothing more to do for function declarations
     return;
   }
 
   // Record function definition entity
-  writeFact(pred::function::id_defn, funcref);
+  writeFact(pred::func::id_defn, funcref);
 
   // Record section
   if (func.hasSection()) {
 #if LLVM_VERSION_MAJOR > 3 || \
     (LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9)
     llvm::StringRef secStr = func.getSection();
-    writeFact(pred::function::section, funcref, secStr.str());
+    writeFact(pred::func::section, funcref, secStr.str());
 #else
-    writeFact(pred::function::section, funcref, func.getSection());
+    writeFact(pred::func::section, funcref, func.getSection());
 #endif
   }
 
@@ -120,7 +119,7 @@ void FactGenerator::writeFunction(
     // Save parameters for CPG
     result_map_.insert({boost::flyweight<std::string>(varId), arg});
 
-    writeFact(pred::function::param, funcref, index++, varId);
+    writeFact(pred::func::param, funcref, index++, varId);
     recordVariable(varId, arg->getType());
   }
 }
@@ -154,7 +153,7 @@ void FactGenerator::writeFnAttributes(
 
       // Record target-dependent attributes
       if (attrib.isStringAttribute())
-        writeFact(pred::attribute::target_dependent, attr);
+        writeFact(pred::attr::target_dependent, attr);
 
       // Record attribute by kind
       switch (index) {
@@ -174,7 +173,7 @@ void FactGenerator::writeFnAttributes(
 
 // Instantiate template method
 
-template void FactGenerator::writeFnAttributes<pred::function>(
+template void FactGenerator::writeFnAttributes<pred::func>(
     const refmode_t &refmode, const Attributes Attrs);
 
 template void FactGenerator::writeFnAttributes<pred::call>(

@@ -1,22 +1,22 @@
-// Entry points; functions reachable by definition (call-graph roots)
+// Entry points; funcs reachable by definition (call-graph roots)
 .decl entry_point(func:FunctionDecl)
 
-// The main function and any other functions called automatically at
+// The main func and any other funcs called automatically at
 // startup, are our program's entry points
 
 entry_point(Func) :-
-   main_function(Func)
+   main_func(Func)
  ; called_at_startup(Func).
 
 //-----------------------------------------------------------------------
-// Main function
+// Main func
 //-----------------------------------------------------------------------
 
-.decl main_function(func:Function)
+.decl main_func(func:Function)
 
-main_function(MainFn) :-
-   function_has_name(MainFn, "@main"),
-   function(MainFn).
+main_func(MainFn) :-
+   func_name(MainFn, "@main"),
+   func(MainFn).
 
 // Set up argv
 .decl argv_alloc(alloc: BasicAllocation)
@@ -48,18 +48,18 @@ dynamically_sized_alloc(newAlloc)
 
 .decl argv_var_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable)
 argv_var_points_to(aCtx, argvAlloc, mainCtx, argvVar) :-
-  main_function(main),
+  main_func(main),
   argv_alloc(argvAlloc),
-  function_param(main, 1, argvVar),
+  func_param(main, 1, argvVar),
   empty_alloc_context(aCtx),
   main_context(mainCtx).
 
 //-----------------------------------------------------------------------
 // C Runtime performs initializations before running main() by calling
-// functions (e.g., global constructors) insided special sections.
+// funcs (e.g., global constructors) insided special sections.
 //-----------------------------------------------------------------------
 
 .decl called_at_startup(func:FunctionDecl)
 
 called_at_startup(StartupFn) :-
-   function_in_section(StartupFn, ".text.startup").
+   func_section(StartupFn, ".text.startup").

@@ -1,31 +1,31 @@
 //------------------------------------------------------------------------------
-// Identify the new() function for C++
+// Identify the new() func for C++
 //------------------------------------------------------------------------------
 
 
-// There must be a single allocating function
+// There must be a single allocating func
 
-.decl cxx_new_function(?func: FunctionDecl)
+.decl cxx_new_func(?func: FunctionDecl)
 
-// Consider only functions with a single parameter of integer type, no
+// Consider only funcs with a single parameter of integer type, no
 // definition, and whose demangled name contains the keyword `new`
 
-cxx_new_function(?func),
-   heap_alloc_function(?func)
+cxx_new_func(?func),
+   heap_alloc_func(?func)
  :-
-   function_has_signature(?func, ?signature),
-   function_has_type(?func, ?fType),
+   func_signature(?func, ?signature),
+   func_ty(?func, ?fType),
    contains("operator new", ?signature),
-   function_type_param(?fType, 0, ?type),
+   func_type_param(?fType, 0, ?type),
    integer_type(?type),
-   function_type_nparams(?fType, 1),
-   !function_decl_to_defn(?func, _).
+   func_type_nparams(?fType, 1),
+   !func_decl_to_defn(?func, _).
 
 // Introduce new heap allocation selector
 .decl heap_allocation_by_new(?insn: Instruction, ?heapAlloc: HeapAllocation)
 
 heap_allocation_by_new(?insn, ?heapAlloc) :-
-   cxx_new_function(?func),
+   cxx_new_func(?func),
    ( call_instruction_fn_target(?insn, ?func)
    ; invoke_instruction_fn_target(?insn, ?func) ),
    heap_allocation_by_instruction(?insn, ?heapAlloc).
@@ -33,13 +33,13 @@ heap_allocation_by_new(?insn, ?heapAlloc) :-
 // Compute allocation size
 
 sized_alloc_instr(?insn, as(?size, Bytes)) :-
-   cxx_new_function(?func),
+   cxx_new_func(?func),
    call_instruction_fn_target(?insn, ?func),
    call_instruction_arg(?insn, 0, ?operand),
    constant_to_int(?operand, ?size).
 
 sized_alloc_instr(?insn, as(?size, Bytes)) :-
-   cxx_new_function(?func),
+   cxx_new_func(?func),
    invoke_instruction_fn_target(?insn, ?func),
    invoke_instruction_arg(?insn, 0, ?operand),
    constant_to_int(?operand, ?size).
@@ -79,8 +79,8 @@ destructor_class_type(?dtor, ?classType) :-
   // implementation details, and should not be accessed outside the component.
   //----------------------------------------------------------------------------
 
-  // We have a direct call to a constructor function (associated with
-  // type `Type`) inside function `InFunction`, where `this` points to
+  // We have a direct call to a constructor func (associated with
+  // type `Type`) inside func `InFunction`, where `this` points to
   // `Alloc`. Note that the latter may be initialized by many
   // constructors, unless it is of a base type.
   // TODO(lb): Remove "is_" prefix when upgrading Souffle
@@ -90,7 +90,7 @@ destructor_class_type(?dtor, ?classType) :-
     ( call_instruction_fn_target(?initInstr, ?ctor)
     ; invoke_instruction_fn_target(?initInstr, ?ctor) ),
     constructor_class_type(?ctor, ?type),
-    instruction_in_function(?initInstr, ?inFunction),
+    instruction_in_func(?initInstr, ?inFunction),
     actual_arg(?initInstr, 0, ?this),
     stripctx_operand_points_to(?alloc, ?this).
 
@@ -178,7 +178,7 @@ destructor_class_type(?dtor, ?classType) :-
   class_instance_vtable(?alloc, ?vTable)
   :-
     class_instance_constructor(?alloc, ?ctor),
-    instruction_in_function(?storeInsn, ?ctor),
+    instruction_in_func(?storeInsn, ?ctor),
     store_instruction_value(?storeInsn, ?value),
     store_instruction_address(?storeInsn, ?pointer),
     stripctx_operand_points_to(?alloc, ?pointer),
@@ -193,7 +193,7 @@ destructor_class_type(?dtor, ?classType) :-
   // We do that by identifying instructions that store a pointer to a
   // vtable to the vpointer of some class instance, inside some
   // constructor. We already now the class type associated with each
-  // constructor function, hence we now have the association between the
+  // constructor func, hence we now have the association between the
   // class type and its vtable too.
 
   // This does not always work. TODO: fix
@@ -201,7 +201,7 @@ destructor_class_type(?dtor, ?classType) :-
   // vtable:class_type[VTable] = Type
   //  <-
   //    init_by_ctor(Type, Ctor, _, Alloc),
-  //    instruction:function[StoreInsn] = Ctor,
+  //    instruction:func[StoreInsn] = Ctor,
   //    store_instruction:value[StoreInsn] = Value,
   //    store_instruction:address[StoreInsn] = Pointer,
   //    operand_points_to(Alloc, Pointer),

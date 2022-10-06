@@ -10,25 +10,25 @@ instruction(v) :- landingpad_instruction(v).
 // result type
 .decl landingpad_instruction_type(instr:LandingPadInstruction, type:Type)
 
-// personality function
+// personality func
 .decl landingpad_instruction_pers_fn(instr:LandingPadInstruction, func:FunctionDecl)
 
 landingpad_instruction_pers_fn(Instr, PersFunction) :-
    landingpad_instruction(Instr),
-   instruction_in_function(Instr, EnclosingFunction),
-   function_with_pers_fn(EnclosingFunction, FnConstant),
-   function_constant(FnConstant),
-   function_constant_fn_name(FnConstant, PersFnName),
-   function_has_name(PersFunction, PersFnName).
+   instruction_in_func(Instr, EnclosingFunction),
+   func_pers_fn(EnclosingFunction, FnConstant),
+   func_constant(FnConstant),
+   func_constant_fn_name(FnConstant, PersFnName),
+   func_name(PersFunction, PersFnName).
 
 landingpad_instruction_pers_fn(Instr, PersFunction) :-
    landingpad_instruction(Instr),
-   instruction_in_function(Instr, EnclosingFunction),
-   function_with_pers_fn(EnclosingFunction, BitcastConstant),
+   instruction_in_func(Instr, EnclosingFunction),
+   func_pers_fn(EnclosingFunction, BitcastConstant),
    bitcast_constant_expression_from(BitcastConstant, FnConstant),
-   function_constant(FnConstant),
-   function_constant_fn_name(FnConstant, PersFnName),
-   function_has_name(PersFunction, PersFnName).
+   func_constant(FnConstant),
+   func_constant_fn_name(FnConstant, PersFnName),
+   func_name(PersFunction, PersFnName).
 
 
 //------------------------------------------------------------------------------
@@ -160,8 +160,8 @@ schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
 //      landing pad block.
 //  (4) A basic block that is not a landing pad block may not include
 //      a ‘landingpad‘ instruction.
-//  (5) All ‘landingpad‘ instructions in a function must have the same
-//      personality function.
+//  (5) All ‘landingpad‘ instructions in a func must have the same
+//      personality func.
 //  (6) The ‘landingpad‘ instruction must contain at least one clause
 //      or the cleanup flag.
 //-------------------------------------------------------------------------
@@ -210,14 +210,14 @@ schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
    !landingpad(BB).
 
 
-// 5th Constraint: all ‘landingpad‘ instructions in a function must
-// have the same personality function
+// 5th Constraint: all ‘landingpad‘ instructions in a func must
+// have the same personality func
 schema_invalid_instruction(Instr1, __FILE__, __LINE__) :-
    schema_sanity(),
    landingpad_instruction(Instr1),
    landingpad_instruction_pers_fn(Instr1, PersFunc),
-   instruction_in_function(Instr1, Func),
-   instruction_in_function(Instr2, Func),
+   instruction_in_func(Instr1, Func),
+   instruction_in_func(Instr2, Func),
    landingpad_instruction(Instr2),
    !landingpad_instruction_pers_fn(Instr2, PersFunc).
 

@@ -43,13 +43,13 @@ catch_clause([v2]), landingpad_instruction_clause(v0, v1, [v2]) :-
 filter_clause([v2]), landingpad_instruction_clause(v0, v1, [v2]) :-
    _landingpad_instruction_filter_clause(v0, v1, v2).
 
-.decl _constant_in_function(v0:Constant, v1:FunctionName)
-.decl _variable_in_function(v0:Variable, v1:FunctionName)
+.decl _constant_in_func(v0:Constant, v1:FunctionName)
+.decl _variable_in_func(v0:Variable, v1:FunctionName)
 
-constant_in_function(Constant, Function) :-
-   _constant_in_function(Constant, FuncName),
-   function_has_name(Function, FuncName).
+constant_in_func(Constant, Function) :-
+   _constant_in_func(Constant, FuncName),
+   func_name(Function, FuncName).
 
-variable_in_function(Variable, Function) :-
-   _variable_in_function(Variable, FuncName),
-   function_has_name(Function, FuncName).
+variable_in_func(Variable, Function) :-
+   _variable_in_func(Variable, FuncName),
+   func_name(Function, FuncName).

@@ -31,7 +31,7 @@ auto FactGenerator::writeConstant(const llvm::Constant &c)
   const llvm::Function *containingFunction = functionContext();
   if (containingFunction) {
     const std::string funcname = "@" + containingFunction->getName().str();
-    writeFact(pred::constant::in_function, id, funcname);
+    writeFact(pred::constant::in_func, id, funcname);
   }
 
   // Record constant value
@@ -62,8 +62,8 @@ auto FactGenerator::writeConstant(const llvm::Constant &c)
     const auto &func = cast<Function>(c);
     const std::string funcname = "@" + func.getName().str();
 
-    writeFact(pred::function_constant::id, id);
-    writeFact(pred::function_constant::name, id, funcname);
+    writeFact(pred::func_constant::id, id);
+    writeFact(pred::func_constant::name, id, funcname);
   } else if (isa<GlobalVariable>(c)) {
     const auto &global_var = cast<GlobalVariable>(c);
     const std::string varname = "@" + global_var.getName().str();
