@@ -140,7 +140,7 @@ auto FactGenerator::processModule(
            pi != pi_end;
            ++pi) {
         refmode_t predBB = refmode<llvm::BasicBlock>(**pi);
-        writeFact(pred::basic_block::predecessor, bbRef, predBB);
+        writeFact(pred::block::predecessor, bbRef, predBB);
       }
 
       // iterating over basic block instructions

@@ -3,44 +3,44 @@
 //------------------------------------
 
 .type BasicBlock <: symbol
-.decl basicblock(bb:BasicBlock)
+.decl block(bb:BasicBlock)
 
 // Every instruction must be inside a single basic block
-.decl instruction_in_basicblock(instr:Instruction, bb:BasicBlock)
+.decl instruction_in_block(instr:Instruction, bb:BasicBlock)
 
 schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    instruction(Instr),
-   !instruction_in_basicblock(Instr, _).
+   !instruction_in_block(Instr, _).
 
 // Basic block predicates
-.decl basicblock_of_label(bb:BasicBlock, label:Variable)
-.decl basicblock_predecessors(bb:BasicBlock, bbpred:BasicBlock)
-.decl basicblock_first_instruction(bb:BasicBlock, instr:Instruction)
-.decl basicblock_last_instruction(bb:BasicBlock, instr:Instruction)
+.decl block_of_label(bb:BasicBlock, label:Variable)
+.decl block_predecessors(bb:BasicBlock, bbpred:BasicBlock)
+.decl block_first_instruction(bb:BasicBlock, instr:Instruction)
+.decl block_last_instruction(bb:BasicBlock, instr:Instruction)
 
-basicblock(BB) :- basicblock_of_label(BB, _).
-basicblock_of_label(cat("basicblock:", Label), Label) :-
+block(BB) :- block_of_label(BB, _).
+block_of_label(cat("block:", Label), Label) :-
    variable_is_label(Label).
 
-basicblock_first_instruction(BB, First) :-
-   instruction_in_basicblock(First, BB),
+block_first_instruction(BB, First) :-
+   instruction_in_block(First, BB),
    !next_instruction(_, First).
 
-basicblock_first_instruction(BB2, First) :-
+block_first_instruction(BB2, First) :-
    next_instruction(Last, First),
-   instruction_in_basicblock(Last, BB1),
-   instruction_in_basicblock(First, BB2),
+   instruction_in_block(Last, BB1),
+   instruction_in_block(First, BB2),
    BB1 != BB2.
 
-basicblock_last_instruction(BB1, Last) :-
+block_last_instruction(BB1, Last) :-
    next_instruction(Last, First),
-   instruction_in_basicblock(Last, BB1),
-   instruction_in_basicblock(First, BB2),
+   instruction_in_block(Last, BB1),
+   instruction_in_block(First, BB2),
    BB1 != BB2.
 
-basicblock_last_instruction(BB, Last) :-
-   instruction_in_basicblock(Last, BB),
+block_last_instruction(BB, Last) :-
+   instruction_in_block(Last, BB),
    !next_instruction(Last, _).
 
 
@@ -55,7 +55,7 @@ basicblock_last_instruction(BB, Last) :-
 schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    next_instruction(Instr, NextInstr),
-   instruction_in_basicblock(Instr, BB1),
-   instruction_in_basicblock(NextInstr, BB2),
+   instruction_in_block(Instr, BB1),
+   instruction_in_block(NextInstr, BB2),
    !terminator_instruction(Instr),
    BB1 != BB2.

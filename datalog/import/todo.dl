@@ -1,20 +1,20 @@
 // TODO(lb): Move these elsewhere! These were erroneously included in the
 // import*.dl files before these were derived from predicates.inc.
 
-.decl _basicblock_preds(v0:symbol, v1:symbol)
-basicblock_predecessors(bb0, bb1) :-
-   _basicblock_preds(e0, e1),
+.decl block_predecessor(v0:symbol, v1:symbol)
+block_predecessors(bb0, bb1) :-
+   block_predecessor(e0, e1),
    variable_is_label(e0),
    variable_is_label(e1),
-   basicblock_of_label(bb0, e0),
-   basicblock_of_label(bb1, e1).
+   block_of_label(bb0, e0),
+   block_of_label(bb1, e1).
 
 .decl _instruction_bb_entry(v0:symbol, v1:symbol)
-instruction_in_basicblock(e0, bb) :-
+instruction_in_block(e0, bb) :-
    _instruction_bb_entry(e0, e1),
    instruction(e0),
    variable_is_label(e1),
-   basicblock_of_label(bb, e1).
+   block_of_label(bb, e1).
 
 .decl _phi_instruction_pair_label(v0:symbol, v1:number, v2:symbol)
 .decl _phi_instruction_pair_value(v0:symbol, v1:number, v2:symbol)

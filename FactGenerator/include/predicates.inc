@@ -10,9 +10,9 @@
 #define PREDICATE(group, name, fname)
 #endif
 
-GROUP_BEGIN(basic_block)
-PREDICATE(basic_block, predecessor, _basicblock_preds)
-GROUP_END(basic_block)
+GROUP_BEGIN(block)
+PREDICATE(block, predecessor, block_predecessor)
+GROUP_END(block)
 
 GROUP_BEGIN(global_var)
 PREDICATE(global_var, id, global_var)
