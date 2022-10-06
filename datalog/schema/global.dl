@@ -134,10 +134,10 @@ local_exec_threadlocal_mode("thread_local(localexec)").
 .type Alias <: symbol
 .decl alias(x:Alias)
 .decl alias_aliasee(x:Alias, y:Constant)
-.decl alias_has_name(x:Alias, name:symbol)
-.decl alias_has_type(x:Alias, type:Type)
-.decl alias_has_linkage_type(x:Alias, link:LinkageType)
-.decl alias_has_visibility(x:Alias, vis:Visibility)
+.decl alias_name(x:Alias, name:symbol)
+.decl alias_type(x:Alias, type:Type)
+.decl alias_linkage_type(x:Alias, link:LinkageType)
+.decl alias_visibility(x:Alias, vis:Visibility)
 
 // For constraints
 .decl schema_invalid_alias(x:Alias, file:File, line:Line)
@@ -145,16 +145,16 @@ local_exec_threadlocal_mode("thread_local(localexec)").
 schema_invalid_alias(Var, __FILE__, __LINE__) :-
    schema_sanity(),
    alias(Var),
-   !alias_has_type(Var, _).
+   !alias_type(Var, _).
 
 schema_invalid_alias(Var, __FILE__, __LINE__) :-
    schema_sanity(),
    alias(Var),
-   !alias_has_name(Var, _).
+   !alias_name(Var, _).
 
 schema_invalid_alias(Var, __FILE__, __LINE__) :-
    schema_sanity(),
-   alias_has_linkage_type(Var, Link),
+   alias_linkage_type(Var, Link),
    !private_linkage_type(Link),
    !linker_private_linkage_type(Link),
    !linker_private_weak_linkage_type(Link),

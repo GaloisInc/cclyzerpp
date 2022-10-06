@@ -68,7 +68,7 @@ _aliasee(Constant, Alias) :-
 // `Constant` is actually an alias (via `Alias`)
 _alias(Constant, Alias) :-
    constant_has_value(Constant, AliasName),
-   alias_has_name(Alias, AliasName).
+   alias_name(Alias, AliasName).
 
 // `OtherConstant` is an alias of `Constant`
 aliased_constants(OtherConstant, Constant) :-
