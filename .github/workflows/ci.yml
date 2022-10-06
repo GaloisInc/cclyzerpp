@@ -98,6 +98,19 @@ jobs:
         run: |
           ./scripts/gha-docker-build "dist" "cclyzerpp-dist"
 
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install linting tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang-format
+
+      - name: Run linting script
+        run: bash scripts/lint.sh
+
   release:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
