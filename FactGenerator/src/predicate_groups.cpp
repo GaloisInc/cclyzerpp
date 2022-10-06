@@ -9,5 +9,5 @@ using namespace cclyzer::predicates;
 // TODO(lb): Derive filename from group and predicate, e.g.,
 // #define PREDICATE(g, p, f) pred_t g::p (std::string(#g) + std::string("_") +
 // std::string(#p));
-#define PREDICATE(g, p, f) pred_t g::p(f);
+#define PREDICATE(g, p, f) pred_t g::p(#f);
 #include "predicates.inc"
