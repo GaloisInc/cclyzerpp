@@ -68,8 +68,8 @@ auto FactGenerator::writeConstant(const llvm::Constant &c)
     const auto &global_var = cast<GlobalVariable>(c);
     const std::string varname = "@" + global_var.getName().str();
 
-    writeFact(pred::global_variable_constant::id, id);
-    writeFact(pred::global_variable_constant::name, id, varname);
+    writeFact(pred::global_var_constant::id, id);
+    writeFact(pred::global_var_constant::name, id, varname);
   } else if (isa<ConstantExpr>(c)) {
     writeConstantExpr(cast<ConstantExpr>(c), id);
   } else if (isa<ConstantArray>(c)) {

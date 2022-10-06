@@ -31,6 +31,39 @@ on Github. Worked example:
 After waiting for the CI build, manually edit the release as required and hit
 "publish".
 
+Naming Conventions
+******************
+
+Due to historical circumstance, cclyzer++ has many different naming conventions
+in use in the Datalog code. The conventions in this section are prescriptive,
+but only apply to new code.
+
+Abbreviations
+~~~~~~~~~~~~~
+
+Names must strike a balance between brevity and comprehensibility. This section
+enumerates abbreviations that are considered reasonable trade-offs in this
+space. This judgment is highly subjective, but must be made somehow.
+
+- ``asm``: Assembly
+- ``block``: LLVM basic block
+- ``const``: Constant
+- ``global_var``: Global variable
+- ``expr``: Expression
+- ``func``: Function
+- ``gep``: ``getelementptr``
+- ``instr``: Instruction
+- ``int``: Integer
+- ``ptr``: Pointer
+- ``var``: Variable
+- ``vec``: Vector
+
+Explicitly **not** further abbreviated:
+
+- ``array``
+- ``struct``
+- ``type``
+
 Performance Tuning
 ******************
 

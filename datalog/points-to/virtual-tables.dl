@@ -24,8 +24,8 @@ vtable(?vt, ?name) :-
 
 typeinfo_vtable(?vt, ?name) :-
    external_linkage_type(?externalLinkage),
-   global_variable_has_linkage_type(?vt, ?externalLinkage),
-   global_variable_has_name(?vt, ?name),
+   global_var_linkage_type(?vt, ?externalLinkage),
+   global_var_name(?vt, ?name),
    contains("class_type_info", ?name),
    contains("cxxabi", ?name).
 
@@ -51,7 +51,7 @@ typeinfo_vtable_multiple_inheritance(?vt, ?name) :-
 
 .decl constant_contains_vptr(?vt: VirtualTable, ?constant: Constant)
 constant_contains_vptr(?vt, ?constant) :-
-   global_variable_constant_name(?constant, ?name),
+   global_var_constant_name(?constant, ?name),
    vtable(?vt, ?name).
 
 constant_contains_vptr(?vt, ?outer) :-
@@ -74,7 +74,7 @@ typeinfo(?typeInfo),
 typeinfo_has_vtable(?typeInfo,?vt) :-
    constant_contains_vptr(?vt, ?initializer),
    typeinfo_vtable(?vt, _),
-   global_variable_has_initializer(?typeInfo, ?initializer).
+   global_var_initializer(?typeInfo, ?initializer).
 
 .decl typeinfo_baseclass(?typeInfo: GlobalVariable)
 typeinfo_baseclass(?typeInfo) :-
@@ -96,7 +96,7 @@ typeinfo_multiple_inheritance(?typeInfo) :-
 
 .decl _constant_contains_typeinfo(?typeInfo: GlobalVariable, ?constant:Constant)
 _constant_contains_typeinfo(?typeInfo, ?constant) :-
-   global_variable_constant_reference(?constant, ?typeInfo),
+   global_var_constant_reference(?constant, ?typeInfo),
    typeinfo(?typeInfo).
 
 _constant_contains_typeinfo(?typeinfo, ?outer) :-
@@ -105,8 +105,8 @@ _constant_contains_typeinfo(?typeinfo, ?outer) :-
 
 vtable(?vt, ?name),
 vtable_typeinfo(?vt,?typeinfo) :-
-   global_variable_has_name(?vt, ?name),
-   global_variable_has_initializer(?vt, ?initializer), // get array constant of vtable
+   global_var_name(?vt, ?name),
+   global_var_initializer(?vt, ?initializer), // get array constant of vtable
    constant_array_index(?initializer, 1, ?tic),    // type info is at index 1
    _constant_contains_typeinfo(?typeinfo, ?tic).
 
@@ -116,7 +116,7 @@ vtable_typeinfo(?vt,?typeinfo) :-
 .decl _typeinfo_contains_typeinfo(?outer: GlobalVariable, ?index:number, ?inner: GlobalVariable)
 _typeinfo_contains_typeinfo(?outer, ?index, ?inner) :-
    typeinfo(?outer),
-   global_variable_has_initializer(?outer, ?init),
+   global_var_initializer(?outer, ?init),
    constant_struct_index(?init, ?index, ?tic),
    _constant_contains_typeinfo(?inner, ?tic).
 
@@ -131,7 +131,7 @@ typeinfo_base_class(?typeinfo, 0, ?baseTypeinfo) :-
 typeinfo_base_class(?typeinfo, ?offset, ?baseTypeinfo) :-
    typeinfo_multiple_inheritance(?typeinfo),
    _typeinfo_contains_typeinfo(?typeinfo, ?index, ?baseTypeinfo),
-   global_variable_has_initializer(?typeinfo, ?init),
+   global_var_initializer(?typeinfo, ?init),
    constant_struct_index(?init, ?index + 1, ?constant),
    constant_to_int(?constant, ?offsetMask),
    ?offset = ?offsetMask / 256.
@@ -143,7 +143,7 @@ typeinfo_base_class(?typeinfo, ?offset, ?baseTypeinfo) :-
 
 vtable_function(?vt,?index,?func) :-
    vtable(?vt, _),
-   global_variable_has_initializer(?vt,?init),
+   global_var_initializer(?vt,?init),
    constant_array_index(?init, ?index, ?funcAsInteger),
    bitcast_constant_expression_from(?funcAsInteger, ?funcConstant),
    function_constant_fn_name(?funcConstant, ?funcName),

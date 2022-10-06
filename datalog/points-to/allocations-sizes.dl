@@ -14,7 +14,7 @@ array_allocation(?alloc) :-
 
 allocation_size(?globalAlloc, ?n) :-
   global_allocation_by_variable(?globalVar, ?globalAlloc),
-  global_variable_has_linkage_type(?globalVar, ?linkage),
+  global_var_linkage_type(?globalVar, ?linkage),
   ! external_linkage_type(?linkage),
   static_allocation_type(?globalAlloc, ?type),
   type_has_size(?type, ?n),
@@ -23,7 +23,7 @@ allocation_size(?globalAlloc, ?n) :-
 // The sizes of external globals may not match the size of their types.
 dynamically_sized_alloc(?alloc) :-
   external_linkage_type(?externalLinkage),
-  global_variable_has_linkage_type(?globalVar, ?externalLinkage),
+  global_var_linkage_type(?globalVar, ?externalLinkage),
   global_allocation_by_variable(?globalVar, ?alloc).
 
 //-----------------------

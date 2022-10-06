@@ -21,8 +21,8 @@ constant_points_to(?constant, ?null) :-
 // allocation.
 
 constant_points_to(?constant, ?alloc) :-
-   global_variable_constant_name(?constant, ?name),
-   global_variable_has_name(?gVar, ?name),
+   global_var_constant_name(?constant, ?name),
+   global_var_name(?gVar, ?name),
    global_allocation_by_variable(?gVar, ?alloc).
 
 constant_points_to(?constant, ?alloc) :-

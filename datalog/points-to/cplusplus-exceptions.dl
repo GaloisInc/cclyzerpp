@@ -153,8 +153,8 @@ _type_info_by_alloc(?obj, ?excTypeInfo) :-
 typeinfo(?var),
    external_typeinfo(?var) :-
    external_linkage_type(?externalLinkage),
-   global_variable_has_linkage_type(?var, ?externalLinkage),
-   global_variable_has_name(?var, ?name),
+   global_var_linkage_type(?var, ?externalLinkage),
+   global_var_name(?var, ?name),
    substr(?name, 0, strlen("@_ZTI")) = "@_ZTI".
 
 .comp ThrowInstruction {
