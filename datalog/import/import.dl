@@ -1,0 +1,11 @@
+// Try: mcpp -e utf8 -W0 -I "." datalog/import/import.dl
+//
+// GROUP_BEGIN, GROUP_END not needed
+#define GROUP_BEGIN(g)
+#define GROUP_END(group_end)
+// TODO(#42): Derive relation/file name from group + predicate name
+#define Q(x) #x
+#define QUOTE(x) Q(x)
+#define PREDICATE(g, p, f) .input f(IO="file", delimiter="\t", filename=QUOTE(f.csv.gz))
+// TODO(lb): Maybe this should be accomplished with a -I to Souffle?
+#include "../../FactGenerator/include/predicates.inc"

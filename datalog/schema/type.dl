@@ -321,6 +321,7 @@ schema_invalid_type(Type, __FILE__, __LINE__) :-
 // offsets. These predicates will be empty, unless the debug-info
 // module is loaded.
 
+// TODO(lb): Delete me! Debuginfo support was removed.
 .decl struct_type_field_name_at_offset(type:StructType, offset:FieldIndex, name:symbol)
 .decl struct_type_inherits_at_offset(type:StructType, offset:FieldIndex, name:symbol)
 
