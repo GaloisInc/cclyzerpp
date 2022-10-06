@@ -4,7 +4,6 @@
 #include <llvm/IR/Attributes.h>
 #include <llvm/IR/Constants.h>
 #include <llvm/IR/DataLayout.h>
-#include <llvm/IR/DebugInfo.h>
 #include <llvm/IR/GlobalValue.h>
 #include <llvm/IR/GlobalVariable.h>
 #include <llvm/IR/InlineAsm.h>
@@ -19,7 +18,6 @@
 #include <string>
 
 #include "ContextSensitivity.hpp"
-#include "DebugInfoProcessor.hpp"
 #include "Demangler.hpp"
 #include "FactWriter.hpp"
 #include "ForwardingFactWriter.hpp"
@@ -74,8 +72,7 @@ class cclyzer::FactGenerator : private RefmodeEngine,
 
   /* Constructor must initialize output file streams */
   FactGenerator(FactWriter &writer)
-      : ForwardingFactWriter(writer),
-        debugInfoProcessor(writer, static_cast<RefmodeEngine &>(*this)) {}
+      : ForwardingFactWriter(writer) {}
 
   /* Recording variables and types */
   void recordVariable(const std::string &id, const llvm::Type *type) {
@@ -119,9 +116,6 @@ class cclyzer::FactGenerator : private RefmodeEngine,
   /* Caches for variable types */
   type_cache_t variableTypes;
 
-  /* Debug Info */
-  DebugInfoProcessor debugInfoProcessor;
-
   /* Auxiliary methods */
 
   boost::unordered_set<const llvm::Type *> types;
@@ -145,12 +139,10 @@ class cclyzer::FactGenerator : private RefmodeEngine,
         const std::string &path)
         : gen(generator) {
       gen.enterModule(m, path);
-      gen.debugInfoProcessor.processModule(m);
     }
 
     ~ModuleContext() {
       gen.exitModule();
-      gen.debugInfoProcessor.reset();
     }
 
    private:

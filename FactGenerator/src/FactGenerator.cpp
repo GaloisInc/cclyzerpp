@@ -188,7 +188,6 @@ auto FactGenerator::processModule(
         for (unsigned i = 0, e = MDForInst.size(); i != e; ++i) {
           const llvm::MDNode &mdNode = *MDForInst[i].second;
 
-          // TODO process metadata node
           // Get debug location if available
           if (const llvm::DebugLoc &location = instr.getDebugLoc()) {
             unsigned line = location.getLine();
@@ -204,9 +203,6 @@ auto FactGenerator::processModule(
 
     writeLocalVariables();
   }
-
-  // Process any existing debug information
-  debugInfoProcessor.generateDebugInfo(Mod, path);
 
   return this->result_map_;
 }

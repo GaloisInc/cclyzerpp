@@ -4,7 +4,6 @@
 #include <llvm/IR/Function.h>
 
 #include "FactGenerator.hpp"
-#include "debuginfo_predicate_groups.hpp"
 #include "predicate_groups.hpp"
 
 using cclyzer::FactGenerator;
@@ -20,12 +19,6 @@ void FactGenerator::writeFunction(
   refmode_t visibility = refmode(func.getVisibility());
   refmode_t linkage = refmode(func.getLinkage());
   refmode_t typeSignature = recordType(func.getFunctionType());
-
-  // Record function subprogram
-  if (const llvm::DISubprogram *subprogram = func.getSubprogram()) {
-    refmode_t subprogramId = refmode<llvm::DINode>(*subprogram);
-    writeFact(pred::di_subprogram::function, subprogramId, funcref);
-  }
 
   // Record function type signature
   writeFact(pred::function::type, funcref, typeSignature);

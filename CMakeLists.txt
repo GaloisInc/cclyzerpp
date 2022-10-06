@@ -191,18 +191,6 @@ target_sources(
           ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/constants.cpp
           ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/ContextManager.hpp
           ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/ContextSensitivity.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/debuginfo_enums.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/debuginfo_imports.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/debuginfo_locations.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/DebugInfoProcessor.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/DebugInfoProcessorImpl.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/DebugInfoProcessorImpl.hpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/debuginfo_scopes.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/debuginfo_subranges.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/debuginfo_templates.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/debuginfo_types.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/debuginfo_unions.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/debuginfo_variables.cpp
           ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/FactGenerator.cpp
           ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/FactWriter.cpp
           ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/functions.cpp
