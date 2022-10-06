@@ -42,7 +42,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push dev image
+      - name: Build dev image
         run: |
           ./scripts/gha-docker-build "dev" "cclyzerpp-dev"
 
@@ -94,7 +94,7 @@ jobs:
             "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
             pytest -x -n=$(nproc)
 
-      - name: Build and push dist image
+      - name: Build dist image
         run: |
           ./scripts/gha-docker-build "dist" "cclyzerpp-dist"
 
@@ -119,6 +119,12 @@ jobs:
     steps:
 
     - uses: actions/checkout@v3
+
+    # TODO(lb): Figure out how to tag these images with the version number
+    - name: Build and push dev and dist images
+      run: |
+        env PUSH=1 ./scripts/gha-docker-build "dev" "cclyzerpp-dev"
+        env PUSH=1 ./scripts/gha-docker-build "dist" "cclyzerpp-dist"
 
     - uses: ncipollo/release-action@v1
       with:

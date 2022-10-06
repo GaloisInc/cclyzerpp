@@ -18,7 +18,7 @@ You can pull pre-built images from GHCR like so:
 
   docker pull ghcr.io/galoisinc/cclyzerpp-dev:main
 
-Tags can be branch names or commit SHAs.
+Tags can be branch names or commit SHAs of releases.
 
 Building Locally
 ~~~~~~~~~~~~~~~~
