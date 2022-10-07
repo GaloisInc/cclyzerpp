@@ -72,7 +72,7 @@ gep_is_vector_based(Instr) :-
 .decl getelementptr_instr_value_type(instr:GetElementPtrInstruction, type:Type)
 
 
-next_instr_index(Instr, Index, Index + 1) :-
+instr_successor_index(Instr, Index, Index + 1) :-
    getelementptr_instr_index(Instr, Index, _).
 
 getelementptr_instrterm_type(Instr, 1, Type) :-
@@ -87,12 +87,12 @@ getelementptr_instrterm_type(Instr, 1, Type) :-
 getelementptr_instrterm_type(Instr, NextIndex, Type) :-
    getelementptr_instrterm_type(Instr, Index, ArrayType),
    array_type_has_component(ArrayType, Type),
-   next_instr_index(Instr, Index, NextIndex).
+   instr_successor_index(Instr, Index, NextIndex).
 
 getelementptr_instrterm_type(Instr, NextIndex, Type) :-
    getelementptr_instrterm_type(Instr, Index, VectorType),
    vector_type_has_component(VectorType, Type),
-   next_instr_index(Instr, Index, NextIndex).
+   instr_successor_index(Instr, Index, NextIndex).
 
 getelementptr_instrterm_type(Instr, NextIndex, Type) :-
    getelementptr_instrterm_type(Instr, Index, StructType),
@@ -101,7 +101,7 @@ getelementptr_instrterm_type(Instr, NextIndex, Type) :-
    constant_to_int(FieldIdx, FieldIdxValue),
    int32_type(FieldIdxType),   // c3
    struct_type_field(StructType, FieldIdxValue, Type),
-   next_instr_index(Instr, Index, NextIndex).
+   instr_successor_index(Instr, Index, NextIndex).
 
 getelementptr_instr_value_type(Instr, Type) :-
    getelementptr_instr_nindices(Instr, Total),

@@ -320,7 +320,7 @@ void InstructionVisitor::visitResumeInst(const llvm::ResumeInst &RI) {
 }
 
 void InstructionVisitor::visitUnreachableInst(const llvm::UnreachableInst &I) {
-  recordInstruction(pred::instr::unreachable, I);
+  recordInstruction(pred::unreachable::instr, I);
 }
 
 void InstructionVisitor::visitAllocaInst(const llvm::AllocaInst &AI) {

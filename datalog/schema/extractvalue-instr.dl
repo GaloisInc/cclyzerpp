@@ -15,7 +15,7 @@ instr(v) :- extractvalue_instr(v).
 .decl extractvalue_instr_nindices(instr:ExtractValueInstruction, total:number)
 .decl extractvalue_instr_index(instr:ExtractValueInstruction, i:number, idx:number)
 
-next_instr_index(Instr, Index, Index + 1) :-
+instr_successor_index(Instr, Index, Index + 1) :-
    extractvalue_instr_index(Instr, Index, _).
 
 
@@ -35,12 +35,12 @@ extractvalue_instrterm_type(Instr, NextIndex, Type) :-
    extractvalue_instrterm_type(Instr, Index, StructType),
    extractvalue_instr_index(Instr, Index, IdxValue),
    struct_type_field(StructType, IdxValue, Type),
-   next_instr_index(Instr, Index, NextIndex).
+   instr_successor_index(Instr, Index, NextIndex).
 
 extractvalue_instrterm_type(Instr, NextIndex, Type) :-
    extractvalue_instrterm_type(Instr, Index, ArrayType),
    array_type_has_component(ArrayType, Type),
-   next_instr_index(Instr, Index, NextIndex).
+   instr_successor_index(Instr, Index, NextIndex).
 
 extractvalue_instr_value_type(Instr, Type) :-
    extractvalue_instr_nindices(Instr, Total),

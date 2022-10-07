@@ -33,7 +33,7 @@ flag(Flag) :- instr_flag(_, Flag).
 
 
 // helpful in avoiding non-termination warnings
-.decl next_instr_index(instr:Instruction, index:number, next_index:number)
+.decl instr_successor_index(instr:Instruction, index:number, next_index:number)
 
 // Position of instr on source code (if debug info is available)
 .decl instr_pos(instr:Instruction, line:LineNumber, column:ColumnNumber)
@@ -44,7 +44,7 @@ flag(Flag) :- instr_flag(_, Flag).
 //------------------------------------
 
 // The next instr in the source file.
-.decl next_instr(instr:Instruction, next:Instruction)
+.decl instr_successor(instr:Instruction, next:Instruction)
 
 // The func that contains the instr
 .decl instr_func(instr:Instruction, func:Function)

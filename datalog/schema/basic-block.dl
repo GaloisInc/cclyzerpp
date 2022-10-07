@@ -40,23 +40,23 @@ block_of_label(cat("block:", Label), Label) :-
 
 block_first_instr(BB, First) :-
    instr_block(First, BB),
-   !next_instr(_, First).
+   !instr_successor(_, First).
 
 block_first_instr(BB2, First) :-
-   next_instr(Last, First),
+   instr_successor(Last, First),
    instr_block(Last, BB1),
    instr_block(First, BB2),
    BB1 != BB2.
 
 block_last_instr(BB1, Last) :-
-   next_instr(Last, First),
+   instr_successor(Last, First),
    instr_block(Last, BB1),
    instr_block(First, BB2),
    BB1 != BB2.
 
 block_last_instr(BB, Last) :-
    instr_block(Last, BB),
-   !next_instr(Last, _).
+   !instr_successor(Last, _).
 
 
 //------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ block_last_instr(BB, Last) :-
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
-   next_instr(Instr, NextInstr),
+   instr_successor(Instr, NextInstr),
    instr_block(Instr, BB1),
    instr_block(NextInstr, BB2),
    !terminator_instr(Instr),
