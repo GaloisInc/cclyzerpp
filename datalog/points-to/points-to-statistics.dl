@@ -17,7 +17,6 @@ variable_in_func(?var, ?func) :-
 .decl nonempty_vars(?nVars: number)
 .decl var_points_to_sizes(?var: Variable, ?nAllocs: number)
 .decl nvars_by_pt_size(?nAllocs: number, ?nVars: number)
-.decl _nvars_by_pt_total(?nVars: number)
 .decl empty_ptr(?ptr: Allocation)
 .decl empty_ptrs(?nPtrs: number)
 .decl nonempty_ptr(?ptr: Allocation)

@@ -64,6 +64,11 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
+   phi_instr_pair(Instr, Index, _, _),
+   Index < 0.
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
    phi_instr_npairs(Instr, Total),
    phi_instr_pair(Instr, Index, _, _),
-   (Index < 0 ; Index >= Total).
+   Index >= Total.

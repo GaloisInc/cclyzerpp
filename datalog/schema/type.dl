@@ -314,59 +314,6 @@ schema_invalid_type(Type, __FILE__, __LINE__) :-
 .decl struct_type_field_offset(type:StructType, index:FieldIndex, offset:SubregionOffset)
 .decl struct_type_field_bit_offset(type:StructType, index:FieldIndex, offset:number)
 
-
-// [DEBUG INFORMATION]
-//
-// We record field names and inherited types at specific bit
-// offsets. These predicates will be empty, unless the debug-info
-// module is loaded.
-
-// TODO(lb): Delete me! Debuginfo support was removed.
-.decl struct_type_field_name_at_offset(type:StructType, offset:FieldIndex, name:symbol)
-.decl struct_type_inherits_at_offset(type:StructType, offset:FieldIndex, name:symbol)
-
-
-//-----------------------------------------------------------------------
-// [Retrieving field names]
-//
-// We can immediately retrieve any field names at non-zero
-// offsets. For zero offsets, where inheritance kicks in, we have to
-// make sure that we have pruned any spurious inherited subobjects of
-// zero length.
-//-----------------------------------------------------------------------
-
-.decl struct_type_field_name(type:StructType, index:FieldIndex, name:symbol)
-
-struct_type_field_name(Type, Index, Name) :-
-   struct_type_field_name_at_offset(Type, Offset, Name),
-   struct_type_field_bit_offset(Type, Index, Offset).
-
-struct_type_field_name(Type, Index, cat("_subobj$", BaseName)) :-
-   struct_type_inherits_at_offset(Type, Offset, BaseName),
-   struct_type_field_bit_offset(Type, Index, Offset).
-
-
-// A derived type may include extra byte fields that account for the
-// required padding. However, when a subtype inherits a base type it
-// uses an *unpadded* version of the latter (with the `.base`) suffix,
-// since it does not need to include its padding.
-
-// Here we replicate any existing field name information of the
-// original derived type to the *unpadded* one.
-
-struct_type_field_name(UnpaddedType, Index, Name) :-
-   struct_type_field_name_at_offset(Type, Offset, Name),
-   struct_type_field_bit_offset(Type, Index, Offset),
-   struct_type_field_bit_offset(UnpaddedType, Index, Offset),
-   UnpaddedType = cat(Type, ".base").
-
-struct_type_field_name(UnpaddedType, Index, cat("_subobj$", Name)) :-
-   struct_type_inherits_at_offset(Type, Offset, Name),
-   struct_type_field_bit_offset(Type, Index, Offset),
-   struct_type_field_bit_offset(UnpaddedType, Index, Offset),
-   UnpaddedType = cat(Type, ".base").
-
-
 //----------------------
 // Vector type
 //----------------------

@@ -1,0 +1,55 @@
+[<<main-context>>, nil]	*stack_alloc@main[[3 x void ()*]* %table]	*stack_alloc@main[[3 x void ()*]* %table]
+[<<main-context>>, nil]	*stack_alloc@main[[3 x void ()*]* %table]	*stack_alloc@main[[3 x void ()*]* %table][0]
+[<<main-context>>, nil]	*stack_alloc@main[[3 x void ()*]* %table][*]	*stack_alloc@main[[3 x void ()*]* %table][*]
+[<<main-context>>, nil]	*stack_alloc@main[[3 x void ()*]* %table][0]	*stack_alloc@main[[3 x void ()*]* %table]
+[<<main-context>>, nil]	*stack_alloc@main[[3 x void ()*]* %table][0]	*stack_alloc@main[[3 x void ()*]* %table][0]
+[<<main-context>>, nil]	*stack_alloc@main[[3 x void ()*]* %table][0][*]	*stack_alloc@main[[3 x void ()*]* %table][0][*]
+[<<main-context>>, nil]	*stack_alloc@main[i32* %argc.addr]	*stack_alloc@main[i32* %argc.addr]
+[<<main-context>>, nil]	*stack_alloc@main[i32* %retval]	*stack_alloc@main[i32* %retval]
+[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr]	*stack_alloc@main[i8*** %argv.addr]
+[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr]	*stack_alloc@main[i8*** %argv.addr][0]
+[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr][0]	*stack_alloc@main[i8*** %argv.addr]
+[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr][0]	*stack_alloc@main[i8*** %argv.addr][0]
+nil	*argv-alloc	*argv-alloc
+nil	*argv-alloc	*argv-alloc[0]
+nil	*argv-alloc[0]	*argv-alloc
+nil	*argv-alloc[0]	*argv-alloc[0]
+nil	*argv[0]-alloc	*argv[0]-alloc
+nil	*argv[0]-alloc	*argv[0]-alloc[0]
+nil	*argv[0]-alloc[0]	*argv[0]-alloc
+nil	*argv[0]-alloc[0]	*argv[0]-alloc[0]
+nil	*global_alloc@.str	*global_alloc@.str
+nil	*global_alloc@.str	*global_alloc@.str[0]
+nil	*global_alloc@.str.1	*global_alloc@.str.1
+nil	*global_alloc@.str.1	*global_alloc@.str.1[0]
+nil	*global_alloc@.str.1[0]	*global_alloc@.str.1
+nil	*global_alloc@.str.1[0]	*global_alloc@.str.1[0]
+nil	*global_alloc@.str.1[0][*]	*global_alloc@.str.1[0][*]
+nil	*global_alloc@.str.2	*global_alloc@.str.2
+nil	*global_alloc@.str.2	*global_alloc@.str.2[0]
+nil	*global_alloc@.str.2[0]	*global_alloc@.str.2
+nil	*global_alloc@.str.2[0]	*global_alloc@.str.2[0]
+nil	*global_alloc@.str.2[0][*]	*global_alloc@.str.2[0][*]
+nil	*global_alloc@.str[0]	*global_alloc@.str
+nil	*global_alloc@.str[0]	*global_alloc@.str[0]
+nil	*global_alloc@.str[0][*]	*global_alloc@.str[0][*]
+nil	*global_alloc@__const.main.table	*global_alloc@__const.main.table
+nil	*global_alloc@__const.main.table	*global_alloc@__const.main.table[0]
+nil	*global_alloc@__const.main.table	*global_alloc@__const.main.table[0][0]
+nil	*global_alloc@__const.main.table[0]	*global_alloc@__const.main.table
+nil	*global_alloc@__const.main.table[0]	*global_alloc@__const.main.table[0]
+nil	*global_alloc@__const.main.table[0]	*global_alloc@__const.main.table[0][0]
+nil	*global_alloc@__const.main.table[0][0]	*global_alloc@__const.main.table
+nil	*global_alloc@__const.main.table[0][0]	*global_alloc@__const.main.table[0]
+nil	*global_alloc@__const.main.table[0][0]	*global_alloc@__const.main.table[0][0]
+nil	*global_alloc@__const.main.table[0][1]	*global_alloc@__const.main.table[0][1]
+nil	*global_alloc@__const.main.table[0][2]	*global_alloc@__const.main.table[0][2]
+nil	*global_alloc@bar	*global_alloc@bar
+nil	*global_alloc@baz	*global_alloc@baz
+nil	*global_alloc@foo	*global_alloc@foo
+nil	*global_alloc@llvm.dbg.declare	*global_alloc@llvm.dbg.declare
+nil	*global_alloc@llvm.memcpy.p0i8.p0i8.i64	*global_alloc@llvm.memcpy.p0i8.p0i8.i64
+nil	*global_alloc@printf	*global_alloc@printf
+nil	*global_alloc@rand	*global_alloc@rand
+nil	*global_alloc@srand	*global_alloc@srand
+nil	*global_alloc@time	*global_alloc@time

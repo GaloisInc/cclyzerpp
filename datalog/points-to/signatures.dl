@@ -137,10 +137,10 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
   .decl _sig_alloc(?aCtx: Context, ?sigAlloc: SignatureAllocation, ?ctx: Context, ?type: Type) inline
 
   _sig_alloc(?aCtx, ?sigAlloc, ?ctx, ?type) :-
-    _sig_var_alloc(?aCtx, ?sigAlloc, ?ctx, ?var, ?type).
+    _sig_var_alloc(?aCtx, ?sigAlloc, ?ctx, _, ?type).
 
   _sig_alloc(?aCtx, ?sigAlloc, ?ctx, ?type) :-
-    _sig_ptr_alloc(?aCtx, ?sigAlloc, ?ctx, ?var, ?type).
+    _sig_ptr_alloc(?aCtx, ?sigAlloc, ?ctx, _, ?type).
 
   alloc_with_ctx(?aCtx, ?sigAlloc) :-
     _sig_alloc(?aCtx, ?sigAlloc, _, _).
@@ -221,7 +221,7 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
 
      ?indexStr = to_string(?index),
      build_signature_allocation_once(?sigAlloc, ?func, ?ptrType, ?indexStr),
-     user_options("context_sensitivity", Config),
+     user_options("context_sensitivity", _),
      empty_alloc_context(?newCtx).
 
   dynamically_sized_alloc(?sigAlloc) :-

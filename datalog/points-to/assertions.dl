@@ -315,11 +315,16 @@ assert_subset_aliases_are_unification_aliases(?uCtx, ?uAlloc, ?aCtx, ?alloc, ?va
 // var_points_to, but see https://github.com/souffle-lang/souffle/issues/1905.
 .decl assert_unification_var_points_to_unique(?ctx: Context, ?var: Variable)
 assert_unification_var_points_to_unique(?ctx, ?var) :-
-  unification.var_points_to_choice(?aCtx1, ?alloc1, ?ctx, ?var, ?region, ?type, ?info),
-  unification.var_points_to_choice(?aCtx2, ?alloc2, ?ctx, ?var, ?region, ?type, ?info),
-  ( ?aCtx1 != ?aCtx2
-  ; ?alloc1 != ?alloc2
-  ).
+  unification.var_points_to_choice(_, ?alloc1, ?ctx, ?var, ?region, ?type, ?info),
+  unification.var_points_to_choice(_, ?alloc2, ?ctx, ?var, ?region, ?type, ?info),
+  ?alloc1 != ?alloc2.
+.plan 0: (1, 2),
+      1: (2, 1)
+
+assert_unification_var_points_to_unique(?ctx, ?var) :-
+  unification.var_points_to_choice(?aCtx1, _, ?ctx, ?var, ?region, ?type, ?info),
+  unification.var_points_to_choice(?aCtx2, _, ?ctx, ?var, ?region, ?type, ?info),
+  ?aCtx1 != ?aCtx2.
 .plan 0: (1, 2),
       1: (2, 1)
 
@@ -352,11 +357,16 @@ assert_has_repr(?aCtx, ?alloc, ?ctx, ?var) :-
 
 .decl assert_unique_repr(?inpCtx: Context, ?inpAlloc: Allocation)
 assert_unique_repr(?inpCtx, ?inpAlloc) :-
-  unification.unify_repr(?inpCtx, ?inpAlloc, ?reprCtx1, ?reprAlloc1),
-  unification.unify_repr(?inpCtx, ?inpAlloc, ?reprCtx2, ?reprAlloc2),
-  ( ?reprCtx1 != ?reprCtx2
-  ; ?reprAlloc1 != ?reprAlloc2
-  ).
+  unification.unify_repr(?inpCtx, ?inpAlloc, ?reprCtx1, _),
+  unification.unify_repr(?inpCtx, ?inpAlloc, ?reprCtx2, _),
+  ?reprCtx1 != ?reprCtx2.
+.plan 0: (1, 2),
+      1: (2, 1)
+
+assert_unique_repr(?inpCtx, ?inpAlloc) :-
+  unification.unify_repr(?inpCtx, ?inpAlloc, _, ?reprAlloc1),
+  unification.unify_repr(?inpCtx, ?inpAlloc, _, ?reprAlloc2),
+  ?reprAlloc1 != ?reprAlloc2.
 .plan 0: (1, 2),
       1: (2, 1)
 
