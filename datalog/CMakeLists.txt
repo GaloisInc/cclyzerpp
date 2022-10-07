@@ -21,7 +21,7 @@ set(DL_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/points-to/interprocedural.dl
     ${CMAKE_CURRENT_LIST_DIR}/points-to/virtual-tables.dl
     ${CMAKE_CURRENT_LIST_DIR}/points-to/subset.dl
-    ${CMAKE_CURRENT_LIST_DIR}/points-to/type_compatibility.dl
+    ${CMAKE_CURRENT_LIST_DIR}/points-to/type-compatibility.dl
     ${CMAKE_CURRENT_LIST_DIR}/points-to/constant-exprs.dl
     ${CMAKE_CURRENT_LIST_DIR}/points-to/cplusplus-exceptions.dl
     ${CMAKE_CURRENT_LIST_DIR}/points-to/type-back-propagation.dl

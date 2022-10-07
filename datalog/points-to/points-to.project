@@ -6,7 +6,7 @@
 #include "allocations-subobjects.dl"
 #include "assignment.dl"
 #include "at-exit.dl"
-#include "type_compatibility.dl"
+#include "type-compatibility.dl"
 #include "points-to-options.dl"
 #include "class-type.dl"
 #include "virtual-tables.dl"
