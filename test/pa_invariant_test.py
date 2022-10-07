@@ -81,7 +81,7 @@ Projection = Union[
 T = TypeVar("T")
 
 
-def binary(row0, row1) -> Tuple[Row, Row]:
+def binary(row0: SouffleType, row1: SouffleType) -> Tuple[Row, Row]:
     return ((row0,), (row1,))
 
 

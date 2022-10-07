@@ -44,6 +44,7 @@ RUN apt-get update && \
     update-alternatives --install /usr/bin/opt opt /usr/bin/opt-${LLVM_VERSION} 60 && \
     rm -rf /var/lib/apt/lists/*
 RUN pip install \
+      mypy==0.982 \
       pytest==7.1.3 \
       pytest-xdist==2.5.0
-# TODO(lb): Sphinx, Mypy
+# TODO(lb): Sphinx
