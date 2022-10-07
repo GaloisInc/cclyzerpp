@@ -346,7 +346,7 @@ void InstructionVisitor::visitLoadInst(const llvm::LoadInst &LI) {
   if (LI.getAlignment())
     gen.writeFact(pred::load::alignment, iref, LI.getAlignment());
 
-  if (LI.isVolatile()) gen.writeFact(pred::load::isvolatile, iref);
+  if (LI.isVolatile()) gen.writeFact(pred::load::is_volatile, iref);
 }
 
 void InstructionVisitor::visitVAArgInst(const llvm::VAArgInst &VI) {
@@ -385,7 +385,7 @@ void InstructionVisitor::visitStoreInst(const llvm::StoreInst &SI) {
   if (SI.getAlignment())
     gen.writeFact(pred::store::alignment, iref, SI.getAlignment());
 
-  if (SI.isVolatile()) gen.writeFact(pred::store::isvolatile, iref);
+  if (SI.isVolatile()) gen.writeFact(pred::store::is_volatile, iref);
 }
 
 void InstructionVisitor::visitAtomicCmpXchgInst(
@@ -396,7 +396,7 @@ void InstructionVisitor::visitAtomicCmpXchgInst(
   writeInstrOperand(pred::cmpxchg::cmp_value, iref, AXI.getCompareOperand());
   writeInstrOperand(pred::cmpxchg::new_value, iref, AXI.getNewValOperand());
 
-  if (AXI.isVolatile()) gen.writeFact(pred::cmpxchg::isvolatile, iref);
+  if (AXI.isVolatile()) gen.writeFact(pred::cmpxchg::is_volatile, iref);
 
   llvm::AtomicOrdering successOrd = AXI.getSuccessOrdering();
   llvm::AtomicOrdering failureOrd = AXI.getFailureOrdering();
@@ -428,7 +428,7 @@ void InstructionVisitor::visitAtomicRMWInst(const llvm::AtomicRMWInst &AWI) {
   writeInstrOperand(pred::atomicrmw::address, iref, AWI.getPointerOperand());
   writeInstrOperand(pred::atomicrmw::value, iref, AWI.getValOperand());
 
-  if (AWI.isVolatile()) gen.writeFact(pred::atomicrmw::isvolatile, iref);
+  if (AWI.isVolatile()) gen.writeFact(pred::atomicrmw::is_volatile, iref);
 
   writeAtomicRMWOp(iref, AWI.getOperation());
   writeAtomicInfo<pred::atomicrmw>(iref, AWI);

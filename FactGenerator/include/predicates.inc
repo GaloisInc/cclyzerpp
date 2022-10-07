@@ -297,8 +297,7 @@ PREDICATE2(load, instr)
 PREDICATEI(load, alignment)
 PREDICATEI(load, ordering)
 PREDICATEI(load, address)
-// TODO(#42):
-PREDICATE(load, isvolatile, load_instr_is_volatile)
+PREDICATEI(load, is_volatile)
 GROUP_END(load)
 
 GROUP_BEGIN(store)
@@ -307,8 +306,7 @@ PREDICATEI(store, alignment)
 PREDICATEI(store, ordering)
 PREDICATEI(store, value)
 PREDICATEI(store, address)
-// TODO(#42):
-PREDICATE(store, isvolatile, store_instr_is_volatile)
+PREDICATEI(store, is_volatile)
 GROUP_END(store)
 
 GROUP_BEGIN(fence)
@@ -322,8 +320,7 @@ PREDICATEI(atomicrmw, ordering)
 PREDICATEI(atomicrmw, operation)
 PREDICATEI(atomicrmw, address)
 PREDICATEI(atomicrmw, value)
-// TODO(#42):
-PREDICATE(atomicrmw, isvolatile, atomicrmw_instr_is_volatile)
+PREDICATEI(atomicrmw, is_volatile)
 GROUP_END(atomicrmw)
 
 GROUP_BEGIN(cmpxchg)
@@ -333,8 +330,7 @@ PREDICATEI(cmpxchg, address)
 PREDICATEI(cmpxchg, cmp_value)
 PREDICATEI(cmpxchg, new_value)
 PREDICATEI(cmpxchg, type)
-// TODO(#42):
-PREDICATE(cmpxchg, isvolatile, cmpxchg_instr_is_volatile)
+PREDICATEI(cmpxchg, is_volatile)
 GROUP_END(cmpxchg)
 
 GROUP_BEGIN(gep)
