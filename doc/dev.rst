@@ -53,7 +53,7 @@ space. This judgment is highly subjective, but must be made somehow.
 - ``global_var``: Global variable
 - ``expr``: Expression
 - ``func``: Function
-- ``gep``: ``getelementptr``
+- ``gep``: ``getelementptr`` (this is the only abbreviated opcode)
 - ``instr``: Instruction
 - ``int``: Integer
 - ``param``: Parameter
