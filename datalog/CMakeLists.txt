@@ -104,7 +104,6 @@ set(DL_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/schema/attr.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/landingpad-instr.dl
     ${CMAKE_CURRENT_LIST_DIR}/callgraph/entry-points.dl
-    ${CMAKE_CURRENT_LIST_DIR}/export/auxiliary-records.dl
     ${CMAKE_CURRENT_LIST_DIR}/export/subset.dl
     ${CMAKE_CURRENT_LIST_DIR}/export/statistics.dl
     ${CMAKE_CURRENT_LIST_DIR}/export/unification.dl

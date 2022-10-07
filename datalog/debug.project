@@ -1,6 +1,5 @@
 #include "subset-and-unification.project"
 #include "export/statistics.dl"
-#include "export/auxiliary-records.dl"
 #include "export/debug-output.dl"
 
 // These are relations from components that aren't detected using
