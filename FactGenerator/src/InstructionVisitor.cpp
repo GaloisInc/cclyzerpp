@@ -215,7 +215,7 @@ void InstructionVisitor::visitReturnInst(const llvm::ReturnInst &RI) {
   if (RI.getReturnValue()) {  // with returned value
     writeInstrOperand(pred::ret::operand, iref, RI.getReturnValue());
   } else {  // w/o returned value
-    gen.writeFact(pred::ret::instr_void, iref);
+    gen.writeFact(pred::ret::void_, iref);
   }
 }
 

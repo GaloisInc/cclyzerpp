@@ -190,10 +190,9 @@ GROUP_END(xor_)
 
 GROUP_BEGIN(ret)
 PREDICATE2(ret, instr)
-// TODO(#42):
-PREDICATE(ret, instr_void, void_ret_instr)
-// TODO(#42):
-PREDICATE(ret, operand, ret_instr_value)
+// Can't be named 'void', as that's a C++ keyword.
+PREDICATEI(ret, void_)
+PREDICATEI(ret, operand)
 GROUP_END(ret)
 
 GROUP_BEGIN(br)

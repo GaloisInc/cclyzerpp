@@ -181,7 +181,7 @@ func_param_not_by_value(?callee, ?index, ?param) :-
 .decl func_returns_value(?retValue: Operand, ?inFunction: Function)
 
 func_returns_value(?retValue, ?inFunction) :-
-  ret_instr_value(?retInsn, ?retValue),
+  ret_instr_operand(?retInsn, ?retValue),
   instr_func(?retInsn, ?inFunction).
 
 .comp InterpAssignment {
