@@ -55,8 +55,8 @@ cxx_atexit_func(?func) :-
   _registers_dtor_atexit(?callCtx, ?dtorOperand, ?recvOperand) :-
     cxx_atexit_func(?atExit),
     callgraph_edge(_, ?atExit, ?callCtx, ?callInstr),
-    call_instruction_arg(?callInstr, 0, ?dtorOperand),
-    call_instruction_arg(?callInstr, 1, ?recvOperand).
+    call_instr_arg(?callInstr, 0, ?dtorOperand),
+    call_instr_arg(?callInstr, 1, ?recvOperand).
 
   // The following rule augments the logic about identifying funcs
   // registered to run at program exit, so that it also works with
@@ -81,7 +81,7 @@ cxx_atexit_func(?func) :-
   called_at_exit(Callback) :-
     func_name(AtExit, "@atexit"),
     callgraph_edge(_, AtExit, _, CallerInstr),
-    call_instruction_arg(CallerInstr, 0, Constant),
+    call_instr_arg(CallerInstr, 0, Constant),
     // the following is a simplified version of logic that can only
     // work with direct func calls
     constant_references_func(Constant, Callback).

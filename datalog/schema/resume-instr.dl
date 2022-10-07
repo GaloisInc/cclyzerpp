@@ -1,0 +1,34 @@
+// http://llvm.org/docs/LangRef.html#resume-instr
+// keywords: terminator; instr
+
+.type ResumeInstruction = Instruction
+.decl resume_instr(instr:ResumeInstruction)
+
+instr(v) :- resume_instr(v).
+terminator_instr(v) :- resume_instr(v).
+
+.decl resume_instr_operand(instr:ResumeInstruction, op:Operand)
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// 1) The ‘resume‘ instr requires one argument, which
+//    must have the same type as the result of any ‘landingpad‘
+//    instr in the same func.
+//------------------------------------------------------------------------------
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   resume_instr(Instr),
+   !resume_instr_operand(Instr, _).
+
+schema_invalid_instr(ResumeInstr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   resume_instr(ResumeInstr),
+   resume_instr_operand(ResumeInstr, Operand),
+   instr_func(ResumeInstr, Func),
+   instr_func(LPadInstr, Func),
+   landingpad_instr(LPadInstr),
+   instr_returns_type(LPadInstr, Type),
+   !operand_has_type(Operand, Type).

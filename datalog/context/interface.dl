@@ -80,8 +80,8 @@ drop_last(?out, ?in),
 
   .decl _reachable_call(?ctx: Context, ?instr: Instruction)
   _reachable_call(?ctx, ?instr) :-
-    (call_instruction(?instr); invoke_instruction(?instr)),
-    instruction_in_func(?instr, ?func),
+    (call_instr(?instr); invoke_instr(?instr)),
+    instr_func(?instr, ?func),
     reachable_context(?ctx, ?func).
 
   // Merge is the constructor for new calling contexts.
@@ -156,14 +156,14 @@ drop_last(?out, ?in),
 
   .decl count_context_items(?instr: Instruction, ?nContextItems: number)
   count_context_items(?instr, ?nContextItems) :-
-    (call_instruction(?instr); invoke_instruction(?instr)),
+    (call_instr(?instr); invoke_instr(?instr)),
     !drop_context_by_invoc(?instr),
     !drop_context_item_by_invoc(?instr),
     ?nContextItems = count : context_item_by_invoc(?instr, _).
 
   .decl count_contexts(?instr: Instruction, ?nContexts: number)
   count_contexts(?instr, ?nContexts) :-
-    (call_instruction(?instr); invoke_instruction(?instr)),
+    (call_instr(?instr); invoke_instr(?instr)),
     !drop_context_by_invoc(?instr),
     !drop_context_item_by_invoc(?instr),
     // Have to access internal relation due to inlining
@@ -251,8 +251,8 @@ context_item_by_invoc_interim(?invoc, ?ctxItem) :-
   ; Config = "8-callsite"
   ; Config = "9-callsite"
   ),
-  (call_instruction(?invoc);
-   invoke_instruction(?invoc)),
+  (call_instr(?invoc);
+   invoke_instr(?invoc)),
   ?ctxItem = ?invoc.
 
 context_item_by_invoc_interim(?invoc, ?ctxItem) :-
@@ -267,8 +267,8 @@ context_item_by_invoc_interim(?invoc, ?ctxItem) :-
   ; Config = "8-caller"
   ; Config = "9-caller"
   ),
-  (call_instruction(?invoc); invoke_instruction(?invoc)),
-  instruction_in_func(?invoc, ?func),
+  (call_instr(?invoc); invoke_instr(?invoc)),
+  instr_func(?invoc, ?func),
   func_name(?func, ?name),
   ?ctxItem = ?name.
 

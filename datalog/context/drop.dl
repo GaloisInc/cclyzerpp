@@ -28,23 +28,23 @@ num_direct_calls_to_func(?n, ?func) :-
   func_decl(?func),
   ?n = count : _instr_calls_func(_, ?func).
 
-.decl call_or_invoke_instruction_fn_type(?instr: Instruction, ?type: Type)
-call_or_invoke_instruction_fn_type(?instr, ?fnType) :-
-  ( call_instruction_fn_type(?instr, ?fnType)
-  ; invoke_instruction_fn_type(?instr, ?fnType)
+.decl call_or_invoke_instr_fn_type(?instr: Instruction, ?type: Type)
+call_or_invoke_instr_fn_type(?instr, ?fnType) :-
+  ( call_instr_fn_type(?instr, ?fnType)
+  ; invoke_instr_fn_type(?instr, ?fnType)
   ).
 
-.decl indirect_call_or_invoke_instruction(?instr: Instruction)
-indirect_call_or_invoke_instruction(?instr) :-
-  indirect_call_instruction(?instr);
-  indirect_invoke_instruction(?instr).
+.decl indirect_call_or_invoke_instr(?instr: Instruction)
+indirect_call_or_invoke_instr(?instr) :-
+  indirect_call_instr(?instr);
+  indirect_invoke_instr(?instr).
 
 .decl num_indirect_calls_to_compatible_func(?n: number, ?func: FunctionDecl)
 num_indirect_calls_to_compatible_func(?n, ?func) :-
   func_ty(?func, ?targetType),
   ?n = count : {
-    indirect_call_or_invoke_instruction(?instr),
-    call_or_invoke_instruction_fn_type(?instr, ?fnType),
+    indirect_call_or_invoke_instr(?instr),
+    call_or_invoke_instr_fn_type(?instr, ?fnType),
     type_compatible(?fnType, ?targetType)
   }.
 
@@ -89,8 +89,8 @@ func_type_has_no_pointer_return(?funcType) :-
 
 drop_context_by_invoc(?invoc) :-
   user_option_value("drop_redundant_contexts", "on"),
-  ( call_instruction_fn_operand(?invoc, ?funcOp)
-  ; invoke_instruction_fn_operand(?invoc, ?funcOp)
+  ( call_instr_fn_operand(?invoc, ?funcOp)
+  ; invoke_instr_fn_operand(?invoc, ?funcOp)
   ),
   operand_has_type(?funcOp, ?funcOpType),
   pointer_type_has_component(?funcOpType, ?declaredType),

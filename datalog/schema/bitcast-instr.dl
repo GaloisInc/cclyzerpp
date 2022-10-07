@@ -1,0 +1,79 @@
+// http://llvm.org/docs/LangRef.html#bitcast-to-instr
+// keywords: conversion; unary; instr
+
+.type BitcastInstruction = Instruction
+.decl bitcast_instr(instr:BitcastInstruction)
+
+instr(v) :- bitcast_instr(v).
+
+.decl bitcast_instr_from_operand(instr:BitcastInstruction, val:Operand)
+.decl bitcast_instr_to_type(instr:BitcastInstruction, type:Type)
+
+
+// Helper predicate
+
+.decl bitcast_instr_from_type(instr:BitcastInstruction, type:Type)
+
+bitcast_instr_from_type(Instr, Type) :-
+   bitcast_instr_from_operand(Instr, Operand),
+   operand_has_type(Operand, Type).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// The ‘bitcast‘ instr takes:
+//  (i)  a value to cast, which must be a non-aggregate first class value,
+//  (ii) and a type to cast it to, which must also be a non-aggregate
+//       first class type.
+//
+// If the value to be casted is of pointer type:
+//  (i)  the type must also be a pointer
+//  (ii) of the same size.
+//------------------------------------------------------------------------------
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   bitcast_instr(Instr),
+   !bitcast_instr_from_operand(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   bitcast_instr(Instr),
+   !bitcast_instr_to_type(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   bitcast_instr(Instr),
+   bitcast_instr_to_type(Instr, Type),
+   !instr_returns_type(Instr, Type).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   bitcast_instr(Instr),
+   bitcast_instr_from_type(Instr, Type),
+   ( !type_is_firstclass(Type)
+   ;  aggregate_type(Type) ).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   bitcast_instr(Instr),
+   bitcast_instr_to_type(Instr, Type),
+   ( !type_is_firstclass(Type)
+   ;  aggregate_type(Type) ).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   bitcast_instr(Instr),
+   bitcast_instr_from_type(Instr, FromType),
+   bitcast_instr_to_type(Instr, ToType),
+   pointer_type(FromType),
+   !pointer_type(ToType).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   bitcast_instr(Instr),
+   bitcast_instr_from_type(Instr, FromType),
+   bitcast_instr_to_type(Instr, ToType),
+   !pointer_type(FromType),
+   pointer_type(ToType).

@@ -154,7 +154,7 @@ class cclyzer::InstructionVisitor
 
     // default synchScope: crossthread
     if (instr.getSyncScopeID() == SyncScope::SingleThread) {
-      gen.writeFact(predicates::instruction::flag, iref, "singlethread");
+      gen.writeFact(predicates::instr::flag, iref, "singlethread");
     }
 
     if (!atomic.empty()) gen.writeFact(P::ordering, iref, atomic);

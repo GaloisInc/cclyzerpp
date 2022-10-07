@@ -1,2 +1,0 @@
-%struct.cmd	<notes.c>:notes_malloc:6	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]
-i8	<notes.c>:notes_malloc:6	*typed_heap_alloc@notes_malloc[i8* %call]

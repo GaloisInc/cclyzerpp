@@ -1,2 +1,0 @@
-%struct.double_struct	<type-backprop.c>:my_calloc:9	*typed_heap_alloc@my_calloc[%struct.double_struct* %call]
-%struct.int_struct	<type-backprop.c>:my_calloc:9	*typed_heap_alloc@my_calloc[%struct.int_struct* %call]

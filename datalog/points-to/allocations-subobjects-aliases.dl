@@ -2,7 +2,7 @@
 // [Implicit Pointer Aliases]
 //
 // In C, the expression `ptr[0]` and `*ptr` is the same. The 0 index
-// is often omitted from some instructions, but we must ensure that
+// is often omitted from some instrs, but we must ensure that
 // such expressions are treated as aliases by the analysis and have
 // the same points-to sets.
 //

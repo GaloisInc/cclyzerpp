@@ -83,9 +83,9 @@ constexpr static char const* assertion_relations[] = {
     "debuginfo_invalid_entry",
     "schema_invalid_alias",
     "schema_invalid_constant",
-    "schema_invalid_function",
-    "schema_invalid_global_variable",
-    "schema_invalid_instruction",
+    "schema_invalid_func",
+    "schema_invalid_global_var",
+    "schema_invalid_instr",
     "schema_invalid_type",
     "user_option_invalid"};
 

@@ -1,6 +1,0 @@
-<points-to_new-context.cpp>:_Z2idP3obj:0	*stack_alloc@_Z2idP3obj[%struct.obj** %x.addr]
-<points-to_new-context.cpp>:main:0	*stack_alloc@main[i32* %retval]
-<points-to_new-context.cpp>:main:1	*stack_alloc@main[%struct.obj** %a]
-<points-to_new-context.cpp>:main:2	*stack_alloc@main[%struct.obj** %b]
-<points-to_new-context.cpp>:main:3	*stack_alloc@main[%struct.obj** %c]
-<points-to_new-context.cpp>:main:4	*stack_alloc@main[%struct.obj** %d]

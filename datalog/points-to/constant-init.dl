@@ -42,7 +42,7 @@ array_indices__no_typecomp(?region, ?constantType, as(?index, ArrayIndex)) :-
   constant_array_index(?constant, ?index, _),
   array_type(?constantType),
   // Note that all arrays will have indices that look like they might be targets
-  // of GEP instructions - see allocations-subobjects.dl. However, there's no
+  // of GEP instrs - see allocations-subobjects.dl. However, there's no
   // need to create *all* possible suballocations for non-pointer array types -
   // it's expensive and they can't affect points-to facts.
   type_contains_pointer(?constantType),

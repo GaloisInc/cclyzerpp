@@ -1,0 +1,10 @@
+// llvm.org/docs/LangRef.html#unreachable-instr
+// keywords: terminator; instr
+
+.type UnreachableInstruction = Instruction
+.decl unreachable_instr(instr:UnreachableInstruction)
+
+instr(v) :- unreachable_instr(v).
+terminator_instr(Insn) :- unreachable_instr(Insn).
+
+// The ‘unreachable‘ instr has no defined semantics.

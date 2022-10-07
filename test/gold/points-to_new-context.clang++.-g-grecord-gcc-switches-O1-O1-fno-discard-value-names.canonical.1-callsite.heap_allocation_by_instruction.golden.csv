@@ -1,2 +1,0 @@
-<points-to_new-context.cpp>:_Z4fun1v:0	*heap_alloc@_Z4fun1v[i8* %call]
-<points-to_new-context.cpp>:_Z4fun2v:0	*heap_alloc@_Z4fun2v[i8* %call]

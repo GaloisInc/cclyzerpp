@@ -320,7 +320,7 @@ void InstructionVisitor::visitResumeInst(const llvm::ResumeInst &RI) {
 }
 
 void InstructionVisitor::visitUnreachableInst(const llvm::UnreachableInst &I) {
-  recordInstruction(pred::instruction::unreachable, I);
+  recordInstruction(pred::instr::unreachable, I);
 }
 
 void InstructionVisitor::visitAllocaInst(const llvm::AllocaInst &AI) {
@@ -410,7 +410,7 @@ void InstructionVisitor::visitAtomicCmpXchgInst(
 #else
   if (AXI.getSyncScopeID() == llvm::SyncScope::SingleThread) {
 #endif
-    gen.writeFact(pred::instruction::flag, iref, "singlethread");
+    gen.writeFact(pred::instr::flag, iref, "singlethread");
   }
 
   if (!successOrdStr.empty())
@@ -786,39 +786,34 @@ void InstructionVisitor::writeOptimizationInfo(
 #else
     if (fpo->hasUnsafeAlgebra()) {
 #endif
-      gen.writeFact(pred::instruction::flag, iref, "fast");
+      gen.writeFact(pred::instr::flag, iref, "fast");
     } else {
-      if (fpo->hasNoNaNs())
-        gen.writeFact(pred::instruction::flag, iref, "nnan");
+      if (fpo->hasNoNaNs()) gen.writeFact(pred::instr::flag, iref, "nnan");
 
-      if (fpo->hasNoInfs())
-        gen.writeFact(pred::instruction::flag, iref, "ninf");
+      if (fpo->hasNoInfs()) gen.writeFact(pred::instr::flag, iref, "ninf");
 
       if (fpo->hasNoSignedZeros())
-        gen.writeFact(pred::instruction::flag, iref, "nsz");
+        gen.writeFact(pred::instr::flag, iref, "nsz");
 
       if (fpo->hasAllowReciprocal())
-        gen.writeFact(pred::instruction::flag, iref, "arcp");
+        gen.writeFact(pred::instr::flag, iref, "arcp");
 
 #if LLVM_VERSION_MAJOR > 4  // new FPO fields
       if (fpo->hasAllowContract())
-        gen.writeFact(pred::instruction::flag, iref, "acon");
+        gen.writeFact(pred::instr::flag, iref, "acon");
 #endif
 #if LLVM_VERSION_MAJOR > 5  // new FPO fields
-      if (fpo->hasApproxFunc())
-        gen.writeFact(pred::instruction::flag, iref, "apfn");
+      if (fpo->hasApproxFunc()) gen.writeFact(pred::instr::flag, iref, "apfn");
 #endif
     }
   }
 
   if (const auto *obo = dyn_cast<OverflowingBinaryOperator>(u)) {
-    if (obo->hasNoUnsignedWrap())
-      gen.writeFact(pred::instruction::flag, iref, "nuw");
+    if (obo->hasNoUnsignedWrap()) gen.writeFact(pred::instr::flag, iref, "nuw");
 
-    if (obo->hasNoSignedWrap())
-      gen.writeFact(pred::instruction::flag, iref, "nsw");
+    if (obo->hasNoSignedWrap()) gen.writeFact(pred::instr::flag, iref, "nsw");
   } else if (const auto *div = dyn_cast<PossiblyExactOperator>(u)) {
-    if (div->isExact()) gen.writeFact(pred::instruction::flag, iref, "exact");
+    if (div->isExact()) gen.writeFact(pred::instr::flag, iref, "exact");
   }
 }
 

@@ -60,9 +60,14 @@ space. This judgment is highly subjective, but must be made somehow.
 - ``var``: Variable
 - ``vec``: Vector
 
-Explicitly **not** further abbreviated:
+Explicitly **not** further abbreviated, because they are already fairly short,
+or they are not common enough when speaking about LLVM to readily disambiguate
+them from abbreviations for other terms:
 
 - ``array``
+- ``inl``: Could mean "inline" or "left injection"
+- ``pred``: Could mean "predicate" or "predecessor"
+- ``succ``: Could mean "successor" or "success"
 - ``struct``
 
 ``type`` is for relations about types themselves, whereas ``ty`` is used for

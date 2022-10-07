@@ -160,10 +160,10 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
   _sig_var_alloc(?newCtx, ?sigAlloc, ?ctx, ?var, ?type) :-
      func_name(?func, ?sname),
      pts_signature_return_alloc(?sname),
-     ( call_instruction_fn_target(?instr, ?func)
-     ; invoke_instruction_fn_target(?instr, ?func)),
-     instruction_assigns_to(?instr, ?var),
-     instruction_in_func(?instr,  ?instrFunc),
+     ( call_instr_fn_target(?instr, ?func)
+     ; invoke_instr_fn_target(?instr, ?func)),
+     instr_assigns_to(?instr, ?var),
+     instr_func(?instr,  ?instrFunc),
 
      variable_has_type(?var,?ptrType),
      pointer_type_has_component(?ptrType, ?type),
@@ -175,10 +175,10 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
   _sig_var_alloc(?newCtx, ?sigAlloc, ?ctx, ?var, ?type) :-
      func_name(?func, ?sname),
      pts_signature_return_alloc_once(?sname),
-     ( call_instruction_fn_target(?instr, ?func)
-     ; invoke_instruction_fn_target(?instr, ?func)),
-     instruction_assigns_to(?instr, ?var),
-     instruction_in_func(?instr,  ?instrFunc),
+     ( call_instr_fn_target(?instr, ?func)
+     ; invoke_instr_fn_target(?instr, ?func)),
+     instr_assigns_to(?instr, ?var),
+     instr_func(?instr,  ?instrFunc),
 
      variable_has_type(?var,?ptrType),
      pointer_type_has_component(?ptrType, ?type),
@@ -190,9 +190,9 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
   _sig_ptr_alloc(?newCtx, ?sigAlloc, ?ptrCtx, ?ptr, ?type) :-
      func_name(?func, ?sname),
      pts_signature_arg_alloc(?sname, ?index),
-     ( call_instruction_fn_target(?instr, ?func)
-     ; invoke_instruction_fn_target(?instr, ?func)),
-     instruction_in_func(?instr,  ?instrFunc),
+     ( call_instr_fn_target(?instr, ?func)
+     ; invoke_instr_fn_target(?instr, ?func)),
+     instr_func(?instr,  ?instrFunc),
      actual_arg(?instr, ?index, ?var),
 
      reachable_context(?ctx, ?instrFunc),
@@ -208,9 +208,9 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
   _sig_ptr_alloc(?newCtx, ?sigAlloc, ?ptrCtx, ?ptr, ?type) :-
      func_name(?func, ?sname),
      pts_signature_arg_alloc_once(?sname, ?index),
-     ( call_instruction_fn_target(?instr, ?func)
-     ; invoke_instruction_fn_target(?instr, ?func)),
-     instruction_in_func(?instr,  ?instrFunc),
+     ( call_instr_fn_target(?instr, ?func)
+     ; invoke_instr_fn_target(?instr, ?func)),
+     instr_func(?instr,  ?instrFunc),
      actual_arg(?instr, ?index, ?var),
 
      reachable_context(?ctx, ?instrFunc),
@@ -252,7 +252,7 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
      callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
      func_name(?callee, ?name),
      pts_signature_return_aliases_arg(?name, ?index),
-     instruction_assigns_to(?callerInstr, ?toVar),
+     instr_assigns_to(?callerInstr, ?toVar),
      actual_arg(?callerInstr, ?index, ?fromValue),
      operand_points_to(?aCtx, ?alloc, ?callerCtx, ?fromValue).
 
@@ -267,7 +267,7 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
      callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
      func_name(?callee, ?name),
      pts_signature_return_aliases_arg_reachable(?name, ?index),
-     instruction_assigns_to(?callerInstr, ?toVar),
+     instr_assigns_to(?callerInstr, ?toVar),
      actual_arg(?callerInstr, ?index, ?fromValue),
      operand_points_to(?ptrACtx, ?ptrAlloc, ?callerCtx, ?fromValue),
      _ptr_reaches_to(?aCtx, ?alloc, ?ptrACtx, ?ptrAlloc).
@@ -278,7 +278,7 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
      pts_signature_return_points_to_global(?name, ?globalName),
      global_allocation_by_name(?globalName, ?alloc),
      empty_context(?aCtx),
-     instruction_assigns_to(?callerInstr, ?toVar).
+     instr_assigns_to(?callerInstr, ?toVar).
 
   signature_var_points_to_base(?aCtx, ?alloc, ?callerCtx, ?toVar) :-
      callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
@@ -286,7 +286,7 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
      pts_signature_return_aliases_global(?name, ?globalName),
      global_allocation_by_name(?globalName, ?globalAlloc),
      empty_context(?globalCtx),
-     instruction_assigns_to(?callerInstr, ?toVar),
+     instr_assigns_to(?callerInstr, ?toVar),
      ptr_points_to(?aCtx, ?alloc, ?globalCtx, ?globalAlloc).
 
   _ptr_reaches_to_request(?globalCtx, ?globalAlloc) :-
@@ -295,7 +295,7 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
      pts_signature_return_aliases_global_reachable(?name, ?globalName),
      global_allocation_by_name(?globalName, ?globalAlloc),
      empty_context(?globalCtx),
-     instruction_assigns_to(?callerInstr, _).
+     instr_assigns_to(?callerInstr, _).
 
   signature_var_points_to_base(?aCtx, ?alloc, ?callerCtx, ?toVar) :-
      callgraph_edge(_, ?callee, ?callerCtx, ?callerInstr),
@@ -303,7 +303,7 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
      pts_signature_return_aliases_global_reachable(?name, ?globalName),
      global_allocation_by_name(?globalName, ?globalAlloc),
      empty_context(?globalCtx),
-     instruction_assigns_to(?callerInstr, ?toVar),
+     instr_assigns_to(?callerInstr, ?toVar),
      _ptr_reaches_to(?aCtx, ?alloc, ?globalCtx, ?globalAlloc).
 
   memcpy_sig(?toACtx, ?toAlloc, ?fromACtx, ?fromAlloc) :-

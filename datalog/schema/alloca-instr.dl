@@ -1,0 +1,30 @@
+// http://llvm.org/docs/LangRef.html#alloca-instr
+// keywords: memory; unary; instr
+
+.type AllocaInstruction = Instruction
+.decl alloca_instr(instr:AllocaInstruction)
+
+instr(v) :- alloca_instr(v).
+
+.decl alloca_instr_alignment(instr:AllocaInstruction, alignment:number)
+.decl alloca_instr_size(instr:AllocaInstruction, size:Operand)
+.decl alloca_instr_type(instr:AllocaInstruction, type:Type)
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// The ‘alloca‘ instr returns a pointer.
+//------------------------------------------------------------------------------
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   alloca_instr(Instr),
+   !alloca_instr_type(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   alloca_instr(Instr),
+   alloca_instr_type(Instr, Type),
+   instr_returns_type(Instr, PtrType),
+   !pointer_type_has_component(PtrType, Type).

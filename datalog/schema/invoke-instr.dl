@@ -1,0 +1,194 @@
+// http://llvm.org/docs/LangRef.html#invoke-instr
+// keywords: terminator; instr
+
+.type InvokeInstruction = Instruction
+.decl invoke_instr(instr:InvokeInstruction)
+
+instr(v) :- invoke_instr(v).
+terminator_instr(v) :- invoke_instr(v).
+
+// Function operand: can be either a constant or a variable
+.decl invoke_instr_fn_operand(instr:InvokeInstruction, op:Operand)
+
+// Resolved func of invoke instr. Initially empty.
+.decl invoke_instr_fn_target(instr:InvokeInstruction, func:FunctionDecl)
+
+// If none is specified, the invoke defaults to using C
+// calling conventions.
+.decl invoke_instr_with_calling_convention(instr:InvokeInstruction, cc:CallingConvention)
+calling_convention(cc) :- invoke_instr_with_calling_convention(_, cc).
+
+
+//---------------------------------------------------------------
+// [Direct and Indirect Invoke Instructions]
+//
+// Invoke-instrs are divided into direct invocations
+// that provide a func name, and indirect invocations
+// through a func pointer variable.
+//---------------------------------------------------------------
+
+.decl direct_invoke_instr(instr:InvokeInstruction)
+.decl indirect_invoke_instr(instr:InvokeInstruction)
+
+direct_invoke_instr(Instr) :-
+   invoke_instr_fn_operand(Instr, Constant),
+   constant(Constant).
+
+indirect_invoke_instr(Instr) :-
+   invoke_instr_fn_operand(Instr, Variable),
+   variable(Variable).
+
+
+//--------------------------------------------------
+// Actual arguments and Parameter Attrs
+//--------------------------------------------------
+
+.decl invoke_instr_arg(instr:InvokeInstruction, i:ArgumentIndex, arg:Operand)
+.decl invoke_instr_with_return_attr(instr:InvokeInstruction, attr:Attribute)
+.decl invoke_instr_with_param_attr(instr:InvokeInstruction, i:ArgumentIndex, attr:Attribute)
+.decl invoke_instr_with_fn_attr(instr:InvokeInstruction, attr:Attribute)
+
+attr(Attr) :- invoke_instr_with_fn_attr(_, Attr).
+attr(Attr) :- invoke_instr_with_return_attr(_, Attr).
+attr(Attr) :- invoke_instr_with_param_attr(_, _, Attr).
+
+
+//-----------------------------
+// Signature (func type)
+//-----------------------------
+
+.decl invoke_instr_fn_type(instr:InvokeInstruction, type:Type)
+.decl invoke_instr_return_type(instr:InvokeInstruction, type:Type)
+
+invoke_instr_fn_type(Instr, FnType) :-
+   invoke_instr_fn_operand(Instr, FnOp),
+   operand_has_type(FnOp, PtrType),
+   pointer_type_has_component(PtrType, FnType),
+   func_type(FnType).
+
+invoke_instr_return_type(Instr, Type) :-
+   invoke_instr_fn_type(Instr, FnType),
+   func_type_return(FnType, Type).
+
+
+//------------------------------------------------------------------------------
+// [Labels]
+//
+// ‘normal label‘:
+//    the label reached when the called func executes a ‘ret‘
+//    instr.
+//
+// ‘exception label‘:
+//   the label reached when a callee returns via the resume
+//   instr or other exception handling mechanism.
+//------------------------------------------------------------------------------
+
+.decl invoke_instr_normal_label(instr:InvokeInstruction, label:Variable)
+.decl invoke_instr_exception_label(instr:InvokeInstruction, label:Variable)
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+//  (1) Only ‘zeroext‘, ‘signext‘, and ‘inreg‘ attrs
+//      are valid for return values.
+//  (2) The type of the invoke instr is also the type of
+//      the return value. Functions that return no value are
+//      marked void.
+//  (3) The func type shall be the signature of the pointer
+//      to func value being invoked. The argument types must
+//      match the types implied by this signature.
+//  (4) All arguments must be of first class type.
+//  (5) Only ‘noreturn‘, ‘nounwind‘, ‘readonly‘ and ‘readnone‘
+//      attrs are valid as func attrs.
+//  (6) The 'invoke' instr' takes a 'normal label' and
+//  (7) an 'exceptional label'.
+//------------------------------------------------------------------------------
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   invoke_instr(Instr),
+   !invoke_instr_fn_operand(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   invoke_instr(Instr),
+   !invoke_instr_normal_label(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   invoke_instr(Instr),
+   !invoke_instr_exception_label(Instr, _).
+
+// attr compatibility
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   invoke_instr_with_return_attr(Instr, Attr),
+   !parameter_attr__zeroext(Attr),
+   !parameter_attr__signext(Attr),
+   !parameter_attr__inreg(Attr),
+   !parameter_attr__noalias(Attr),
+   !parameter_attr__dereferenceable(Attr). // c1
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   invoke_instr_with_fn_attr(Instr, Attr),
+   !func_attr__noreturn(Attr),
+   !func_attr__nounwind(Attr),
+   !func_attr__readonly(Attr),
+   !func_attr__readnone(Attr),
+   !func_attr__cold(Attr),
+   !func_attr__returns_twice(Attr),
+   !func_attr__builtin(Attr),
+   !target_dependent_attr(Attr). // c5
+
+
+// Signature conformance
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   invoke_instr_arg(Instr, Index, _),
+   invoke_instr_fn_type(Instr, FnType),
+   !func_type_param(FnType, Index, _),
+   !func_type_has_varargs(FnType).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   invoke_instr(Instr),
+   !invoke_instr_arg(Instr, Index, _),
+   invoke_instr_fn_type(Instr, FnType),
+   func_type_param(FnType, Index, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   invoke_instr_arg(Instr, Index, Arg),
+   invoke_instr_fn_type(Instr, FnType),
+   func_type_param(FnType, Index, ParamType),
+   !operand_has_type(Arg, ParamType). // c3
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   invoke_instr_return_type(Instr, Type),
+   !void_type(Type),
+   !instr_returns_type(Instr, Type). // c2
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   invoke_instr_return_type(Instr, Type),
+   void_type(Type),
+   instr_returns_type(Instr, _). // c2 vice versa
+
+// only first class arguments allowed
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   invoke_instr_arg(Instr, _, Arg),
+   !operand_is_firstclass(Arg). // c4
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   invoke_instr_normal_label(Instr, Label),
+   !variable_is_label(Label).   // c6
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   invoke_instr_exception_label(Instr, Label),
+   !variable_is_label(Label).   // c7

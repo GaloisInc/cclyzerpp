@@ -1,0 +1,45 @@
+// http://llvm.org/docs/LangRef.html#va-arg-instr
+// keywords: unary; instr
+
+.type VaArgInstruction = Instruction
+.decl va_arg_instr(instr:VaArgInstruction)
+
+instr(v) :- va_arg_instr(v).
+
+.decl va_arg_instr_va_list(instr:VaArgInstruction, list:Operand)
+.decl va_arg_instr_type(instr:VaArgInstruction, type:Type)
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// The ‘va-arg‘ instr takes:
+//  (i)  a va_list* value, and
+//  (ii) the type of the arguments,
+//
+// It returns:
+//  (i) a value of the specified argument type.
+//------------------------------------------------------------------------------
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   va_arg_instr(Instr),
+   !va_arg_instr_va_list(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   va_arg_instr(Instr),
+   !va_arg_instr_type(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   va_arg_instr(Instr),
+   va_arg_instr_va_list(Instr, List),
+   operand_has_type(List, ListType),
+   !pointer_type(ListType).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   va_arg_instr(Instr),
+   va_arg_instr_type(Instr, Type),
+   !instr_returns_type(Instr, Type).

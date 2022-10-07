@@ -1,0 +1,69 @@
+// http://llvm.org/docs/LangRef.html#sitofp-to-instr
+// keywords: conversion; unary; instr
+
+.type SIToFPInstruction = Instruction
+.decl sitofp_instr(instr:SIToFPInstruction)
+
+instr(v) :- sitofp_instr(v).
+
+.decl sitofp_instr_from_operand(instr:SIToFPInstruction, val:Operand)
+.decl sitofp_instr_to_type(instr:SIToFPInstruction, type:Type)
+
+
+// Helper predicate
+
+.decl sitofp_instr_from_type(instr:SIToFPInstruction, type:Type)
+
+sitofp_instr_from_type(Instr, Type) :-
+   sitofp_instr_from_operand(Instr, Operand),
+   operand_has_type(Operand, Type).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// The ‘sitofp‘ instr takes:
+//  (i)  a value to cast, which must be a scalar or vector integer value,
+//  (ii) and a type to cast it to, which must be a floating point type.
+//
+// If the value to be casted is a vector integer type:
+//  (i)  the type must be a vector floating point type,
+//  (ii) with the same number of elements.
+//------------------------------------------------------------------------------
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   sitofp_instr(Instr),
+   !sitofp_instr_from_operand(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   sitofp_instr(Instr),
+   !sitofp_instr_to_type(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   sitofp_instr(Instr),
+   sitofp_instr_to_type(Instr, Type),
+   !instr_returns_type(Instr, Type).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   sitofp_instr(Instr),
+   sitofp_instr_from_type(Instr, Type),
+   !integer_type(Type),
+   !integer_vector_type(Type).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   sitofp_instr(Instr),
+   sitofp_instr_to_type(Instr, Type),
+   !fp_type(Type),
+   !fp_vector_type(Type).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   sitofp_instr(Instr),
+   sitofp_instr_from_type(Instr, FromType),
+   sitofp_instr_to_type(Instr, ToType),
+   !vector_compatible_types(FromType, ToType).

@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 // [Variables]
 //
-// The first type of instruction operands are variables. In this
+// The first type of instr operands are variables. In this
 // representation, variables correspond to LLVM virtual
 // registers. They are either source-level variables with valid names
 // or temporaries introduced by LLVM that hold intermediate expressions.
@@ -37,7 +37,7 @@ variable_is_firstclass(Var) :-
 //------------------------------------------------------------------------------
 // [Constants]
 //
-// The second type of instruction operands are constants. Constants
+// The second type of instr operands are constants. Constants
 // may be quite complex (see constant expressions).
 //------------------------------------------------------------------------------
 

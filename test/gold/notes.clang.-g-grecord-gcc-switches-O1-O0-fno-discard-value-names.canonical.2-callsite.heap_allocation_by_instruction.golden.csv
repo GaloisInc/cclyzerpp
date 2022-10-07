@@ -1,2 +1,0 @@
-<notes.c>:hex_str:29	*heap_alloc@hex_str[i8* %call]
-<notes.c>:notes_malloc:6	*heap_alloc@notes_malloc[i8* %call]

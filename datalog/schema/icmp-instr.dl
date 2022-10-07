@@ -1,0 +1,123 @@
+// http://llvm.org/docs/LangRef.html#icmp-instr
+// keywords: comparison; binary; instr
+
+.type ICmpInstruction = Instruction
+.decl icmp_instr(instr:ICmpInstruction)
+
+instr(v) :- icmp_instr(v).
+
+.type ICmpCondition <: symbol
+
+.decl icmp_instr_condition(instr:ICmpInstruction, cond:ICmpCondition)
+.decl icmp_instr_first_operand(instr:ICmpInstruction, op:Operand)
+.decl icmp_instr_second_operand(instr:ICmpInstruction, op:Operand)
+
+
+// Condition code and selectors for the ‘icmp‘ Instruction, as enum
+.decl icmp_condition(cond:ICmpCondition)
+icmp_condition(Cond) :- icmp_instr_condition(_, Cond).
+
+.decl icmp_condition__eq(cond:ICmpCondition)
+.decl icmp_condition__ne(cond:ICmpCondition)
+.decl icmp_condition__sgt(cond:ICmpCondition)
+.decl icmp_condition__sge(cond:ICmpCondition)
+.decl icmp_condition__slt(cond:ICmpCondition)
+.decl icmp_condition__sle(cond:ICmpCondition)
+.decl icmp_condition__ugt(cond:ICmpCondition)
+.decl icmp_condition__ule(cond:ICmpCondition)
+.decl icmp_condition__uge(cond:ICmpCondition)
+.decl icmp_condition__ult(cond:ICmpCondition)
+
+icmp_condition__eq("eq") :- icmp_condition("eq").
+icmp_condition__ne("ne") :- icmp_condition("ne") .
+icmp_condition__sgt("sgt") :- icmp_condition("sgt").
+icmp_condition__sge("sge") :- icmp_condition("sge").
+icmp_condition__slt("slt") :- icmp_condition("slt").
+icmp_condition__sle("sle") :- icmp_condition("sle").
+icmp_condition__ugt("ugt") :- icmp_condition("ugt").
+icmp_condition__ule("ule") :- icmp_condition("ule").
+icmp_condition__uge("uge") :- icmp_condition("uge").
+icmp_condition__ult("ult") :- icmp_condition("ult").
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(), icmp_instr_condition(Instr, Cond),
+   !icmp_condition__eq(Cond),  !icmp_condition__ne(Cond),
+   !icmp_condition__sgt(Cond), !icmp_condition__sge(Cond),
+   !icmp_condition__slt(Cond), !icmp_condition__sle(Cond),
+   !icmp_condition__ugt(Cond), !icmp_condition__ule(Cond),
+   !icmp_condition__uge(Cond), !icmp_condition__ult(Cond).
+
+
+// Helper predicates
+
+.decl icmp_instr_from_type(instr:ICmpInstruction, type:Type)
+.decl icmp_instr_to_type(instr:ICmpInstruction, type:Type)
+
+icmp_instr_from_type(Instr, Type) :-
+   icmp_instr_first_operand(Instr, Operand),
+   operand_has_type(Operand, Type).
+
+icmp_instr_to_type(Instr, Type) :-
+   icmp_instr(Instr),
+   instr_returns_type(Instr, Type).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// The ‘icmp‘ instr returns:
+//  (i)  a boolean value or
+//  (ii) a vector of boolean values
+//
+// based on the comparison of its two:
+//  (i)   integer,
+//  (ii)  integer vector,
+//  (iii) pointer, or
+//  (iv)  pointer vector operands.
+//
+// They must also be identical types.
+//------------------------------------------------------------------------------
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   icmp_instr(Instr),
+   !icmp_instr_first_operand(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   icmp_instr(Instr),
+   !icmp_instr_second_operand(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   icmp_instr(Instr),
+   !icmp_instr_condition(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   icmp_instr_to_type(Instr, Type),
+   !boolean_type(Type),
+   !boolean_vector_type(Type).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   icmp_instr_from_type(Instr, Type),
+   !integer_type(Type),
+   !pointer_type(Type),
+   !integer_vector_type(Type),
+   !pointer_vector_type(Type).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   icmp_instr(Instr),
+   icmp_instr_first_operand(Instr, LeftOp),
+   icmp_instr_second_operand(Instr, RightOp),
+   operand_has_type(LeftOp, LeftType),
+   operand_has_type(RightOp, RightType),
+   LeftType != RightType.
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   icmp_instr_from_type(Instr, FromType),
+   icmp_instr_to_type(Instr, ToType),
+   !vector_compatible_types(FromType, ToType).

@@ -13,7 +13,7 @@
 func_decl(Func) :- func(Func).
 
 // !! Note: A func definition is encoded as a subtype of func
-// declaration, that adds a body of instructions. !!
+// declaration, that adds a body of instrs. !!
 
 // For constraints
 .decl schema_invalid_func(func:FunctionDecl, file:File, line:Line)
@@ -138,7 +138,7 @@ func_param_by_value(Func, Index) :-
 // in the func type.
 //
 // The return type must also be compatible for the func
-// to be well-formed, but this is checked in ret-instruction
+// to be well-formed, but this is checked in ret-instr
 // logic.
 //------------------------------------------------------------------------------
 

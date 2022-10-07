@@ -161,7 +161,7 @@ _nallocs_by_pt_total[] = NVars
 // Intermediate relationship
 .decl func_calls_func(?caller: Function, ?callee: Function)
 func_calls_func(?caller, ?callee) :-
-  instruction_in_func(?callerInstr, ?caller),
+  instr_func(?callerInstr, ?caller),
   subset.callgraph.callgraph_edge(_, ?callee, _, ?callerInstr).
 
 // How many funcs does this func call?

@@ -23,7 +23,7 @@ analyze_pointer_arithmetic() :-
 //
 // For instance, code optimizations may include inlined
 // constructors. In such a case, we cannot rely on the presence of a
-// call to a constructor after a heap allocation instruction, to be
+// call to a constructor after a heap allocation instr, to be
 // able to identify the type of the allocation.
 //------------------------------------------------------------------------------
 

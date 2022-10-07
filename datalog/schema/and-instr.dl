@@ -1,0 +1,53 @@
+// http://llvm.org/docs/LangRef.html#and-instr
+// keywords: bitwise; binary; instr
+
+.type AndInstruction = Instruction
+.decl and_instr(instr:AndInstruction)
+
+instr(v) :-
+   and_instr(v).
+
+.decl and_instr_first_operand(instr:AndInstruction, op:Operand)
+.decl and_instr_second_operand(instr:AndInstruction, op:Operand)
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// 1) The two arguments to the ‘and‘ instr must be:
+//      (i)  integer or
+//      (ii) vector of integer values.
+//
+// 2) Both arguments must have identical types.
+//
+// 3) The resulting value is the same type as its operands.
+//------------------------------------------------------------------------------
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   and_instr(Instr),
+   !and_instr_first_operand(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   and_instr(Instr),
+   !and_instr_second_operand(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   and_instr(Instr),
+   instr_returns_type(Instr, Type),
+   !integer_type(Type),
+   !integer_vector_type(Type).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   instr_returns_type(Instr, Type),
+   and_instr_first_operand(Instr, LeftOp),
+   !operand_has_type(LeftOp, Type).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   instr_returns_type(Instr, Type),
+   and_instr_second_operand(Instr, RightOp),
+   !operand_has_type(RightOp, Type).

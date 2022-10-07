@@ -35,14 +35,14 @@ cxx_alloc_exception(?func),
 // Compute allocation size
 sized_alloc_instr(?insn, as(?size, Bytes)) :-
   cxx_alloc_exception(?func),
-  call_instruction_fn_target(?insn, ?func),
-  call_instruction_arg(?insn, 0, ?sizeOp),
+  call_instr_fn_target(?insn, ?func),
+  call_instr_arg(?insn, 0, ?sizeOp),
   constant_to_int(?sizeOp, ?size).
 
 sized_alloc_instr(?insn, as(?size, Bytes)) :-
   cxx_alloc_exception(?func),
-  invoke_instruction_fn_target(?insn, ?func),
-  invoke_instruction_arg(?insn, 0, ?sizeOp),
+  invoke_instr_fn_target(?insn, ?func),
+  invoke_instr_arg(?insn, 0, ?sizeOp),
   constant_to_int(?sizeOp, ?size).
 
 .type ExceptionObject = Allocation
@@ -53,7 +53,7 @@ sized_alloc_instr(?insn, as(?size, Bytes)) :-
   // https://souffle-lang.github.io/components#input-rules
   //----------------------------------------------------------------------------
 
-  .decl heap_allocation_by_type_instruction(?type: Type, ?insn: Instruction, ?heapAlloc: HeapAllocation) inline
+  .decl heap_allocation_by_type_instr(?type: Type, ?insn: Instruction, ?heapAlloc: HeapAllocation) inline
 
   //----------------------------------------------------------------------------
   // "Output"/defined rules
@@ -77,15 +77,15 @@ sized_alloc_instr(?insn, as(?size, Bytes)) :-
   , _exception_object(?heapAlloc)
   :-
     cxx_alloc_exception(?func),
-    call_instruction_fn_target(?insn, ?func),
-    heap_allocation_by_instruction(?insn, ?heapAlloc).
+    call_instr_fn_target(?insn, ?func),
+    heap_allocation_by_instr(?insn, ?heapAlloc).
 
   heap_allocation_by_alloc_exc(?insn, ?heapAlloc)
   , _exception_object(?heapAlloc)
   :-
     cxx_alloc_exception(?func),
-    invoke_instruction_fn_target(?insn, ?func),
-    heap_allocation_by_instruction(?insn, ?heapAlloc).
+    invoke_instr_fn_target(?insn, ?func),
+    heap_allocation_by_instr(?insn, ?heapAlloc).
 
   // In the case of inlined constructors, we mark the exception object
   // as untyped and rely on the type back-propagation
@@ -100,7 +100,7 @@ sized_alloc_instr(?insn, as(?size, Bytes)) :-
   :-
     inlined_constructors(),
     heap_allocation_by_alloc_exc(?insn, _),
-    heap_allocation_by_type_instruction(_, ?insn, ?typedExcObj).
+    heap_allocation_by_type_instr(_, ?insn, ?typedExcObj).
 }
 
 //-------------------------------------------------------------------------
@@ -178,20 +178,20 @@ typeinfo(?var),
   // implementation details, and should not be accessed outside the component.
   //----------------------------------------------------------------------------
 
-  .decl _cxx_throw_instruction(?throwInsn: Instruction)
-  _cxx_throw_instruction(?throwInsn) :-
+  .decl _cxx_throw_instr(?throwInsn: Instruction)
+  _cxx_throw_instr(?throwInsn) :-
     cxx_throw_func(?throwFunc),
     callgraph_edge(_, ?throwFunc, _, ?throwInsn).
 
-  .decl _cxx_throw_instruction_exception(?excObj: ExceptionObject, ?throwInsn: Instruction)
-  _cxx_throw_instruction_exception(?excObj, ?throwInsn) :-
-    _cxx_throw_instruction(?throwInsn),
+  .decl _cxx_throw_instr_exception(?excObj: ExceptionObject, ?throwInsn: Instruction)
+  _cxx_throw_instr_exception(?excObj, ?throwInsn) :-
+    _cxx_throw_instr(?throwInsn),
     actual_arg(?throwInsn, 0, ?exc),
     operand_points_to(_, ?excObj, _, ?exc).
 
-  .decl _cxx_throw_instruction_full_exception(?aCtx: Context, ?excObj: ExceptionObject, ?throwInsn: Instruction)
-  _cxx_throw_instruction_full_exception(?aCtx, ?excObj, ?throwInsn) :-
-    _cxx_throw_instruction(?throwInsn),
+  .decl _cxx_throw_instr_full_exception(?aCtx: Context, ?excObj: ExceptionObject, ?throwInsn: Instruction)
+  _cxx_throw_instr_full_exception(?aCtx, ?excObj, ?throwInsn) :-
+    _cxx_throw_instr(?throwInsn),
     actual_arg(?throwInsn, 0, ?exc),
     operand_points_to(?aCtx, ?excObj, _, ?exc).
 
@@ -199,17 +199,17 @@ typeinfo(?var),
   // * Throw Instr registers destructor
   //------------------------------------------------
 
-  .decl _cxx_throw_instruction_destructor(?dtor: FunctionDecl, ?throwInsn: Instruction)
-  _cxx_throw_instruction_destructor(?dtor, ?throwInsn) :-
-    _cxx_throw_instruction(?throwInsn),
+  .decl _cxx_throw_instr_destructor(?dtor: FunctionDecl, ?throwInsn: Instruction)
+  _cxx_throw_instr_destructor(?dtor, ?throwInsn) :-
+    _cxx_throw_instr(?throwInsn),
     actual_arg(?throwInsn, 2, ?dtorArg),
     stripctx_operand_points_to(?alloc, ?dtorArg),
     func_by_location(?alloc, ?dtor).
 
-  .decl _cxx_throw_instruction_no_dtor(?throwInsn: Instruction)
-  _cxx_throw_instruction_no_dtor(?throwInsn) :-
+  .decl _cxx_throw_instr_no_dtor(?throwInsn: Instruction)
+  _cxx_throw_instr_no_dtor(?throwInsn) :-
     null_location(?null),
-    _cxx_throw_instruction(?throwInsn),
+    _cxx_throw_instr(?throwInsn),
     actual_arg(?throwInsn, 2, ?dtorArg),
     stripctx_operand_points_to(?null, ?dtorArg).
 
@@ -217,21 +217,21 @@ typeinfo(?var),
   // * Throw Instr associates typeinfo object
   //------------------------------------------------
 
-  .decl _cxx_throw_instruction_typeinfo(?excTypeInfo: GlobalVariable, ?throwInsn: Instruction)
-  _cxx_throw_instruction_typeinfo(?excTypeInfo, ?throwInsn) :-
-    _cxx_throw_instruction(?throwInsn),
+  .decl _cxx_throw_instr_typeinfo(?excTypeInfo: GlobalVariable, ?throwInsn: Instruction)
+  _cxx_throw_instr_typeinfo(?excTypeInfo, ?throwInsn) :-
+    _cxx_throw_instr(?throwInsn),
     actual_arg(?throwInsn, 1, ?typeInfoArg),
     stripctx_operand_points_to(?typeInfoObj, ?typeInfoArg),
     _type_info_by_alloc(?typeInfoObj, ?excTypeInfo).
 
   //-------------------------------------------------------------------------
   // The following is a generic catch-all relation that associates with
-  // each throw instruction multiple destructor - typeinfo - exception
+  // each throw instr multiple destructor - typeinfo - exception
   // object triplets. Each triplet contains compatible elements.
   //-------------------------------------------------------------------------
 
   // We can use the destructor and the typeinfo object supplied to a
-  // throw instruction, as type indications for the exception object.
+  // throw instr, as type indications for the exception object.
 
   // TODO(lb): This should be named type_indication4, but a bug in Souffle
   // prevents it. Appears fixed in Souffle on master, so should be in the next
@@ -242,19 +242,19 @@ typeinfo(?var),
   ty_indication4(?type, ?aCtx, ?excObj)
     :-
     untyped_allocation(_, ?excObj),
-    _cxx_throw_instruction_full_exception(?aCtx, ?excObj, ?throwInsn),
-    _cxx_throw_instruction_destructor(?dtor, ?throwInsn),
+    _cxx_throw_instr_full_exception(?aCtx, ?excObj, ?throwInsn),
+    _cxx_throw_instr_destructor(?dtor, ?throwInsn),
     destructor_class_type(?dtor, ?type).
 
   ty_indication5(?classType, ?aCtx, ?excObj)
     :-
     untyped_allocation(_, ?excObj),
-    _cxx_throw_instruction_full_exception(?aCtx, ?excObj, ?throwInsn),
-    _cxx_throw_instruction_typeinfo(?typeInfo, ?throwInsn),
+    _cxx_throw_instr_full_exception(?aCtx, ?excObj, ?throwInsn),
+    _cxx_throw_instr_typeinfo(?typeInfo, ?throwInsn),
     class_type_typeinfo(?classType, ?typeInfo).
 
 
-  // Note that the typeinfo registered in the throw instruction may be
+  // Note that the typeinfo registered in the throw instr may be
   // one of a non-existing LLVM type, that has been removed altogehter
   // due to some optimization. Hence, we can only rely on the type of
   // the destructor's receiver to obtain and verify the type of the
@@ -271,18 +271,18 @@ typeinfo(?var),
   .decl _cxx_throws(?dtor: FunctionDecl, ?typeInfo: GlobalVariable, ?excObj: ExceptionObject, ?throwInsn: Instruction)
   _cxx_throws(?dtor, ?typeInfo, ?excObj, ?throwInsn)
     :-
-    _cxx_throw_instruction_exception(?excObj, ?throwInsn),
-    _cxx_throw_instruction_typeinfo(?typeInfo, ?throwInsn),
-    _cxx_throw_instruction_destructor(?dtor, ?throwInsn),
+    _cxx_throw_instr_exception(?excObj, ?throwInsn),
+    _cxx_throw_instr_typeinfo(?typeInfo, ?throwInsn),
+    _cxx_throw_instr_destructor(?dtor, ?throwInsn),
     allocation_type(?excObj, ?type),
     class_type_typeinfo(?type, ?typeInfo),
     class_type_destructor(?dtor, ?type).
 
   _cxx_throws(?dtor, ?typeInfo, ?excObj, ?throwInsn)
     :-
-    _cxx_throw_instruction_exception(?excObj, ?throwInsn),
-    _cxx_throw_instruction_typeinfo(?typeInfo, ?throwInsn),
-    _cxx_throw_instruction_destructor(?dtor, ?throwInsn),
+    _cxx_throw_instr_exception(?excObj, ?throwInsn),
+    _cxx_throw_instr_typeinfo(?typeInfo, ?throwInsn),
+    _cxx_throw_instr_destructor(?dtor, ?throwInsn),
     _typeinfo_no_class(?typeInfo),
     allocation_type(?excObj, ?type),
     class_type_destructor(?dtor, ?type).
@@ -290,16 +290,16 @@ typeinfo(?var),
   .decl _cxx_throws_no_dtor(?typeInfo: GlobalVariable, ?excObj: ExceptionObject, ?throwInsn: Instruction)
   _cxx_throws_no_dtor(?typeInfo, ?excObj, ?throwInsn)
     :-
-    _cxx_throw_instruction_exception(?excObj, ?throwInsn),
-    _cxx_throw_instruction_typeinfo(?typeInfo, ?throwInsn),
-    _cxx_throw_instruction_no_dtor(?throwInsn),
+    _cxx_throw_instr_exception(?excObj, ?throwInsn),
+    _cxx_throw_instr_typeinfo(?typeInfo, ?throwInsn),
+    _cxx_throw_instr_no_dtor(?throwInsn),
     _typeinfo_no_class(?typeInfo).
 
   _cxx_throws_no_dtor(?typeInfo, ?excObj, ?throwInsn)
     :-
-    _cxx_throw_instruction_exception(?excObj, ?throwInsn),
-    _cxx_throw_instruction_typeinfo(?typeInfo, ?throwInsn),
-    _cxx_throw_instruction_no_dtor(?throwInsn),
+    _cxx_throw_instr_exception(?excObj, ?throwInsn),
+    _cxx_throw_instr_typeinfo(?typeInfo, ?throwInsn),
+    _cxx_throw_instr_no_dtor(?throwInsn),
     allocation_type(?excObj, ?type),
     class_type_typeinfo(?type, ?typeInfo).
 }

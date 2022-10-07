@@ -1,6 +1,0 @@
-<points-to_malloc-context.c>:id:0	*stack_alloc@id[%struct.obj** %x.addr]
-<points-to_malloc-context.c>:main:0	*stack_alloc@main[i32* %retval]
-<points-to_malloc-context.c>:main:1	*stack_alloc@main[%struct.obj** %a]
-<points-to_malloc-context.c>:main:2	*stack_alloc@main[%struct.obj** %b]
-<points-to_malloc-context.c>:main:3	*stack_alloc@main[%struct.obj** %c]
-<points-to_malloc-context.c>:main:4	*stack_alloc@main[%struct.obj** %d]

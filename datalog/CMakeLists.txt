@@ -34,75 +34,75 @@ set(DL_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/context/drop.dl
     ${CMAKE_CURRENT_LIST_DIR}/context/lift.dl
     ${CMAKE_CURRENT_LIST_DIR}/context/interface.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/sitofp-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/extractvalue-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/xor-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/udiv-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/va-arg-instruction.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/sitofp-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/extractvalue-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/xor-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/udiv-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/va-arg-instr.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/debug.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/func.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/fcmp-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/fdiv-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/select-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/indirectbr-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/srem-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/shufflevector-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/and-instruction.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/fcmp-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/fdiv-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/select-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/indirectbr-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/srem-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/shufflevector-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/and-instr.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/calling-convention.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/asm.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/sdiv-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/inttoptr-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/store-instruction.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/sdiv-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/inttoptr-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/store-instr.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/ordering.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/insertelement-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/icmp-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/shl-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/getelementptr-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/ashr-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/bitcast-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/uitofp-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/mul-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/fence-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/insertvalue-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/unreachable-instruction.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/insertelement-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/icmp-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/shl-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/getelementptr-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/ashr-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/bitcast-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/uitofp-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/mul-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/fence-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/insertvalue-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/unreachable-instr.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/activate-sanity.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/constants.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/sext-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/alloca-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/add-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/cmpxchg-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/br-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/invoke-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/ptrtoint-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/zext-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/fptoui-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/load-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/fsub-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/extractelement-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/fptosi-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/sub-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/fptrunc-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/phi-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/fmul-instruction.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/sext-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/alloca-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/add-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/cmpxchg-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/br-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/invoke-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/ptrtoint-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/zext-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/fptoui-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/load-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/fsub-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/extractelement-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/fptosi-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/sub-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/fptrunc-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/phi-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/fmul-instr.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/basic-block.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/global.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/call-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/ret-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/urem-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/fadd-instruction.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/call-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/ret-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/urem-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/fadd-instr.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/type.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/operand.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/resume-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/frem-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/atomicrmw-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/or-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/trunc-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/switch-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/lshr-instruction.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/fpext-instruction.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/resume-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/frem-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/atomicrmw-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/or-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/trunc-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/switch-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/lshr-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/fpext-instr.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/attr.dl
-    ${CMAKE_CURRENT_LIST_DIR}/schema/landingpad-instruction.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/landingpad-instr.dl
     ${CMAKE_CURRENT_LIST_DIR}/callgraph/entry-points.dl
     ${CMAKE_CURRENT_LIST_DIR}/export/auxiliary-records.dl
     ${CMAKE_CURRENT_LIST_DIR}/export/subset.dl
