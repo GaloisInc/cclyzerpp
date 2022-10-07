@@ -73,7 +73,7 @@ _landingpad_starting_phi(BB, Instr) :-
 
 _landingpad_starting_phi(BB, NextInstr) :-
    _landingpad_starting_phi(BB, Instr),
-   next_instr(Instr, NextInstr),
+   instr_successor(Instr, NextInstr),
    phi_instr(NextInstr),
    instr_block(NextInstr, BB).
 
@@ -89,7 +89,7 @@ _landingpad_first_nonphi(BB, Instr) :-
 
 _landingpad_first_nonphi(BB, NextInstr) :-
    _landingpad_starting_phi(BB, Instr),
-   next_instr(Instr, NextInstr),
+   instr_successor(Instr, NextInstr),
    !phi_instr(NextInstr),
    instr_block(NextInstr, BB).
 

@@ -16,7 +16,7 @@ instr(v) :- insertvalue_instr(v).
 .decl insertvalue_instr_nindices(instr:InsertValueInstruction, total:number)
 .decl insertvalue_instr_index(instr:InsertValueInstruction, i:number, idx:number)
 
-next_instr_index(Instr, Index, Index + 1) :-
+instr_successor_index(Instr, Index, Index + 1) :-
    insertvalue_instr_index(Instr, Index, _).
 
 
@@ -36,12 +36,12 @@ insertvalue_instrterm_type(Instr, NextIndex, Type) :-
    insertvalue_instrterm_type(Instr, Index, StructType),
    insertvalue_instr_index(Instr, Index, IdxValue),
    struct_type_field(StructType, IdxValue, Type),
-   next_instr_index(Instr, Index, NextIndex).
+   instr_successor_index(Instr, Index, NextIndex).
 
 insertvalue_instrterm_type(Instr, NextIndex, Type) :-
    insertvalue_instrterm_type(Instr, Index, ArrayType),
    array_type_has_component(ArrayType, Type),
-   next_instr_index(Instr, Index, NextIndex).
+   instr_successor_index(Instr, Index, NextIndex).
 
 insertvalue_instr_value_type(Instr, Type) :-
    insertvalue_instr_nindices(Instr, Total),
