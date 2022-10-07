@@ -46,6 +46,8 @@ extra tests, set <code class="docutils literal notranslate"><span class="pre">EX
 </div>
 <div class="section" id="cutting-a-release">
 <h2>Cutting a Release<a class="headerlink" href="#cutting-a-release" title="Permalink to this headline">¶</a></h2>
+<p>Before cutting a new release, consider running the extended test suite (see
+<code class="docutils literal notranslate"><span class="pre">EXTRA_TESTS</span></code> above).</p>
 <p>First, ensure that the <a class="reference internal" href="changelog.html"><span class="doc">Changelog</span></a> is up to date. Then, push a new tag that
 starts with <code class="docutils literal notranslate"><span class="pre">v</span></code>, e.g., <code class="docutils literal notranslate"><span class="pre">v0.2</span></code>, and the CI build will create a draft release
 on Github. Worked example:</p>
