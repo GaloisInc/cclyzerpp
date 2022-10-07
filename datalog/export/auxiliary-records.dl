@@ -8,8 +8,3 @@ _catch_clause(Constant)  :- catch_clause(Clause), Clause = [Constant].
 _filter_clause(Constant) :- filter_clause(Clause), Clause = [Constant].
 _landingpad_instr_clause(Instr, Idx, Constant) :-
    landingpad_instr_clause(Instr, Idx, Clause), Clause = [Constant].
-
-.decl _switch_instr_case(instr:SwitchInstruction, index:number, c:Constant, label:Variable)
-
-_switch_instr_case(Instr, Idx, Constant, Label) :-
-   switch_instr_case(Instr, Idx, Case), Case = [Constant, Label].
