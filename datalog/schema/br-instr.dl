@@ -6,30 +6,30 @@
 .type BrUncondInstruction = BrInstruction
 
 .decl br_instr(instr:BrInstruction)
-.decl br_cond_instr(instr:BrCondInstruction)
-.decl br_uncond_instr(instr:BrUncondInstruction)
+.decl br_instr_cond(instr:BrCondInstruction)
+.decl br_instr_uncond(instr:BrUncondInstruction)
 
 
 instr(v) :- br_instr(v).
 terminator_instr(v) :- br_instr(v).
-br_instr(v) :- br_cond_instr(v).
-br_instr(v) :- br_uncond_instr(v).
+br_instr(v) :- br_instr_cond(v).
+br_instr(v) :- br_instr_uncond(v).
 
 
 //-----------------------------
 // Conditional branch
 //-----------------------------
 
-.decl br_cond_instr_condition(instr:Instruction, cond:Operand)
-.decl br_cond_instr_iftrue_label(instr:Instruction, label:Variable)
-.decl br_cond_instr_iffalse_label(instr:Instruction, label:Variable)
+.decl br_instr_condition(instr:Instruction, cond:Operand)
+.decl br_instr_true_label(instr:Instruction, label:Variable)
+.decl br_instr_false_label(instr:Instruction, label:Variable)
 
 
 //-----------------------------
 // Unconditional branch
 //-----------------------------
 
-.decl br_uncond_instr_dest_label(instr:Instruction, label:Variable)
+.decl br_instr_uncond_label(instr:Instruction, label:Variable)
 
 
 //------------------------------------------------------------------------------
@@ -45,45 +45,45 @@ br_instr(v) :- br_uncond_instr(v).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
-   br_cond_instr(Instr),
-   !br_cond_instr_condition(Instr, _).
+   br_instr_cond(Instr),
+   !br_instr_condition(Instr, _).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
-   br_cond_instr(Instr),
-   br_cond_instr_condition(Instr, Cond),
+   br_instr_cond(Instr),
+   br_instr_condition(Instr, Cond),
    operand_has_type(Cond, CondType),
    !int1_type(CondType).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
-   br_cond_instr(Instr),
-   !br_cond_instr_iftrue_label(Instr, _).
+   br_instr_cond(Instr),
+   !br_instr_true_label(Instr, _).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
-   br_cond_instr(Instr),
-   !br_cond_instr_iffalse_label(Instr, _).
+   br_instr_cond(Instr),
+   !br_instr_false_label(Instr, _).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
-   br_cond_instr(Instr),
-   br_cond_instr_iftrue_label(Instr, Label),
+   br_instr_cond(Instr),
+   br_instr_true_label(Instr, Label),
    !variable_is_label(Label).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
-   br_cond_instr(Instr),
-   br_cond_instr_iffalse_label(Instr, Label),
+   br_instr_cond(Instr),
+   br_instr_false_label(Instr, Label),
    !variable_is_label(Label).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
-   br_uncond_instr(Instr),
-   !br_uncond_instr_dest_label(Instr, _).
+   br_instr_uncond(Instr),
+   !br_instr_uncond_label(Instr, _).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
-   br_uncond_instr(Instr),
-   br_uncond_instr_dest_label(Instr, Label),
+   br_instr_uncond(Instr),
+   br_instr_uncond_label(Instr, Label),
    !variable_is_label(Label).
