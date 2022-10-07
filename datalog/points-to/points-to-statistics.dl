@@ -2,8 +2,9 @@
 
 // The containing func of a variable
 
+// TODO(lb): Duplicated elsewhere
 variable_in_func(?var, ?func) :-
-   _variable_in_func(?var, ?funcName),
+   variable_in_func_name(?var, ?funcName),
    func_name(?func, ?funcName).
 
 // Compute variables defined in reachable funcs

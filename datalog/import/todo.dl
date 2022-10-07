@@ -1,9 +1,9 @@
 // TODO(lb): Move these elsewhere! These were erroneously included in the
 // import*.dl files before these were derived from predicates.inc.
 
-.decl _instr_bb_entry(v0:symbol, v1:symbol)
+.decl instr_bb_entry(v0:symbol, v1:symbol)
 instr_block(e0, bb) :-
-   _instr_bb_entry(e0, e1),
+   instr_bb_entry(e0, e1),
    instr(e0),
    variable_is_label(e1),
    block_of_label(bb, e1).
@@ -35,13 +35,13 @@ catch_clause(v2), landingpad_instr_clause(v0, v1, v2) :-
 filter_clause(v2), landingpad_instr_clause(v0, v1, v2) :-
    landingpad_instr_filter_clause(v0, v1, v2).
 
-.decl _constant_in_func(v0:Constant, v1:FunctionName)
-.decl _variable_in_func(v0:Variable, v1:FunctionName)
+.decl constant_in_func_name(v0:Constant, v1:FunctionName)
+.decl variable_in_func_name(v0:Variable, v1:FunctionName)
 
 constant_in_func(Constant, Function) :-
-   _constant_in_func(Constant, FuncName),
+   constant_in_func_name(Constant, FuncName),
    func_name(Function, FuncName).
 
 variable_in_func(Variable, Function) :-
-   _variable_in_func(Variable, FuncName),
+   variable_in_func_name(Variable, FuncName),
    func_name(Function, FuncName).
