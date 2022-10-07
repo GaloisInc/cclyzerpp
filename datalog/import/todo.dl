@@ -16,32 +16,32 @@ instr_block(e0, bb) :-
    variable_is_label(e1),
    block_of_label(bb, e1).
 
-.decl _phi_instr_pair_label(v0:symbol, v1:number, v2:symbol)
-.decl _phi_instr_pair_value(v0:symbol, v1:number, v2:symbol)
+.decl phi_instr_pair_label(v0:symbol, v1:number, v2:symbol)
+.decl phi_instr_pair_value(v0:symbol, v1:number, v2:symbol)
 phi_instr_pair(v0, v1, v2, v3) :-
-   _phi_instr_pair_value(v0, v1, v2),
+   phi_instr_pair_value(v0, v1, v2),
    phi_instr(v0),
    operand(v2),
-   _phi_instr_pair_label(v0, v1, v3),
+   phi_instr_pair_label(v0, v1, v3),
    variable(v3).
 
-.decl _switch_instr_case_label(v0:symbol, v1:number, v2:symbol)
-.decl _switch_instr_case_value(v0:symbol, v1:number, v2:symbol)
+.decl switch_instr_case_label(v0:symbol, v1:number, v2:symbol)
+.decl switch_instr_case_value(v0:symbol, v1:number, v2:symbol)
 switch_instr_case(v0, v1, v2, v3) :-
-   _switch_instr_case_value(v0, v1, v2),
+   switch_instr_case_value(v0, v1, v2),
    switch_instr(v0),
    constant(v2),
-   _switch_instr_case_label(v0, v1, v3),
+   switch_instr_case_label(v0, v1, v3),
    variable(v3).
 
-.decl _landingpad_instr_catch_clause(v0:Instruction, v1:number, v2:Constant)
-.decl _landingpad_instr_filter_clause(v0:Instruction, v1:number, v2:Constant)
+.decl landingpad_instr_catch_clause(v0:Instruction, v1:number, v2:Constant)
+.decl landingpad_instr_filter_clause(v0:Instruction, v1:number, v2:Constant)
 
 catch_clause(v2), landingpad_instr_clause(v0, v1, v2) :-
-   _landingpad_instr_catch_clause(v0, v1, v2).
+   landingpad_instr_catch_clause(v0, v1, v2).
 
 filter_clause(v2), landingpad_instr_clause(v0, v1, v2) :-
-   _landingpad_instr_filter_clause(v0, v1, v2).
+   landingpad_instr_filter_clause(v0, v1, v2).
 
 .decl _constant_in_func(v0:Constant, v1:FunctionName)
 .decl _variable_in_func(v0:Variable, v1:FunctionName)
