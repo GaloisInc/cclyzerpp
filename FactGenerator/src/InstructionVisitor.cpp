@@ -359,19 +359,19 @@ void InstructionVisitor::visitVAArgInst(const llvm::VAArgInst &VI) {
 
 void InstructionVisitor::visitExtractValueInst(
     const llvm::ExtractValueInst &EVI) {
-  refmode_t iref = recordInstruction(pred::extract_value::instr, EVI);
+  refmode_t iref = recordInstruction(pred::extractvalue::instr, EVI);
 
   // Aggregate Operand
-  writeInstrOperand(pred::extract_value::base, iref, EVI.getOperand(0));
+  writeInstrOperand(pred::extractvalue::base, iref, EVI.getOperand(0));
 
   // Constant Indices
   int index = 0;
 
   for (const unsigned *i = EVI.idx_begin(), *e = EVI.idx_end(); i != e; ++i) {
-    gen.writeFact(pred::extract_value::index, iref, index++, *i);
+    gen.writeFact(pred::extractvalue::index, iref, index++, *i);
   }
 
-  gen.writeFact(pred::extract_value::nindices, iref, EVI.getNumIndices());
+  gen.writeFact(pred::extractvalue::nindices, iref, EVI.getNumIndices());
 }
 
 void InstructionVisitor::visitStoreInst(const llvm::StoreInst &SI) {
@@ -497,19 +497,19 @@ void InstructionVisitor::visitSelectInst(const llvm::SelectInst &SI) {
 
 void InstructionVisitor::visitInsertValueInst(
     const llvm::InsertValueInst &IVI) {
-  refmode_t iref = recordInstruction(pred::insert_value::instr, IVI);
+  refmode_t iref = recordInstruction(pred::insertvalue::instr, IVI);
 
-  writeInstrOperand(pred::insert_value::base, iref, IVI.getOperand(0));
-  writeInstrOperand(pred::insert_value::value, iref, IVI.getOperand(1));
+  writeInstrOperand(pred::insertvalue::base, iref, IVI.getOperand(0));
+  writeInstrOperand(pred::insertvalue::value, iref, IVI.getOperand(1));
 
   // Constant Indices
   int index = 0;
 
   for (const unsigned *i = IVI.idx_begin(), *e = IVI.idx_end(); i != e; ++i) {
-    gen.writeFact(pred::insert_value::index, iref, index++, *i);
+    gen.writeFact(pred::insertvalue::index, iref, index++, *i);
   }
 
-  gen.writeFact(pred::insert_value::nindices, iref, IVI.getNumIndices());
+  gen.writeFact(pred::insertvalue::nindices, iref, IVI.getNumIndices());
 }
 
 void InstructionVisitor::visitLandingPadInst(const llvm::LandingPadInst &LI) {
@@ -644,30 +644,29 @@ void InstructionVisitor::visitFCmpInst(const llvm::FCmpInst &I) {
 
 void InstructionVisitor::visitExtractElementInst(
     const llvm::ExtractElementInst &EEI) {
-  refmode_t iref = recordInstruction(pred::extract_element::instr, EEI);
+  refmode_t iref = recordInstruction(pred::extractelement::instr, EEI);
 
-  writeInstrOperand(pred::extract_element::base, iref, EEI.getVectorOperand());
-  writeInstrOperand(pred::extract_element::index, iref, EEI.getIndexOperand());
+  writeInstrOperand(pred::extractelement::base, iref, EEI.getVectorOperand());
+  writeInstrOperand(pred::extractelement::index, iref, EEI.getIndexOperand());
 }
 
 void InstructionVisitor::visitInsertElementInst(
     const llvm::InsertElementInst &IEI) {
-  refmode_t iref = recordInstruction(pred::insert_element::instr, IEI);
+  refmode_t iref = recordInstruction(pred::insertelement::instr, IEI);
 
-  writeInstrOperand(pred::insert_element::base, iref, IEI.getOperand(0));
-  writeInstrOperand(pred::insert_element::value, iref, IEI.getOperand(1));
-  writeInstrOperand(pred::insert_element::index, iref, IEI.getOperand(2));
+  writeInstrOperand(pred::insertelement::base, iref, IEI.getOperand(0));
+  writeInstrOperand(pred::insertelement::value, iref, IEI.getOperand(1));
+  writeInstrOperand(pred::insertelement::index, iref, IEI.getOperand(2));
 }
 
 void InstructionVisitor::visitShuffleVectorInst(
     const llvm::ShuffleVectorInst &SVI) {
-  refmode_t iref = recordInstruction(pred::shuffle_vector::instr, SVI);
+  refmode_t iref = recordInstruction(pred::shufflevector::instr, SVI);
 
+  writeInstrOperand(pred::shufflevector::first_vector, iref, SVI.getOperand(0));
   writeInstrOperand(
-      pred::shuffle_vector::first_vector, iref, SVI.getOperand(0));
-  writeInstrOperand(
-      pred::shuffle_vector::second_vector, iref, SVI.getOperand(1));
-  writeInstrOperand(pred::shuffle_vector::mask, iref, SVI.getOperand(2));
+      pred::shufflevector::second_vector, iref, SVI.getOperand(1));
+  writeInstrOperand(pred::shufflevector::mask, iref, SVI.getOperand(2));
 }
 
 void InstructionVisitor::visitInstruction(const llvm::Instruction &I) {
