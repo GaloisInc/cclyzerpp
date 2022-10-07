@@ -241,47 +241,42 @@ GROUP_END(invoke)
 
 // Vector Operations
 
-GROUP_BEGIN(extract_element)
-// TODO(#42): Rename extract_element to extractelement
-PREDICATE(extract_element, instr, extractelement_instr)
-PREDICATE(extract_element, base, extractelement_instr_base)
-PREDICATE(extract_element, index, extractelement_instr_index)
-GROUP_END(extract_element)
+GROUP_BEGIN(extractelement)
+PREDICATE2(extractelement, instr)
+PREDICATEI(extractelement, base)
+PREDICATEI(extractelement, index)
+GROUP_END(extractelement)
 
-GROUP_BEGIN(insert_element)
-// TODO(#42): Rename insert_element to insertelement
-PREDICATE(insert_element, instr, insertelement_instr)
-PREDICATE(insert_element, base, insertelement_instr_base)
-PREDICATE(insert_element, index, insertelement_instr_index)
-PREDICATE(insert_element, value, insertelement_instr_value)
-GROUP_END(insert_element)
+GROUP_BEGIN(insertelement)
+PREDICATE2(insertelement, instr)
+PREDICATEI(insertelement, base)
+PREDICATEI(insertelement, index)
+PREDICATEI(insertelement, value)
+GROUP_END(insertelement)
 
-GROUP_BEGIN(shuffle_vector)
-// TODO(#42): Rename shuffle_vector to shufflevector
-PREDICATE(shuffle_vector, instr, shufflevector_instr)
-PREDICATE(shuffle_vector, first_vector, shufflevector_instr_first_vector)
-PREDICATE(shuffle_vector, second_vector, shufflevector_instr_second_vector)
-PREDICATE(shuffle_vector, mask, shufflevector_instr_mask)
-GROUP_END(shuffle_vector)
+GROUP_BEGIN(shufflevector)
+PREDICATE2(shufflevector, instr)
+PREDICATEI(shufflevector, first_vector)
+PREDICATEI(shufflevector, second_vector)
+PREDICATEI(shufflevector, mask)
+GROUP_END(shufflevector)
 
 // Aggregate Operations
 
-GROUP_BEGIN(extract_value)
-// TODO(#42): Rename extract_value to extractvalue
-PREDICATE(extract_value, instr, extractvalue_instr)
-PREDICATE(extract_value, base, extractvalue_instr_base)
-PREDICATE(extract_value, index, extractvalue_instr_index)
-PREDICATE(extract_value, nindices, extractvalue_instr_nindices)
-GROUP_END(extract_value)
+GROUP_BEGIN(extractvalue)
+PREDICATE2(extractvalue, instr)
+PREDICATEI(extractvalue, base)
+PREDICATEI(extractvalue, index)
+PREDICATEI(extractvalue, nindices)
+GROUP_END(extractvalue)
 
-GROUP_BEGIN(insert_value)
-// TODO(#42): Rename insert_value to insertvalue
-PREDICATE(insert_value, instr, insertvalue_instr)
-PREDICATE(insert_value, base, insertvalue_instr_base)
-PREDICATE(insert_value, value, insertvalue_instr_value)
-PREDICATE(insert_value, index, insertvalue_instr_index)
-PREDICATE(insert_value, nindices, insertvalue_instr_nindices)
-GROUP_END(insert_value)
+GROUP_BEGIN(insertvalue)
+PREDICATE2(insertvalue, instr)
+PREDICATEI(insertvalue, base)
+PREDICATEI(insertvalue, value)
+PREDICATEI(insertvalue, index)
+PREDICATEI(insertvalue, nindices)
+GROUP_END(insertvalue)
 
 // Memory Operations
 
