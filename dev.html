@@ -58,6 +58,47 @@ git push --tags
 <p>After waiting for the CI build, manually edit the release as required and hit
 “publish”.</p>
 </div>
+<div class="section" id="naming-conventions">
+<h2>Naming Conventions<a class="headerlink" href="#naming-conventions" title="Permalink to this headline">¶</a></h2>
+<p>Due to historical circumstance, cclyzer++ has many different naming conventions
+in use in the Datalog code. The conventions in this section are prescriptive,
+but only apply to new code.</p>
+<div class="section" id="abbreviations">
+<h3>Abbreviations<a class="headerlink" href="#abbreviations" title="Permalink to this headline">¶</a></h3>
+<p>Names must strike a balance between brevity and comprehensibility. This section
+enumerates abbreviations that are considered reasonable trade-offs in this
+space. This judgment is highly subjective, but must be made somehow.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">asm</span></code>: Assembly</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr</span></code>: Attribute</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">block</span></code>: LLVM basic block</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">calling_conv</span></code>: Calling convention</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">const</span></code>: Constant</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">global_var</span></code>: Global variable</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">expr</span></code>: Expression</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">func</span></code>: Function</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gep</span></code>: <code class="docutils literal notranslate"><span class="pre">getelementptr</span></code> (this is the only abbreviated opcode)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">instr</span></code>: Instruction</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">int</span></code>: Integer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">param</span></code>: Parameter</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ptr</span></code>: Pointer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">var</span></code>: Variable</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vec</span></code>: Vector</p></li>
+</ul>
+<p>Explicitly <strong>not</strong> further abbreviated, because they are already fairly short,
+or they are not common enough when speaking about LLVM to readily disambiguate
+them from abbreviations for other terms:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">array</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inl</span></code>: Could mean “inline” or “left injection”</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pred</span></code>: Could mean “predicate” or “predecessor”</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">succ</span></code>: Could mean “successor” or “success”</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">struct</span></code></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">type</span></code> is for relations about types themselves, whereas <code class="docutils literal notranslate"><span class="pre">ty</span></code> is used for
+relating an entity <em>to</em> its type.</p>
+</div>
+</div>
 <div class="section" id="performance-tuning">
 <h2>Performance Tuning<a class="headerlink" href="#performance-tuning" title="Permalink to this headline">¶</a></h2>
 <p>Soufflé has <a class="reference external" href="tuning">some</a> <a class="reference external" href="profiler">documentation</a> on improving
@@ -94,6 +135,7 @@ The RAM representation explicitly shows the effect of query plans (<code class="
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Development</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#running-tests">Running Tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cutting-a-release">Cutting a Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#naming-conventions">Naming Conventions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#performance-tuning">Performance Tuning</a></li>
 </ul>
 </li>

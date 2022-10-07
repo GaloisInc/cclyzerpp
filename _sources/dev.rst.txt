@@ -31,6 +31,49 @@ on Github. Worked example:
 After waiting for the CI build, manually edit the release as required and hit
 "publish".
 
+Naming Conventions
+******************
+
+Due to historical circumstance, cclyzer++ has many different naming conventions
+in use in the Datalog code. The conventions in this section are prescriptive,
+but only apply to new code.
+
+Abbreviations
+~~~~~~~~~~~~~
+
+Names must strike a balance between brevity and comprehensibility. This section
+enumerates abbreviations that are considered reasonable trade-offs in this
+space. This judgment is highly subjective, but must be made somehow.
+
+- ``asm``: Assembly
+- ``attr``: Attribute
+- ``block``: LLVM basic block
+- ``calling_conv``: Calling convention
+- ``const``: Constant
+- ``global_var``: Global variable
+- ``expr``: Expression
+- ``func``: Function
+- ``gep``: ``getelementptr`` (this is the only abbreviated opcode)
+- ``instr``: Instruction
+- ``int``: Integer
+- ``param``: Parameter
+- ``ptr``: Pointer
+- ``var``: Variable
+- ``vec``: Vector
+
+Explicitly **not** further abbreviated, because they are already fairly short,
+or they are not common enough when speaking about LLVM to readily disambiguate
+them from abbreviations for other terms:
+
+- ``array``
+- ``inl``: Could mean "inline" or "left injection"
+- ``pred``: Could mean "predicate" or "predecessor"
+- ``succ``: Could mean "successor" or "success"
+- ``struct``
+
+``type`` is for relations about types themselves, whereas ``ty`` is used for
+relating an entity *to* its type.
+
 Performance Tuning
 ******************
 
