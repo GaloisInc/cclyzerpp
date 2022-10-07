@@ -5,57 +5,57 @@
 .type BasicBlock <: symbol
 .decl block(bb:BasicBlock)
 
-// Every instruction must be inside a single basic block
-.decl instruction_in_block(instr:Instruction, bb:BasicBlock)
+// Every instr must be inside a single basic block
+.decl instr_block(instr:Instruction, bb:BasicBlock)
 
-schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
-   instruction(Instr),
-   !instruction_in_block(Instr, _).
+   instr(Instr),
+   !instr_block(Instr, _).
 
 // Basic block predicates
 .decl block_of_label(bb:BasicBlock, label:Variable)
 .decl block_predecessors(bb:BasicBlock, bbpred:BasicBlock)
-.decl block_first_instruction(bb:BasicBlock, instr:Instruction)
-.decl block_last_instruction(bb:BasicBlock, instr:Instruction)
+.decl block_first_instr(bb:BasicBlock, instr:Instruction)
+.decl block_last_instr(bb:BasicBlock, instr:Instruction)
 
 block(BB) :- block_of_label(BB, _).
 block_of_label(cat("block:", Label), Label) :-
    variable_is_label(Label).
 
-block_first_instruction(BB, First) :-
-   instruction_in_block(First, BB),
-   !next_instruction(_, First).
+block_first_instr(BB, First) :-
+   instr_block(First, BB),
+   !next_instr(_, First).
 
-block_first_instruction(BB2, First) :-
-   next_instruction(Last, First),
-   instruction_in_block(Last, BB1),
-   instruction_in_block(First, BB2),
+block_first_instr(BB2, First) :-
+   next_instr(Last, First),
+   instr_block(Last, BB1),
+   instr_block(First, BB2),
    BB1 != BB2.
 
-block_last_instruction(BB1, Last) :-
-   next_instruction(Last, First),
-   instruction_in_block(Last, BB1),
-   instruction_in_block(First, BB2),
+block_last_instr(BB1, Last) :-
+   next_instr(Last, First),
+   instr_block(Last, BB1),
+   instr_block(First, BB2),
    BB1 != BB2.
 
-block_last_instruction(BB, Last) :-
-   instruction_in_block(Last, BB),
-   !next_instruction(Last, _).
+block_last_instr(BB, Last) :-
+   instr_block(Last, BB),
+   !next_instr(Last, _).
 
 
 //------------------------------------------------------------------------------
 // [Constraints]
 //
-// Two consecutive instructions must either belong to the same basic
+// Two consecutive instrs must either belong to the same basic
 // block, or the first of the two should be classified as a terminator
-// instruction.
+// instr.
 //------------------------------------------------------------------------------
 
-schema_invalid_instruction(Instr, __FILE__, __LINE__) :-
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
-   next_instruction(Instr, NextInstr),
-   instruction_in_block(Instr, BB1),
-   instruction_in_block(NextInstr, BB2),
-   !terminator_instruction(Instr),
+   next_instr(Instr, NextInstr),
+   instr_block(Instr, BB1),
+   instr_block(NextInstr, BB2),
+   !terminator_instr(Instr),
    BB1 != BB2.

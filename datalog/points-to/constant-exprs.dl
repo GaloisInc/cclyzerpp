@@ -39,7 +39,7 @@ constant_points_to(?outerConstant, ?alloc) :-
 //------------------------------------------------------------------------------
 // [Field Sensitivity for `getelementptr` constant expressions]
 //
-// This is equivalent to the treatment of GEP instructions, but with
+// This is equivalent to the treatment of GEP instrs, but with
 // no support for variable indices, as they are not allowed in
 // constant expressions.
 //------------------------------------------------------------------------------

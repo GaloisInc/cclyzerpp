@@ -1,2 +1,0 @@
-%struct.obj	<points-to_new-context.cpp>:_Z4fun1v:0	*typed_heap_alloc@_Z4fun1v[%struct.obj* %call]
-%struct.obj	<points-to_new-context.cpp>:_Z4fun2v:0	*typed_heap_alloc@_Z4fun2v[%struct.obj* %call]

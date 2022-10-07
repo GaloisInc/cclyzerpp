@@ -168,18 +168,18 @@ assert_alloc_with_ctx_complete(?aCtx, ?alloc) :-
 // Inhabitedness
 //------------------------------------------------------------------------------
 
-.decl _assert_every_gep_instruction_points_to_something(?ctx: Context, ?insn: GetElementPtrInstruction)
-_assert_every_gep_instruction_points_to_something(?ctx, ?insn) :-
+.decl _assert_every_gep_instr_points_to_something(?ctx: Context, ?insn: GetElementPtrInstruction)
+_assert_every_gep_instr_points_to_something(?ctx, ?insn) :-
   subset_gep._gep_address_ctx_points_to(?ctx, _, ?alloc, ?insn),
   subset_gep._gep_last_index_points_to(_, ?alloc, ?insn).
 
 // TODO(sm): this seems to get tripped up by C++ programs with complicated uses
 // of allocations at different types without always using an explicit bitcast
-// instruction. Could be solved by adding more aggresive type back-propagation?
-.decl failing_assert_every_gep_instruction_points_to_something(?ctx: Context, ?insn: GetElementPtrInstruction)
-failing_assert_every_gep_instruction_points_to_something(?ctx, ?insn) :-
+// instr. Could be solved by adding more aggresive type back-propagation?
+.decl failing_assert_every_gep_instr_points_to_something(?ctx: Context, ?insn: GetElementPtrInstruction)
+failing_assert_every_gep_instr_points_to_something(?ctx, ?insn) :-
   subset_gep._gep_address_ctx_points_to(?ctx, _, _, ?insn),
-  ! _assert_every_gep_instruction_points_to_something(?ctx, ?insn).
+  ! _assert_every_gep_instr_points_to_something(?ctx, ?insn).
 
 .decl assert_every_gep_constant_expr_points_to_something(?cExpr: GetElementPtrConstantExpression)
 assert_every_gep_constant_expr_points_to_something(?cExpr) :-
@@ -203,8 +203,8 @@ assert_every_pointer_constant_points_to_something(?constant) :-
 //
 .decl failing_assert_reachable_pointer_vars_point_to_something(?var: Variable)
 failing_assert_reachable_pointer_vars_point_to_something(?var) :-
-  instruction_assigns_to(?inst, ?var),
-  subset.callgraph.reachable_instruction(?inst),
+  instr_assigns_to(?inst, ?var),
+  subset.callgraph.reachable_instr(?inst),
   variable_has_type(?var, ?ty),
   pointer_type(?ty),
   ! subset.var_points_to(_, _, _, ?var).
@@ -253,25 +253,25 @@ failing_assert_global_allocations_have_sizes(?alloc) :-
 .decl assert_var_points_to_implies_reachable(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable)
 assert_var_points_to_implies_reachable(?aCtx, ?alloc, ?ctx, ?toVar) :-
   subset.var_points_to(?aCtx, ?alloc, ?ctx, ?toVar),
-  instruction_assigns_to(?instr, ?toVar),
-  instruction_in_func(?instr, ?instrFunc),
+  instr_assigns_to(?instr, ?toVar),
+  instr_func(?instr, ?instrFunc),
   ! subset.callgraph.reachable_context(?ctx, ?instrFunc).
 
 // Instructions can't access variables defined outside their own func.
 .decl assert_bitcast_operand_in_same_func(?bitcastInstr: Instruction)
 assert_bitcast_operand_in_same_func(?bitcastInstr) :-
-  bitcast_instruction_from_operand(?bitcastInstr, ?fromOperand),
-  instruction_assigns_to(?instr, ?fromOperand),
-  instruction_in_func(?bitcastInstr, ?instrFunc),
-  ! instruction_in_func(?instr, ?instrFunc).
+  bitcast_instr_from_operand(?bitcastInstr, ?fromOperand),
+  instr_assigns_to(?instr, ?fromOperand),
+  instr_func(?bitcastInstr, ?instrFunc),
+  ! instr_func(?instr, ?instrFunc).
 
 .decl assert_reachable_direct_calls_have_callees(?ctx: Context, ?call : Instruction)
 
 assert_reachable_direct_calls_have_callees(?ctx, ?call) :-
   subset.callgraph.reachable_context(?ctx, ?instrFunc),
-  instruction_in_func(?call, ?instrFunc),
-  direct_call_instruction(?call),
-  call_instruction_fn_operand(?call, ?funcOp),
+  instr_func(?call, ?instrFunc),
+  direct_call_instr(?call),
+  call_instr_fn_operand(?call, ?funcOp),
   ! undef_constant(?funcOp),
   ! subset.callgraph.callgraph_edge(_, _, ?ctx, ?call).
 
@@ -362,9 +362,9 @@ assert_unique_repr(?inpCtx, ?inpAlloc) :-
 
 .decl _typed_alloc(?alloc: Allocation)
 _typed_alloc(?alloc) :-
-  unification.type_indication.heap_allocation_by_type_instruction(_, _, ?alloc).
+  unification.type_indication.heap_allocation_by_type_instr(_, _, ?alloc).
 _typed_alloc(?alloc) :-
-  unification.type_indication.stack_allocation_by_type_instruction(_, _, ?alloc).
+  unification.type_indication.stack_allocation_by_type_instr(_, _, ?alloc).
 _typed_alloc(?subAlloc) :-
   _typed_alloc(?alloc),
   unification_subobjects.alloc_subregion_base(?alloc, ?subAlloc).

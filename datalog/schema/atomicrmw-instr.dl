@@ -1,0 +1,123 @@
+// http://llvm.org/docs/LangRef.html#atomicrmw-instr
+// keywords: memory; instr
+
+.type AtomicRMWInstruction = Instruction
+.decl atomicrmw_instr(instr:AtomicRMWInstruction)
+
+instr(v) :- atomicrmw_instr(v).
+
+.decl atomicrmw_instr_ordering(instr:AtomicRMWInstruction, ordering:Ordering)
+
+
+// If the atomicrmw is marked as volatile, then the optimizer is not allowed
+// to modify the number or order of execution of this atomirmw with other
+// volatile operations.
+
+.decl atomicrmw_instr_is_volatile(instr:AtomicRMWInstruction)
+
+
+// There are three arguments to the atomicrmw instr:
+//  (i)   an operation to apply,
+//  (ii)  an address whose value to modify,
+//  (iii) an argument to the operation.
+
+.decl atomicrmw_instr_operation(instr:AtomicRMWInstruction, op:AtomicOperation)
+.decl atomicrmw_instr_address(instr:AtomicRMWInstruction, ptr:Operand)
+.decl atomicrmw_instr_value(instr:AtomicRMWInstruction, value:Operand)
+
+
+//------------------------------------------------------------------------------
+// [Atomic Operation]
+//
+// The operation to apply for the ‘atomicrmw‘ instr
+// must be one of the following:
+//------------------------------------------------------------------------------
+
+.type AtomicOperation <: symbol
+.decl atomic_operation(op:AtomicOperation)
+
+atomic_operation(op) :- atomicrmw_instr_operation(_, op).
+
+.decl atomic_operation_xchg(op:AtomicOperation)
+.decl atomic_operation_add(op:AtomicOperation)
+.decl atomic_operation_sub(op:AtomicOperation)
+.decl atomic_operation_and(op:AtomicOperation)
+.decl atomic_operation_nand(op:AtomicOperation)
+.decl atomic_operation_nor(op:AtomicOperation)
+.decl atomic_operation_or(op:AtomicOperation)
+.decl atomic_operation_xor(op:AtomicOperation)
+.decl atomic_operation_max(op:AtomicOperation)
+.decl atomic_operation_min(op:AtomicOperation)
+.decl atomic_operation_umax(op:AtomicOperation)
+.decl atomic_operation_umin(op:AtomicOperation)
+
+atomic_operation("xchg"). atomic_operation_xchg("xchg").
+atomic_operation("add"). atomic_operation_add("add").
+atomic_operation("sub"). atomic_operation_sub("sub").
+atomic_operation("and"). atomic_operation_and("and").
+atomic_operation("nand"). atomic_operation_nand("nand").
+atomic_operation("nor"). atomic_operation_nor("nor").
+atomic_operation("or"). atomic_operation_or("or").
+atomic_operation("xor"). atomic_operation_xor("xor").
+atomic_operation("max"). atomic_operation_max("max").
+atomic_operation("min"). atomic_operation_min("min").
+atomic_operation("umax"). atomic_operation_umax("umax").
+atomic_operation("umin"). atomic_operation_umin("umin").
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   atomicrmw_instr_operation(Instr, Operation),
+   !atomic_operation_add(Operation),   !atomic_operation_sub(Operation),
+   !atomic_operation_and(Operation),   !atomic_operation_or(Operation),
+   !atomic_operation_nand(Operation),  !atomic_operation_nor(Operation),
+   !atomic_operation_xor(Operation),   !atomic_operation_xchg(Operation),
+   !atomic_operation_max(Operation),   !atomic_operation_min(Operation),
+   !atomic_operation_umax(Operation),  !atomic_operation_umin(Operation).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// (i)  The type of ‘<value>’ must be an integer type.
+// (ii) The type of the ‘<pointer>‘ operand must be a pointer to that type.
+//------------------------------------------------------------------------------
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   atomicrmw_instr(Instr),
+   !atomicrmw_instr_ordering(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   atomicrmw_instr(Instr),
+   !atomicrmw_instr_operation(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   atomicrmw_instr(Instr),
+   !atomicrmw_instr_address(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   atomicrmw_instr(Instr),
+   !atomicrmw_instr_value(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   atomicrmw_instr_value(Instr, Value),
+   operand_has_type(Value, Type),
+   !integer_type(Type).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   atomicrmw_instr_address(Instr, AddressPtr),
+   operand_has_type(AddressPtr, PtrType),
+   !pointer_type(PtrType).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   atomicrmw_instr_address(Instr, AddressPtr),
+   atomicrmw_instr_value(Instr, Value),
+   operand_has_type(AddressPtr, PtrType),
+   operand_has_type(Value, ValueType),
+   !pointer_type_has_component(PtrType, ValueType).

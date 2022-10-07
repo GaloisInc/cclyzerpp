@@ -29,30 +29,30 @@
 
   .decl backpropagated_allocation_type(?alloc: Allocation, ?type: Type) inline
 
-  .decl _heap_allocation_by_instruction(?insn: Instruction, ?alloc: Allocation, ?untyped: Allocation)
-  _heap_allocation_by_instruction(?insn, ?alloc, ?alloc) :-
-    heap_allocation_by_instruction(?insn, ?alloc).
+  .decl _heap_allocation_by_instr(?insn: Instruction, ?alloc: Allocation, ?untyped: Allocation)
+  _heap_allocation_by_instr(?insn, ?alloc, ?alloc) :-
+    heap_allocation_by_instr(?insn, ?alloc).
 
-  _heap_allocation_by_instruction(?insn, ?alloc, ?untyped) :-
-    heap_allocation_by_type_instruction(_, ?insn, ?alloc),
-    heap_allocation_by_instruction(?insn, ?untyped).
+  _heap_allocation_by_instr(?insn, ?alloc, ?untyped) :-
+    heap_allocation_by_type_instr(_, ?insn, ?alloc),
+    heap_allocation_by_instr(?insn, ?untyped).
 
-  // Only bitcast instructions are considered type indications for now
+  // Only bitcast instrs are considered type indications for now
   ty_indication1(?type, ?aCtx, ?untyped),
   ty_indication(?type, ?aCtx, ?untyped) :-
-     bitcast_instruction_to_type(?instr,?ptrType),
-     bitcast_instruction_from_operand(?instr,?fromOperand),
+     bitcast_instr_to_type(?instr,?ptrType),
+     bitcast_instr_from_operand(?instr,?fromOperand),
      operand_points_to(?aCtx, ?alloc, _, ?fromOperand),
-     _heap_allocation_by_instruction(?allocInstr, ?alloc, ?untyped),
+     _heap_allocation_by_instr(?allocInstr, ?alloc, ?untyped),
      !sized_alloc_instr(?allocInstr,_),
      pointer_type_has_component(?ptrType,?type).
 
   ty_indication2(?type, ?aCtx, ?untyped),
   ty_indication(?type, ?aCtx, ?untyped) :-
-     bitcast_instruction_to_type(?instr,?ptrType),
-     bitcast_instruction_from_operand(?instr,?fromOperand),
+     bitcast_instr_to_type(?instr,?ptrType),
+     bitcast_instr_from_operand(?instr,?fromOperand),
      operand_points_to(?aCtx, ?alloc, _, ?fromOperand),
-     _heap_allocation_by_instruction(?allocInstr, ?alloc, ?untyped),
+     _heap_allocation_by_instr(?allocInstr, ?alloc, ?untyped),
      pointer_type_has_component(?ptrType,?type),
      sized_alloc_instr(?allocInstr,?size),
      type_has_size(?type,?size).
@@ -61,10 +61,10 @@
   // component may perfectly divide the known size of the allocation.
   ty_indication3(?type, ?aCtx, ?untyped),
   ty_indication(?type, ?aCtx, ?untyped) :-
-     bitcast_instruction_to_type(?instr,?ptrType),
-     bitcast_instruction_from_operand(?instr,?fromOperand),
+     bitcast_instr_to_type(?instr,?ptrType),
+     bitcast_instr_from_operand(?instr,?fromOperand),
      operand_points_to(?aCtx, ?alloc, _, ?fromOperand),
-     _heap_allocation_by_instruction(?allocInstr, ?alloc, ?untyped),
+     _heap_allocation_by_instr(?allocInstr, ?alloc, ?untyped),
      pointer_type_has_component(?ptrType,?type),
      pointer_type_base_component(?ptrType, ?baseType),
      sized_alloc_instr(?allocInstr, size),
@@ -72,18 +72,18 @@
      baseSize != 0, // TODO: Does anything else need to be done in this case?
      size = (size / baseSize) * baseSize.
 
-  .decl heap_allocation_by_type_instruction(?type: Type, ?insn: Instruction, ?heapAlloc: HeapAllocation)
+  .decl heap_allocation_by_type_instr(?type: Type, ?insn: Instruction, ?heapAlloc: HeapAllocation)
   .decl assign_rebase_alloc(?typedAlloc: Allocation, ?aCtx: Context, ?alloc: Allocation, ?var: Variable)
 
-  heap_allocation_by_type_instruction(?type, ?allocInstr, ?typedAlloc),
+  heap_allocation_by_type_instr(?type, ?allocInstr, ?typedAlloc),
     assign_rebase_alloc(?typedAlloc, ?aCtx, ?alloc, ?var),
     heap_allocation(?typedAlloc),
     backpropagated_allocation_type(?typedAlloc, ?type),
     alloc_with_ctx(?aCtx, ?typedAlloc)
    :-
-     heap_allocation_by_instruction(?allocInstr, ?alloc),
+     heap_allocation_by_instr(?allocInstr, ?alloc),
      ty_indication(?type, ?aCtx, ?alloc),
-     instruction_assigns_to(?allocInstr, ?var),
+     instr_assigns_to(?allocInstr, ?var),
      variable_in_func(?var, ?func),
      variable_has_name(?var, ?name),
      func_name(?func, ?funcName),
@@ -91,8 +91,8 @@
      ?typedAlloc= cat("*typed_heap_alloc", ?funcName, "[" , ?ptrType , " ", ?name, "]").
 
   allocation_pos(?alloc, ?line, ?column) :-
-     heap_allocation_by_type_instruction(_, ?insn, ?alloc),
-     instruction_pos(?insn, ?line, ?column).
+     heap_allocation_by_type_instr(_, ?insn, ?alloc),
+     instr_pos(?insn, ?line, ?column).
 
   //-----------------------------------------------------------------------
   // [Type Back-propagation for Stack Allocations]
@@ -124,7 +124,7 @@
   // %4 = call i8 @func_foo_arg_passed_by_value(%struct.foo* %1)
   // ```
   //
-  // Where this causes problems is that instructions like `%4 =
+  // Where this causes problems is that instrs like `%4 =
   // getelementptr inbounds %struct.foo, %struct.foo* %2, i64 0, i32 1,` do
   // not calculate the expected points-to information because the analysis
   // does not know how to interpret accessing %struct.foo fields from an
@@ -137,27 +137,27 @@
   // where the underlying alloca has an integer-type, but we might want to
   // change this if we see other examples in the wild.
 
-  .decl stack_allocation_by_type_instruction(?type: Type, ?insn: Instruction, ?stackAlloc: StackAllocation)
+  .decl stack_allocation_by_type_instr(?type: Type, ?insn: Instruction, ?stackAlloc: StackAllocation)
   .decl stack_type_indication(?type: Type, ?aCtx: Context, ?alloc: Allocation)
 
   stack_type_indication(?type, ?aCtx, ?alloc) :-
-     bitcast_instruction_to_type(?instr,?ptrType),
-     bitcast_instruction_from_operand(?instr,?fromOperand),
+     bitcast_instr_to_type(?instr,?ptrType),
+     bitcast_instr_from_operand(?instr,?fromOperand),
      operand_points_to(?aCtx, ?alloc, _, ?fromOperand),
-     stack_allocation_by_instruction(?allocInstr, ?alloc),
-     alloca_instruction_type(?allocInstr, ?allocaType),
+     stack_allocation_by_instr(?allocInstr, ?alloc),
+     alloca_instr_type(?allocInstr, ?allocaType),
      integer_type(?allocaType),
      pointer_type_has_component(?ptrType,?type).
 
-  stack_allocation_by_type_instruction(?type, ?allocInstr, ?typedAlloc),
+  stack_allocation_by_type_instr(?type, ?allocInstr, ?typedAlloc),
     assign_rebase_alloc(?typedAlloc, ?aCtx, ?alloc, ?var),
     stack_allocation(?typedAlloc),
     backpropagated_allocation_type(?typedAlloc, ?type),
     alloc_with_ctx(?aCtx, ?typedAlloc)
    :-
-     stack_allocation_by_instruction(?allocInstr, ?alloc),
+     stack_allocation_by_instr(?allocInstr, ?alloc),
      stack_type_indication(?type, ?aCtx, ?alloc),
-     instruction_assigns_to(?allocInstr, ?var),
+     instr_assigns_to(?allocInstr, ?var),
      variable_in_func(?var, ?func),
      variable_has_name(?var, ?name),
      func_name(?func, ?funcName),
@@ -165,6 +165,6 @@
      ?typedAlloc= cat("*typed_stack_alloc", ?funcName, "[", ?ptrType, " ", ?name, "]").
 
   allocation_pos(?alloc, ?line, ?column) :-
-    stack_allocation_by_type_instruction(_, ?insn, ?alloc),
-    instruction_pos(?insn, ?line, ?column).
+    stack_allocation_by_type_instr(_, ?insn, ?alloc),
+    instr_pos(?insn, ?line, ?column).
 }

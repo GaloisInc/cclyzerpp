@@ -256,16 +256,16 @@ static auto allocation_size(Analysis which) -> std::string {
   assert(false && "unreachable");
 }
 
-static auto allocation_by_instruction(Analysis which) -> std::string {
+static auto allocation_by_instr(Analysis which) -> std::string {
   switch (which) {
     case Analysis::DEBUG:
       [[fallthrough]];
     case Analysis::SUBSET_AND_UNIFICATION:
       [[fallthrough]];
     case Analysis::SUBSET:
-      return "subset_lift.allocation_by_instruction_ctx";
+      return "subset_lift.allocation_by_instr_ctx";
     case Analysis::UNIFICATION:
-      return "unification_lift.allocation_by_instruction_ctx";
+      return "unification_lift.allocation_by_instr_ctx";
   }
   assert(false && "unreachable");
 }
@@ -373,7 +373,7 @@ auto LegacyPointerAnalysis::runOnModule(llvm::Module &mod) -> bool {
           const llvm::Value *,
           int,
           boost::flyweight<std::string>>(
-          allocation_by_instruction(datalog_analysis), llvm_val_map),
+          allocation_by_instr(datalog_analysis), llvm_val_map),
       std::move(null_ptr_set),
       std::move(call_graph));
   if (!datalog_debug_option) {

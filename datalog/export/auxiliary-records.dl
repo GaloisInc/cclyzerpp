@@ -1,21 +1,21 @@
-.decl _phi_instruction_pair(instr:PhiInstruction, index:number, value:Operand, label:Variable)
+.decl _phi_instr_pair(instr:PhiInstruction, index:number, value:Operand, label:Variable)
 
-_phi_instruction_pair(Instr, Idx, Value, Label) :-
-   phi_instruction_pair(Instr, Idx, Pair),
+_phi_instr_pair(Instr, Idx, Value, Label) :-
+   phi_instr_pair(Instr, Idx, Pair),
    Pair = [Value, Label].
 
 .decl _clause(c:Constant)
 .decl _catch_clause(c:Constant)
 .decl _filter_clause(c:Constant)
-.decl _landingpad_instruction_clause(instr:LandingPadInstruction, i:number, c:Constant)
+.decl _landingpad_instr_clause(instr:LandingPadInstruction, i:number, c:Constant)
 
 _clause(Constant) :- clause(Clause), Clause = [Constant].
 _catch_clause(Constant)  :- catch_clause(Clause), Clause = [Constant].
 _filter_clause(Constant) :- filter_clause(Clause), Clause = [Constant].
-_landingpad_instruction_clause(Instr, Idx, Constant) :-
-   landingpad_instruction_clause(Instr, Idx, Clause), Clause = [Constant].
+_landingpad_instr_clause(Instr, Idx, Constant) :-
+   landingpad_instr_clause(Instr, Idx, Clause), Clause = [Constant].
 
-.decl _switch_instruction_case(instr:SwitchInstruction, index:number, c:Constant, label:Variable)
+.decl _switch_instr_case(instr:SwitchInstruction, index:number, c:Constant, label:Variable)
 
-_switch_instruction_case(Instr, Idx, Constant, Label) :-
-   switch_instruction_case(Instr, Idx, Case), Case = [Constant, Label].
+_switch_instr_case(Instr, Idx, Constant, Label) :-
+   switch_instr_case(Instr, Idx, Case), Case = [Constant, Label].

@@ -26,22 +26,22 @@ cxx_new_func(?func),
 
 heap_allocation_by_new(?insn, ?heapAlloc) :-
    cxx_new_func(?func),
-   ( call_instruction_fn_target(?insn, ?func)
-   ; invoke_instruction_fn_target(?insn, ?func) ),
-   heap_allocation_by_instruction(?insn, ?heapAlloc).
+   ( call_instr_fn_target(?insn, ?func)
+   ; invoke_instr_fn_target(?insn, ?func) ),
+   heap_allocation_by_instr(?insn, ?heapAlloc).
 
 // Compute allocation size
 
 sized_alloc_instr(?insn, as(?size, Bytes)) :-
    cxx_new_func(?func),
-   call_instruction_fn_target(?insn, ?func),
-   call_instruction_arg(?insn, 0, ?operand),
+   call_instr_fn_target(?insn, ?func),
+   call_instr_arg(?insn, 0, ?operand),
    constant_to_int(?operand, ?size).
 
 sized_alloc_instr(?insn, as(?size, Bytes)) :-
    cxx_new_func(?func),
-   invoke_instruction_fn_target(?insn, ?func),
-   invoke_instruction_arg(?insn, 0, ?operand),
+   invoke_instr_fn_target(?insn, ?func),
+   invoke_instr_arg(?insn, 0, ?operand),
    constant_to_int(?operand, ?size).
 
 //------------------------------------------------------------------------------
@@ -87,10 +87,10 @@ destructor_class_type(?dtor, ?classType) :-
   .decl is_init_by_ctor(?type: ClassType, ?ctor: FunctionDecl, ?inFunction: Function, ?alloc: Allocation)
   is_init_by_ctor(?type, ?ctor, ?inFunction, ?alloc)
   :-
-    ( call_instruction_fn_target(?initInstr, ?ctor)
-    ; invoke_instruction_fn_target(?initInstr, ?ctor) ),
+    ( call_instr_fn_target(?initInstr, ?ctor)
+    ; invoke_instr_fn_target(?initInstr, ?ctor) ),
     constructor_class_type(?ctor, ?type),
-    instruction_in_func(?initInstr, ?inFunction),
+    instr_func(?initInstr, ?inFunction),
     actual_arg(?initInstr, 0, ?this),
     stripctx_operand_points_to(?alloc, ?this).
 
@@ -178,9 +178,9 @@ destructor_class_type(?dtor, ?classType) :-
   class_instance_vtable(?alloc, ?vTable)
   :-
     class_instance_constructor(?alloc, ?ctor),
-    instruction_in_func(?storeInsn, ?ctor),
-    store_instruction_value(?storeInsn, ?value),
-    store_instruction_address(?storeInsn, ?pointer),
+    instr_func(?storeInsn, ?ctor),
+    store_instr_value(?storeInsn, ?value),
+    store_instr_address(?storeInsn, ?pointer),
     stripctx_operand_points_to(?alloc, ?pointer),
     constant(?value),
     constant_contains_vptr(?vTable, ?value).
@@ -190,7 +190,7 @@ destructor_class_type(?dtor, ?classType) :-
   // Find class type associated with each vtable
   //----------------------------------------------------
 
-  // We do that by identifying instructions that store a pointer to a
+  // We do that by identifying instrs that store a pointer to a
   // vtable to the vpointer of some class instance, inside some
   // constructor. We already now the class type associated with each
   // constructor func, hence we now have the association between the
@@ -201,16 +201,16 @@ destructor_class_type(?dtor, ?classType) :-
   // vtable:class_type[VTable] = Type
   //  <-
   //    init_by_ctor(Type, Ctor, _, Alloc),
-  //    instruction:func[StoreInsn] = Ctor,
-  //    store_instruction:value[StoreInsn] = Value,
-  //    store_instruction:address[StoreInsn] = Pointer,
+  //    instr:func[StoreInsn] = Ctor,
+  //    store_instr:value[StoreInsn] = Value,
+  //    store_instr:address[StoreInsn] = Pointer,
   //    operand_points_to(Alloc, Pointer),
   //    operand:as_constant[Value] = Constant,
   //    constant_contains_vptr(VTable, Constant).
 
 
-  // Note !!! Load instructions on class instances will return the
-  // object's vtable. The array-sensitive treatment of GEP instructions
+  // Note !!! Load instrs on class instances will return the
+  // object's vtable. The array-sensitive treatment of GEP instrs
   // will ensure that the indices are appropriately recorded, so that
   // any subsequent dynamic dispatch will be correctly resolved by the
   // normal dereference rules. However, in case of non-base class types,

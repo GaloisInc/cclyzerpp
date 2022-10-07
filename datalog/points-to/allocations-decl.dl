@@ -31,12 +31,12 @@ basic_allocation(?alloc) :-
 
 // Constructors
 
-.decl stack_allocation_by_instruction(?insn:AllocaInstruction, ?stackAlloc:StackAllocation)
-.decl stack_allocation_by_type_instruction(?type:Type, ?insn:AllocaInstruction, ?stackAlloc:StackAllocation)
+.decl stack_allocation_by_instr(?insn:AllocaInstruction, ?stackAlloc:StackAllocation)
+.decl stack_allocation_by_type_instr(?type:Type, ?insn:AllocaInstruction, ?stackAlloc:StackAllocation)
 .decl stack_allocation_by_parameter(?func:FunctionDecl, ?index:number, ?stackAlloc:StackAllocation)
 
-.decl heap_allocation_by_instruction(?insn:CallInstruction, ?heapAlloc:HeapAllocation)
-.decl heap_allocation_by_type_instruction(?type:Type, ?insn:CallInstruction, ?heapAlloc:HeapAllocation)
+.decl heap_allocation_by_instr(?insn:CallInstruction, ?heapAlloc:HeapAllocation)
+.decl heap_allocation_by_type_instr(?type:Type, ?insn:CallInstruction, ?heapAlloc:HeapAllocation)
 
 .decl global_allocation_by_func(?func:FunctionDecl, ?globalAlloc:GlobalAllocation)
 .decl global_allocation_by_variable(?var:GlobalVariable, ?globalAlloc:GlobalAllocation)
@@ -59,13 +59,13 @@ heap_alloc_func(?func) :-
 //
 // See subset-rules.dl and unification-rules.dl.
 .type AllocInstruction = CallInstruction | AllocaInstruction
-.decl allocation_by_instruction(?insn:AllocInstruction, ?alloc:Allocation)
+.decl allocation_by_instr(?insn:AllocInstruction, ?alloc:Allocation)
 
-allocation_by_instruction(?insn, ?alloc) :-
-  heap_allocation_by_instruction(?insn, ?alloc).
+allocation_by_instr(?insn, ?alloc) :-
+  heap_allocation_by_instr(?insn, ?alloc).
 
-allocation_by_instruction(?insn, ?alloc) :-
-  stack_allocation_by_instruction(?insn, ?alloc).
+allocation_by_instr(?insn, ?alloc) :-
+  stack_allocation_by_instr(?insn, ?alloc).
 
 //---------------------------------------------------------------------------
 // [Pointer-compatible allocations]

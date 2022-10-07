@@ -10,7 +10,7 @@ build_heap_allocation(heapAlloc, func, type, var) :-
   variable_has_name(var, varName),
   heapAlloc = cat("*heap_alloc", funcName, "[", type, " ", varName, "]").
 
-// This file builds allocations for instructions that are reachable via either
+// This file builds allocations for instrs that are reachable via either
 // the subset-based or unification-based analyses. The points-to facts aren't
 // always shared between them, but the set of basic allocations is.
 //
@@ -24,19 +24,19 @@ build_heap_allocation(heapAlloc, func, type, var) :-
 /// 1. Alloca Instructions
 
 stack_allocation(?stackAlloc),
- stack_allocation_by_instruction(?instr, ?stackAlloc)
+ stack_allocation_by_instr(?instr, ?stackAlloc)
  :-
-   alloca_instruction(?instr),
-   instruction_assigns_to(?instr, ?var),
-   instruction_in_func(?instr, ?instrFunc),
+   alloca_instr(?instr),
+   instr_assigns_to(?instr, ?var),
+   instr_func(?instr, ?instrFunc),
    variable_has_type(?var,?type),
    any_reachable_func(?instrFunc),
    build_stack_allocation(?stackAlloc, ?instrFunc, ?type, ?var).
 
 static_allocation_type(?stackAlloc, ?type) :-
-   alloca_instruction(?instr),
-   alloca_instruction_type(?instr,?type),
-   stack_allocation_by_instruction(?instr, ?stackAlloc).
+   alloca_instr(?instr),
+   alloca_instr_type(?instr,?type),
+   stack_allocation_by_instr(?instr, ?stackAlloc).
 
 /// 2. Parameters with pass-by-value semantics
 
@@ -63,14 +63,14 @@ static_allocation_type(?stackAlloc, ?type) :-
 //---------------------------------------------------------------------
 
 heap_allocation(?heapAlloc),
-heap_allocation_by_instruction(?instr, ?heapAlloc),
+heap_allocation_by_instr(?instr, ?heapAlloc),
 static_allocation_type(?heapAlloc, ?elementType)
  :-
    heap_alloc_func(?func),
-   ( call_instruction_fn_target(?instr, ?func)
-   ; invoke_instruction_fn_target(?instr, ?func)),
-   instruction_assigns_to(?instr, ?var),
-   instruction_in_func(?instr,  ?instrFunc),
+   ( call_instr_fn_target(?instr, ?func)
+   ; invoke_instr_fn_target(?instr, ?func)),
+   instr_assigns_to(?instr, ?var),
+   instr_func(?instr,  ?instrFunc),
 
    variable_has_type(?var, ?type),
    pointer_type_has_component(?type, ?elementType),
@@ -81,26 +81,26 @@ static_allocation_type(?heapAlloc, ?elementType)
 heap_allocation(?heapAlloc),
 heap_allocation_by_malloc(?insn, ?heapAlloc) :-
   func_name(?func, "@malloc"),
-  call_instruction_fn_target(?insn, ?func),
-  heap_allocation_by_instruction(?insn, ?heapAlloc).
+  call_instr_fn_target(?insn, ?func),
+  heap_allocation_by_instr(?insn, ?heapAlloc).
 
 heap_allocation(?heapAlloc),
 heap_allocation_by_calloc(?insn, ?heapAlloc) :-
   func_name(?func, "@calloc"),
-  call_instruction_fn_target(?insn, ?func),
-  heap_allocation_by_instruction(?insn, ?heapAlloc).
+  call_instr_fn_target(?insn, ?func),
+  heap_allocation_by_instr(?insn, ?heapAlloc).
 
 heap_allocation(?heapAlloc),
 heap_allocation_by_realloc(?insn, ?heapAlloc) :-
   func_name(?func, "@realloc"),
-  call_instruction_fn_target(?insn, ?func),
-  heap_allocation_by_instruction(?insn, ?heapAlloc).
+  call_instr_fn_target(?insn, ?func),
+  heap_allocation_by_instr(?insn, ?heapAlloc).
 
 heap_allocation(?heapAlloc),
 heap_allocation_by_mmap(?insn, ?heapAlloc) :-
   func_name(?func, "@mmap"),
-  call_instruction_fn_target(?insn, ?func),
-  heap_allocation_by_instruction(?insn, ?heapAlloc).
+  call_instr_fn_target(?insn, ?func),
+  heap_allocation_by_instr(?insn, ?heapAlloc).
 
 .comp Allocations {
   //----------------------------------------------------------------------------
@@ -144,9 +144,9 @@ heap_allocation_by_mmap(?insn, ?heapAlloc) :-
 
   allocated_at(?newCtx, ?stackAlloc, ?ctx, ?var)
   :-
-    stack_allocation_by_instruction(?instr, ?stackAlloc),
-    instruction_assigns_to(?instr, ?var),
-    instruction_in_func(?instr, ?instrFunc),
+    stack_allocation_by_instr(?instr, ?stackAlloc),
+    instr_assigns_to(?instr, ?var),
+    instr_func(?instr, ?instrFunc),
     reachable_context(?ctx, ?instrFunc),
     record(?newCtx, ?stackAlloc, ?ctx).
 
@@ -160,9 +160,9 @@ heap_allocation_by_mmap(?insn, ?heapAlloc) :-
 
   allocated_at(?newCtx, ?heapAlloc, ?ctx, ?var)
   :-
-    heap_allocation_by_instruction(?instr, ?heapAlloc),
-    instruction_assigns_to(?instr, ?var),
-    instruction_in_func(?instr,  ?instrFunc),
+    heap_allocation_by_instr(?instr, ?heapAlloc),
+    instr_assigns_to(?instr, ?var),
+    instr_func(?instr,  ?instrFunc),
     reachable_context(?ctx, ?instrFunc),
     record(?newCtx, ?heapAlloc, ?ctx).
 }
@@ -172,9 +172,9 @@ heap_allocation_by_mmap(?insn, ?heapAlloc) :-
 //------------------------------------------------
 
 allocation_pos(?alloc, ?line, ?column) :-
-   (stack_allocation_by_instruction(?insn, ?alloc);
-   heap_allocation_by_instruction(?insn, ?alloc)),
-   instruction_pos(?insn, ?line, ?column).
+   (stack_allocation_by_instr(?insn, ?alloc);
+   heap_allocation_by_instr(?insn, ?alloc)),
+   instr_pos(?insn, ?line, ?column).
 
 allocation_pos(?alloc, ?line, ?column) :-
    stack_allocation_by_parameter(?func, ?index, ?alloc),

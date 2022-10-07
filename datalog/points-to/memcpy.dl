@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
-// [Memcpy instructions]
+// [Memcpy instrs]
 //
-//  We must treat `memcpy` instructions in such a way as to ensure
+//  We must treat `memcpy` instrs in such a way as to ensure
 //  that it may change the points-to set of any subregion of memory
 //  that is being copied.
 //------------------------------------------------------------------------------
@@ -56,7 +56,7 @@
   // Logic should handle syntactic aliases. For instance
   // `memcpy(to,from)` is equivalent to `memcpy(to, &from[0])`. We
   // consider all possible aliases of the base objects that flow to the
-  // operands of the @memcpy instruction, but only keep type compatible
+  // operands of the @memcpy instr, but only keep type compatible
   // pairs.
   // TODO(SM): Previously these rules explicitly accounted for this
   // using the alloc_aliases relation, but removing this had no effect

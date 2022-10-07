@@ -17,11 +17,11 @@
 //
 // As a final note, the need to create subregions stems from the fact
 // that in C, we can refer to field addresses, and at a later point
-// dereference them. This translates to a `getelementptr` instruction
+// dereference them. This translates to a `getelementptr` instr
 // that computes the offset from a base pointer variable and assigns
 // it to some other variable, which may then be supplied as the
-// address operand to a `load`/`store` instruction. These two
-// instructions may reside in different funcs, so an
+// address operand to a `load`/`store` instr. These two
+// instrs may reside in different funcs, so an
 // intraprocedural matching would not work.
 //
 // This is an important difference with the Java Bytecode IR, where no
@@ -49,9 +49,9 @@ pointer_index(?region, ?type, 0) :-
 
 // TODO(lb): Use `gep_zero_index_offset` here.
 pointer_index(?region, ?type, ?finalIdx) :-
-  ( ( getelementptr_instruction_index(?insn, 0, ?indexOp)
+  ( ( getelementptr_instr_index(?insn, 0, ?indexOp)
     , constant_to_int(?indexOp, ?index)
-    , getelementptr_instruction_base_type(?insn, ?declaredType)
+    , getelementptr_instr_base_type(?insn, ?declaredType)
     , _alloc_region(?region)
     )
   ; ( getelementptr_constant_expression_index(?expr, 0, ?indexOp)
@@ -98,8 +98,8 @@ pointer_offset(?region, ?type, ?index * ?size) :-
 .decl array_indices__no_typecomp(?region: Region, ?type: ArrayType, ?index: ArrayIndex)
 
 array_indices__no_typecomp(?region, ?declaredType, as(?constantIndex, ArrayIndex)) :-
-   ( ( getelementptr_instruction_index(?insn, ?index, ?indexOp)
-     , getelementptr_instruction_interm_type(?insn, ?index, ?declaredType)
+   ( ( getelementptr_instr_index(?insn, ?index, ?indexOp)
+     , getelementptr_instrterm_type(?insn, ?index, ?declaredType)
      , _alloc_region(?region)
      )
    ; ( getelementptr_constant_expression_index(?expr, ?index, ?indexOp)
@@ -523,8 +523,8 @@ not_array_index(?component) :- path_component_at_any_index(?component).
   //
   // Note that pointer arithmetic and other C idioms may cause infinite
   // recursion and creation of new subobjects. For instance, the
-  // instruction: `ptr = ptr + 1` when translated to a `getelementptr`
-  // instruction, it will create a new subobject relative to the one
+  // instr: `ptr = ptr + 1` when translated to a `getelementptr`
+  // instr, it will create a new subobject relative to the one
   // that `ptr` points to with some offset. However, this subobject will
   // again flow to the base variable `ptr` triggering the creation of
   // yet a new subobject. This creation of new subobjects will continue

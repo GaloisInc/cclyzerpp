@@ -1,0 +1,70 @@
+// http://llvm.org/docs/LangRef.html#ptrtoint-to-instr
+// keywords: conversion; unary; instr
+
+.type PtrToIntInstruction = Instruction
+.decl ptrtoint_instr(instr:PtrToIntInstruction)
+
+instr(v) :- ptrtoint_instr(v).
+
+.decl ptrtoint_instr_from_operand(instr:PtrToIntInstruction, val:Operand)
+.decl ptrtoint_instr_to_type(instr:PtrToIntInstruction, type:Type)
+
+
+// Helper predicate
+
+.decl ptrtoint_instr_from_type(instr:PtrToIntInstruction, type:Type)
+
+ptrtoint_instr_from_type(Instr, Type) :-
+   ptrtoint_instr_from_operand(Instr, Operand),
+   operand_has_type(Operand, Type).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// The ‘ptrtoint‘ instr takes:
+//  (i)  a value to cast, which must be pointer or vector of pointer values,
+//  (ii) and a type to cast it to, which must be an integer or a vector of
+//       integers type.
+//
+// If the value to be casted is a vector pointer type:
+//  (i)  the type must be a vector integer type,
+//  (ii) with the same number of elements.
+//------------------------------------------------------------------------------
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   ptrtoint_instr(Instr),
+   !ptrtoint_instr_from_operand(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   ptrtoint_instr(Instr),
+   !ptrtoint_instr_to_type(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   ptrtoint_instr(Instr),
+   ptrtoint_instr_to_type(Instr, Type),
+   !instr_returns_type(Instr, Type).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   ptrtoint_instr(Instr),
+   ptrtoint_instr_from_type(Instr, Type),
+   !pointer_type(Type),
+   !pointer_vector_type(Type).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   ptrtoint_instr(Instr),
+   ptrtoint_instr_to_type(Instr, Type),
+   !integer_type(Type),
+   !integer_vector_type(Type).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   ptrtoint_instr(Instr),
+   ptrtoint_instr_from_type(Instr, FromType),
+   ptrtoint_instr_to_type(Instr, ToType),
+   !vector_compatible_types(FromType, ToType).

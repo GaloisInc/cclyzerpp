@@ -47,20 +47,20 @@
   //----------------------------------------------------------------------
 
   var_points_to(?aCtx, ?alloc, ?ctx, ?toVar) :-
-    // assign_instruction only holds if the instruction is reachable.
-    assign_instruction(?toVar, ?value),
+    // assign_instr only holds if the instr is reachable.
+    assign_instr(?toVar, ?value),
     operand_points_to(?aCtx, ?alloc, ?ctx, ?value). // TODO: consider adding type check
 
-  // `inttoptr` instructions
+  // `inttoptr` instrs
   //
   // TODO(lb): Should this be an assignment? Should we merge allocations with
   // *unknown*?
   var_points_to(?aCtx, ?unknown, ?ctx, ?toVar) :-
     empty_alloc_context(?aCtx),
     unknown_location(?unknown),
-    inttoptr_instruction(?instr),
-    instruction_assigns_to(?instr, ?toVar),
-    instruction_in_func(?instr, ?instrFunc),
+    inttoptr_instr(?instr),
+    instr_assigns_to(?instr, ?toVar),
+    instr_func(?instr, ?instrFunc),
     callgraph.reachable_context(?ctx, ?instrFunc).
 
   //----------------------------
@@ -121,8 +121,8 @@
 
   .init exception_object = ExceptionObjectComponent
 
-  exception_object.heap_allocation_by_type_instruction(?type, ?insn, ?heapAlloc) :-
-    type_indication.heap_allocation_by_type_instruction(?type, ?insn, ?heapAlloc).
+  exception_object.heap_allocation_by_type_instr(?type, ?insn, ?heapAlloc) :-
+    type_indication.heap_allocation_by_type_instr(?type, ?insn, ?heapAlloc).
 
   .init interp_assignment = InterpAssignment
 
@@ -151,11 +151,11 @@
   type_indication.var_points_to(?aCtx, ?alloc, ?ctx, ?var) :-
     var_points_to(?aCtx, ?alloc, ?ctx, ?var).
 
-  heap_allocation_by_type_instruction(?type, ?insn, ?alloc) :-
-    type_indication.heap_allocation_by_type_instruction(?type, ?insn, ?alloc).
+  heap_allocation_by_type_instr(?type, ?insn, ?alloc) :-
+    type_indication.heap_allocation_by_type_instr(?type, ?insn, ?alloc).
 
-  stack_allocation_by_type_instruction(?type, ?insn, ?alloc) :-
-    type_indication.stack_allocation_by_type_instruction(?type, ?insn, ?alloc).
+  stack_allocation_by_type_instr(?type, ?insn, ?alloc) :-
+    type_indication.stack_allocation_by_type_instr(?type, ?insn, ?alloc).
 
   // Components that don't appear here don't share setup code between the
   // subset-based and unification-based analyses - their input relations require

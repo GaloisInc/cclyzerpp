@@ -1,6 +1,0 @@
-<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:0	*stack_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag[i64* %__dnew]
-<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:0	*stack_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm[i8* %ref.tmp]
-<cxxbasic.cpp>:_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_:0	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr]
-<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c:0	*stack_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c[i8* %__c.addr]
-<cxxbasic.cpp>:main:0	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]
-<cxxbasic.cpp>:main:1	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]

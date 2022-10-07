@@ -1,0 +1,55 @@
+//------------------------------------
+// Instruction (EDB) Entities
+//------------------------------------
+
+.type Instruction <: symbol
+.decl instr(instr:Instruction)
+
+// For constraints
+.decl schema_invalid_instr(instr:Instruction, file:File, line:Line)
+
+
+// Apart from the instrs with 'void' type,
+// every instr assigns its result to a variable.
+.decl instr_assigns_to(instr:Instruction, var:Variable)
+
+// Auxiliary predicate that stores the instr's return type
+.decl instr_returns_type(instr:Instruction, type:Type)
+
+instr_returns_type(Instr, Type) :-
+   instr_assigns_to(Instr, Var),
+   variable_has_type(Var, Type).
+
+// Terminator Instruction Subset
+.decl terminator_instr(instr:Instruction)
+
+
+// Instruction Flags
+.type Flag <: symbol
+.decl flag(flag:Flag)
+.decl instr_flag(instr:Instruction, flag:Flag)
+
+flag(Flag) :- instr_flag(_, Flag).
+
+
+// helpful in avoiding non-termination warnings
+.decl next_instr_index(instr:Instruction, index:number, next_index:number)
+
+// Position of instr on source code (if debug info is available)
+.decl instr_pos(instr:Instruction, line:LineNumber, column:ColumnNumber)
+
+
+//------------------------------------
+// Sequence of instrs
+//------------------------------------
+
+// The next instr in the source file.
+.decl next_instr(instr:Instruction, next:Instruction)
+
+// The func that contains the instr
+.decl instr_func(instr:Instruction, func:Function)
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   instr(Instr),
+   !instr_func(Instr, _).

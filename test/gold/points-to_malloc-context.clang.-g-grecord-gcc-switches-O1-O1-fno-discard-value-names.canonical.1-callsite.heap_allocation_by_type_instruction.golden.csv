@@ -1,2 +1,0 @@
-%struct.obj	<points-to_malloc-context.c>:fun1:0	*typed_heap_alloc@fun1[%struct.obj* %call]
-%struct.obj	<points-to_malloc-context.c>:fun2:0	*typed_heap_alloc@fun2[%struct.obj* %call]

@@ -354,13 +354,13 @@
 
   // Unify typed and untyped variants of the same allocation
   unify0(?aCtx, ?subAlloc1, ?aCtx, ?subAlloc2) :-
-    heap_allocation_by_instruction(?instr, ?alloc1),
-    heap_allocation_by_instruction(?instr, ?alloc2),
-    instruction_assigns_to(?instr, ?var),
+    heap_allocation_by_instr(?instr, ?alloc1),
+    heap_allocation_by_instr(?instr, ?alloc2),
+    instr_assigns_to(?instr, ?var),
     var_points_to(?aCtx, ?alloc1, _, ?var),
     unification_subobjects.alloc_subregion_at_path(?alloc1, ?path, ?subAlloc1),
     unification_subobjects.alloc_subregion_at_path(?alloc2, ?path, ?subAlloc2).
-  // As an input rule, instruction_assigns_to doesn't get a delta, hence 5 query
+  // As an input rule, instr_assigns_to doesn't get a delta, hence 5 query
   // plans for 6 clauses
   .plan 0: (1, 2, 3, 4, 5, 6),
         1: (2, 1, 3, 4, 5, 6),
@@ -536,27 +536,27 @@ unification_cplusplus.allocation_type(?alloc, ?type) :-
 unification_cplusplus.stripctx_operand_points_to(?to, ?op) :-
   unification.stripctx.stripctx_operand_points_to(?to, ?op).
 
-.init unification_throw_instruction = ThrowInstruction
+.init unification_throw_instr = ThrowInstruction
 
-unification_throw_instruction.allocation_type(?alloc, ?type) :-
+unification_throw_instr.allocation_type(?alloc, ?type) :-
   unification_allocation_type.allocation_type(?alloc, ?type).
 
-unification_throw_instruction.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr) :-
+unification_throw_instr.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr) :-
   unification.callgraph.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr).
 
-unification_throw_instruction.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+unification_throw_instr.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
   unification.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
 
-unification_throw_instruction.stripctx_operand_points_to(?to, ?op) :-
+unification_throw_instr.stripctx_operand_points_to(?to, ?op) :-
   unification.stripctx.stripctx_operand_points_to(?to, ?op).
 
 unification.type_indication.ty_indication(?type, ?aCtx, ?alloc) :-
-  unification_throw_instruction.ty_indication4(?type, ?aCtx, ?alloc).
+  unification_throw_instr.ty_indication4(?type, ?aCtx, ?alloc).
 
 unification.type_indication.ty_indication(?type, ?aCtx, ?alloc) :-
-  unification_throw_instruction.ty_indication5(?type, ?aCtx, ?alloc).
+  unification_throw_instr.ty_indication5(?type, ?aCtx, ?alloc).
 
-unification_throw_instruction.untyped_allocation(?insn, ?alloc) :-
+unification_throw_instr.untyped_allocation(?insn, ?alloc) :-
   unification.exception_object.untyped_allocation(?insn, ?alloc).
 
 .init unification_at_exit = AtExit
@@ -701,6 +701,6 @@ alloc_region(?subAlloc, ?region) :-
 alloc_region(?alloc, "heap") :-
   unification.exception_object.heap_allocation_by_alloc_exc(_, ?alloc).
 alloc_region(?alloc, "heap") :-
-  unification.type_indication.heap_allocation_by_type_instruction(_, _, ?alloc).
+  unification.type_indication.heap_allocation_by_type_instr(_, _, ?alloc).
 alloc_region(?alloc, "heap") :-
   unification_signatures.sig_allocation_type(?alloc, _).

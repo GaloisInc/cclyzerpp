@@ -1,2 +1,0 @@
-<points-to_malloc-context.c>:fun1:0	*heap_alloc@fun1[i8* %call]
-<points-to_malloc-context.c>:fun2:0	*heap_alloc@fun2[i8* %call]

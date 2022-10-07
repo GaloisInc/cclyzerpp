@@ -1,4 +1,0 @@
-<functiontable.c>:main:0	*stack_alloc@main[i32* %retval]
-<functiontable.c>:main:1	*stack_alloc@main[i32* %argc.addr]
-<functiontable.c>:main:2	*stack_alloc@main[i8*** %argv.addr]
-<functiontable.c>:main:3	*stack_alloc@main[[3 x void ()*]* %table]

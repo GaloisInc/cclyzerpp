@@ -1,4 +1,0 @@
-<recurse.c>:countdown:0	*stack_alloc@countdown[i32* %x.addr]
-<recurse.c>:main:0	*stack_alloc@main[i32* %retval]
-<recurse.c>:main:1	*stack_alloc@main[i32* %argc.addr]
-<recurse.c>:main:2	*stack_alloc@main[i8*** %argv.addr]

@@ -1,27 +1,27 @@
 //------------------------------------------------------------------------------
-// [Field Sensitive treatment of `getelementptr` instructions]
+// [Field Sensitive treatment of `getelementptr` instrs]
 //
 // We create subregions on the fly to act as destinations of
-// instructions that may point to an allocation at some
+// instrs that may point to an allocation at some
 // *offset*. Essentially, we create complex allocations paired with
 // access paths in a demand-driven way, according to the given indices
-// of some GEP instruction where an existing allocation is used as the
+// of some GEP instr where an existing allocation is used as the
 // base operand. The subregions are created in allocations-subobjects.dl.
 //------------------------------------------------------------------------------
 
-// getelementptr instruction `insn` indexes into its input allocation at offset
+// getelementptr instr `insn` indexes into its input allocation at offset
 // `offset`. Note that `offset` is a byte offset, not an array offset.
 .decl gep_zero_index_offset(?insn: GetElementPtrInstruction, ?offset: SubregionOffset)
 
 // An index of '0' always indexes offset '0' regardless of the allocation's type.
 gep_zero_index_offset(?insn, 0) :-
-  getelementptr_instruction_index(?insn, 0, ?indexOp),
+  getelementptr_instr_index(?insn, 0, ?indexOp),
   constant_to_int(?indexOp, 0).
 
 gep_zero_index_offset(?insn, ?index * ?size) :-
-  getelementptr_instruction_index(?insn, 0, ?indexOp),
+  getelementptr_instr_index(?insn, 0, ?indexOp),
   constant_to_int(?indexOp, ?index),
-  getelementptr_instruction_base_type(?insn, ?ptrType),
+  getelementptr_instr_base_type(?insn, ?ptrType),
   pointer_type_has_component(?ptrType, ?type),
   type_has_size(?type, ?size).
 
@@ -105,8 +105,8 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   //------------------------------------------------------------------------------
   // [GEP points-to relations]
   //
-  // To simplify processing of getelementptr instructions, we treat each index
-  // of the getelementptr instruction stepwise. Relation `gep_indexes_from`
+  // To simplify processing of getelementptr instrs, we treat each index
+  // of the getelementptr instr stepwise. Relation `gep_indexes_from`
   // records which allocations each step is indexing with respect to, while
   // relation `gep_points_to` records which allocations are pointed to after
   // indexing. `gep_indexes_from` is used rather than `gep_points_to` for index
@@ -124,21 +124,21 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
                 ?alloc: Allocation,
                 ?type: Type)
 
-  // The first index of a getelementptr instruction indexes any allocation pointed
+  // The first index of a getelementptr instr indexes any allocation pointed
   // to by its base operand.
   gep_indexes_from(?insn, 0, ?alloc, ?alloc, ?type) :-
     !gep_is_vector_based(?insn),
-    getelementptr_instruction_base(?insn, ?base),
+    getelementptr_instr_base(?insn, ?base),
     operand_points_to(_, ?alloc, _, ?base),
-    getelementptr_instruction_base_type(?insn, ?type).
+    getelementptr_instr_base_type(?insn, ?type).
 
-  // The remaining indexes of a getelementptr instruction index from the allocations
+  // The remaining indexes of a getelementptr instr index from the allocations
   // pointed to by the previous index, filtered by GEP type compatibility, as
   // described above.
   gep_indexes_from(?insn, ?n, ?baseAlloc, ?alloc, ?type) :-
-    getelementptr_instruction_index(?insn, ?n, _),
+    getelementptr_instr_index(?insn, ?n, _),
     gep_points_to(?insn, ?n - 1, ?baseAlloc, ?alloc),
-    getelementptr_instruction_interm_type(?insn, ?n, ?type),
+    getelementptr_instrterm_type(?insn, ?n, ?type),
     _alloc_type_and_path(?alloc, ?allocType, ?component),
     _gep_type_compatible(?type, ?allocType, ?component).
 
@@ -152,7 +152,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   //------------------------------------------------------------------------------
   // Handling the first index
   //
-  // The first index operation in a getelementptr instruction is special because
+  // The first index operation in a getelementptr instr is special because
   // it is the only index operation that operates on a pointer. (See "The Often
   // Misunderstood GEP Instruction": https://llvm.org/docs/GetElementPtr.html)
   //------------------------------------------------------------------------------
@@ -233,7 +233,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   //
   // Note: you might expect this rule never to fire, but to avoid
   // creating an unbounded number of suballocations, we only create
-  // suballocations for pointer indices that appear in GEP instructions,
+  // suballocations for pointer indices that appear in GEP instrs,
   // not for constant offsets relative to those indices.
   gep_points_to(?insn, 0, ?baseAlloc, ?alloc)
     :-
@@ -276,7 +276,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   gep_points_to(?insn, 0, ?baseAlloc, ?alloc) :-
     gep_indexes_from(?insn, 0, ?baseAlloc, ?baseAlloc, ?type),
     pointer_type(?type),
-    getelementptr_instruction_index(?insn, 0, ?indexOp),
+    getelementptr_instr_index(?insn, 0, ?indexOp),
     ! operand_to_int(?indexOp, _),
     alloc_subregion_at_any_array_index(?baseAlloc, ?alloc).
 
@@ -291,7 +291,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   gep_points_to(?insn, 0, ?baseAlloc, ?alloc) :-
     gep_indexes_from(?insn, 0, ?baseAlloc, ?baseAlloc, ?type),
     array_type(?type),
-    getelementptr_instruction_index(?insn, 0, ?indexOp),
+    getelementptr_instr_index(?insn, 0, ?indexOp),
     ! operand_to_int(?indexOp, _),
     alloc_subregion_at_array_index(?grandparent, _, ?baseAlloc),
     alloc_subregion_at_any_array_index(?grandparent, ?alloc).
@@ -309,7 +309,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   //   `getelementptr i32, i32* %MyVar, i64 3, i64 0` points to the same
   //   allocations as `getelemtptr i32, i32* %MyVar, i64 3`.
   gep_points_to(?insn, ?n, ?baseAlloc, ?alloc) :-
-    getelementptr_instruction_index(?insn, ?n, ?indexOp),
+    getelementptr_instr_index(?insn, ?n, ?indexOp),
     gep_points_to(?insn, ?n - 1, ?baseAlloc, ?alloc),
     constant_to_int(?indexOp, 0).
 
@@ -328,7 +328,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   gep_points_to(?insn, ?n, ?baseAlloc, ?alloc) :-
     gep_indexes_from(?insn, ?n, ?baseAlloc, ?parent, ?type),
     struct_type(?type),
-    getelementptr_instruction_index(?insn, ?n, ?indexOp),
+    getelementptr_instr_index(?insn, ?n, ?indexOp),
     constant_to_int(?indexOp, ?field),
     alloc_subregion_at_field(?parent, ?field, ?alloc).
 
@@ -344,7 +344,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
     int8_type(?i8),
     allocation_type(?parent, ?parentType),
     struct_type(?parentType),
-    getelementptr_instruction_index(?insn, ?n, ?indexOp),
+    getelementptr_instr_index(?insn, ?n, ?indexOp),
     constant_to_int(?indexOp, ?offset),
     struct_type_field_offset(?parentType, ?field, ?offset),
     alloc_subregion_at_field(?parent, ?field, ?alloc).
@@ -358,7 +358,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
     int8_type(?i8),
     allocation_type(?parent, ?parentType),
     struct_type(?parentType),
-    getelementptr_instruction_index(?insn, ?n, ?indexOp),
+    getelementptr_instr_index(?insn, ?n, ?indexOp),
     ! operand_to_int(?indexOp, _),
     alloc_subregion_at_field(?parent, _, ?alloc).
 
@@ -373,7 +373,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   gep_points_to(?insn, ?n, ?baseAlloc, ?alloc) :-
     gep_indexes_from(?insn, ?n, ?baseAlloc, ?parent, ?type),
     array_type(?type),
-    getelementptr_instruction_index(?insn, ?n, ?indexOp),
+    getelementptr_instr_index(?insn, ?n, ?indexOp),
     constant_to_int(?indexOp, ?offset),
     alloc_subregion_at_array_index(?parent, ?offset, ?alloc).
 
@@ -385,7 +385,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   gep_points_to(?insn, ?n, ?baseAlloc, ?alloc) :-
     gep_indexes_from(?insn, ?n, ?baseAlloc, ?parent, ?type),
     array_type(?type),
-    getelementptr_instruction_index(?insn, ?n, ?indexOp),
+    getelementptr_instr_index(?insn, ?n, ?indexOp),
     constant_to_int(?indexOp, ?offset),
     allocation_type(?parent, ?allocType),
     alloc_region(?parent, ?region),
@@ -405,7 +405,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   gep_points_to(?insn, ?n, ?baseAlloc, ?alloc) :-
     gep_indexes_from(?insn, ?n, ?baseAlloc, ?parent, ?type),
     array_type(?type),
-    getelementptr_instruction_index(?insn, ?n, ?indexOp),
+    getelementptr_instr_index(?insn, ?n, ?indexOp),
     ! operand_to_int(?indexOp, _),
     alloc_subregion_at_any_array_index(?parent, ?alloc).
 
@@ -416,11 +416,11 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   .decl _gep_last_index_points_to(?alloc: Allocation, ?baseAlloc: Allocation, ?insn: GetElementPtrInstruction)
   _gep_last_index_points_to(?alloc, ?baseAlloc, ?insn) :-
     gep_points_to(?insn, ?n, ?baseAlloc, ?alloc),
-    getelementptr_instruction_nindices(?insn, ?n + 1).
+    getelementptr_instr_nindices(?insn, ?n + 1).
 
   .decl _gep_address_ctx_points_to(?ctx: Context, ?aCtx: Context, ?baseAlloc: Allocation, ?insn: GetElementPtrInstruction)
   _gep_address_ctx_points_to(?ctx, ?aCtx, ?baseAlloc, ?insn) :-
-    getelementptr_instruction_base(?insn, ?base),
+    getelementptr_instr_base(?insn, ?base),
     operand_points_to(?aCtx, ?baseAlloc, ?ctx, ?base).
 
   .decl gep_var_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable) inline
@@ -428,5 +428,5 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   gep_var_points_to(?aCtx, ?alloc, ?ctx, ?toVar) :-
     _gep_last_index_points_to(?alloc, ?baseAlloc, ?insn),
     _gep_address_ctx_points_to(?ctx, ?aCtx, ?baseAlloc, ?insn),
-    instruction_assigns_to(?insn, ?toVar).
+    instr_assigns_to(?insn, ?toVar).
 }

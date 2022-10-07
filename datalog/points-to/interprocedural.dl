@@ -30,7 +30,7 @@ func_by_location(?alloc, ?callee) :-
 
   .decl reachable_context(?ctx: Context, ?func: FunctionDecl)
   .decl reachable_func(func: FunctionDecl)
-  .decl reachable_instruction(instr: Instruction)
+  .decl reachable_instr(instr: Instruction)
 
   reachable_context(?calleeCtx, ?callee) :-
      callgraph_edge(?calleeCtx, ?callee, _, _).
@@ -38,9 +38,9 @@ func_by_location(?alloc, ?callee) :-
   reachable_func(?func) :-
     reachable_context(_, ?func).
 
-  reachable_instruction(Instr) :-
+  reachable_instr(Instr) :-
     reachable_func(Func),
-    instruction_in_func(Instr, Func).
+    instr_func(Instr, Func).
 
   // TODO: transition from startup to main?
 
@@ -66,17 +66,17 @@ func_by_location(?alloc, ?callee) :-
 
   reachable_store(?ctx, ?toAddress, ?value) :-
     reachable_context(?ctx, ?instrFunc),
-    instruction_in_func(?instr, ?instrFunc),
-    store_instruction_value(?instr, ?value),
-    store_instruction_address(?instr, ?toAddress).
+    instr_func(?instr, ?instrFunc),
+    store_instr_value(?instr, ?value),
+    store_instr_address(?instr, ?toAddress).
 
   .decl reachable_load(?ctx: Context, ?toVar: Variable, ?fromAdress: Operand)
 
   reachable_load(?ctx, ?toVar, ?fromAddress) :-
     reachable_context(?ctx, ?instrFunc),
-    instruction_in_func(?instr, ?instrFunc),
-    load_instruction_address(?instr, ?fromAddress),
-    instruction_assigns_to(?instr, ?toVar).
+    instr_func(?instr, ?instrFunc),
+    load_instr_address(?instr, ?fromAddress),
+    instr_assigns_to(?instr, ?toVar).
 
   // Callgraph
 
@@ -88,9 +88,9 @@ func_by_location(?alloc, ?callee) :-
 
   _callgraph_edge_interim_direct_call(?callee, ?callerCtx, ?callerInstr)
    :-
-     direct_call_instruction(?callerInstr),
-     call_instruction_fn_target(?callerInstr, ?callee),
-     instruction_in_func(?callerInstr, ?instrFunc),
+     direct_call_instr(?callerInstr),
+     call_instr_fn_target(?callerInstr, ?callee),
+     instr_func(?callerInstr, ?instrFunc),
      reachable_context(?callerCtx, ?instrFunc).
 
   callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr)
@@ -103,9 +103,9 @@ func_by_location(?alloc, ?callee) :-
 
   _callgraph_edge_interim_direct_invoke(?callee, ?callerCtx, ?callerInstr)
    :-
-     direct_call_instruction(?callerInstr),
-     invoke_instruction_fn_target(?callerInstr, ?callee),
-     instruction_in_func(?callerInstr, ?instrFunc),
+     direct_call_instr(?callerInstr),
+     invoke_instr_fn_target(?callerInstr, ?callee),
+     instr_func(?callerInstr, ?instrFunc),
      reachable_context(?callerCtx, ?instrFunc).
 
   callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr)
@@ -121,8 +121,8 @@ func_by_location(?alloc, ?callee) :-
 
   _callgraph_edge_interim_indirect_call(?callee, ?callerCtx, ?aCtx, ?callerInstr)
    :-
-     indirect_call_instruction(?callerInstr),
-     call_instruction_fn_operand(?callerInstr, ?funcOp),
+     indirect_call_instr(?callerInstr),
+     call_instr_fn_operand(?callerInstr, ?funcOp),
      func_pointer_operand_points_to(?aCtx, ?funcLoc, ?callerCtx, ?funcOp),
      func_by_location(?funcLoc, ?callee),
      func_ty(?callee, ?actualType),
@@ -140,8 +140,8 @@ func_by_location(?alloc, ?callee) :-
 
   _callgraph_edge_interim_indirect_invoke(?callee, ?callerCtx, ?aCtx, ?callerInstr)
    :-
-     invoke_instruction(?callerInstr),
-     invoke_instruction_fn_operand(?callerInstr, ?funcOp),
+     invoke_instr(?callerInstr),
+     invoke_instr_fn_operand(?callerInstr, ?funcOp),
      func_pointer_operand_points_to(?aCtx, ?funcLoc, ?callerCtx, ?funcOp),
      func_by_location(?funcLoc, ?callee),
      func_ty(?callee, ?actualType),
@@ -165,10 +165,10 @@ func_by_location(?alloc, ?callee) :-
 .decl actual_arg(?instr: Instruction, ?index: ArgumentIndex, ?argument: Operand)
 
 actual_arg(?invokeInstr, ?index, ?argument) :-
-  invoke_instruction_arg(?invokeInstr, ?index, ?argument).
+  invoke_instr_arg(?invokeInstr, ?index, ?argument).
 
 actual_arg(?callInstr, ?index, ?argument) :-
-  call_instruction_arg(?callInstr, ?index, ?argument).
+  call_instr_arg(?callInstr, ?index, ?argument).
 
 .decl func_param_not_by_value(?callee: Function, ?index: ArgumentIndex, ?param: Variable)
 
@@ -179,8 +179,8 @@ func_param_not_by_value(?callee, ?index, ?param) :-
 .decl func_returns_value(?retValue: Operand, ?inFunction: Function)
 
 func_returns_value(?retValue, ?inFunction) :-
-  ret_instruction_value(?retInsn, ?retValue),
-  instruction_in_func(?retInsn, ?inFunction).
+  ret_instr_value(?retInsn, ?retValue),
+  instr_func(?retInsn, ?inFunction).
 
 .comp InterpAssignment {
 
@@ -213,13 +213,13 @@ func_returns_value(?retValue, ?inFunction) :-
   interp_assignment(?callerCtx, ?toVar, ?calleeCtx, ?retValue) :-
     callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr),
     func_returns_value(?retValue, ?callee),
-    instruction_assigns_to(?callerInstr, ?toVar).
+    instr_assigns_to(?callerInstr, ?toVar).
 
   //------------------------------------------------------------------------------
   //  Variadic Functions
   //------------------------------------------------------------------------------
 
-  // `va_arg` instruction
+  // `va_arg` instr
   //
   // TODO: model target-specific value `va_list` and calls to related
   // LLVM intrinsic funcs. Right now this may produce nothing
@@ -227,10 +227,10 @@ func_returns_value(?retValue, ?inFunction) :-
   .decl _va_arg_target(?toVar: Variable, ?argType: Type, ?callee: Function)
 
   _va_arg_target(?toVar, ?argType, ?callee) :-
-    va_arg_instruction(?vAArgInstr),
-    va_arg_instruction_type(?vAArgInstr, ?argType),
-    instruction_assigns_to(?vAArgInstr, ?toVar),
-    instruction_in_func(?vAArgInstr, ?callee).
+    va_arg_instr(?vAArgInstr),
+    va_arg_instr_type(?vAArgInstr, ?argType),
+    instr_assigns_to(?vAArgInstr, ?toVar),
+    instr_func(?vAArgInstr, ?callee).
 
   interp_assignment(?calleeCtx, ?toVar, ?callerCtx, ?argument) :-
     _va_arg_target(?toVar, ?argType, ?callee),

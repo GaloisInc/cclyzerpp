@@ -1,0 +1,73 @@
+// http://llvm.org/docs/LangRef.html#insertelement-instr
+// keywords: vector; instr
+
+.type InsertElementInstruction = Instruction
+.decl insertelement_instr(instr:InsertElementInstruction)
+
+instr(v) :- insertelement_instr(v).
+
+.decl insertelement_instr_base(instr:InsertElementInstruction, vector:Operand)
+.decl insertelement_instr_index(instr:InsertElementInstruction, index:Operand)
+.decl insertelement_instr_value(instr:InsertElementInstruction, value:Operand)
+.decl insertelement_instr_type(instr:InsertElementInstruction, type:Type)
+
+// The type of the elements that the vector holds.
+insertelement_instr_type(Instr, Type) :-
+   insertelement_instr_base(Instr, Vector),
+   operand_has_type(Vector, VectorType),
+   vector_type_has_component(VectorType, Type).
+
+
+//------------------------------------------------------------------------------
+// Constraints:
+//
+// The ‘insertelement‘ instr takes three operands:
+//    (i)   the first operand is a value of vector type
+//    (ii)  the second operand is a scalar value whose type must equal
+//          the element type of the first operand, and
+//    (iii) the third operand is an index of i32-integer type.
+//
+// The result is a vector of the same type as the first operand.
+//------------------------------------------------------------------------------
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   insertelement_instr(Instr),
+   !insertelement_instr_base(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   insertelement_instr(Instr),
+   !insertelement_instr_index(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   insertelement_instr(Instr),
+   !insertelement_instr_value(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   insertelement_instr(Instr),
+   insertelement_instr_base(Instr, Vector),
+   operand_has_type(Vector, Type),
+   !vector_type(Type).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   insertelement_instr(Instr),
+   insertelement_instr_index(Instr, Index),
+   operand_has_type(Index, Type),
+   !int32_type(Type).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   insertelement_instr(Instr),
+   insertelement_instr_value(Instr, Value),
+   insertelement_instr_type(Instr, Type),
+   !operand_has_type(Value, Type).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   insertelement_instr_base(Instr, Vector),
+   operand_has_type(Vector, Type),
+   !instr_returns_type(Instr, Type).

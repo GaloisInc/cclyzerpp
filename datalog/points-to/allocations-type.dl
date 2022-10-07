@@ -37,7 +37,7 @@
   // constructor must be in the same func that allocates it.
   allocation_type(?heapAlloc, ?type) :-
     !inlined_constructors(),
-    instruction_in_func(?allocInsn, ?inFunction),
+    instr_func(?allocInsn, ?inFunction),
     heap_allocation_by_new(?allocInsn, ?heapAlloc),
     allocation_size(?heapAlloc, ?size),
     type_has_size(?type, ?size),
@@ -45,7 +45,7 @@
 
   allocation_type(?excObj, ?type) :-
     !inlined_constructors(),
-    instruction_in_func(?allocInsn, ?inFunction),
+    instr_func(?allocInsn, ?inFunction),
     heap_allocation_by_alloc_exc(?allocInsn, ?excObj),
     allocation_size(?excObj, ?size),
     type_has_size(?type, ?size),

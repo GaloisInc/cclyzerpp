@@ -1,0 +1,231 @@
+// http://llvm.org/docs/LangRef.html#landingpad-instr
+// keywords: exception; instr
+
+.type LandingPadInstruction = Instruction
+.decl landingpad_instr(instr:LandingPadInstruction)
+.decl landingpad_instr_is_cleanup(instr:LandingPadInstruction)
+
+instr(v) :- landingpad_instr(v).
+
+// result type
+.decl landingpad_instr_type(instr:LandingPadInstruction, type:Type)
+
+// personality func
+.decl landingpad_instr_pers_fn(instr:LandingPadInstruction, func:FunctionDecl)
+
+landingpad_instr_pers_fn(Instr, PersFunction) :-
+   landingpad_instr(Instr),
+   instr_func(Instr, EnclosingFunction),
+   func_pers_fn(EnclosingFunction, FnConstant),
+   func_constant(FnConstant),
+   func_constant_fn_name(FnConstant, PersFnName),
+   func_name(PersFunction, PersFnName).
+
+landingpad_instr_pers_fn(Instr, PersFunction) :-
+   landingpad_instr(Instr),
+   instr_func(Instr, EnclosingFunction),
+   func_pers_fn(EnclosingFunction, BitcastConstant),
+   bitcast_constant_expression_from(BitcastConstant, FnConstant),
+   func_constant(FnConstant),
+   func_constant_fn_name(FnConstant, PersFnName),
+   func_name(PersFunction, PersFnName).
+
+
+//------------------------------------------------------------------------------
+// [Landing Pad]
+//
+// A landing pad block is a basic block which is the unwind
+// destination of an ‘invoke‘ instr.
+//
+// A landing pad block must have a ‘landingpad‘ instr as its
+// first non-PHI instr.
+//
+//
+// In order to compute the first non-phi instr per landing pad,
+// we first have to record its segment of consecutive phi-instrs
+// from its starting point, encoded in predicate `landingpad:phi'.
+//
+// The first *non-phi* instr of a landing pad may be either
+// (i) its first instr, or (ii) the first non-phi instr
+// that follows the segment described above.
+//
+// The landing pad block cannot contain any other landing pad
+// instrs, except this one.
+//------------------------------------------------------------------------------
+
+// Landing Pad Definition
+.decl landingpad(bb:BasicBlock)
+
+landingpad(BB) :-
+   invoke_instr_exception_label(_, Label),
+   block_of_label(BB, Label).
+
+
+// Compute the segment of consecutive phi-instrs from starting
+// point, per landing pad.
+
+.decl _landingpad_starting_phi(bb:BasicBlock, instr:PhiInstruction)
+
+_landingpad_starting_phi(BB, Instr) :-
+   landingpad(BB),
+   block_first_instr(BB, Instr),
+   phi_instr(Instr).
+
+_landingpad_starting_phi(BB, NextInstr) :-
+   _landingpad_starting_phi(BB, Instr),
+   next_instr(Instr, NextInstr),
+   phi_instr(NextInstr),
+   instr_block(NextInstr, BB).
+
+
+// Compute the first non-phi instr, per landing pad.
+
+.decl _landingpad_first_nonphi(bb:BasicBlock, instr:Instruction)
+
+_landingpad_first_nonphi(BB, Instr) :-
+   landingpad(BB),
+   block_first_instr(BB, Instr),
+   !phi_instr(Instr).
+
+_landingpad_first_nonphi(BB, NextInstr) :-
+   _landingpad_starting_phi(BB, Instr),
+   next_instr(Instr, NextInstr),
+   !phi_instr(NextInstr),
+   instr_block(NextInstr, BB).
+
+
+// Same as above, via different computation.
+.decl _landingpad_contains_landingpad_instr(bb:BasicBlock, instr:Instruction)
+
+_landingpad_contains_landingpad_instr(BB, Instr) :-
+   landingpad_instr(Instr),
+   instr_block(Instr, BB),
+   landingpad(BB).
+
+
+// Sanity Check: the two instrs must coincide.
+.decl _valid_landingpad(bb:BasicBlock)
+
+_valid_landingpad(BB) :-
+   landingpad(BB),
+   _landingpad_first_nonphi(BB, Instr),
+   _landingpad_contains_landingpad_instr(BB, Instr).
+
+
+//------------------------------------------------------------------------------
+// [Clauses]
+//
+// A clause begins with the clause type — catch or filter — and
+// contains the global variable representing the “type” that may be
+// caught or filtered respectively.
+//
+// Unlike the catch clause, the filter clause takes an array
+// constant as its argument.
+//------------------------------------------------------------------------------
+
+// Clauses as records
+
+.type Clause = [
+   arg : Constant
+]
+
+.decl clause(c:Clause)
+.decl catch_clause(c:Clause)
+.decl filter_clause(c:Clause)
+
+clause(c) :- catch_clause(c) ; filter_clause(c).
+
+// Clause Predicates
+.decl landingpad_instr_clause(instr:LandingPadInstruction, i:number, clause:Clause)
+.decl landingpad_instr_nclauses(instr:LandingPadInstruction, total:number)
+
+// Enforce that clause is either catch or filter
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   landingpad_instr_clause(Instr, _, Clause),
+   !catch_clause(Clause),
+   !filter_clause(Clause).
+
+
+//-------------------------------------------------------------------------
+// [Constraints]
+//
+// The landingpad instr has several restrictions:
+//  (1) A landing pad block is a basic block which is the unwind
+//      destination of an ‘invoke‘ instr. (See
+//      invoke-instr.)
+//  (2) A landing pad block must have a ‘landingpad‘ instr
+//      as its first non-PHI instr.
+//  (3) There can be only one ‘landingpad‘ instr within the
+//      landing pad block.
+//  (4) A basic block that is not a landing pad block may not include
+//      a ‘landingpad‘ instr.
+//  (5) All ‘landingpad‘ instrs in a func must have the same
+//      personality func.
+//  (6) The ‘landingpad‘ instr must contain at least one clause
+//      or the cleanup flag.
+//-------------------------------------------------------------------------
+
+
+// Additional type constraints not mentioned above
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   landingpad_instr_clause(Instr, _, Clause),
+   filter_clause(Clause),
+   Clause = [ Constant ],
+   constant_has_type(Constant, Type),
+   !array_type(Type).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   landingpad_instr_type(Instr, Type),
+   !instr_returns_type(Instr, Type).
+
+
+// 1st Constraint is omitted, since it is not really a constraint,
+// rather than a definition of a landing pad (already encoded in the
+// relevant section)
+
+
+// 2nd Constraint: first non-phi instr must be a landing pad
+// instr (i.e., its only landing pad instr)
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   landingpad(BB), !_valid_landingpad(BB),
+   block_first_instr(BB, Instr).
+
+
+// 3rd Constraint: in case of multiple landing pad instrs in a
+// basic block, the basic block will be marked invalid, since at least
+// one of these landing pad instr will not match its first
+// non-phi.
+
+
+// 4th Constraint: only landing pad blocks may contain landing pad
+// instrs
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   landingpad_instr(Instr),
+   instr_block(Instr, BB),
+   !landingpad(BB).
+
+
+// 5th Constraint: all ‘landingpad‘ instrs in a func must
+// have the same personality func
+schema_invalid_instr(Instr1, __FILE__, __LINE__) :-
+   schema_sanity(),
+   landingpad_instr(Instr1),
+   landingpad_instr_pers_fn(Instr1, PersFunc),
+   instr_func(Instr1, Func),
+   instr_func(Instr2, Func),
+   landingpad_instr(Instr2),
+   !landingpad_instr_pers_fn(Instr2, PersFunc).
+
+
+// 6th Constraint: the ‘landingpad‘ instr must contain at least
+// one clause or the cleanup flag
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   landingpad_instr(Instr),
+   !landingpad_instr_is_cleanup(Instr),
+   !landingpad_instr_clause(Instr, 0, _).

@@ -20,10 +20,10 @@
 // An index in a getelementptr
 .type GepIndex <: number
 
-// An index into an array, e.g. in a getelementptr instruction
+// An index into an array, e.g. in a getelementptr instr
 .type ArrayIndex <: number
 
-// An index into a struct, e.g. in a getelementptr instruction
+// An index into a struct, e.g. in a getelementptr instr
 .type FieldIndex <: number
 
 // An index of an argument to a func

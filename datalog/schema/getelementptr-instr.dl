@@ -1,0 +1,186 @@
+// http://llvm.org/docs/LangRef.html#getelementptr-instr
+// keywords: memory; instr
+
+.type GetElementPtrInstruction = Instruction
+.decl getelementptr_instr(instr:GetElementPtrInstruction)
+
+instr(v) :- getelementptr_instr(v).
+
+
+.decl getelementptr_instr_base(instr:GetElementPtrInstruction, ptr:Operand)
+.decl getelementptr_instr_is_inbounds(instr:GetElementPtrInstruction)
+
+
+//------------------------------------------------------------------------------
+// [GEP Indices]
+//
+// The remaining arguments are indices that indicate which of the
+// elements of the aggregate object are indexed. The interpretation of
+// each index is dependent on the type being indexed into.
+
+// The first index always indexes the pointer value given as the first
+// argument, the second index indexes a value of the type pointed to
+// (not necessarily the value directly pointed to, since the first
+// index can be non-zero), etc.  The first type indexed into must be a
+// pointer value, subsequent types can be arrays, vectors, and
+// structs. Note that subsequent types being indexed into can never be
+// pointers, since that would require loading the pointer before
+// continuing calculation.
+//------------------------------------------------------------------------------
+
+
+.decl getelementptr_instr_nindices(instr:GetElementPtrInstruction, total:number)
+.decl getelementptr_instr_index(instr:GetElementPtrInstruction, i:GepIndex, idx:Operand)
+
+
+// Auxiliary type predicates
+
+.decl getelementptr_instr_base_type(instr:GetElementPtrInstruction, type:Type)
+.decl getelementptr_instr_index_type(instr:GetElementPtrInstruction, type:Type)
+
+getelementptr_instr_base_type(Instr, PtrType) :-
+   getelementptr_instr_base(Instr, BasePtr),
+   operand_has_type(BasePtr, PtrType).
+
+getelementptr_instr_index_type(Instr, IdxType) :-
+   getelementptr_instr_index(Instr, _, Idx),
+   operand_has_type(Idx, IdxType).
+
+
+.decl gep_is_vector_based(instr:GetElementPtrInstruction)
+
+gep_is_vector_based(Instr) :-
+   getelementptr_instr_base_type(Instr, PtrType),
+   vector_type(PtrType).
+
+
+//------------------------------------------------------------------------------
+// [Determining Fields]
+//
+// !! In order to determine the exact field of the aggregate type
+// which we're trying to extract, we must be able to compute the
+// exact integer values that would be produced if we were to
+// evaluate the indexing constants, so that we can match against
+// the fields of the base argument !!
+//
+// We rely on a mapping from constant to integer (namely,
+// `constant:to_int`), to get back the actual value of *any* arbitrarily
+// complex constant index.
+//------------------------------------------------------------------------------
+
+.decl getelementptr_instrterm_type(instr:GetElementPtrInstruction, i:number, type:Type)
+.decl getelementptr_instr_value_type(instr:GetElementPtrInstruction, type:Type)
+
+
+next_instr_index(Instr, Index, Index + 1) :-
+   getelementptr_instr_index(Instr, Index, _).
+
+getelementptr_instrterm_type(Instr, 1, Type) :-
+   getelementptr_instr_base_type(Instr, PtrType),
+   pointer_type_has_component(PtrType, Type). // no vector-based filter here is needed
+
+getelementptr_instrterm_type(Instr, 1, Type) :-
+   getelementptr_instr_base_type(Instr, VectorPtrType),
+   vector_type_has_component(VectorPtrType, PtrType),
+   pointer_type_has_component(PtrType, Type). // for vector-based GEPs
+
+getelementptr_instrterm_type(Instr, NextIndex, Type) :-
+   getelementptr_instrterm_type(Instr, Index, ArrayType),
+   array_type_has_component(ArrayType, Type),
+   next_instr_index(Instr, Index, NextIndex).
+
+getelementptr_instrterm_type(Instr, NextIndex, Type) :-
+   getelementptr_instrterm_type(Instr, Index, VectorType),
+   vector_type_has_component(VectorType, Type),
+   next_instr_index(Instr, Index, NextIndex).
+
+getelementptr_instrterm_type(Instr, NextIndex, Type) :-
+   getelementptr_instrterm_type(Instr, Index, StructType),
+   getelementptr_instr_index(Instr, Index, FieldIdx),
+   constant_has_type(FieldIdx, FieldIdxType),
+   constant_to_int(FieldIdx, FieldIdxValue),
+   int32_type(FieldIdxType),   // c3
+   struct_type_field(StructType, FieldIdxValue, Type),
+   next_instr_index(Instr, Index, NextIndex).
+
+getelementptr_instr_value_type(Instr, Type) :-
+   getelementptr_instr_nindices(Instr, Total),
+   getelementptr_instrterm_type(Instr, Total, Type).
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+//  (1) The first operand of a ‘getelementptr' instr is
+//      always a pointer or a vector of pointers.
+//  (2) The first type indexed into must be a pointer value,
+//      subsequent types can be arrays, vectors, and structs.
+//      (Note that subsequent types being indexed into can never
+//      be pointers, since that would require loading the pointer
+//      before continuing calculation.)
+//
+// The type of each index argument depends on the type it is
+// indexing into:
+//
+//  (3) structure: only i32 integer constants are allowed (when
+//      using a vector of indices they must all be the same i32
+//      integer constant).
+//  (4) array pointer or vector: integers of any width are allowed,
+//      and they are not required to be constant.
+//
+//  (5) In cases where the pointer argument is a vector of pointers,
+//      each index must be a vector with the same number of elements.
+//
+//  The ‘getelementptr‘ instr returns a pointer to the element
+//  specified by the indices.
+//------------------------------------------------------------------------------
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   getelementptr_instr(Instr),
+   !getelementptr_instr_base(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   getelementptr_instr(Instr),
+   !getelementptr_instr_nindices(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   getelementptr_instr_base_type(Instr, PtrType),
+   !pointer_type(PtrType),
+   !pointer_vector_type(PtrType). // c1
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   getelementptr_instr(Instr),
+   !getelementptr_instr_value_type(Instr, _). // c2
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   getelementptr_instr_index_type(Instr, IdxType),
+   !integer_type(IdxType),
+   !integer_vector_type(IdxType). // c4
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   getelementptr_instr_base_type(Instr, PtrType),
+   getelementptr_instr_index_type(Instr, IdxType),
+   !vector_compatible_types(PtrType, IdxType). // c5
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   getelementptr_instr(Instr),
+   !gep_is_vector_based(Instr),
+   getelementptr_instr_value_type(Instr, ValueType),
+   instr_returns_type(Instr, PtrType),
+   !pointer_type_has_component(PtrType, ValueType). // creturn
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   getelementptr_instr(Instr),
+   gep_is_vector_based(Instr),
+   getelementptr_instr_value_type(Instr, ValueType),
+   instr_returns_type(Instr, VectorType),
+   vector_type_has_component(VectorType, PtrType),
+   !pointer_type_has_component(PtrType, ValueType). // creturn

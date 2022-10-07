@@ -157,7 +157,7 @@ auto FactGenerator::processModule(
         if (!instr.getType()->isVoidTy()) {
           refmode_t targetVar = refmode<llvm::Value>(instr);
 
-          writeFact(pred::instruction::to, iref, targetVar);
+          writeFact(pred::instr::to, iref, targetVar);
           recordVariable(targetVar, instr.getType());
 
           // Save variables for the CPG
@@ -166,19 +166,19 @@ auto FactGenerator::processModule(
         }
 
         // Record successor instruction
-        if (prev_instr) writeFact(pred::instruction::next, prev_iref, iref);
+        if (prev_instr) writeFact(pred::instr::next, prev_iref, iref);
 
         // Store the refmode of this instruction for next iteration
         prev_iref = iref;
         prev_instr = &instr;
 
         // Record instruction's container function
-        writeFact(pred::instruction::function, iref, funcref);
+        writeFact(pred::instr::func, iref, funcref);
 
         // Record instruction's basic block entry (label)
         const llvm::BasicBlock *bbEntry = instr.getParent();
         refmode_t bbEntryId = refmode<llvm::BasicBlock>(*bbEntry);
-        writeFact(pred::instruction::bb_entry, iref, bbEntryId);
+        writeFact(pred::instr::bb_entry, iref, bbEntryId);
 
         // Visit instruction
         IV.visit(const_cast<llvm::Instruction &>(instr));
@@ -193,7 +193,7 @@ auto FactGenerator::processModule(
             unsigned line = location.getLine();
             unsigned column = location.getCol();
 
-            writeFact(pred::instruction::pos, iref, line, column);
+            writeFact(pred::instr::pos, iref, line, column);
           }
         }
 

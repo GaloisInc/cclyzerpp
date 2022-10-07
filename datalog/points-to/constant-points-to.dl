@@ -7,7 +7,7 @@
 // It is essential to be able to track the flow of allocations through all these
 // types of constants, since an arbitrary complex constant expression may be used
 // as an operand to a `store` or `load`
-// instruction.
+// instr.
 
 .decl constant_points_to(?constant: Constant, ?alloc: Allocation)
 

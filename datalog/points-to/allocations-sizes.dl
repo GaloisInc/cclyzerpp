@@ -31,33 +31,33 @@ dynamically_sized_alloc(?alloc) :-
 //-----------------------
 
 // An array of elements is allocated in stack, if a size argument is
-// provided to the `alloca` instruction
+// provided to the `alloca` instr
 
 array_allocation(?stackAlloc) :-
-   alloca_instruction_size(?insn, _),
-   stack_allocation_by_instruction(?insn, ?stackAlloc).
+   alloca_instr_size(?insn, _),
+   stack_allocation_by_instr(?insn, ?stackAlloc).
 
 // The size in bytes can be computed by the size of the allocation
 // types and the number of elements being allocated (if a constant
 // operand was provided).
 
 dynamically_sized_alloc(?stackAlloc) :-
-  alloca_instruction_size(?insn, ?operand),
-  stack_allocation_by_instruction(?insn, ?stackAlloc),
+  alloca_instr_size(?insn, ?operand),
+  stack_allocation_by_instr(?insn, ?stackAlloc),
   ! constant_to_int(?operand, _).
 
 allocation_size(?stackAlloc, ?n) :-
-   alloca_instruction_size(?insn, ?operand),
+   alloca_instr_size(?insn, ?operand),
    constant_to_int(?operand, numElements),
-   stack_allocation_by_instruction(?insn, ?stackAlloc),
+   stack_allocation_by_instr(?insn, ?stackAlloc),
    static_allocation_type(?stackAlloc, ?type),
    type_has_size(?type, size),
    ?n = (numElements)*(size).
 
 allocation_size(?stackAlloc, ?size) :-
-   alloca_instruction(?insn),
-   !alloca_instruction_size(?insn, _),
-   stack_allocation_by_instruction(?insn, ?stackAlloc),
+   alloca_instr(?insn),
+   !alloca_instr_size(?insn, _),
+   stack_allocation_by_instr(?insn, ?stackAlloc),
    static_allocation_type(?stackAlloc, ?type),
    type_has_size(?type, ?size).
 
@@ -75,58 +75,58 @@ allocation_size(?stackAlloc, ?size) :-
 array_allocation(?heapAlloc),
   dynamically_sized_alloc(?heapAlloc)
   :-
-  heap_allocation_by_instruction(?insn, ?heapAlloc),
+  heap_allocation_by_instr(?insn, ?heapAlloc),
   ! sized_alloc_instr(?insn, _).
 
 // Compute sizes when available
 
 allocation_size(?heapAlloc, ?size) :-
-   heap_allocation_by_instruction(?insn, ?heapAlloc),
+   heap_allocation_by_instr(?insn, ?heapAlloc),
    sized_alloc_instr(?insn, ?size).
 
-// First compute size of allocation instruction, if statically
+// First compute size of allocation instr, if statically
 // available
 
 .decl sized_alloc_instr(?insn: Instruction, ?size: Bytes)
 
 sized_alloc_instr(?insn, as(?size, Bytes)) :-
    func_name(?func, "@malloc"),
-   call_instruction_fn_target(?insn, ?func),
-   call_instruction_arg(?insn, 0, ?operand),
+   call_instr_fn_target(?insn, ?func),
+   call_instr_arg(?insn, 0, ?operand),
    constant_to_int(?operand, ?size).
 
 sized_alloc_instr(?insn, as(?size, Bytes)) :-
    func_name(?func, "@malloc"),
-   invoke_instruction_fn_target(?insn, ?func),
-   invoke_instruction_arg(?insn, 0, ?operand),
+   invoke_instr_fn_target(?insn, ?func),
+   invoke_instr_arg(?insn, 0, ?operand),
    constant_to_int(?operand, ?size).
 
 sized_alloc_instr(?insn, as(?size, Bytes)) :-
    func_name(?func, "@realloc"),
-   invoke_instruction_fn_target(?insn, ?func),
-   invoke_instruction_arg(?insn, 1, ?operand),
+   invoke_instr_fn_target(?insn, ?func),
+   invoke_instr_arg(?insn, 1, ?operand),
    constant_to_int(?operand, ?size).
 
 sized_alloc_instr(?insn, as(?size, Bytes)) :-
    func_name(?func, "@realloc"),
-   call_instruction_fn_target(?insn, ?func),
-   call_instruction_arg(?insn, 1, ?operand),
+   call_instr_fn_target(?insn, ?func),
+   call_instr_arg(?insn, 1, ?operand),
    constant_to_int(?operand, ?size).
 
 sized_alloc_instr(?insn, as(n, Bytes)) :-
    func_name(?func, "@calloc"),
-   invoke_instruction_fn_target(?insn, ?func),
-   invoke_instruction_arg(?insn, 0, ?nmembOp),
-   invoke_instruction_arg(?insn, 1, ?sizeOp),
+   invoke_instr_fn_target(?insn, ?func),
+   invoke_instr_arg(?insn, 0, ?nmembOp),
+   invoke_instr_arg(?insn, 1, ?sizeOp),
    constant_to_int(?nmembOp, nmemb),
    constant_to_int(?sizeOp, size),
    n = size * nmemb.
 
 sized_alloc_instr(?insn, as(n, Bytes)) :-
    func_name(?func, "@calloc"),
-   call_instruction_fn_target(?insn, ?func),
-   call_instruction_arg(?insn, 0, ?nmembOp),
-   call_instruction_arg(?insn, 1, ?sizeOp),
+   call_instr_fn_target(?insn, ?func),
+   call_instr_arg(?insn, 0, ?nmembOp),
+   call_instr_arg(?insn, 1, ?sizeOp),
    constant_to_int(?nmembOp, nmemb),
    constant_to_int(?sizeOp, size),
    n = size * nmemb.
@@ -136,21 +136,21 @@ sized_alloc_instr(?insn, as(n, Bytes)) :-
 //---------------------------------
 
 allocation_size(?alloc, ?size) :-
-   stack_allocation_by_instruction(?insn, ?stackAlloc),
+   stack_allocation_by_instr(?insn, ?stackAlloc),
    allocation_size(?stackAlloc, ?size),
-   stack_allocation_by_type_instruction(_, ?insn, ?alloc).
+   stack_allocation_by_type_instr(_, ?insn, ?alloc).
 
 allocation_size(?alloc, ?size) :-
-   heap_allocation_by_instruction(?insn, ?heapAlloc),
+   heap_allocation_by_instr(?insn, ?heapAlloc),
    allocation_size(?heapAlloc, ?size),
-   heap_allocation_by_type_instruction(_, ?insn, ?alloc).
+   heap_allocation_by_type_instr(_, ?insn, ?alloc).
 
 dynamically_sized_alloc(?alloc) :-
-  stack_allocation_by_instruction(?insn, ?stackAlloc),
+  stack_allocation_by_instr(?insn, ?stackAlloc),
   dynamically_sized_alloc(?stackAlloc),
-  stack_allocation_by_type_instruction(_, ?insn, ?alloc).
+  stack_allocation_by_type_instr(_, ?insn, ?alloc).
 
 dynamically_sized_alloc(?alloc) :-
-  heap_allocation_by_instruction(?insn, ?heapAlloc),
+  heap_allocation_by_instr(?insn, ?heapAlloc),
   dynamically_sized_alloc(?heapAlloc),
-  heap_allocation_by_type_instruction(_, ?insn, ?alloc).
+  heap_allocation_by_type_instr(_, ?insn, ?alloc).
