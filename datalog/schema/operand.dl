@@ -28,6 +28,9 @@ variable_is_firstclass(Var) :-
    variable_has_type(Var, Type),
    type_is_firstclass(Type).
 
+variable_in_func(Variable, Function) :-
+   variable_in_func_name(Variable, FuncName),
+   func_name(Function, FuncName).
 
 // Debug-level information from source code (DWARF)
 .decl variable_has_debug_source_name(v:Variable, name:symbol)

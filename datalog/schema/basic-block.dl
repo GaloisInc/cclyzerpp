@@ -7,11 +7,18 @@
 
 .decl block_predecessor(v0:symbol, v1:symbol)
 block_predecessors(bb0, bb1) :-
-   block_predecessor(e0, e1),
-   variable_is_label(e0),
-   variable_is_label(e1),
-   block_of_label(bb0, e0),
-   block_of_label(bb1, e1).
+  block_predecessor(e0, e1),
+  variable_is_label(e0),
+  variable_is_label(e1),
+  block_of_label(bb0, e0),
+  block_of_label(bb1, e1).
+
+.decl instr_bb_entry(v0:symbol, v1:symbol)
+instr_block(e0, bb) :-
+  instr_bb_entry(e0, e1),
+  instr(e0),
+  variable_is_label(e1),
+  block_of_label(bb, e1).
 
 // Every instr must be inside a single basic block
 .decl instr_block(instr:Instruction, bb:BasicBlock)

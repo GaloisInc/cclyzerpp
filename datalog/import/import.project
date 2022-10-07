@@ -1,6 +1,2 @@
 #line 1 "import.dl"
 #include "import.dl"
-
-// TODO(lb): Delete this, see todo.dl
-#line 1 "todo.dl"
-#include "todo.dl"
