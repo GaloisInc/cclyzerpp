@@ -3,8 +3,8 @@
 .decl _filter_clause(c:Constant)
 .decl _landingpad_instr_clause(instr:LandingPadInstruction, i:number, c:Constant)
 
-_clause(Constant) :- clause(Clause), Clause = [Constant].
-_catch_clause(Constant)  :- catch_clause(Clause), Clause = [Constant].
-_filter_clause(Constant) :- filter_clause(Clause), Clause = [Constant].
-_landingpad_instr_clause(Instr, Idx, Constant) :-
-   landingpad_instr_clause(Instr, Idx, Clause), Clause = [Constant].
+_clause(Clause) :- clause(Clause).
+_catch_clause(Clause)  :- catch_clause(Clause).
+_filter_clause(Clause) :- filter_clause(Clause).
+_landingpad_instr_clause(Instr, Idx, Clause) :-
+   landingpad_instr_clause(Instr, Idx, Clause).
