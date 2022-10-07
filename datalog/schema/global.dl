@@ -136,7 +136,7 @@ local_exec_threadlocal_mode("thread_local(localexec)").
 .decl alias_aliasee(x:Alias, y:Constant)
 .decl alias_name(x:Alias, name:symbol)
 .decl alias_type(x:Alias, type:Type)
-.decl alias_linkage_type(x:Alias, link:LinkageType)
+.decl alias_linkage(x:Alias, link:LinkageType)
 .decl alias_visibility(x:Alias, vis:Visibility)
 
 // For constraints
@@ -154,7 +154,7 @@ schema_invalid_alias(Var, __FILE__, __LINE__) :-
 
 schema_invalid_alias(Var, __FILE__, __LINE__) :-
    schema_sanity(),
-   alias_linkage_type(Var, Link),
+   alias_linkage(Var, Link),
    !private_linkage_type(Link),
    !linker_private_linkage_type(Link),
    !linker_private_weak_linkage_type(Link),
