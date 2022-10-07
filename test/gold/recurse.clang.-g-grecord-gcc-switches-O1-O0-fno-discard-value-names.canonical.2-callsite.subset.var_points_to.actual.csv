@@ -1,5 +1,0 @@
-[<<main-context>>, nil]	*stack_alloc@main[i32* %argc.addr]	[<<main-context>>, nil]	<recurse.c>:main:%argc.addr
-[<<main-context>>, nil]	*stack_alloc@main[i32* %retval]	[<<main-context>>, nil]	<recurse.c>:main:%retval
-[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr]	[<<main-context>>, nil]	<recurse.c>:main:%argv.addr
-nil	*argv-alloc	[<<main-context>>, nil]	<recurse.c>:main:%argv
-nil	*stack_alloc@countdown[i32* %x.addr]	nil	<recurse.c>:countdown:%x.addr

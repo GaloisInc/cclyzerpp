@@ -1,4 +1,0 @@
-<allocation-sizes.c>:@.str	*global_alloc@.str
-<allocation-sizes.c>:@dynamic_size_global	*global_alloc@dynamic_size_global
-<allocation-sizes.c>:@large_const_size_global	*global_alloc@large_const_size_global
-<allocation-sizes.c>:@small_const_size_global	*global_alloc@small_const_size_global

@@ -1,6 +1,0 @@
-nil	*argv-alloc	[<<main-context>>, nil]	<functiontable.c>:main:%argv
-nil	*global_alloc@__const.main.table[*]	[<<main-context>>, nil]	<functiontable.c>:main:%arrayidx
-nil	*global_alloc@__const.main.table[0][*]	[<<main-context>>, nil]	<functiontable.c>:main:%arrayidx
-nil	*global_alloc@bar	[<<main-context>>, nil]	<functiontable.c>:main:%0
-nil	*global_alloc@baz	[<<main-context>>, nil]	<functiontable.c>:main:%0
-nil	*global_alloc@foo	[<<main-context>>, nil]	<functiontable.c>:main:%0

@@ -1,6 +1,0 @@
-nil	*argv-alloc[0]	*argv-alloc
-nil	*argv[0]-alloc[0]	*argv[0]-alloc
-nil	*global_alloc@.str.1[0]	*global_alloc@.str.1
-nil	*global_alloc@.str.1[0][*]	*global_alloc@.str.1[0]
-nil	*global_alloc@str[0]	*global_alloc@str
-nil	*global_alloc@str[0][*]	*global_alloc@str[0]

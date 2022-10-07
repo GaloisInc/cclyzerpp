@@ -1,7 +1,0 @@
-[<recurse.c>:countdown:6, nil]	<recurse.c>:printf	nil	<recurse.c>:countdown:6
-[<recurse.c>:countdown:9, nil]	<recurse.c>:printf	nil	<recurse.c>:countdown:9
-nil	<recurse.c>:countdown	[<<main-context>>, nil]	<recurse.c>:main:8
-nil	<recurse.c>:countdown	nil	<recurse.c>:countdown:12
-nil	<recurse.c>:llvm.dbg.declare	[<<main-context>>, nil]	<recurse.c>:main:5
-nil	<recurse.c>:llvm.dbg.declare	[<<main-context>>, nil]	<recurse.c>:main:7
-nil	<recurse.c>:llvm.dbg.declare	nil	<recurse.c>:countdown:2
