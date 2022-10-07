@@ -153,7 +153,7 @@ _type_info_by_alloc(?obj, ?excTypeInfo) :-
 typeinfo(?var),
    external_typeinfo(?var) :-
    external_linkage_type(?externalLinkage),
-   global_var_linkage_type(?var, ?externalLinkage),
+   global_var_linkage(?var, ?externalLinkage),
    global_var_name(?var, ?name),
    substr(?name, 0, strlen("@_ZTI")) = "@_ZTI".
 
