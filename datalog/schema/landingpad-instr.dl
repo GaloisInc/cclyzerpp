@@ -123,12 +123,7 @@ _valid_landingpad(BB) :-
 // constant as its argument.
 //------------------------------------------------------------------------------
 
-// Clauses as records
-
-// TODO(#47): Make this not a record, clean up relations dealing with it.
-.type Clause = [
-   arg : Constant
-]
+.type Clause = Constant
 
 .decl clause(c:Clause)
 .decl catch_clause(c:Clause)
@@ -173,8 +168,7 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    landingpad_instr_clause(Instr, _, Clause),
    filter_clause(Clause),
-   Clause = [ Constant ],
-   constant_has_type(Constant, Type),
+   constant_has_type(Clause, Type),
    !array_type(Type).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-

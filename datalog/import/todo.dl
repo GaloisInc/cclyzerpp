@@ -37,10 +37,10 @@ switch_instr_case(v0, v1, v2, v3) :-
 .decl _landingpad_instr_catch_clause(v0:Instruction, v1:number, v2:Constant)
 .decl _landingpad_instr_filter_clause(v0:Instruction, v1:number, v2:Constant)
 
-catch_clause([v2]), landingpad_instr_clause(v0, v1, [v2]) :-
+catch_clause(v2), landingpad_instr_clause(v0, v1, v2) :-
    _landingpad_instr_catch_clause(v0, v1, v2).
 
-filter_clause([v2]), landingpad_instr_clause(v0, v1, [v2]) :-
+filter_clause(v2), landingpad_instr_clause(v0, v1, v2) :-
    _landingpad_instr_filter_clause(v0, v1, v2).
 
 .decl _constant_in_func(v0:Constant, v1:FunctionName)
