@@ -38,7 +38,7 @@ full_image_name="ghcr.io/galoisinc/${name}"
 # * The most recent `:main`-tagged image
 prev_ref=$(git rev-parse "${ref}~1" || true)
 
->&2 echo "Building ${full_image_name}:${ref} from ${file}.dockerfile"
+>&2 echo "Building ${full_image_name}:${ref} from ${file}"
 
 # Do the actual build. We need to explicitly enable BuildKit's inline cache,
 # for reasons that I don't know.

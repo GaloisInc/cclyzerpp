@@ -17,6 +17,9 @@ extra tests, set ``EXTRA_TESTS=1``.
 Cutting a Release
 *****************
 
+Before cutting a new release, consider running the extended test suite (see
+``EXTRA_TESTS`` above).
+
 First, ensure that the :doc:`changelog` is up to date. Then, push a new tag that
 starts with ``v``, e.g., ``v0.2``, and the CI build will create a draft release
 on Github. Worked example:
