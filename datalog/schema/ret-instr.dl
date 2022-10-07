@@ -10,13 +10,13 @@ terminator_instr(v) :- ret_instr(v).
 // The ‘ret‘ instr optionally accepts a single
 // argument, the return value.
 
-.decl ret_instr_value(instr:RetInstruction, val:Operand)
-.decl void_ret_instr(instr:RetInstruction)
+.decl ret_instr_operand(instr:RetInstruction, val:Operand)
+.decl ret_instr_void_(instr:RetInstruction)
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
-   void_ret_instr(Instr),
-   ret_instr_value(Instr, _).
+   ret_instr_void_(Instr),
+   ret_instr_operand(Instr, _).
 
 
 //------------------------------------------------------------------------------
@@ -40,14 +40,14 @@ func_is_wellformed(Func):-
    !func_is_illformed(Func).
 
 func_is_illformed(Func) :-
-   void_ret_instr(Instr),
+   ret_instr_void_(Instr),
    instr_func(Instr, Func),
    func_ty(Func, FuncType),
    func_type_return(FuncType, RetType),
    !void_type(RetType).
 
 func_is_illformed(Func) :-
-   ret_instr_value(Instr, Value),
+   ret_instr_operand(Instr, Value),
    instr_func(Instr, Func),
    func_ty(Func, FuncType),
    func_type_return(FuncType, RetType),
@@ -56,7 +56,7 @@ func_is_illformed(Func) :-
 
 func_is_illformed(Func) :-
    ret_instr(Instr),
-   !void_ret_instr(Instr),
+   !ret_instr_void_(Instr),
    instr_func(Instr, Func),
    func_ty(Func, FuncType),
    func_type_return(FuncType, RetType),
@@ -71,5 +71,5 @@ func_is_illformed(Func) :-
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
-   ret_instr_value(Instr, Value),
+   ret_instr_operand(Instr, Value),
    !operand_is_firstclass(Value).
