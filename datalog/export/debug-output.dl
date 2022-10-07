@@ -53,7 +53,7 @@
 .output aggregate_type (compress=true)
 .output alias (compress=true)
 .output alias_aliasee (compress=true)
-.output alias_linkage_type (compress=true)
+.output alias_linkage (compress=true)
 .output alias_name (compress=true)
 .output alias_type (compress=true)
 .output alias_visibility (compress=true)
