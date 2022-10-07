@@ -81,7 +81,8 @@ target_compile_options(SoufflePAObject PRIVATE ${SOUFFLE_COMPILE_FLAGS})
 target_compile_definitions(SoufflePAObject PRIVATE __EMBEDDED_SOUFFLE__)
 target_compile_definitions(SoufflePAObject PRIVATE USE_LIBZ)
 
-add_library(SoufflePA SHARED PAInterface.cpp PAInterface.h
+add_library(SoufflePA SHARED ${CMAKE_CURRENT_LIST_DIR}/src/PAInterface.cpp
+                             ${CMAKE_CURRENT_LIST_DIR}/src/PAInterface.h
                              $<TARGET_OBJECTS:SoufflePAObject>)
 
 target_link_libraries(
@@ -138,12 +139,12 @@ endif()
 add_library(PAPassInterface INTERFACE)
 
 target_sources(PAPassInterface
-               INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/PointerAnalysis.h)
+               INTERFACE ${CMAKE_CURRENT_LIST_DIR}/src/PointerAnalysis.h)
 
 target_include_directories(PAPassInterface
-                           INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+                           INTERFACE ${CMAKE_CURRENT_LIST_DIR}/src)
 
-add_library(PAPass MODULE PointerAnalysis.cpp)
+add_library(PAPass MODULE ${CMAKE_CURRENT_LIST_DIR}/src/PointerAnalysis.cpp)
 
 # Use C++17 to compile our pass (i.e., supply -std=c++17).
 target_compile_features(PAPass PUBLIC cxx_std_17)
