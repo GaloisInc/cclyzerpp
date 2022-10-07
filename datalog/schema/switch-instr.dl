@@ -7,6 +7,7 @@
 instr(v) :- switch_instr(v).
 terminator_instr(v) :- switch_instr(v).
 
+// TODO(#47): Make this not a record, clean up relations dealing with it.
 .type SwitchInstructionCase = [
    constant : Constant,
    label : Variable

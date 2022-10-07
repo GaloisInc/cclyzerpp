@@ -1,9 +1,3 @@
-.decl _phi_instr_pair(instr:PhiInstruction, index:number, value:Operand, label:Variable)
-
-_phi_instr_pair(Instr, Idx, Value, Label) :-
-   phi_instr_pair(Instr, Idx, Pair),
-   Pair = [Value, Label].
-
 .decl _clause(c:Constant)
 .decl _catch_clause(c:Constant)
 .decl _filter_clause(c:Constant)
