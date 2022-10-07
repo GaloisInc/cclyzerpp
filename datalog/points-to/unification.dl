@@ -674,6 +674,8 @@ unification_aliases.alloc_subregion_at_any_array_index(?alloc, ?region) :-
 
 .init unification_lift = Lift
 
+unification_lift.alloc_aliases(?alloc1, ?alloc2) :-
+  unification_aliases.alloc_aliases(?alloc1, ?alloc2).
 unification_lift.alloc_may_alias(?alloc1, ?alloc2) :-
   unification_aliases.alloc_may_alias(?alloc1, ?alloc2).
 

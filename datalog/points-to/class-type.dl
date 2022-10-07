@@ -198,8 +198,9 @@ relevant_suffix_position(?typeName, ?pos) :-
 
 .decl suffix(?type:Type, ?suffix:symbol, ?suffixLen:number)
 
+// TODO(lb): Should this be using the type name from the first atom?
 suffix(?type, ?suffix, ?suffixLen) :-
- struct_type_has_name(?type, ?name),
+ struct_type_has_name(?type, _),
  relevant_suffix_position(?type, ?pos),
  substr(?type, ?pos, 1) = ".",
  ?suffixLen = strlen(?type) - ?pos - 1,
@@ -211,11 +212,6 @@ suffix(?type, ?suffix, ?suffixLen) :-
  substr(?type, 0, ?pos + 1) != "%\"struct.",
  substr(?type, 0, ?pos + 1) != "%union.",
  substr(?type, 0, ?pos + 1) != "%\"union.".
-
-
-// suffix(?type, ?type, ?suffixLen) :-
-//  struct_type(?type),
-//  ?suffixLen = strlen(?type).
 
 .decl minimal_suffix_len(?type:StructType, ?suffixLen:number)
 

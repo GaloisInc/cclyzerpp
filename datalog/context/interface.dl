@@ -49,6 +49,8 @@ drop_last(?out, ?in),
   context(?out)
   :-  // base case
   context(?in),
+  // Variable ?tailHead is unused, but required for Souffle to consider this
+  // record grounded.
   ?in = [?head, [?tailHead, nil]],
   ?out = [?head, nil].
 
@@ -171,13 +173,13 @@ drop_last(?out, ?in),
 
   .decl assert_reachable_calls_have_context_items(?instr: Instruction)
   assert_reachable_calls_have_context_items(?instr) :-
-    user_options("context_sensitivity", Config),
+    user_options("context_sensitivity", _),
     _reachable_call(_, ?instr),
     count_context_items(?instr, 0).
 
   .decl assert_reachable_calls_have_contexts(?instr: Instruction)
   assert_reachable_calls_have_contexts(?instr) :-
-    user_options("context_sensitivity", Config),
+    user_options("context_sensitivity", _),
     _reachable_call(_, ?instr),
     count_contexts(?instr, 0).
 }

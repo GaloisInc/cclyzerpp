@@ -212,7 +212,7 @@ not_array_index(?component) :- path_component_at_any_index(?component).
 .type ArraySubregion
   = ArrayIndexSubregion
   | AnyArrayIndexSubregion
-  
+
 .type ArrayIndexSubregion <: symbol
 .type AnyArrayIndexSubregion <: symbol
 
@@ -309,7 +309,7 @@ not_array_index(?component) :- path_component_at_any_index(?component).
 
   split_path(?fullPath, ?start, ?end) :-
     longest_path_to(?root, ?start, ?mid),
-    _alloc_subregion(?sub, ?mid, ?end, ?root, ?fullPath, _).
+    _alloc_subregion(_, ?mid, ?end, ?root, ?fullPath, _).
 
   // Global allocations holding funcs don't have any suballocations, it's
   // illegal to add offsets to pointers to such allocations.
@@ -339,13 +339,7 @@ not_array_index(?component) :- path_component_at_any_index(?component).
     struct_type(?type),
     struct_type_field(?type, ?field, ?fieldType),
     ?component = cat("/", to_string(?field)),
-    ( ( struct_type_field_name(?type,?field, ?fieldName)
-      , ?newAlloc = cat(?alloc, ".", ?fieldName, "/", to_string(?field))
-      )
-    ; ( !struct_type_field_name(?type,?field, _)
-      , ?newAlloc = cat(?alloc, ".?/", to_string(?field))
-      )
-    ).
+    ?newAlloc = cat(?alloc, ".?/", to_string(?field)).
 
   //---------------------------------------------------------------
   // [Array Element Selections: unknown *star* index]
@@ -481,13 +475,13 @@ not_array_index(?component) :- path_component_at_any_index(?component).
   // Suballocations at a given array index are of fixed size, the size of the
   // element type.
   allocation_size(?subAlloc, ?size) :-
-    alloc_subregion_at_array_index(?base, ?idx, ?subAlloc),
+    alloc_subregion_at_array_index(_, _, ?subAlloc),
     allocation_type(?subAlloc, ?type),
     type_has_size(?type, ?size).
 
   // The [*]-index is treated as a single suballocation.
   allocation_size(?subAlloc, ?size) :-
-    alloc_subregion_at_any_array_index(?base, ?subAlloc),
+    alloc_subregion_at_any_array_index(_, ?subAlloc),
     allocation_type(?subAlloc, ?type),
     type_has_size(?type, ?size).
 

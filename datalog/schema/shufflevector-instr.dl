@@ -76,12 +76,16 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    shufflevector_instr(Instr),
    shufflevector_instrput_type(Instr, InputType),
    shufflevector_instr_first_vector(Instr, FirstVector),
-   shufflevector_instr_second_vector(Instr, SecondVector),
    operand_has_type(FirstVector, FirstVectorType),
-   operand_has_type(SecondVector, SecondVectorType),
-   ( FirstVectorType != InputType
-   ; SecondVectorType != InputType).
+   FirstVectorType != InputType.
 
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   shufflevector_instr(Instr),
+   shufflevector_instrput_type(Instr, InputType),
+   shufflevector_instr_second_vector(Instr, SecondVector),
+   operand_has_type(SecondVector, SecondVectorType),
+   SecondVectorType != InputType.
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),

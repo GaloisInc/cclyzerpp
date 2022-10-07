@@ -286,6 +286,8 @@ subset_aliases.alloc_subregion_at_any_array_index(?alloc, ?region) :-
 
 .init subset_lift = Lift
 
+subset_lift.alloc_aliases(?alloc1, ?alloc2) :-
+  subset_aliases.alloc_aliases(?alloc1, ?alloc2).
 subset_lift.alloc_may_alias(?alloc1, ?alloc2) :-
   subset_aliases.alloc_may_alias(?alloc1, ?alloc2).
 

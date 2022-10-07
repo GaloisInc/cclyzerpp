@@ -133,11 +133,13 @@ func_by_location(?alloc, ?callee) :-
   callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr)
    , context(?calleeCtx)
    :-
-     _callgraph_edge_interim_indirect_call(?callee, ?callerCtx, ?aCtx, ?callerInstr),
+     _callgraph_edge_interim_indirect_call(?callee, ?callerCtx, _, ?callerInstr),
      merge(?calleeCtx, ?callerInstr, ?callerCtx).
 
   .decl _callgraph_edge_interim_indirect_invoke(?callee: FunctionDecl, ?callerCtx: Context, ?aCtx: Context, ?callerInstr: Instruction)
 
+  // TODO(lb): Perhaps don't store the allocation context? Seems unused by
+  // callgraph_edge.
   _callgraph_edge_interim_indirect_invoke(?callee, ?callerCtx, ?aCtx, ?callerInstr)
    :-
      invoke_instr(?callerInstr),
@@ -152,7 +154,7 @@ func_by_location(?alloc, ?callee) :-
   callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr)
    , context(?calleeCtx)
    :-
-     _callgraph_edge_interim_indirect_invoke(?callee, ?callerCtx, ?aCtx, ?callerInstr),
+     _callgraph_edge_interim_indirect_invoke(?callee, ?callerCtx, _, ?callerInstr),
      merge(?calleeCtx, ?callerInstr, ?callerCtx).
 }
 

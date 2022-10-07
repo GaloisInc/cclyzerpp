@@ -84,6 +84,11 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
+   switch_instr_case(Instr, Index, _, _),
+   Index < 0.
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
    switch_instr_ncases(Instr, Total),
    switch_instr_case(Instr, Index, _, _),
-   (Index < 0 ; Index >= Total).
+   Index >= Total.

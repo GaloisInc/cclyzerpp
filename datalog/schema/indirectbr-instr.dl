@@ -51,8 +51,14 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    indirectbr_instr(Instr),
    indirectbr_instr_label(Instr, Index, _),
+   Index < 0.
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   indirectbr_instr(Instr),
+   indirectbr_instr_label(Instr, Index, _),
    indirectbr_instr_nlabels(Instr, Total),
-   (Index < 0 ; Index >= Total).
+   Index >= Total.
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),

@@ -1,0 +1,28 @@
+[<<main-context>>, nil]	*stack_alloc@main[i32* %a]	*stack_alloc@main[i32* %a]
+[<<main-context>>, nil]	*stack_alloc@main[i32* %argc.addr]	*stack_alloc@main[i32* %argc.addr]
+[<<main-context>>, nil]	*stack_alloc@main[i32* %b]	*stack_alloc@main[i32* %b]
+[<<main-context>>, nil]	*stack_alloc@main[i32* %c]	*stack_alloc@main[i32* %c]
+[<<main-context>>, nil]	*stack_alloc@main[i32* %d]	*stack_alloc@main[i32* %d]
+[<<main-context>>, nil]	*stack_alloc@main[i32* %e]	*stack_alloc@main[i32* %e]
+[<<main-context>>, nil]	*stack_alloc@main[i32* %retval]	*stack_alloc@main[i32* %retval]
+[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr]	*stack_alloc@main[i8*** %argv.addr]
+[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr]	*stack_alloc@main[i8*** %argv.addr][0]
+[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr][0]	*stack_alloc@main[i8*** %argv.addr]
+[<<main-context>>, nil]	*stack_alloc@main[i8*** %argv.addr][0]	*stack_alloc@main[i8*** %argv.addr][0]
+nil	*argv-alloc	*argv-alloc
+nil	*argv-alloc	*argv-alloc[0]
+nil	*argv-alloc[0]	*argv-alloc
+nil	*argv-alloc[0]	*argv-alloc[0]
+nil	*argv[0]-alloc	*argv[0]-alloc
+nil	*argv[0]-alloc	*argv[0]-alloc[0]
+nil	*argv[0]-alloc[0]	*argv[0]-alloc
+nil	*argv[0]-alloc[0]	*argv[0]-alloc[0]
+nil	*global_alloc@bar	*global_alloc@bar
+nil	*global_alloc@baz	*global_alloc@baz
+nil	*global_alloc@foo	*global_alloc@foo
+nil	*global_alloc@global	*global_alloc@global
+nil	*global_alloc@llvm.dbg.declare	*global_alloc@llvm.dbg.declare
+nil	*stack_alloc@bar[i32* %x.addr]	*stack_alloc@bar[i32* %x.addr]
+nil	*stack_alloc@foo[i32* %a]	*stack_alloc@foo[i32* %a]
+nil	*stack_alloc@foo[i32* %b]	*stack_alloc@foo[i32* %b]
+nil	*stack_alloc@foo[i32* %x.addr]	*stack_alloc@foo[i32* %x.addr]
