@@ -302,7 +302,7 @@ void InstructionVisitor::visitInvokeInst(const llvm::InvokeInst &II) {
 
   if (Attrs.hasAttributes(Attributes::ReturnIndex)) {
     string attrs = Attrs.getAsString(Attributes::ReturnIndex);
-    gen.writeFact(pred::invoke::ret_attr, iref, attrs);
+    gen.writeFact(pred::invoke::return_attr, iref, attrs);
   }
 
   gen.writeFnAttributes<pred::invoke>(iref, Attrs);
@@ -580,7 +580,7 @@ void InstructionVisitor::visitCallInst(const llvm::CallInst &CI) {
   if (Attrs.hasAttributes(Attributes::ReturnIndex)) {
     const auto ReturnAttrs = Attrs.getAttributes(Attributes::ReturnIndex);
     for (const auto Attr : ReturnAttrs) {
-      gen.writeFact(pred::call::ret_attr, iref, Attr.getAsString());
+      gen.writeFact(pred::call::return_attr, iref, Attr.getAsString());
     }
   }
 

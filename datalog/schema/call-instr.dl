@@ -120,13 +120,13 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    call_instr_with_fn_attr(Instr, Attr),
-   !func_attr__noreturn(Attr),
-   !func_attr__nounwind(Attr),
-   !func_attr__readonly(Attr),
-   !func_attr__readnone(Attr),
-   !func_attr__cold(Attr),
-   !func_attr__returns_twice(Attr),
-   !func_attr__builtin(Attr),
+   !func_fn_attr__noreturn(Attr),
+   !func_fn_attr__nounwind(Attr),
+   !func_fn_attr__readonly(Attr),
+   !func_fn_attr__readnone(Attr),
+   !func_fn_attr__cold(Attr),
+   !func_fn_attr__returns_twice(Attr),
+   !func_fn_attr__builtin(Attr),
    !target_dependent_attr(Attr). // c6
 
 
@@ -139,7 +139,7 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
 //    schema_sanity(),
 //    call_instr_fn_target(Instr, Func),
 //    call_instr_with_calling_convention(Instr, CConv),
-//    !func_calling_convention(Func, CConv). // c2
+//    !func_calling_conv(Func, CConv). // c2
 
 // Signature conformance
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-

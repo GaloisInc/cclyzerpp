@@ -48,6 +48,7 @@ space. This judgment is highly subjective, but must be made somehow.
 - ``asm``: Assembly
 - ``attr``: Attribute
 - ``block``: LLVM basic block
+- ``calling_conv``: Calling convention
 - ``const``: Constant
 - ``global_var``: Global variable
 - ``expr``: Expression
