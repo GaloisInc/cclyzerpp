@@ -129,9 +129,36 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     # TODO(lb): Figure out how to tag these images with the version number
-    - name: Build and push dev and dist images
+    - name: Build and push dev image
       run: |
         env PUSH=1 ./scripts/gha-docker-build "dev" "cclyzerpp-dev"
+
+    # TODO(lb): Reduce duplication with build job
+    - name: Build
+      run: |
+        if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+          ref="${ACTUAL_GITHUB_SHA_ON_PULL_REQUEST}"
+        else
+          ref="${GITHUB_SHA}"
+        fi
+
+        docker run \
+          --rm \
+          --mount type=bind,src=$PWD,target=/work \
+          --workdir /work \
+          "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
+          cmake -G Ninja -B build -S .
+
+        docker run \
+          --rm \
+          --mount type=bind,src=$PWD,target=/work \
+          --workdir /work \
+          "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
+          cmake --build build -j $(nproc)
+
+    # TODO(lb): Figure out how to tag these images with the version number
+    - name: Build and push dist image
+      run: |
         env PUSH=1 ./scripts/gha-docker-build "dist" "cclyzerpp-dist"
 
     - uses: ncipollo/release-action@v1
