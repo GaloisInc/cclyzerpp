@@ -106,7 +106,7 @@ jobs:
       - name: Install linting tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y clang-format
+          sudo apt-get install -y clang-format mypy
 
       - name: Run linting script
         run: bash scripts/lint.sh
