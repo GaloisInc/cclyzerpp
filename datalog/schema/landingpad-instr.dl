@@ -125,6 +125,7 @@ _valid_landingpad(BB) :-
 
 // Clauses as records
 
+// TODO(#47): Make this not a record, clean up relations dealing with it.
 .type Clause = [
    arg : Constant
 ]

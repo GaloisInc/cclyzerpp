@@ -41,7 +41,7 @@ assign_instr(?toVar, ?value) :-
 assign_instr(?toVar, ?value) :-
    any_reachable_func(?instrFunc),
    instr_func(?instr, ?instrFunc),
-   phi_instr_pair(?instr, _, [?value, _]),
+   phi_instr_pair(?instr, _, ?value, _),
    instr_assigns_to(?instr, ?toVar).
 
 // `select` instrs; similar to `phi` instrs

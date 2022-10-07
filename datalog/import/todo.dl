@@ -18,7 +18,7 @@ instr_block(e0, bb) :-
 
 .decl _phi_instr_pair_label(v0:symbol, v1:number, v2:symbol)
 .decl _phi_instr_pair_value(v0:symbol, v1:number, v2:symbol)
-phi_instr_pair(v0, v1, [v2, v3]) :-
+phi_instr_pair(v0, v1, v2, v3) :-
    _phi_instr_pair_value(v0, v1, v2),
    phi_instr(v0),
    operand(v2),
