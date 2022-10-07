@@ -64,15 +64,15 @@ schema_multiple_func_names(Func, __FILE__, __LINE__) :-
 //-----------------------------------------------------------------
 
 .decl func_alignment(func:FunctionDecl, alignment:number)
-.decl func_linkage_type(func:FunctionDecl, link:LinkageType)
+.decl func_linkage(func:FunctionDecl, link:LinkageType)
 .decl func_visibility(func:FunctionDecl, vis:Visibility)
-.decl func_calling_convention(func:FunctionDecl, cc:CallingConvention)
+.decl func_calling_conv(func:FunctionDecl, cc:CallingConvention)
 .decl func_unnamed_addr(func:FunctionDecl)
 .decl func_gc(func:FunctionDecl, collector:symbol)
 .decl func_pers_fn(func:FunctionDecl, persfn:Constant)
 
-calling_convention(cc) :- func_calling_convention(_, cc).
-linkage_type(link) :- func_linkage_type(_, link).
+calling_convention(cc) :- func_calling_conv(_, cc).
+linkage_type(link) :- func_linkage(_, link).
 visibility(vis) :- func_visibility(_, vis).
 
 //-----------------------------------------------------------------
@@ -114,11 +114,11 @@ func_nparams(Func, Total) :-
 // If multiple parameter attrs are needed, they are space separated.
 //------------------------------------------------------------------------------
 
-.decl func_attr(func:FunctionDecl, attr:Attribute)
+.decl func_fn_attr(func:FunctionDecl, attr:Attribute)
 .decl func_return_attr(func:FunctionDecl, attr:Attribute)
 .decl func_param_attr(func:FunctionDecl, index:ArgumentIndex, attr:Attribute)
 
-attr(Attr) :- func_attr(_, Attr).
+attr(Attr) :- func_fn_attr(_, Attr).
 attr(Attr) :- func_return_attr(_, Attr).
 attr(Attr) :- func_param_attr(_, _, Attr).
 

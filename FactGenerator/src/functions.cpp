@@ -21,7 +21,7 @@ void FactGenerator::writeFunction(
   refmode_t typeSignature = recordType(func.getFunctionType());
 
   // Record function type signature
-  writeFact(pred::func::type, funcref, typeSignature);
+  writeFact(pred::func::ty, funcref, typeSignature);
 
   // Record function signature (name plus type signature) after
   // unmangling
@@ -79,7 +79,7 @@ void FactGenerator::writeFunction(
 
   if (Attrs.hasAttributes(Attributes::ReturnIndex))
     writeFact(
-        pred::func::ret_attr,
+        pred::func::return_attr,
         funcref,
         Attrs.getAsString(Attributes::ReturnIndex));
 
@@ -158,7 +158,7 @@ void FactGenerator::writeFnAttributes(
       // Record attribute by kind
       switch (index) {
         case Attributes::AttrIndex::ReturnIndex:
-          writeFact(PredGroup::ret_attr, refmode, attr);
+          writeFact(PredGroup::return_attr, refmode, attr);
           break;
         case Attributes::AttrIndex::FunctionIndex:
           writeFact(PredGroup::fn_attr, refmode, attr);
