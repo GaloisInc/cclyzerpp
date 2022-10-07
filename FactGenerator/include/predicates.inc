@@ -187,9 +187,9 @@ GROUP_END(xor_)
 
 GROUP_BEGIN(ret)
 PREDICATE2(ret, instr)
-// TODO(lb):
+// TODO(#42):
 PREDICATE(ret, instr_void, void_ret_instr)
-// TODO(lb):
+// TODO(#42):
 PREDICATE(ret, operand, ret_instr_value)
 GROUP_END(ret)
 
@@ -207,7 +207,7 @@ GROUP_BEGIN(switch_)
 PREDICATE2S(switch_, instr)
 PREDICATEIS(switch_, operand)
 PREDICATEIS(switch_, default_label)
-// TODO(lb): Remove leading underscores
+// TODO(#42): Remove leading underscores
 PREDICATE(switch_, case_value, _switch_instr_case_value)
 PREDICATE(switch_, case_label, _switch_instr_case_label)
 PREDICATEIS(switch_, ncases)
@@ -227,7 +227,7 @@ GROUP_END(resume)
 
 GROUP_BEGIN(invoke)
 PREDICATE2(invoke, instr)
-// TODO(lb): Rename for consistency
+// TODO(#42): Rename for consistency
 PREDICATE(invoke, instr_direct, direct_invoke_instr)
 PREDICATE(invoke, instr_indirect, indirect_invoke_instr)
 PREDICATE(invoke, function, invoke_instr_fn_operand)
@@ -243,14 +243,14 @@ GROUP_END(invoke)
 // Vector Operations
 
 GROUP_BEGIN(extract_element)
-// TODO(lb): Rename extract_element to extractelement
+// TODO(#42): Rename extract_element to extractelement
 PREDICATE(extract_element, instr, extractelement_instr)
 PREDICATE(extract_element, base, extractelement_instr_base)
 PREDICATE(extract_element, index, extractelement_instr_index)
 GROUP_END(extract_element)
 
 GROUP_BEGIN(insert_element)
-// TODO(lb): Rename insert_element to insertelement
+// TODO(#42): Rename insert_element to insertelement
 PREDICATE(insert_element, instr, insertelement_instr)
 PREDICATE(insert_element, base, insertelement_instr_base)
 PREDICATE(insert_element, index, insertelement_instr_index)
@@ -258,7 +258,7 @@ PREDICATE(insert_element, value, insertelement_instr_value)
 GROUP_END(insert_element)
 
 GROUP_BEGIN(shuffle_vector)
-// TODO(lb): Rename shuffle_vector to shufflevector
+// TODO(#42): Rename shuffle_vector to shufflevector
 PREDICATE(shuffle_vector, instr, shufflevector_instr)
 PREDICATE(shuffle_vector, first_vector, shufflevector_instr_first_vector)
 PREDICATE(shuffle_vector, second_vector, shufflevector_instr_second_vector)
@@ -268,7 +268,7 @@ GROUP_END(shuffle_vector)
 // Aggregate Operations
 
 GROUP_BEGIN(extract_value)
-// TODO(lb): Rename extract_value to extractvalue
+// TODO(#42): Rename extract_value to extractvalue
 PREDICATE(extract_value, instr, extractvalue_instr)
 PREDICATE(extract_value, base, extractvalue_instr_base)
 PREDICATE(extract_value, index, extractvalue_instr_index)
@@ -276,7 +276,7 @@ PREDICATE(extract_value, nindices, extractvalue_instr_nindices)
 GROUP_END(extract_value)
 
 GROUP_BEGIN(insert_value)
-// TODO(lb): Rename insert_value to insertvalue
+// TODO(#42): Rename insert_value to insertvalue
 PREDICATE(insert_value, instr, insertvalue_instr)
 PREDICATE(insert_value, base, insertvalue_instr_base)
 PREDICATE(insert_value, value, insertvalue_instr_value)
@@ -298,7 +298,7 @@ PREDICATE2(load, instr)
 PREDICATEI(load, alignment)
 PREDICATEI(load, ordering)
 PREDICATEI(load, address)
-// TODO(lb):
+// TODO(#42):
 PREDICATE(load, isvolatile, load_instr_is_volatile)
 GROUP_END(load)
 
@@ -308,7 +308,7 @@ PREDICATEI(store, alignment)
 PREDICATEI(store, ordering)
 PREDICATEI(store, value)
 PREDICATEI(store, address)
-// TODO(lb):
+// TODO(#42):
 PREDICATE(store, isvolatile, store_instr_is_volatile)
 GROUP_END(store)
 
@@ -323,7 +323,7 @@ PREDICATEI(atomicrmw, ordering)
 PREDICATEI(atomicrmw, operation)
 PREDICATEI(atomicrmw, address)
 PREDICATEI(atomicrmw, value)
-// TODO(lb):
+// TODO(#42):
 PREDICATE(atomicrmw, isvolatile, atomicrmw_instr_is_volatile)
 GROUP_END(atomicrmw)
 
@@ -334,12 +334,12 @@ PREDICATEI(cmpxchg, address)
 PREDICATEI(cmpxchg, cmp_value)
 PREDICATEI(cmpxchg, new_value)
 PREDICATEI(cmpxchg, type)
-// TODO(lb):
+// TODO(#42):
 PREDICATE(cmpxchg, isvolatile, cmpxchg_instr_is_volatile)
 GROUP_END(cmpxchg)
 
 GROUP_BEGIN(gep)
-// TODO(lb): Rename getelementptr to gep in Datalog
+// TODO(#42): Rename getelementptr to gep in Datalog
 PREDICATE(gep, instr, getelementptr_instr)
 PREDICATE(gep, base, getelementptr_instr_base)
 PREDICATE(gep, index, getelementptr_instr_index)
@@ -356,110 +356,112 @@ PREDICATEI(trunc, to_type)
 GROUP_END(trunc)
 
 GROUP_BEGIN(zext)
-PREDICATE(zext, instr, zext_instr)
-PREDICATE(zext, from_operand, zext_instr_from_operand)
-PREDICATE(zext, to_type, zext_instr_to_type)
+PREDICATE2(zext, instr)
+PREDICATEI(zext, from_operand)
+PREDICATEI(zext, to_type)
 GROUP_END(zext)
 
 GROUP_BEGIN(sext)
-PREDICATE(sext, instr, sext_instr)
-PREDICATE(sext, from_operand, sext_instr_from_operand)
-PREDICATE(sext, to_type, sext_instr_to_type)
+PREDICATE2(sext, instr)
+PREDICATEI(sext, from_operand)
+PREDICATEI(sext, to_type)
 GROUP_END(sext)
 
 GROUP_BEGIN(fptrunc)
-PREDICATE(fptrunc, instr, fptrunc_instr)
-PREDICATE(fptrunc, from_operand, fptrunc_instr_from_operand)
-PREDICATE(fptrunc, to_type, fptrunc_instr_to_type)
+PREDICATE2(fptrunc, instr)
+PREDICATEI(fptrunc, from_operand)
+PREDICATEI(fptrunc, to_type)
 GROUP_END(fptrunc)
 
 GROUP_BEGIN(fpext)
-PREDICATE(fpext, instr, fpext_instr)
-PREDICATE(fpext, from_operand, fpext_instr_from_operand)
-PREDICATE(fpext, to_type, fpext_instr_to_type)
+PREDICATE2(fpext, instr)
+PREDICATEI(fpext, from_operand)
+PREDICATEI(fpext, to_type)
 GROUP_END(fpext)
 
 GROUP_BEGIN(fptoui)
-PREDICATE(fptoui, instr, fptoui_instr)
-PREDICATE(fptoui, from_operand, fptoui_instr_from_operand)
-PREDICATE(fptoui, to_type, fptoui_instr_to_type)
+PREDICATE2(fptoui, instr)
+PREDICATEI(fptoui, from_operand)
+PREDICATEI(fptoui, to_type)
 GROUP_END(fptoui)
 
 GROUP_BEGIN(fptosi)
-PREDICATE(fptosi, instr, fptosi_instr)
-PREDICATE(fptosi, from_operand, fptosi_instr_from_operand)
-PREDICATE(fptosi, to_type, fptosi_instr_to_type)
+PREDICATE2(fptosi, instr)
+PREDICATEI(fptosi, from_operand)
+PREDICATEI(fptosi, to_type)
 GROUP_END(fptosi)
 
 GROUP_BEGIN(uitofp)
-PREDICATE(uitofp, instr, uitofp_instr)
-PREDICATE(uitofp, from_operand, uitofp_instr_from_operand)
-PREDICATE(uitofp, to_type, uitofp_instr_to_type)
+PREDICATE2(uitofp, instr)
+PREDICATEI(uitofp, from_operand)
+PREDICATEI(uitofp, to_type)
 GROUP_END(uitofp)
 
 GROUP_BEGIN(sitofp)
-PREDICATE(sitofp, instr, sitofp_instr)
-PREDICATE(sitofp, from_operand, sitofp_instr_from_operand)
-PREDICATE(sitofp, to_type, sitofp_instr_to_type)
+PREDICATE2(sitofp, instr)
+PREDICATEI(sitofp, from_operand)
+PREDICATEI(sitofp, to_type)
 GROUP_END(sitofp)
 
 GROUP_BEGIN(ptrtoint)
-PREDICATE(ptrtoint, instr, ptrtoint_instr)
-PREDICATE(ptrtoint, from_operand, ptrtoint_instr_from_operand)
-PREDICATE(ptrtoint, to_type, ptrtoint_instr_to_type)
+PREDICATE2(ptrtoint, instr)
+PREDICATEI(ptrtoint, from_operand)
+PREDICATEI(ptrtoint, to_type)
 GROUP_END(ptrtoint)
 
 GROUP_BEGIN(inttoptr)
-PREDICATE(inttoptr, instr, inttoptr_instr)
-PREDICATE(inttoptr, from_operand, inttoptr_instr_from_operand)
-PREDICATE(inttoptr, to_type, inttoptr_instr_to_type)
+PREDICATE2(inttoptr, instr)
+PREDICATEI(inttoptr, from_operand)
+PREDICATEI(inttoptr, to_type)
 GROUP_END(inttoptr)
 
 GROUP_BEGIN(bitcast)
-PREDICATE(bitcast, instr, bitcast_instr)
-PREDICATE(bitcast, from_operand, bitcast_instr_from_operand)
-PREDICATE(bitcast, to_type, bitcast_instr_to_type)
+PREDICATE2(bitcast, instr)
+PREDICATEI(bitcast, from_operand)
+PREDICATEI(bitcast, to_type)
 GROUP_END(bitcast)
 
 // Other Operations
 
 GROUP_BEGIN(icmp)
-PREDICATE(icmp, instr, icmp_instr)
-PREDICATE(icmp, condition, icmp_instr_condition)
-PREDICATE(icmp, first_operand, icmp_instr_first_operand)
-PREDICATE(icmp, second_operand, icmp_instr_second_operand)
+PREDICATE2(icmp, instr)
+PREDICATEI(icmp, condition)
+PREDICATEI(icmp, first_operand)
+PREDICATEI(icmp, second_operand)
 GROUP_END(icmp)
 
 GROUP_BEGIN(fcmp)
-PREDICATE(fcmp, instr, fcmp_instr)
-PREDICATE(fcmp, condition, fcmp_instr_condition)
-PREDICATE(fcmp, first_operand, fcmp_instr_first_operand)
-PREDICATE(fcmp, second_operand, fcmp_instr_second_operand)
+PREDICATE2(fcmp, instr)
+PREDICATEI(fcmp, condition)
+PREDICATEI(fcmp, first_operand)
+PREDICATEI(fcmp, second_operand)
 GROUP_END(fcmp)
 
 GROUP_BEGIN(phi)
-PREDICATE(phi, instr, phi_instr)
-PREDICATE(phi, type, phi_instr_type)
+PREDICATE2(phi, instr)
+PREDICATEI(phi, type)
+// TODO(#42): Remove underscores!
 PREDICATE(phi, pair_value, _phi_instr_pair_value)
 PREDICATE(phi, pair_label, _phi_instr_pair_label)
-PREDICATE(phi, npairs, phi_instr_npairs)
+PREDICATEI(phi, npairs)
 GROUP_END(phi)
 
 GROUP_BEGIN(select)
-PREDICATE(select, instr, select_instr)
-PREDICATE(select, condition, select_instr_condition)
-PREDICATE(select, first_operand, select_instr_first_operand)
-PREDICATE(select, second_operand, select_instr_second_operand)
+PREDICATE2(select, instr)
+PREDICATEI(select, condition)
+PREDICATEI(select, first_operand)
+PREDICATEI(select, second_operand)
 GROUP_END(select)
 
 GROUP_BEGIN(va_arg)
-PREDICATE(va_arg, instr, va_arg_instr)
-PREDICATE(va_arg, va_list, va_arg_instr_va_list)
-PREDICATE(va_arg, type, va_arg_instr_type)
+PREDICATE2(va_arg, instr)
+PREDICATEI(va_arg, va_list)
+PREDICATEI(va_arg, type)
 GROUP_END(va_arg)
 
 GROUP_BEGIN(call)
-PREDICATE(call, instr, call_instr)
+PREDICATE2(call, instr)
+// TODO(#42):
 PREDICATE(call, instr_direct, direct_call_instr)
 PREDICATE(call, instr_indirect, indirect_call_instr)
 PREDICATE(call, function, call_instr_fn_operand)
@@ -472,11 +474,13 @@ PREDICATE(call, tail, call_instr_is_tail_opt)
 GROUP_END(call)
 
 GROUP_BEGIN(landingpad)
-PREDICATE(landingpad, instr, landingpad_instr)
-PREDICATE(landingpad, type, landingpad_instr_type)
+PREDICATE2(landingpad, instr)
+PREDICATEI(landingpad, type)
+// TODO(#42): Remove underscores
 PREDICATE(landingpad, catch_clause, _landingpad_instr_catch_clause)
 PREDICATE(landingpad, filter_clause, _landingpad_instr_filter_clause)
-PREDICATE(landingpad, nclauses, landingpad_instr_nclauses)
+PREDICATEI(landingpad, nclauses)
+// TODO(#42): Remove is
 PREDICATE(landingpad, cleanup, landingpad_instr_is_cleanup)
 GROUP_END(landingpad)
 
@@ -676,3 +680,7 @@ GROUP_END(user)
 #undef GROUP_BEGIN
 #undef GROUP_END
 #undef PREDICATE
+#undef PREDICATE2
+#undef PREDICATE2S
+#undef PREDICATEI
+#undef PREDICATEIS
