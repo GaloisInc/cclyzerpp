@@ -10,6 +10,14 @@ instr(v) :- phi_instr(v).
 .decl phi_instr_npairs(instr:PhiInstruction, total:number)
 .decl phi_instr_pair(instr:PhiInstruction, index:number, value:Operand, label:Variable)
 
+.decl phi_instr_pair_label(v0:symbol, v1:number, v2:symbol)
+.decl phi_instr_pair_value(v0:symbol, v1:number, v2:symbol)
+phi_instr_pair(v0, v1, v2, v3) :-
+   phi_instr_pair_value(v0, v1, v2),
+   phi_instr(v0),
+   operand(v2),
+   phi_instr_pair_label(v0, v1, v3),
+   variable(v3).
 
 //------------------------------------------------------------------------------
 // [Constraints]

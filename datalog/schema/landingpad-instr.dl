@@ -135,13 +135,24 @@ clause(c) :- catch_clause(c) ; filter_clause(c).
 .decl landingpad_instr_clause(instr:LandingPadInstruction, i:number, clause:Clause)
 .decl landingpad_instr_nclauses(instr:LandingPadInstruction, total:number)
 
+.decl landingpad_instr_catch_clause(v0:Instruction, v1:number, v2:Constant)
+.decl landingpad_instr_filter_clause(v0:Instruction, v1:number, v2:Constant)
+
+catch_clause(v2), landingpad_instr_clause(v0, v1, v2) :-
+   landingpad_instr_catch_clause(v0, v1, v2).
+
+filter_clause(v2), landingpad_instr_clause(v0, v1, v2) :-
+   landingpad_instr_filter_clause(v0, v1, v2).
+
+.decl constant_in_func_name(v0:Constant, v1:FunctionName)
+.decl variable_in_func_name(v0:Variable, v1:FunctionName)
+
 // Enforce that clause is either catch or filter
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    landingpad_instr_clause(Instr, _, Clause),
    !catch_clause(Clause),
    !filter_clause(Clause).
-
 
 //-------------------------------------------------------------------------
 // [Constraints]

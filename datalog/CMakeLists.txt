@@ -1,6 +1,5 @@
 set(DL_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/import/import.dl
-    ${CMAKE_CURRENT_LIST_DIR}/import/todo.dl
     ${CMAKE_CURRENT_LIST_DIR}/symbol-lookup/resolve-func-calls.dl
     ${CMAKE_CURRENT_LIST_DIR}/points-to/allocations-globals.dl
     ${CMAKE_CURRENT_LIST_DIR}/points-to/allocations-sizes.dl

@@ -66,6 +66,9 @@ constant_expression(c) :-
  ; ptrtoint_constant_expression(c)
  ; getelementptr_constant_expression(c).
 
+constant_in_func(Constant, Function) :-
+   constant_in_func_name(Constant, FuncName),
+   func_name(Function, FuncName).
 
 //--------------------------------------
 // Constant that references func
