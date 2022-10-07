@@ -29,7 +29,6 @@
 .output _phi_instr_pair_label (compress=true)
 .output _phi_instr_pair_value (compress=true)
 .output _string_iteration_trick (compress=true)
-.output _switch_instr_case (compress=true)
 .output _switch_instr_case_label (compress=true)
 .output _switch_instr_case_value (compress=true)
 .output _type_expands_base_type (compress=true)
