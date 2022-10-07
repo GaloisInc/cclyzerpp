@@ -224,18 +224,18 @@ void InstructionVisitor::visitBranchInst(const llvm::BranchInst &BI) {
 
   if (BI.isConditional()) {  // conditional branch
     // br i1 <cond>, label <iftrue>, label <iffalse>
-    gen.writeFact(pred::br::instr_cond, iref);
+    gen.writeFact(pred::br::cond, iref);
 
     // Condition Operand
     writeInstrOperand(pred::br::condition, iref, BI.getCondition());
 
     // 'iftrue' and 'iffalse' labels
-    writeInstrOperand(pred::br::cond_iftrue, iref, BI.getOperand(1));
-    writeInstrOperand(pred::br::cond_iffalse, iref, BI.getOperand(2));
+    writeInstrOperand(pred::br::true_label, iref, BI.getOperand(1));
+    writeInstrOperand(pred::br::false_label, iref, BI.getOperand(2));
   } else {  // unconditional branch
     // br label <dest>
-    gen.writeFact(pred::br::instr_uncond, iref);
-    writeInstrOperand(pred::br::uncond_dest, iref, BI.getOperand(0));
+    gen.writeFact(pred::br::uncond, iref);
+    writeInstrOperand(pred::br::uncond_label, iref, BI.getOperand(0));
   }
 }
 
