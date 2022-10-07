@@ -6,10 +6,10 @@
 .decl global_var_name(gv:GlobalVariable, name:GlobalVarName)
 .decl global_var_demangled_name(gv:GlobalVariable, name:symbol)
 .decl global_var_flag(gv:GlobalVariable, flag:Flag)
-.decl global_var_linkage_type(gv:GlobalVariable, link:LinkageType)
+.decl global_var_linkage(gv:GlobalVariable, link:LinkageType)
 .decl global_var_initializer(gv:GlobalVariable, init:Constant)
 .decl global_var_visibility(gv:GlobalVariable, vis:Visibility)
-.decl global_var_in_section(gv:GlobalVariable, sect:symbol)
+.decl global_var_section(gv:GlobalVariable, sect:symbol)
 .decl global_var_threadlocal_mode(gv:GlobalVariable, mode:ThreadLocalMode)
 .decl global_var_aligned_to(gv:GlobalVariable, alignment:number)
 
@@ -27,7 +27,7 @@ schema_invalid_global_var(GVar, __FILE__, __LINE__) :-
 schema_invalid_global_var(GVar, __FILE__, __LINE__) :-
    schema_sanity(),
    global_var(GVar),
-   !global_var_linkage_type(GVar, _).
+   !global_var_linkage(GVar, _).
 
 
 //------------------------------------------------------------------------------

@@ -11,9 +11,7 @@
 #endif
 // The goal of the above TODO is to move most or all of the below declarations
 // from using PREDICATE to PREDICATE2.
-#ifndef PREDICATE2
 #define PREDICATE2(group, name) PREDICATE(group, name, group ## _ ## name)
-#endif
 
 GROUP_BEGIN(block)
 PREDICATE2(block, predecessor)
@@ -25,10 +23,10 @@ PREDICATE2(global_var, name)
 PREDICATE2(global_var, demangled_name)
 PREDICATE2(global_var, type)
 PREDICATE2(global_var, initializer)
-PREDICATE(global_var, section, global_var_in_section)
-PREDICATE(global_var, align, global_var_aligned_to)
+PREDICATE2(global_var, section)
+PREDICATE2(global_var, aligned_to)
 PREDICATE2(global_var, flag)
-PREDICATE(global_var, linkage, global_var_linkage_type)
+PREDICATE2(global_var, linkage)
 PREDICATE2(global_var, visibility)
 PREDICATE2(global_var, threadlocal_mode)
 GROUP_END(global_var)

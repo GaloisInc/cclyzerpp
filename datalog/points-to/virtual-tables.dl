@@ -24,7 +24,7 @@ vtable(?vt, ?name) :-
 
 typeinfo_vtable(?vt, ?name) :-
    external_linkage_type(?externalLinkage),
-   global_var_linkage_type(?vt, ?externalLinkage),
+   global_var_linkage(?vt, ?externalLinkage),
    global_var_name(?vt, ?name),
    contains("class_type_info", ?name),
    contains("cxxabi", ?name).

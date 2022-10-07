@@ -119,5 +119,5 @@ void FactGenerator::writeGlobalVar(
 
   // Record alignment
   if (gv.getAlignment())
-    writeFact(pred::global_var::align, id, gv.getAlignment());
+    writeFact(pred::global_var::aligned_to, id, gv.getAlignment());
 }
