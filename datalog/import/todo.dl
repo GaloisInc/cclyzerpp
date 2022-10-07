@@ -1,14 +1,6 @@
 // TODO(lb): Move these elsewhere! These were erroneously included in the
 // import*.dl files before these were derived from predicates.inc.
 
-.decl block_predecessor(v0:symbol, v1:symbol)
-block_predecessors(bb0, bb1) :-
-   block_predecessor(e0, e1),
-   variable_is_label(e0),
-   variable_is_label(e1),
-   block_of_label(bb0, e0),
-   block_of_label(bb1, e1).
-
 .decl _instr_bb_entry(v0:symbol, v1:symbol)
 instr_block(e0, bb) :-
    _instr_bb_entry(e0, e1),
