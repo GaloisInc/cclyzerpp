@@ -9,7 +9,7 @@ import gzip
 
 from os.path import realpath
 from pathlib import Path
-from subprocess import check_call
+from subprocess import check_call, run
 from sys import argv, exit
 from typing import Optional, List
 
@@ -52,14 +52,20 @@ def normalize(out: Path) -> None:
 
 
 def compare_dirs(out: Path, compare: Path) -> None:
+    assert out != compare
     for relation_path in out.iterdir():
-        if relation_path.name != "unification.unify":
+        if relation_path.name.startswith("unification"):
             # Explicitly non-deterministic
             continue
         if relation_path.suffix != ".csv":
             continue
         compare_path = compare / relation_path.name
-        assert filecmp.cmp(str(relation_path), str(compare_path)), f"{relation_path} differs from {compare_path}"
+        same = filecmp.cmp(str(relation_path), str(compare_path))
+        if not same:
+            print(f"{relation_path} differs from {compare_path}")
+            run(["diff", "--unified", str(relation_path), str(compare_path)])
+
+
 
 
 def main(argv: List[str]) -> None:
@@ -81,6 +87,8 @@ def main(argv: List[str]) -> None:
         compare = Path(argv[3])
     if compare is not None and not compare.is_dir():
         die(f"Expected directory at {compare}")
+    if compare is not None and compare == out:
+        die("Expected comparison directory to differ from output directory")
 
     run_cclyzerpp(ir_path, out)
     normalize(out)
