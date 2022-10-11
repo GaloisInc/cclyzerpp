@@ -8,7 +8,7 @@ instr(v) :- getelementptr_instr(v).
 
 
 .decl getelementptr_instr_base(instr:GetElementPtrInstruction, ptr:Operand)
-.decl getelementptr_instr_is_inbounds(instr:GetElementPtrInstruction)
+.decl getelementptr_instr_inbounds(instr:GetElementPtrInstruction)
 
 
 //------------------------------------------------------------------------------

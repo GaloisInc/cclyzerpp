@@ -330,14 +330,13 @@ PREDICATEI(cmpxchg, type)
 PREDICATEI(cmpxchg, is_volatile)
 GROUP_END(cmpxchg)
 
-GROUP_BEGIN(gep)
-// TODO(#42): Rename getelementptr to gep in Datalog
-PREDICATE(gep, instr, getelementptr_instr)
-PREDICATE(gep, base, getelementptr_instr_base)
-PREDICATE(gep, index, getelementptr_instr_index)
-PREDICATE(gep, nindices, getelementptr_instr_nindices)
-PREDICATE(gep, inbounds, getelementptr_instr_is_inbounds)
-GROUP_END(gep)
+GROUP_BEGIN(getelementptr)
+PREDICATE2(getelementptr, instr)
+PREDICATEI(getelementptr, base)
+PREDICATEI(getelementptr, index)
+PREDICATEI(getelementptr, nindices)
+PREDICATEI(getelementptr, inbounds)
+GROUP_END(getelementptr)
 
 // Conversion Operations
 
