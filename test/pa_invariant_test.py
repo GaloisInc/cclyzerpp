@@ -7,53 +7,6 @@ from typing import Any, Callable, FrozenSet, NamedTuple, Tuple, Type, TypeVar, U
 import pytest
 
 
-def test_pointer_analysis_invariants(run, every_program, context_sensitivity):
-    (program, cflags) = every_program
-
-    out_files = run(
-        program, context_sensitivity=context_sensitivity.value, additional_cflags=cflags
-    )
-
-    # Main should not be control-flow reachable from any of the functions
-    # called before it.
-
-    with gzip.open(out_files / "alloc_context.csv.gz", "rt") as f:
-        for line in f:
-            components = line.split("::")
-            if len(components) > 1:
-                outermost = components.pop().strip()
-                inner = components.pop().strip()
-                if outermost == "<<startup-context>>":
-                    assert ":main:" not in inner, line
-
-    # Every global variable should have a corresponding allocation with
-    # both a type and a size.
-
-    with gzip.open(out_files / "subset_allocation_type.allocation_type.csv.gz", "rt") as f:
-        count_alloc_type = sum(1 for line in f)
-    with gzip.open(out_files / "global_allocation_by_variable.csv.gz", "rt") as f:
-        count_global_allocation = sum(1 for line in f)
-
-    # TODO(lb): Not every global has a size? Issue #801
-    # with gzip.open(out_files / "allocation_size.csv.gz", "rt") as f:
-    #     count_alloc_size = sum(1 for line in f)
-    # assert count_alloc_size > count_global_allocation
-
-    assert count_alloc_type > count_global_allocation
-
-    # Functions are not data, so function types can only be type compatible
-    # with other function types
-    with gzip.open(out_files / "type_compatible.csv.gz", "rt") as f:
-        compatible_types = {tuple(row) for row in csv.reader(f, delimiter="\t")}
-    with gzip.open(out_files / "func_type.csv.gz", "rt") as f:
-        func_types = {row[0] for row in csv.reader(f, delimiter="\t")}
-    assert len(compatible_types) > 0
-    assert len(func_types) > 0
-    for func_type in func_types:
-        for compatible_type in {ty for (fun_ty, ty) in compatible_types if fun_ty == func_type}:
-            assert compatible_type in func_types
-
-
 @unique
 class BinaryRelationProperty(Enum):
     FUNCTIONAL = "functional"  # AKA many-to-one
