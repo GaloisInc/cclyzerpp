@@ -142,49 +142,49 @@ void emit_signatures(
     }
     if (signature_component_type == "pts_none") {
       write_pts_signature<>(
-          cclyzer::predicates::signature::pts_none,
+          cclyzer::predicates::signature::none,
           "pts_none",
           function_name,
           writer,
           signature_component_inner_value);
     } else if (signature_component_type == "pts_return_alloc") {
       write_pts_signature<>(
-          cclyzer::predicates::signature::pts_return_alloc,
+          cclyzer::predicates::signature::return_alloc,
           "pts_return_alloc",
           function_name,
           writer,
           signature_component_inner_value);
     } else if (signature_component_type == "pts_return_alloc_once") {
       write_pts_signature<>(
-          cclyzer::predicates::signature::pts_return_alloc_once,
+          cclyzer::predicates::signature::return_alloc_once,
           "pts_return_alloc_once",
           function_name,
           writer,
           signature_component_inner_value);
     } else if (signature_component_type == "pts_return_aliases_arg") {
       write_pts_signature<int64_t>(
-          cclyzer::predicates::signature::pts_return_aliases_arg,
+          cclyzer::predicates::signature::return_aliases_arg,
           "pts_return_aliases_arg",
           function_name,
           writer,
           signature_component_inner_value);
     } else if (signature_component_type == "pts_return_aliases_arg_reachable") {
       write_pts_signature<int64_t>(
-          cclyzer::predicates::signature::pts_return_aliases_arg_reachable,
+          cclyzer::predicates::signature::return_aliases_arg_reachable,
           "pts_return_aliases_arg_reachable",
           function_name,
           writer,
           signature_component_inner_value);
     } else if (signature_component_type == "pts_return_points_to_global") {
       write_pts_signature<std::string>(
-          cclyzer::predicates::signature::pts_return_points_to_global,
+          cclyzer::predicates::signature::return_points_to_global,
           "pts_return_points_to_global",
           function_name,
           writer,
           signature_component_inner_value);
     } else if (signature_component_type == "pts_return_aliases_global") {
       write_pts_signature<std::string>(
-          cclyzer::predicates::signature::pts_return_aliases_global,
+          cclyzer::predicates::signature::return_aliases_global,
           "pts_return_aliases_global",
           function_name,
           writer,
@@ -192,70 +192,70 @@ void emit_signatures(
     } else if (
         signature_component_type == "pts_return_aliases_global_reachable") {
       write_pts_signature<std::string>(
-          cclyzer::predicates::signature::pts_return_aliases_global_reachable,
+          cclyzer::predicates::signature::return_aliases_global_reachable,
           "pts_return_aliases_global_reachable",
           function_name,
           writer,
           signature_component_inner_value);
     } else if (signature_component_type == "pts_arg_alloc") {
       write_pts_signature<int64_t>(
-          cclyzer::predicates::signature::pts_arg_alloc,
+          cclyzer::predicates::signature::arg_alloc,
           "pts_arg_alloc",
           function_name,
           writer,
           signature_component_inner_value);
     } else if (signature_component_type == "pts_arg_alloc_once") {
       write_pts_signature<int64_t>(
-          cclyzer::predicates::signature::pts_arg_alloc_once,
+          cclyzer::predicates::signature::arg_alloc_once,
           "pts_arg_alloc_once",
           function_name,
           writer,
           signature_component_inner_value);
     } else if (signature_component_type == "pts_arg_memcpy_arg") {
       write_pts_signature<int64_t, int64_t>(
-          cclyzer::predicates::signature::pts_arg_memcpy_arg,
+          cclyzer::predicates::signature::arg_memcpy_arg,
           "pts_arg_memcpy_arg",
           function_name,
           writer,
           signature_component_inner_value);
     } else if (signature_component_type == "pts_arg_memcpy_arg_reachable") {
       write_pts_signature<int64_t, int64_t>(
-          cclyzer::predicates::signature::pts_arg_memcpy_arg_reachable,
+          cclyzer::predicates::signature::arg_memcpy_arg_reachable,
           "pts_arg_memcpy_arg_reachable",
           function_name,
           writer,
           signature_component_inner_value);
     } else if (signature_component_type == "pts_arg_points_to_global") {
       write_pts_signature<int64_t, std::string>(
-          cclyzer::predicates::signature::pts_arg_points_to_global,
+          cclyzer::predicates::signature::arg_points_to_global,
           "pts_arg_points_to_global",
           function_name,
           writer,
           signature_component_inner_value);
     } else if (signature_component_type == "pts_arg_memcpy_global") {
       write_pts_signature<int64_t, std::string>(
-          cclyzer::predicates::signature::pts_arg_memcpy_global,
+          cclyzer::predicates::signature::arg_memcpy_global,
           "pts_arg_memcpy_global",
           function_name,
           writer,
           signature_component_inner_value);
     } else if (signature_component_type == "pts_arg_memcpy_global_reachable") {
       write_pts_signature<int64_t, std::string>(
-          cclyzer::predicates::signature::pts_arg_memcpy_global_reachable,
+          cclyzer::predicates::signature::arg_memcpy_global_reachable,
           "pts_arg_memcpy_global_reachable",
           function_name,
           writer,
           signature_component_inner_value);
     } else if (signature_component_type == "pts_global_memcpy_arg") {
       write_pts_signature<std::string, int64_t>(
-          cclyzer::predicates::signature::pts_global_memcpy_arg,
+          cclyzer::predicates::signature::global_memcpy_arg,
           "pts_global_memcpy_arg",
           function_name,
           writer,
           signature_component_inner_value);
     } else if (signature_component_type == "pts_global_memcpy_arg_reachable") {
       write_pts_signature<std::string, int64_t>(
-          cclyzer::predicates::signature::pts_global_memcpy_arg_reachable,
+          cclyzer::predicates::signature::global_memcpy_arg_reachable,
           "pts_global_memcpy_arg_reachable",
           function_name,
           writer,
