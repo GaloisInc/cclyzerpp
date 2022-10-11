@@ -53,8 +53,6 @@ PROGRAMS_PATH: Path = PARENT.parent / "test" / "c"
 # programs compile successfully with them.
 DEFAULT_COMPILER_FLAGS: Final[Tuple[str, ...]] = ("-O1",)
 
-# NOTE(ww): This should probably be kept in sync with
-# `mate.build.compile.REQUIRED_CFLAGS`.
 REQUIRED_CFLAGS: Final[Tuple[str, ...]] = ("-g", "-grecord-gcc-switches")
 
 
