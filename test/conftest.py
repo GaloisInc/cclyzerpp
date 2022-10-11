@@ -65,15 +65,13 @@ def _ir_for_program(
     program: Path, *, compiler_flags: Tuple[str, ...] = DEFAULT_COMPILER_FLAGS, **kwargs: Any
 ) -> Path:
 
-    # NOTE(ww): All the hacky stuff below is a consequence of extracting these
-    # tests from the legacy SQLite test fixtures.
     if program.suffix == ".cpp":
         compiler = "clang++"
     else:
         compiler = "clang"
 
-    # NOTE(lb): The -fno-discard-value-names makes IR names more consistent
-    # across compiles.
+    # The -fno-discard-value-names makes IR names more consistent across
+    # compiles.
     combined_cflags = (
         *REQUIRED_CFLAGS,
         *compiler_flags,
@@ -82,12 +80,7 @@ def _ir_for_program(
     )
     mashed_flags = "".join(combined_cflags)
 
-    # HACK(ww): The filename we build below is consistent with the ones from
-    # the old test fixtures, which the gold test file names are still based on.
-    # The LLVM IR emitted here isn't actually canonical, despite the prefix,
-    # but it doesn't matter since we run the Nomina pass to canonicalize
-    # it as part of the `run` fixture.
-    ir_base = f"{Path(program.stem)}.{compiler}.{mashed_flags}.canonical.bc"
+    ir_base = f"{Path(program.stem)}.{compiler}.{mashed_flags}.bc"
     ir_path = Path(tempfile.mkdtemp()) / ir_base
     check_call(
         [
@@ -165,7 +158,7 @@ def golden(programs_path, run):
         out_path = None
         paths = dict()
         for relation in relations:
-            # NOTE(ww): Golden outputs are stored uncompressed.
+            # Golden outputs are stored uncompressed.
             relation_path = (_GOLD_DIR / ir_path.name).with_suffix(
                 ".{}.{}.golden.csv".format(context_sensitivity, relation)
             )
