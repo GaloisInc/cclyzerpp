@@ -415,7 +415,7 @@
 .output getelementptr_instr_base_type (compress=true)
 .output getelementptr_instr_index (compress=true)
 .output getelementptr_instr_index_type (compress=true)
-.output getelementptr_instr_is_inbounds (compress=true)
+.output getelementptr_instr_inbounds (compress=true)
 .output getelementptr_instr_nindices (compress=true)
 .output getelementptr_instr_value_type (compress=true)
 .output getelementptr_instrterm_type (compress=true)

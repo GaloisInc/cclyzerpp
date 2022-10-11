@@ -443,14 +443,14 @@ void InstructionVisitor::visitFenceInst(const llvm::FenceInst &FI) {
 
 void InstructionVisitor::visitGetElementPtrInst(
     const llvm::GetElementPtrInst &GEP) {
-  refmode_t iref = recordInstruction(pred::gep::instr, GEP);
-  writeInstrOperand(pred::gep::base, iref, GEP.getPointerOperand());
+  refmode_t iref = recordInstruction(pred::getelementptr::instr, GEP);
+  writeInstrOperand(pred::getelementptr::base, iref, GEP.getPointerOperand());
 
   for (unsigned index = 1; index < GEP.getNumOperands(); ++index) {
     const llvm::Value *GepOperand = GEP.getOperand(index);
 
-    refmode_t opref =
-        writeInstrOperand(pred::gep::index, iref, GepOperand, index - 1);
+    refmode_t opref = writeInstrOperand(
+        pred::getelementptr::index, iref, GepOperand, index - 1);
 
     if (const auto *c = dyn_cast<llvm::Constant>(GepOperand)) {
       if (c->getUniqueInteger().isIntN(16)) {
@@ -463,9 +463,9 @@ void InstructionVisitor::visitGetElementPtrInst(
     }
   }
 
-  gen.writeFact(pred::gep::nindices, iref, GEP.getNumIndices());
+  gen.writeFact(pred::getelementptr::nindices, iref, GEP.getNumIndices());
 
-  if (GEP.isInBounds()) gen.writeFact(pred::gep::inbounds, iref);
+  if (GEP.isInBounds()) gen.writeFact(pred::getelementptr::inbounds, iref);
 }
 
 void InstructionVisitor::visitPHINode(const llvm::PHINode &PHI) {
