@@ -8,3 +8,4 @@ done
 
 cd test
 mypy .
+mypy ../scripts/*.py
