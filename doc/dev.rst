@@ -17,12 +17,13 @@ extra tests, set ``EXTRA_TESTS=1``.
 Cutting a Release
 *****************
 
-Before cutting a new release, consider running the extended test suite (see
-``EXTRA_TESTS`` above).
+- Run the extended test suite (see ``EXTRA_TESTS`` above).
+- Ensure that the :doc:`changelog` is up to date.
+- Bump the project version``CMakeLists.txt`` and ``dist.dockerfile``.
+- Push a new tag that starts with ``v``, e.g., ``v0.2``, and the CI build will
+  create a draft release on Github.
 
-First, ensure that the :doc:`changelog` is up to date. Then, push a new tag that
-starts with ``v``, e.g., ``v0.2``, and the CI build will create a draft release
-on Github. Worked example:
+Worked example:
 
 .. code-block:: shell
 
