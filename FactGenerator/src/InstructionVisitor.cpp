@@ -276,11 +276,6 @@ void InstructionVisitor::visitIndirectBrInst(const llvm::IndirectBrInst &IBR) {
 void InstructionVisitor::visitInvokeInst(const llvm::InvokeInst &II) {
   refmode_t iref = recordInstruction(pred::invoke::instr, II);
 
-  gen.writeFact(
-      II.getCalledFunction() ? pred::invoke::instr_direct
-                             : pred::invoke::instr_indirect,
-      iref);
-
 #if LLVM_VERSION_MAJOR > 12
   const llvm::Value *invokeOp = II.getCalledOperand();
 #else
@@ -543,17 +538,6 @@ void InstructionVisitor::visitCallInst(const llvm::CallInst &CI) {
   // variable; neither can they be represented as direct
   // instructions due to the constraint that all direct calls must
   // be able to determine the function to be called.
-
-  if (!CI.isInlineAsm()) {
-    // Record if instruction is direct or indirect. This is
-    // probably redundant since it is inferred by the logic
-    // itself, according to the kind of the function operand.
-
-    gen.writeFact(
-        CI.getCalledFunction() ? pred::call::instr_direct
-                               : pred::call::instr_indirect,
-        iref);
-  }
 
 #if LLVM_VERSION_MAJOR > 12
   const llvm::Value *callOp = CI.getCalledOperand();
