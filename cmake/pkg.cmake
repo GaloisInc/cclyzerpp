@@ -17,10 +17,11 @@ add_custom_command(
   --name cclyzer++
   --license bsd3
   --architecture x86_64
-  --depends llvm-10
   --description cclyzer++
   --url https://galoisinc.github.io/cclyzerpp/
   ${CMAKE_CURRENT_BINARY_DIR}/factgen-exe=/usr/bin/factgen-exe
-  DEPENDS factgen-exe)
+  ${CMAKE_CURRENT_BINARY_DIR}/libSoufflePA.so=/usr/lib/libSoufflePA.so
+  ${CMAKE_CURRENT_BINARY_DIR}/libPAPass.so=/usr/lib/libPAPass.so
+  DEPENDS factgen-exe PAPass SoufflePA)
 
 add_custom_target(deb DEPENDS ${DEB})
