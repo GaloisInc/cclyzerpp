@@ -144,7 +144,6 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    # TODO(lb): Figure out how to tag these images with the version number
     - name: Build and push dev image
       run: |
         env PUSH=1 ./scripts/gha-docker-build "dev" "cclyzerpp-dev"
@@ -172,7 +171,6 @@ jobs:
           "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
           cmake --build build -j $(nproc)
 
-    # TODO(lb): Figure out how to tag these images with the version number
     - name: Build and push dist image
       run: |
         env PUSH=1 ./scripts/gha-docker-build "dist" "cclyzerpp-dist"

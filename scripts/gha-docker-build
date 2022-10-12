@@ -55,6 +55,7 @@ if [[ "${PUSH}" == "1" ]]; then
   docker tag "${full_image_name}:${ref}" "${full_image_name}:main"
   docker push "${full_image_name}:${ref}"
   docker push "${full_image_name}:main"
+  docker push "${full_image_name}:v$(./scripts/version.sh)"
 fi
 
 >&2 echo "[+] OK"
