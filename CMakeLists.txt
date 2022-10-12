@@ -1,5 +1,9 @@
-cmake_minimum_required(VERSION 3.4.3 FATAL_ERROR)
-project(cclyzer++ LANGUAGES C CXX)
+# minimum version: 3.12 for CMAKE_PROJECT_VERSION 
+cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
+
+project(cclyzer++ LANGUAGES C CXX VERSION 0.2)
+
+# -----------------------------------------------------------------------------
 
 find_package(LLVM 10.0 REQUIRED CONFIG)
 message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
@@ -241,3 +245,8 @@ if(CLANG_TIDY)
             ${ABSOLUTE_FACTGEN_SOURCES}
     COMMENT "Linting with clang-tidy...")
 endif()
+
+# -----------------------------------------------------------------------------
+
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+include(pkg)

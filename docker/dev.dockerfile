@@ -10,6 +10,18 @@ ARG LLVM_VERSION=10
 SHELL ["/bin/bash", "-c", "-o", "pipefail"]
 ENV DEBIAN_FRONTEND=noninteractive
 
+# cmake: Build system
+# git: Later steps of Dockerfile
+# gnupg: Later steps of Dockerfile
+# ninja-build: Build system
+# python3.10: Tests
+# python3-pip: Later steps of Dockerfile
+# libboost-system-dev: Library dependency of cclyzer++
+# libboost-filesystem-dev: Library dependency of cclyzer++
+# libboost-iostreams-dev: Library dependency of cclyzer++
+# libboost-program-options-dev: Library dependency of cclyzer++
+# ruby: fpm, for deb packaging
+# wget: Later steps of Dockerfile
 RUN apt-get update && \
     apt-get --yes install --no-install-recommends \
       cmake \
@@ -22,6 +34,7 @@ RUN apt-get update && \
       libboost-filesystem-dev \
       libboost-iostreams-dev \
       libboost-program-options-dev \
+      ruby \
       wget && \
     wget --no-verbose https://souffle-lang.github.io/ppa/souffle-key.public -O /usr/share/keyrings/souffle-archive-keyring.gpg && \
     echo "deb [signed-by=/usr/share/keyrings/souffle-archive-keyring.gpg] https://souffle-lang.github.io/ppa/ubuntu/ stable main" | tee /etc/apt/sources.list.d/souffle.list && \
@@ -43,8 +56,8 @@ RUN apt-get update && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${LLVM_VERSION} 60 && \
     update-alternatives --install /usr/bin/opt opt /usr/bin/opt-${LLVM_VERSION} 60 && \
     rm -rf /var/lib/apt/lists/*
-RUN pip install \
-      mypy==0.982 \
+RUN gem install fpm -v 1.14.2
+RUN pip install \ mypy==0.982 \
       pytest==7.1.3 \
       pytest-xdist==2.5.0
 # TODO(lb): Sphinx
