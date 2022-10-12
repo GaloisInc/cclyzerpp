@@ -1,9 +1,0 @@
--s dir
---name cclyzer++
---license bsd3
---architecture x86_64
---depends llvm-10
---description cclyzer++
---url https://galoisinc.github.io/cclyzerpp/
---maintainer "Langston Barrett <langston at galois dot com>"
-../build/factgen-exe=/usr/bin/factgen-exe

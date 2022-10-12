@@ -96,8 +96,12 @@ jobs:
 
     - name: Package
       run: |
-        sudo gem install fpm
-        ./pkg/pkg.sh $(date +'%Y%m%d%H%M%S')
+        docker run \
+          --rm \
+          --mount type=bind,src=$PWD,target=/work \
+          --workdir /work \
+          "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
+          cmake --build build -j $(nproc) --target deb
 
     - name: Build dist image
       run: |

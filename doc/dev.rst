@@ -14,17 +14,6 @@ The tests are run with `Pytest`_. They require compiling cclyzer++ first.
 To make new golden tests, set ``MAKE_GOLD_TESTS=1`` in the environment. To run
 extra tests, set ``EXTRA_TESTS=1``.
 
-Packaging cclyzer++
-*******************
-
-cclyzer++ is currently packaged for Debian derivatives using ``fpm``. a script
-is available to automate this process, it takes the version number as an
-argument:
-
-.. code-block::
-
-  ./pkg/pkg.sh 0.1
-
 Cutting a Release
 *****************
 
