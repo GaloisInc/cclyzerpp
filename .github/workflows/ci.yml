@@ -94,6 +94,11 @@ jobs:
           "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
           pytest -x -n=$(nproc)
 
+    - name: Package
+      run: |
+        sudo gem install fpm
+        ./pkg/pkg.sh $(date +'%Y%m%d%H%M%S')
+
     - name: Build dist image
       run: |
         ./scripts/gha-docker-build "dist" "cclyzerpp-dist"
