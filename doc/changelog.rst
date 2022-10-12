@@ -7,6 +7,27 @@ Changelog
 next
 ****
 
+`v0.3`_ - 2022-10-12
+********************
+
+`Compare to v0.2 <https://github.com/GaloisInc/cclyzerpp/compare/v0.2...v0.3>`_.
+
+Added
+~~~~~
+
+- Added infrastructure for packaging for Debian with CMake and FPM.
+- Added a new script that helps developers track down regressions, see
+  ``scripts/run.py``.
+
+Changed
+~~~~~~~
+
+- Many relations were renamed for the sake of consistency between the
+  FactGenerator and the analysis code (Datalog).
+- The repo was reorganized a bit, several files moved out of the top-level
+  directory.
+- Tests were reorganized and cleaned up.
+
 Fixed
 ~~~~~
 
@@ -16,7 +37,7 @@ Fixed
 `v0.2`_ - 2022-10-07
 ********************
 
-`Compare to v0.1 <https://github.com/GaloisInc/cclyzerpp/compare/v0.2...v0.1>`_.
+`Compare to v0.1 <https://github.com/GaloisInc/cclyzerpp/compare/v0.1...v0.2>`_.
 
 Added
 ~~~~~
