@@ -96,6 +96,13 @@ jobs:
 
     - name: Package
       run: |
+        # See above comment
+        if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+          ref="${ACTUAL_GITHUB_SHA_ON_PULL_REQUEST}"
+        else
+          ref="${GITHUB_SHA}"
+        fi
+
         docker run \
           --rm \
           --mount type=bind,src=$PWD,target=/work \
