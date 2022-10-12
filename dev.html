@@ -44,22 +44,16 @@ pytest test/
 <p>To make new golden tests, set <code class="docutils literal notranslate"><span class="pre">MAKE_GOLD_TESTS=1</span></code> in the environment. To run
 extra tests, set <code class="docutils literal notranslate"><span class="pre">EXTRA_TESTS=1</span></code>.</p>
 </div>
-<div class="section" id="packaging-cclyzer">
-<h2>Packaging cclyzer++<a class="headerlink" href="#packaging-cclyzer" title="Permalink to this headline">¶</a></h2>
-<p>cclyzer++ is currently packaged for Debian derivatives using <code class="docutils literal notranslate"><span class="pre">fpm</span></code>. a script
-is available to automate this process, it takes the version number as an
-argument:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">pkg</span><span class="o">/</span><span class="n">pkg</span><span class="o">.</span><span class="n">sh</span> <span class="mf">0.1</span>
-</pre></div>
-</div>
-</div>
 <div class="section" id="cutting-a-release">
 <h2>Cutting a Release<a class="headerlink" href="#cutting-a-release" title="Permalink to this headline">¶</a></h2>
-<p>Before cutting a new release, consider running the extended test suite (see
-<code class="docutils literal notranslate"><span class="pre">EXTRA_TESTS</span></code> above).</p>
-<p>First, ensure that the <a class="reference internal" href="changelog.html"><span class="doc">Changelog</span></a> is up to date. Then, push a new tag that
-starts with <code class="docutils literal notranslate"><span class="pre">v</span></code>, e.g., <code class="docutils literal notranslate"><span class="pre">v0.2</span></code>, and the CI build will create a draft release
-on Github. Worked example:</p>
+<ul class="simple">
+<li><p>Run the extended test suite (see <code class="docutils literal notranslate"><span class="pre">EXTRA_TESTS</span></code> above).</p></li>
+<li><p>Ensure that the <a class="reference internal" href="changelog.html"><span class="doc">Changelog</span></a> is up to date.</p></li>
+<li><p>Bump the project version``CMakeLists.txt`` and <code class="docutils literal notranslate"><span class="pre">dist.dockerfile</span></code>.</p></li>
+<li><p>Push a new tag that starts with <code class="docutils literal notranslate"><span class="pre">v</span></code>, e.g., <code class="docutils literal notranslate"><span class="pre">v0.2</span></code>, and the CI build will
+create a draft release on Github.</p></li>
+</ul>
+<p>Worked example:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git checkout main
 git pull
 git tag -a v0.1 -m v0.1
@@ -145,7 +139,6 @@ The RAM representation explicitly shows the effect of query plans (<code class="
 <li class="toctree-l1"><a class="reference internal" href="design.html">Analysis Design</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Development</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#running-tests">Running Tests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#packaging-cclyzer">Packaging cclyzer++</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cutting-a-release">Cutting a Release</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#naming-conventions">Naming Conventions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#performance-tuning">Performance Tuning</a></li>
