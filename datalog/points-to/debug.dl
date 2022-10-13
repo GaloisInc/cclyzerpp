@@ -1,0 +1,26 @@
+// These components are not needed for the pointer analysis right now, but we
+// instantiate them using the subset analysis in "debug.project" to make sure
+// they don't bitrot.
+
+.init subset_throw_instr = ThrowInstruction
+
+subset_throw_instr.allocation_type(?alloc, ?type) :-
+  subset_allocation_type.allocation_type(?alloc, ?type).
+
+subset_throw_instr.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr) :-
+  subset.callgraph.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr).
+
+subset_throw_instr.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
+  subset.operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
+
+subset_throw_instr.stripctx_operand_points_to(?to, ?op) :-
+  subset.stripctx.stripctx_operand_points_to(?to, ?op).
+
+subset.type_indication.ty_indication(?type, ?aCtx, ?alloc) :-
+  subset_throw_instr.ty_indication4(?type, ?aCtx, ?alloc).
+
+subset.type_indication.ty_indication(?type, ?aCtx, ?alloc) :-
+  subset_throw_instr.ty_indication5(?type, ?aCtx, ?alloc).
+
+subset_throw_instr.untyped_allocation(?insn, ?alloc) :-
+  subset.exception_object.untyped_allocation(?insn, ?alloc).

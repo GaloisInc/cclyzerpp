@@ -1,6 +1,7 @@
 #include "subset-and-unification.project"
 #include "export/statistics.dl"
 #include "export/debug-output.dl"
+#include "points-to/debug.dl"
 
 // These are relations from components that aren't detected using
 // generate-debug-output.sh.
