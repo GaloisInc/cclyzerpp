@@ -25,7 +25,6 @@
 .output _typeinfo_class_type (compress=true)
 .output _typeinfo_contains_typeinfo (compress=true)
 .output _valid_landingpad (compress=true)
-.output _vtable_by_class_name (compress=true)
 .output _vtable_class_name (compress=true)
 .output acq_rel_ordering (compress=true)
 .output acquire_ordering (compress=true)

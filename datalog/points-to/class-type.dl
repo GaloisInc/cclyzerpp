@@ -86,15 +86,10 @@ _vtable_class_name(?vt, ?className) :-
    ?n = strlen(?demangledName),
    ?className = substr(?demangledName, 11, ?n - 11).
 
-.decl _vtable_by_class_name(?className: symbol, ?vt: GlobalVariable)
-_vtable_by_class_name(?className, ?vt) :-
-   _vtable_class_name(?vt, ?className).
-
 // v-table of class
 class_type_vtable(?classType, ?vt) :-
    class_type_name(?classType, ?className),
-   _vtable_class_name(?vt, ?className),
-   _vtable_by_class_name(?className, ?vt).
+   _vtable_class_name(?vt, ?className).
 
 //------------------------------------------------------------------------------
 // Recovering Class Hierarchy
