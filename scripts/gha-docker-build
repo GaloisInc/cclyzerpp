@@ -50,6 +50,7 @@ docker build \
   --cache-from "${full_image_name}:main" \
   --tag "${full_image_name}:${ref}" \
   ..
+cd ..
 
 if [[ "${PUSH}" == "1" ]]; then
   docker tag "${full_image_name}:${ref}" "${full_image_name}:main"
