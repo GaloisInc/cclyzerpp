@@ -22,7 +22,6 @@ namespace fs = boost::filesystem;
 
 enum class Analysis {
   DEBUG,
-  SUBSET_AND_UNIFICATION,
   SUBSET,
   UNIFICATION,
 };
@@ -33,8 +32,6 @@ llvm::cl::opt<Analysis> datalog_analysis(
     llvm::cl::desc("Which pointer analysis to variant run"),
     llvm::cl::values(
         clEnumValN(Analysis::DEBUG, "debug", "debug (both)"),
-        clEnumValN(
-            Analysis::SUBSET_AND_UNIFICATION, "subset-and-unification", "both"),
         clEnumValN(Analysis::SUBSET, "subset", "subset analysis only"),
         clEnumValN(
             Analysis::UNIFICATION,
@@ -120,8 +117,6 @@ static auto get_interface(Analysis which) -> std::unique_ptr<PAInterface> {
   switch (which) {
     case Analysis::DEBUG:
       return PAInterface::create("debug");
-    case Analysis::SUBSET_AND_UNIFICATION:
-      return PAInterface::create("subset_and_unification");
     case Analysis::SUBSET:
       return PAInterface::create("subset");
     case Analysis::UNIFICATION:
@@ -133,8 +128,6 @@ static auto get_interface(Analysis which) -> std::unique_ptr<PAInterface> {
 static auto callgraph_edge(Analysis which) -> std::string {
   switch (which) {
     case Analysis::DEBUG:
-      [[fallthrough]];
-    case Analysis::SUBSET_AND_UNIFICATION:
       [[fallthrough]];
     case Analysis::SUBSET:
       return "subset.callgraph.callgraph_edge";
@@ -148,8 +141,6 @@ static auto alloc_may_alias(Analysis which) -> std::string {
   switch (which) {
     case Analysis::DEBUG:
       [[fallthrough]];
-    case Analysis::SUBSET_AND_UNIFICATION:
-      [[fallthrough]];
     case Analysis::SUBSET:
       return "subset_lift.alloc_may_alias_ctx";
     case Analysis::UNIFICATION:
@@ -161,8 +152,6 @@ static auto alloc_may_alias(Analysis which) -> std::string {
 static auto alloc_must_alias(Analysis which) -> std::string {
   switch (which) {
     case Analysis::DEBUG:
-      [[fallthrough]];
-    case Analysis::SUBSET_AND_UNIFICATION:
       [[fallthrough]];
     case Analysis::SUBSET:
       return "subset_lift.alloc_must_alias_ctx";
@@ -176,8 +165,6 @@ static auto alloc_subregion(Analysis which) -> std::string {
   switch (which) {
     case Analysis::DEBUG:
       [[fallthrough]];
-    case Analysis::SUBSET_AND_UNIFICATION:
-      [[fallthrough]];
     case Analysis::SUBSET:
       return "subset_lift.alloc_subregion_ctx";
     case Analysis::UNIFICATION:
@@ -189,8 +176,6 @@ static auto alloc_subregion(Analysis which) -> std::string {
 static auto alloc_contains(Analysis which) -> std::string {
   switch (which) {
     case Analysis::DEBUG:
-      [[fallthrough]];
-    case Analysis::SUBSET_AND_UNIFICATION:
       [[fallthrough]];
     case Analysis::SUBSET:
       return "subset_lift.alloc_contains_ctx";
@@ -204,8 +189,6 @@ static auto ptr_points_to(Analysis which) -> std::string {
   switch (which) {
     case Analysis::DEBUG:
       [[fallthrough]];
-    case Analysis::SUBSET_AND_UNIFICATION:
-      [[fallthrough]];
     case Analysis::SUBSET:
       return "subset.ptr_points_to";
     case Analysis::UNIFICATION:
@@ -217,8 +200,6 @@ static auto ptr_points_to(Analysis which) -> std::string {
 static auto operand_points_to(Analysis which) -> std::string {
   switch (which) {
     case Analysis::DEBUG:
-      [[fallthrough]];
-    case Analysis::SUBSET_AND_UNIFICATION:
       [[fallthrough]];
     case Analysis::SUBSET:
       return "subset.operand_points_to";
@@ -232,8 +213,6 @@ static auto var_points_to(Analysis which) -> std::string {
   switch (which) {
     case Analysis::DEBUG:
       [[fallthrough]];
-    case Analysis::SUBSET_AND_UNIFICATION:
-      [[fallthrough]];
     case Analysis::SUBSET:
       return "subset.var_points_to";
     case Analysis::UNIFICATION:
@@ -246,8 +225,6 @@ static auto allocation_size(Analysis which) -> std::string {
   switch (which) {
     case Analysis::DEBUG:
       [[fallthrough]];
-    case Analysis::SUBSET_AND_UNIFICATION:
-      [[fallthrough]];
     case Analysis::SUBSET:
       return "subset_lift.allocation_size_ctx";
     case Analysis::UNIFICATION:
@@ -259,8 +236,6 @@ static auto allocation_size(Analysis which) -> std::string {
 static auto allocation_by_instr(Analysis which) -> std::string {
   switch (which) {
     case Analysis::DEBUG:
-      [[fallthrough]];
-    case Analysis::SUBSET_AND_UNIFICATION:
       [[fallthrough]];
     case Analysis::SUBSET:
       return "subset_lift.allocation_by_instr_ctx";

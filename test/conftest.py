@@ -17,7 +17,6 @@ import pytest
 @unique
 class PointerAnalysis(str, Enum):
     DEBUG = "debug"
-    SUBSET_AND_UNIFICATION = "subset-and-unification"
     SUBSET = "subset"
     UNIFICATION = "unification"
 

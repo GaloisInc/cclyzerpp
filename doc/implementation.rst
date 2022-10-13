@@ -286,9 +286,6 @@ a single translation unit. cclyzer++ has several top-level "project files" that
   of the relations.
 - ``subset.project`` includes only the files necessary to run the subset
   analysis and export the core points-to relations.
-- ``subset-and-unification.project`` includes only the files necessary to run
-  the both the subset and unification analyses and export the core points-to
-  relations for both.
 - ``unification.project`` includes only the files necessary to run the
   unification analysis and export the core points-to relations.
 
