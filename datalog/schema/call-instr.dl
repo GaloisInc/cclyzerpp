@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#call-instr
 // keywords: instr
 
-.type CallInstruction = Instruction
+.type CallInstruction <: symbol
 .decl call_instr(instr:CallInstruction)
 
 instr(v) :- call_instr(v).

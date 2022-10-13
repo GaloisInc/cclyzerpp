@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#phi-instr
 // keywords: index; instr
 
-.type PhiInstruction = Instruction
+.type PhiInstruction <: symbol
 .decl phi_instr(instr:PhiInstruction)
 
 instr(v) :- phi_instr(v).

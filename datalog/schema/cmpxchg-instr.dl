@@ -10,7 +10,7 @@
 //    ; yields  { ty, i1 }
 //
 
-.type CmpXchgInstruction = Instruction
+.type CmpXchgInstruction <: symbol
 .decl cmpxchg_instr(instr:CmpXchgInstruction)
 
 instr(v) :- cmpxchg_instr(v).

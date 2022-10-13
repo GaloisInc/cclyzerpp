@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#fence-instr
 // keywords: memory; instr
 
-.type FenceInstruction = Instruction
+.type FenceInstruction <: symbol
 .decl fence_instr(instr:FenceInstruction)
 
 instr(v) :- fence_instr(v).

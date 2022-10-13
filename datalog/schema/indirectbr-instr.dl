@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#indirectbr-instr
 // keywords: terminator; instr
 
-.type IndirectBrInstruction = Instruction
+.type IndirectBrInstruction <: symbol
 .decl indirectbr_instr(instr:IndirectBrInstruction)
 
 instr(v) :- indirectbr_instr(v).

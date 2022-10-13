@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#store-instr
 // keywords: memory; instr
 
-.type StoreInstruction = Instruction
+.type StoreInstruction <: symbol
 .decl store_instr(instr:StoreInstruction)
 
 instr(v) :- store_instr(v).
@@ -36,7 +36,7 @@ store_instr_is_atomic(Instr) :-
 // Helper predicates
 
 .decl store_instr_address_ptr_type(instr:StoreInstruction, type:Type)
-.decl store_instr_value_type(instr:StoreInstruction, type:Type) 
+.decl store_instr_value_type(instr:StoreInstruction, type:Type)
 
 store_instr_address_ptr_type(Instr, PtrType) :-
    store_instr_address(Instr, PtrAddress),

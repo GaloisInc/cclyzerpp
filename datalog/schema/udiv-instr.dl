@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#udiv-instr
 // keywords: arithmetic; binary; instr
 
-.type UDivInstruction = Instruction
+.type UDivInstruction <: symbol
 .decl udiv_instr(instr:UDivInstruction)
 
 instr(v) :- udiv_instr(v).

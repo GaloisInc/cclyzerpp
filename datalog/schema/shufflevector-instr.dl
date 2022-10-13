@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#shufflevector-instr
 // keywords: vector; instr
 
-.type ShuffleVectorInstruction = Instruction
+.type ShuffleVectorInstruction <: symbol
 .decl shufflevector_instr(instr:ShuffleVectorInstruction)
 
 instr(v) :- shufflevector_instr(v).

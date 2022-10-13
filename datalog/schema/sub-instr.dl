@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#sub-instr
 // keywords: arithmetic; binary; instr
 
-.type SubInstruction = Instruction
+.type SubInstruction <: symbol
 .decl sub_instr(instr:SubInstruction)
 
 instr(v) :- sub_instr(v).

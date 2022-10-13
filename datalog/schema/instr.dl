@@ -2,7 +2,70 @@
 // Instruction (EDB) Entities
 //------------------------------------
 
-.type Instruction <: symbol
+.type Instruction
+  = AShrInstruction
+  | AddInstruction
+  | AllocaInstruction
+  | AndInstruction
+  | AtomicRMWInstruction
+  | BitcastInstruction
+  | BrCondInstruction
+  | BrUncondInstruction
+  | CallInstruction
+  | CmpXchgInstruction
+  | ExtractElementInstruction
+  | ExtractValueInstruction
+  | FAddInstruction
+  | FCmpInstruction
+  | FDivInstruction
+  | FMulInstruction
+  | FPExtInstruction
+  | FPToSIInstruction
+  | FPToUIInstruction
+  | FPTruncInstruction
+  | FRemInstruction
+  | FSubInstruction
+  | FenceInstruction
+  | GetElementPtrInstruction
+  | ICmpInstruction
+  | IndirectBrInstruction
+  | InsertElementInstruction
+  | InsertValueInstruction
+  | IntToPtrInstruction
+  | InvokeInstruction
+  | LShrInstruction
+  | LandingPadInstruction
+  | LoadInstruction
+  | MulInstruction
+  | OrInstruction
+  | PhiInstruction
+  | PtrToIntInstruction
+  | ResumeInstruction
+  | RetInstruction
+  | SDivInstruction
+  | SExtInstruction
+  | SIToFPInstruction
+  | SRemInstruction
+  | SelectInstruction
+  | ShlInstruction
+  | ShuffleVectorInstruction
+  | StoreInstruction
+  | SubInstruction
+  | SwitchInstruction
+  | TruncInstruction
+  | UDivInstruction
+  | UIToFPInstruction
+  | URemInstruction
+  | UnreachableInstruction
+  | VaArgInstruction
+  | XorInstruction
+  | ZExtInstruction
+
+// Like llvm::CallBase
+.type CallBase
+  = CallInstruction
+  | InvokeInstruction
+
 .decl instr(instr:Instruction)
 
 // For constraints

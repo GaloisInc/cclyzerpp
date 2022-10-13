@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#fptosi-to-instr
 // keywords: conversion; unary; instr
 
-.type FPToSIInstruction = Instruction
+.type FPToSIInstruction <: symbol
 .decl fptosi_instr(instr:FPToSIInstruction)
 
 instr(v) :- fptosi_instr(v).

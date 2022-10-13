@@ -35,8 +35,8 @@ basic_allocation(?alloc) :-
 .decl stack_allocation_by_type_instr(?type:Type, ?insn:AllocaInstruction, ?stackAlloc:StackAllocation)
 .decl stack_allocation_by_parameter(?func:FunctionDecl, ?index:number, ?stackAlloc:StackAllocation)
 
-.decl heap_allocation_by_instr(?insn:CallInstruction, ?heapAlloc:HeapAllocation)
-.decl heap_allocation_by_type_instr(?type:Type, ?insn:CallInstruction, ?heapAlloc:HeapAllocation)
+.decl heap_allocation_by_instr(?insn:CallBase, ?heapAlloc:HeapAllocation)
+.decl heap_allocation_by_type_instr(?type:Type, ?insn:CallBase, ?heapAlloc:HeapAllocation)
 
 .decl global_allocation_by_func(?func:FunctionDecl, ?globalAlloc:GlobalAllocation)
 .decl global_allocation_by_variable(?var:GlobalVariable, ?globalAlloc:GlobalAllocation)
@@ -58,7 +58,7 @@ heap_alloc_func(?func) :-
 // it isn't used to compute any further results, just in lift.dl.
 //
 // See subset-rules.dl and unification-rules.dl.
-.type AllocInstruction = CallInstruction | AllocaInstruction
+.type AllocInstruction = CallBase | AllocaInstruction
 .decl allocation_by_instr(?insn:AllocInstruction, ?alloc:Allocation)
 
 allocation_by_instr(?insn, ?alloc) :-

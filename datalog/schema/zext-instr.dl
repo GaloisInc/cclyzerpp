@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#zext-to-instr
 // keywords: conversion; unary; instr
 
-.type ZExtInstruction = Instruction
+.type ZExtInstruction <: symbol
 .decl zext_instr(instr:ZExtInstruction)
 
 instr(v) :- zext_instr(v).

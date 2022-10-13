@@ -53,7 +53,7 @@ sized_alloc_instr(?insn, as(?size, Bytes)) :-
   // https://souffle-lang.github.io/components#input-rules
   //----------------------------------------------------------------------------
 
-  .decl heap_allocation_by_type_instr(?type: Type, ?insn: Instruction, ?heapAlloc: HeapAllocation) inline
+  .decl heap_allocation_by_type_instr(?type: Type, ?insn: CallBase, ?heapAlloc: HeapAllocation) inline
 
   //----------------------------------------------------------------------------
   // "Output"/defined rules

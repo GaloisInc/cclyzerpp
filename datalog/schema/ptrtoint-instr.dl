@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#ptrtoint-to-instr
 // keywords: conversion; unary; instr
 
-.type PtrToIntInstruction = Instruction
+.type PtrToIntInstruction <: symbol
 .decl ptrtoint_instr(instr:PtrToIntInstruction)
 
 instr(v) :- ptrtoint_instr(v).

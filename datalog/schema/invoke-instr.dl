@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#invoke-instr
 // keywords: terminator; instr
 
-.type InvokeInstruction = Instruction
+.type InvokeInstruction <: symbol
 .decl invoke_instr(instr:InvokeInstruction)
 
 instr(v) :- invoke_instr(v).

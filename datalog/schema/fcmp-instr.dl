@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#fcmp-instr
 // keywords: comparison; binary; instr
 
-.type FCmpInstruction = Instruction
+.type FCmpInstruction <: symbol
 .decl fcmp_instr(instr:FCmpInstruction)
 
 instr(v) :- fcmp_instr(v).

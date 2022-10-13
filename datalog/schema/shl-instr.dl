@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#shl-instr
 // keywords: bitwise; binary; instr
 
-.type ShlInstruction = Instruction
+.type ShlInstruction <: symbol
 .decl shl_instr(instr:ShlInstruction)
 
 instr(v) :-

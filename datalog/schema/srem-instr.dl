@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#srem-instr
 // keywords: arithmetic; binary; instr
 
-.type SRemInstruction = Instruction
+.type SRemInstruction <: symbol
 .decl srem_instr(instr:SRemInstruction)
 
 instr(v) :- srem_instr(v).

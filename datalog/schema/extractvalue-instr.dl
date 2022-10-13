@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#extractvalue-instr
 // keywords: aggregate; instr
 
-.type ExtractValueInstruction = Instruction
+.type ExtractValueInstruction <: symbol
 .decl extractvalue_instr(instr:ExtractValueInstruction)
 
 instr(v) :- extractvalue_instr(v).

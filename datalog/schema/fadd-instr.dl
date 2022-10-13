@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#fadd-instr
 // keywords: arithmetic; binary; instr
 
-.type FAddInstruction = Instruction
+.type FAddInstruction <: symbol
 .decl fadd_instr(instr:FAddInstruction)
 
 instr(v) :- fadd_instr(v).

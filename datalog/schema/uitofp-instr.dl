@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#uitofp-to-instr
 // keywords: conversion; unary; instr
 
-.type UIToFPInstruction = Instruction
+.type UIToFPInstruction <: symbol
 .decl uitofp_instr(instr:UIToFPInstruction)
 
 instr(v) :- uitofp_instr(v).
