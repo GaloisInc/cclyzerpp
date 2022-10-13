@@ -78,6 +78,11 @@ them from abbreviations for other terms:
 ``type`` is for relations about types themselves, whereas ``ty`` is used for
 relating an entity *to* its type.
 
+Debugging Regressions
+*********************
+
+See ``scripts/run.py``.
+
 Performance Tuning
 ******************
 
