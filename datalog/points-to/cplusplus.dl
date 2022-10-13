@@ -19,7 +19,7 @@ cxx_new_func(?func),
    !func_decl_to_defn(?func, _).
 
 // Introduce new heap allocation selector
-.decl heap_allocation_by_new(?insn: Instruction, ?heapAlloc: HeapAllocation)
+.decl heap_allocation_by_new(?insn: CallBase, ?heapAlloc: HeapAllocation)
 
 heap_allocation_by_new(?insn, ?heapAlloc) :-
    cxx_new_func(?func),
@@ -86,7 +86,7 @@ sized_alloc_instr(?insn, as(?size, Bytes)) :-
   // In the case of inlined constructors, we mark the heap allocation as
   // untyped and rely on the type back-propagation technique.
 
-  .decl untyped_allocation(?insn: Instruction, ?alloc: Allocation)
+  .decl untyped_allocation(?insn: CallBase, ?alloc: Allocation)
   untyped_allocation(?insn, ?heapAlloc) :-
     inlined_constructors(),
     heap_allocation_by_new(?insn, ?heapAlloc).
