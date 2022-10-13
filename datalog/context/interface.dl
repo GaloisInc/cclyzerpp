@@ -1,4 +1,4 @@
-.type ContextItem = Instruction | symbol
+.type ContextItem = CallBase | symbol
 
 //---------------------------------------------------------
 // The Context datatype
@@ -80,7 +80,7 @@ drop_last(?out, ?in),
   // implementation details, and should not be accessed outside the component.
   //----------------------------------------------------------------------------
 
-  .decl _reachable_call(?ctx: Context, ?instr: Instruction)
+  .decl _reachable_call(?ctx: Context, ?instr: CallBase)
   _reachable_call(?ctx, ?instr) :-
     (call_instr(?instr); invoke_instr(?instr)),
     instr_func(?instr, ?func),
@@ -93,7 +93,7 @@ drop_last(?out, ?in),
   // 1. The call site
   // 2. The current calling context
   .decl merge(?newCtx: Context,
-              ?callerInstr: Instruction,
+              ?callerInstr: CallBase,
               ?callerCtx: Context)
 
   // The case of a "dropped" context item, see drop.dl
@@ -156,14 +156,14 @@ drop_last(?out, ?in),
   // Assertions
   //---------------------------------------------------------
 
-  .decl count_context_items(?instr: Instruction, ?nContextItems: number)
+  .decl count_context_items(?instr: CallBase, ?nContextItems: number)
   count_context_items(?instr, ?nContextItems) :-
     (call_instr(?instr); invoke_instr(?instr)),
     !drop_context_by_invoc(?instr),
     !drop_context_item_by_invoc(?instr),
     ?nContextItems = count : context_item_by_invoc(?instr, _).
 
-  .decl count_contexts(?instr: Instruction, ?nContexts: number)
+  .decl count_contexts(?instr: CallBase, ?nContexts: number)
   count_contexts(?instr, ?nContexts) :-
     (call_instr(?instr); invoke_instr(?instr)),
     !drop_context_by_invoc(?instr),
@@ -171,13 +171,13 @@ drop_last(?out, ?in),
     // Have to access internal relation due to inlining
     ?nContexts = count : merge(_, ?instr, _).
 
-  .decl assert_reachable_calls_have_context_items(?instr: Instruction)
+  .decl assert_reachable_calls_have_context_items(?instr: CallBase)
   assert_reachable_calls_have_context_items(?instr) :-
     user_options("context_sensitivity", _),
     _reachable_call(_, ?instr),
     count_context_items(?instr, 0).
 
-  .decl assert_reachable_calls_have_contexts(?instr: Instruction)
+  .decl assert_reachable_calls_have_contexts(?instr: CallBase)
   assert_reachable_calls_have_contexts(?instr) :-
     user_options("context_sensitivity", _),
     _reachable_call(_, ?instr),
@@ -232,8 +232,8 @@ context(?ctx),
 // Context sensitivity
 //---------------------------------------------------------
 
-.decl context_item_by_invoc(?invoc : Instruction, ?ctxItem : ContextItem)
-.decl context_item_by_invoc_interim(?invoc : Instruction, ?ctxItem : ContextItem)
+.decl context_item_by_invoc(?invoc : CallBase, ?ctxItem : ContextItem)
+.decl context_item_by_invoc_interim(?invoc : CallBase, ?ctxItem : ContextItem)
 
 context_item_by_invoc(?invoc, ?ctxItem) :-
   context_item_by_invoc_interim(?invoc, ?ctxItem),
