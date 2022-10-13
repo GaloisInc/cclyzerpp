@@ -167,7 +167,7 @@ typeinfo(?var),
   //----------------------------------------------------------------------------
 
   .decl allocation_type(?alloc:Allocation, ?type:Type) inline
-  .decl callgraph_edge(?calleeCtx: Context, ?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: Instruction) inline
+  .decl callgraph_edge(?calleeCtx: Context, ?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: CallBase) inline
   .decl operand_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?operand: Operand) inline
   .decl stripctx_operand_points_to(?alloc: Allocation, ?operand: Operand) inline
   .decl untyped_allocation(?insn: Instruction, ?alloc: Allocation) inline

@@ -113,7 +113,7 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
   .decl allocation_type(?alloc:Allocation, ?type:Type) inline
   .decl alloc_may_alias(?alloc1: Allocation, ?alloc2: Allocation) inline
   .decl alloc_with_ctx(?aCtx: Context, ?alloc: Allocation) inline
-  .decl callgraph_edge(?calleeCtx: Context, ?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: Instruction) inline
+  .decl callgraph_edge(?calleeCtx: Context, ?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: CallBase) inline
   .decl reachable_context(?ctx: Context, ?func: FunctionDecl) inline
   .decl operand_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?operand: Operand) inline
   .decl ptr_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?ptr: Allocation) inline

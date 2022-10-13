@@ -17,7 +17,7 @@ func_by_location(?alloc, ?callee) :-
   .decl called_at_exit(func: FunctionDecl) inline
   .decl func_pointer_operand_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?operand: Operand) inline
 
-  .decl merge(?newCtx: Context, ?callerInstr: Instruction, ?callerCtx: Context)
+  .decl merge(?newCtx: Context, ?callerInstr: CallBase, ?callerCtx: Context)
 
   //----------------------------------------------------------------------------
   // "Output"/defined rules
@@ -80,11 +80,11 @@ func_by_location(?alloc, ?callee) :-
 
   // Callgraph
 
-  .decl callgraph_edge(?calleeCtx: Context, ?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: Instruction)
+  .decl callgraph_edge(?calleeCtx: Context, ?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: CallBase)
 
   // Direct func calls
 
-  .decl _callgraph_edge_interim_direct_call(?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: Instruction)
+  .decl _callgraph_edge_interim_direct_call(?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: CallBase)
 
   _callgraph_edge_interim_direct_call(?callee, ?callerCtx, ?callerInstr)
    :-
@@ -99,7 +99,7 @@ func_by_location(?alloc, ?callee) :-
      _callgraph_edge_interim_direct_call(?callee, ?callerCtx, ?callerInstr),
      merge(?calleeCtx, ?callerInstr, ?callerCtx).
 
-  .decl _callgraph_edge_interim_direct_invoke(?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: Instruction)
+  .decl _callgraph_edge_interim_direct_invoke(?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: CallBase)
 
   _callgraph_edge_interim_direct_invoke(?callee, ?callerCtx, ?callerInstr)
    :-
@@ -117,7 +117,7 @@ func_by_location(?alloc, ?callee) :-
 
   // Indirect func calls (via func pointers)
 
-  .decl _callgraph_edge_interim_indirect_call(?callee: FunctionDecl, ?callerCtx: Context, ?aCtx: Context, ?callerInstr: Instruction)
+  .decl _callgraph_edge_interim_indirect_call(?callee: FunctionDecl, ?callerCtx: Context, ?aCtx: Context, ?callerInstr: CallBase)
 
   _callgraph_edge_interim_indirect_call(?callee, ?callerCtx, ?aCtx, ?callerInstr)
    :-
@@ -136,7 +136,7 @@ func_by_location(?alloc, ?callee) :-
      _callgraph_edge_interim_indirect_call(?callee, ?callerCtx, _, ?callerInstr),
      merge(?calleeCtx, ?callerInstr, ?callerCtx).
 
-  .decl _callgraph_edge_interim_indirect_invoke(?callee: FunctionDecl, ?callerCtx: Context, ?aCtx: Context, ?callerInstr: Instruction)
+  .decl _callgraph_edge_interim_indirect_invoke(?callee: FunctionDecl, ?callerCtx: Context, ?aCtx: Context, ?callerInstr: CallBase)
 
   // TODO(lb): Perhaps don't store the allocation context? Seems unused by
   // callgraph_edge.
@@ -164,6 +164,7 @@ func_by_location(?alloc, ?callee) :-
 
 // Actual argument of func call
 
+// TODO(lb): This Instruction should be CallBase
 .decl actual_arg(?instr: Instruction, ?index: ArgumentIndex, ?argument: Operand)
 
 actual_arg(?invokeInstr, ?index, ?argument) :-
@@ -192,7 +193,7 @@ func_returns_value(?retValue, ?inFunction) :-
   // https://souffle-lang.github.io/components#input-rules
   //----------------------------------------------------------------------------
 
-  .decl callgraph_edge(?calleeCtx: Context, ?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: Instruction) inline
+  .decl callgraph_edge(?calleeCtx: Context, ?callee: FunctionDecl, ?callerCtx: Context, ?callerInstr: CallBase) inline
 
   //----------------------------------------------------------------------------
   // "Output"/defined rules
