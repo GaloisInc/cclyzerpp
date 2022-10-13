@@ -157,6 +157,7 @@ typeinfo(?var),
    global_var_name(?var, ?name),
    substr(?name, 0, strlen("@_ZTI")) = "@_ZTI".
 
+// This component isn't used by the pointer analysis yet, see ./debug.dl.
 .comp ThrowInstruction {
 
   //----------------------------------------------------------------------------
