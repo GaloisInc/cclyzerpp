@@ -35,13 +35,6 @@ add_subdirectory(datalog)
 # upgraded.
 set(SOUFFLE_FLAGS -jauto -PSIPS:max-bound
                   --disable-transformers=ExpandEqrelsTransformer)
-add_custom_command(
-  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/subset-and-unification.cpp
-  COMMAND
-    ${SOUFFLE_BIN}
-    ${CMAKE_CURRENT_LIST_DIR}/datalog/subset-and-unification.project
-    ${SOUFFLE_FLAGS} -g ${CMAKE_CURRENT_BINARY_DIR}/subset-and-unification.cpp
-  DEPENDS ${DL_SOURCES})
 
 add_custom_command(
   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/subset.cpp
@@ -64,7 +57,6 @@ add_custom_command(
 add_library(
   SoufflePAObject OBJECT
   ${CMAKE_CURRENT_BINARY_DIR}/debug.cpp
-  ${CMAKE_CURRENT_BINARY_DIR}/subset-and-unification.cpp
   ${CMAKE_CURRENT_BINARY_DIR}/subset.cpp
   ${CMAKE_CURRENT_BINARY_DIR}/unification.cpp)
 
