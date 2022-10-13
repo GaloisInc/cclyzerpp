@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#fpext-to-instr
 // keywords: conversion; unary; instr
 
-.type FPExtInstruction = Instruction
+.type FPExtInstruction <: symbol
 .decl fpext_instr(instr:FPExtInstruction)
 
 instr(v) :- fpext_instr(v).

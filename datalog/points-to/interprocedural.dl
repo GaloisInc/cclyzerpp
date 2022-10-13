@@ -103,7 +103,7 @@ func_by_location(?alloc, ?callee) :-
 
   _callgraph_edge_interim_direct_invoke(?callee, ?callerCtx, ?callerInstr)
    :-
-     direct_call_instr(?callerInstr),
+     direct_invoke_instr(?callerInstr),
      invoke_instr_fn_target(?callerInstr, ?callee),
      instr_func(?callerInstr, ?instrFunc),
      reachable_context(?callerCtx, ?instrFunc).

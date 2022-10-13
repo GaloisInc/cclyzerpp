@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#bitcast-to-instr
 // keywords: conversion; unary; instr
 
-.type BitcastInstruction = Instruction
+.type BitcastInstruction <: symbol
 .decl bitcast_instr(instr:BitcastInstruction)
 
 instr(v) :- bitcast_instr(v).

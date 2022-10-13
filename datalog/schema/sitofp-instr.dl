@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#sitofp-to-instr
 // keywords: conversion; unary; instr
 
-.type SIToFPInstruction = Instruction
+.type SIToFPInstruction <: symbol
 .decl sitofp_instr(instr:SIToFPInstruction)
 
 instr(v) :- sitofp_instr(v).

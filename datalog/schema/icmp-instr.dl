@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#icmp-instr
 // keywords: comparison; binary; instr
 
-.type ICmpInstruction = Instruction
+.type ICmpInstruction <: symbol
 .decl icmp_instr(instr:ICmpInstruction)
 
 instr(v) :- icmp_instr(v).

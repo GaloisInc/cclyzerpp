@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#atomicrmw-instr
 // keywords: memory; instr
 
-.type AtomicRMWInstruction = Instruction
+.type AtomicRMWInstruction <: symbol
 .decl atomicrmw_instr(instr:AtomicRMWInstruction)
 
 instr(v) :- atomicrmw_instr(v).

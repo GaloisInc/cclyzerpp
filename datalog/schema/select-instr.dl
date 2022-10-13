@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#select-instr
 // keywords: instr
 
-.type SelectInstruction = Instruction
+.type SelectInstruction <: symbol
 .decl select_instr(instr:SelectInstruction)
 
 instr(v) :- select_instr(v).

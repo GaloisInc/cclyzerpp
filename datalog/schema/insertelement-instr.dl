@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#insertelement-instr
 // keywords: vector; instr
 
-.type InsertElementInstruction = Instruction
+.type InsertElementInstruction <: symbol
 .decl insertelement_instr(instr:InsertElementInstruction)
 
 instr(v) :- insertelement_instr(v).

@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#trunc-to-instr
 // keywords: conversion; unary; instr
 
-.type TruncInstruction = Instruction
+.type TruncInstruction <: symbol
 .decl trunc_instr(instr:TruncInstruction)
 
 instr(v) :- trunc_instr(v).

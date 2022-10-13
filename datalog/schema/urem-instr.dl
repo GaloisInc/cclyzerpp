@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#urem-instr
 // keywords: arithmetic; binary; instr
 
-.type URemInstruction = Instruction
+.type URemInstruction <: symbol
 .decl urem_instr(instr:URemInstruction)
 
 instr(v) :- urem_instr(v).

@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#ret-instr
 // keywords: terminator; instr
 
-.type RetInstruction = Instruction
+.type RetInstruction <: symbol
 .decl ret_instr(instr:RetInstruction)
 
 instr(v) :- ret_instr(v).

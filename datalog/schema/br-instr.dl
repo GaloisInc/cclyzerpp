@@ -1,9 +1,12 @@
 // http://llvm.org/docs/LangRef.html#br-instr
 // keywords: terminator; instr
 
-.type BrInstruction = Instruction
-.type BrCondInstruction = BrInstruction
-.type BrUncondInstruction = BrInstruction
+.type BrInstruction
+  = BrCondInstruction
+  | BrUncondInstruction
+
+.type BrCondInstruction <: symbol
+.type BrUncondInstruction <: symbol
 
 .decl br_instr(instr:BrInstruction)
 .decl br_instr_cond(instr:BrCondInstruction)

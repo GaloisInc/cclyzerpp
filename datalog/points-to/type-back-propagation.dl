@@ -72,7 +72,7 @@
      baseSize != 0, // TODO: Does anything else need to be done in this case?
      size = (size / baseSize) * baseSize.
 
-  .decl heap_allocation_by_type_instr(?type: Type, ?insn: Instruction, ?heapAlloc: HeapAllocation)
+  .decl heap_allocation_by_type_instr(?type: Type, ?insn: CallBase, ?heapAlloc: HeapAllocation)
   .decl assign_rebase_alloc(?typedAlloc: Allocation, ?aCtx: Context, ?alloc: Allocation, ?var: Variable)
 
   heap_allocation_by_type_instr(?type, ?allocInstr, ?typedAlloc),
@@ -137,7 +137,7 @@
   // where the underlying alloca has an integer-type, but we might want to
   // change this if we see other examples in the wild.
 
-  .decl stack_allocation_by_type_instr(?type: Type, ?insn: Instruction, ?stackAlloc: StackAllocation)
+  .decl stack_allocation_by_type_instr(?type: Type, ?insn: AllocaInstruction, ?stackAlloc: StackAllocation)
   .decl stack_type_indication(?type: Type, ?aCtx: Context, ?alloc: Allocation)
 
   stack_type_indication(?type, ?aCtx, ?alloc) :-

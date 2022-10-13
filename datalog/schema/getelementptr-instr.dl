@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#getelementptr-instr
 // keywords: memory; instr
 
-.type GetElementPtrInstruction = Instruction
+.type GetElementPtrInstruction <: symbol
 .decl getelementptr_instr(instr:GetElementPtrInstruction)
 
 instr(v) :- getelementptr_instr(v).

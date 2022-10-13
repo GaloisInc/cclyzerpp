@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#load-instr
 // keywords: memory; instr
 
-.type LoadInstruction = Instruction
+.type LoadInstruction <: symbol
 .decl load_instr(instr:LoadInstruction)
 
 instr(v) :- load_instr(v).

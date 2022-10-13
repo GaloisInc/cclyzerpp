@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#alloca-instr
 // keywords: memory; unary; instr
 
-.type AllocaInstruction = Instruction
+.type AllocaInstruction <: symbol
 .decl alloca_instr(instr:AllocaInstruction)
 
 instr(v) :- alloca_instr(v).

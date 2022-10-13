@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#and-instr
 // keywords: bitwise; binary; instr
 
-.type AndInstruction = Instruction
+.type AndInstruction <: symbol
 .decl and_instr(instr:AndInstruction)
 
 instr(v) :-

@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#mul-instr
 // keywords: arithmetic; binary; instr
 
-.type MulInstruction = Instruction
+.type MulInstruction <: symbol
 .decl mul_instr(instr:MulInstruction)
 
 instr(v) :- mul_instr(v).

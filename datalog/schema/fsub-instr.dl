@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#fsub-instr
 // keywords: arithmetic; binary; instr
 
-.type FSubInstruction = Instruction
+.type FSubInstruction <: symbol
 .decl fsub_instr(instr:FSubInstruction)
 
 instr(v) :- fsub_instr(v).

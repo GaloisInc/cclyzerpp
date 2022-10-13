@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#switch-instr
 // keywords: terminator; instr
 
-.type SwitchInstruction = Instruction
+.type SwitchInstruction <: symbol
 .decl switch_instr(instr:SwitchInstruction)
 
 instr(v) :- switch_instr(v).

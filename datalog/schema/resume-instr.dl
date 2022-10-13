@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#resume-instr
 // keywords: terminator; instr
 
-.type ResumeInstruction = Instruction
+.type ResumeInstruction <: symbol
 .decl resume_instr(instr:ResumeInstruction)
 
 instr(v) :- resume_instr(v).

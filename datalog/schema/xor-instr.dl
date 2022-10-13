@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#xor-instr
 // keywords: bitwise; binary; instr
 
-.type XorInstruction = Instruction
+.type XorInstruction <: symbol
 .decl xor_instr(instr:XorInstruction)
 
 instr(v) :-

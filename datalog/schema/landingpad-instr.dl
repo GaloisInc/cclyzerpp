@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#landingpad-instr
 // keywords: exception; instr
 
-.type LandingPadInstruction = Instruction
+.type LandingPadInstruction <: symbol
 .decl landingpad_instr(instr:LandingPadInstruction)
 .decl landingpad_instr_is_cleanup(instr:LandingPadInstruction)
 
@@ -135,8 +135,8 @@ clause(c) :- catch_clause(c) ; filter_clause(c).
 .decl landingpad_instr_clause(instr:LandingPadInstruction, i:number, clause:Clause)
 .decl landingpad_instr_nclauses(instr:LandingPadInstruction, total:number)
 
-.decl landingpad_instr_catch_clause(v0:Instruction, v1:number, v2:Constant)
-.decl landingpad_instr_filter_clause(v0:Instruction, v1:number, v2:Constant)
+.decl landingpad_instr_catch_clause(v0:LandingPadInstruction, v1:number, v2:Constant)
+.decl landingpad_instr_filter_clause(v0:LandingPadInstruction, v1:number, v2:Constant)
 
 catch_clause(v2), landingpad_instr_clause(v0, v1, v2) :-
    landingpad_instr_catch_clause(v0, v1, v2).

@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#ashr-instr
 // keywords: bitwise; binary; instr
 
-.type AShrInstruction = Instruction
+.type AShrInstruction <: symbol
 .decl ashr_instr(instr:AShrInstruction)
 
 instr(v) :-

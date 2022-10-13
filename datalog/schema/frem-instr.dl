@@ -1,7 +1,7 @@
 // http://llvm.org/docs/LangRef.html#frem-instr
 // keywords: arithmetic; binary; instr
 
-.type FRemInstruction = Instruction
+.type FRemInstruction <: symbol
 .decl frem_instr(instr:FRemInstruction)
 
 instr(v) :- frem_instr(v).
