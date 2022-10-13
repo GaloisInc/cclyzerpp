@@ -2,9 +2,6 @@
 // Identify the new() func for C++
 //------------------------------------------------------------------------------
 
-
-// There must be a single allocating func
-
 .decl cxx_new_func(?func: FunctionDecl)
 
 // Consider only funcs with a single parameter of integer type, no
@@ -110,57 +107,6 @@ sized_alloc_instr(?insn, as(?size, Bytes)) :-
     is_init_by_ctor(?type, ?ctor, _, ?alloc),
     basic_allocation(?alloc).
 
-
-  //---------------------------------------------------------------------------
-  // [Recovering the Class Hierarchy]
-  //
-  // We recover the class hierarchy by tracking the sub-object
-  // constructors called inside the top constructor of some object. This
-  // will miss parts of the class hierarchy for classes with no
-  // instances, but these would probably by unreachable code anyway.
-  //---------------------------------------------------------------------------
-
-  //.decl primary_superclass(?type: ClassType, ?superType: ClassType)
-  //.decl secondary_superclass(?superType: ClassType, ?type: ClassType)
-
-
-  // The primary superclass of class B is derived by identifying the
-  // call to some constructor of class A inside the B constructor, that
-  // is invoked on the receiver object
-
-  // primary_superclass[Type] = Supertype <-
-  //    class_instance:constructor[Alloc] = Ctor,
-  //    constructor:class_type[Ctor] = Type,
-  //    !class_type:typeinfo[Type] = _,
-  //    // TODO: could we leverage context here?
-  //    init_by_ctor(Supertype, _, Ctor, Alloc),
-  //    struct_type:field[Type, 0] = UnpaddedType,
-  //    struct_type:nfields[UnpaddedType] = NFields,
-  //    type_compatible:up_to_field(Supertype, UnpaddedType, NFields - 1).
-
-  // Same thing for secondary superclasses, although the object that
-  // flows to constructor will have some offset w.r.t the original
-  // receiver object.
-
-  // TODO This is not entirely correct, as some fields may be labeled as
-  // superclasses
-
-  // secondary_superclass(Supertype, Type) <-
-  //    class_instance:constructor[BaseAlloc] = Ctor,
-  //    constructor:class_type[Ctor] = Type,
-  //    !class_type:typeinfo[Type] = _,
-  //    alloc_aliases(BaseAlloc0, BaseAlloc),
-  //    alloc_aliases(BaseAlloc, BaseAlloc0),     // redundant opt clause
-  //    alloc_subregion:base[Alloc] = BaseAlloc0, // reduntant opt clause
-  //    alloc_subregion:at_field[BaseAlloc0, Index] = Alloc,
-  //    // TODO: could we leverage context here?
-  //    init_by_ctor(Supertype, _, Ctor, Alloc),
-  //    struct_type:field[Type, Index] = UnpaddedType,
-  //    struct_type:nfields[UnpaddedType] = NFields,
-  //    type_compatible:up_to_field(Supertype, UnpaddedType, NFields - 1),
-  //    Index != 0.
-
-
   //----------------------------------------------------
   // Find vtable associated with given class instance
   //----------------------------------------------------
@@ -177,49 +123,14 @@ sized_alloc_instr(?insn, as(?size, Bytes)) :-
     constant(?value),
     constant_contains_vptr(?vTable, ?value).
 
-
-  //----------------------------------------------------
-  // Find class type associated with each vtable
-  //----------------------------------------------------
-
-  // We do that by identifying instrs that store a pointer to a
-  // vtable to the vpointer of some class instance, inside some
-  // constructor. We already now the class type associated with each
-  // constructor func, hence we now have the association between the
-  // class type and its vtable too.
-
-  // This does not always work. TODO: fix
-
-  // vtable:class_type[VTable] = Type
-  //  <-
-  //    init_by_ctor(Type, Ctor, _, Alloc),
-  //    instr:func[StoreInsn] = Ctor,
-  //    store_instr:value[StoreInsn] = Value,
-  //    store_instr:address[StoreInsn] = Pointer,
-  //    operand_points_to(Alloc, Pointer),
-  //    operand:as_constant[Value] = Constant,
-  //    constant_contains_vptr(VTable, Constant).
-
-
-  // Note !!! Load instrs on class instances will return the
-  // object's vtable. The array-sensitive treatment of GEP instrs
-  // will ensure that the indices are appropriately recorded, so that
-  // any subsequent dynamic dispatch will be correctly resolved by the
-  // normal dereference rules. However, in case of non-base class types,
-  // we have to ensure that the vpointer gets strongly updated,
-  // otherwise it may also point to all v-tables of its parent class
-  // types !!!
-
 }
 
 //----------------------------------------------------
 // C++ Type Compatibility
 //----------------------------------------------------
 
-
-// REVIEW: Enhance type compatibility rules by allowing a pointer to
-// some subclass be used in the place of the pointer to the
-// superclass!!
+// Allow a pointer to some subclass be used in the place of the pointer to the
+// superclass
 
 .decl _eligible_base_type(?superType: StructType, ?type: StructType)
 _eligible_base_type(?superType, ?type) :-
@@ -238,13 +149,3 @@ type_compatible(?ptrActualType, ?ptrDeclaredType) :-
    pointer_type_has_component(?ptrActualType, ?actualType),
    pointer_type_has_component(?ptrDeclaredType, ?declaredType),
    _type_expands_base_type(?declaredType, ?actualType).
-/*
-struct_type(Type)
- , struct_type(UnpaddedType)
- , type:id(Type:Sign)
- , type:id(UnpaddedType:UnpaddedSign)
- , struct_type:nfields[UnpaddedType] = NFields
- , UnpaddedSign = Sign + ".base"
- ->
-   type_compatible:up_to_field(Type, UnpaddedType, NFields - 1).
-*/
