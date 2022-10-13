@@ -53,14 +53,6 @@ sized_alloc_instr(?insn, as(?size, Bytes)) :-
 // type for the object.
 //------------------------------------------------------------------------------
 
-.decl constructor_class_type(?ctor: FunctionDecl, ?classType: ClassType)
-constructor_class_type(?ctor, ?classType) :-
-   class_type_constructor(?ctor, ?classType).
-
-.decl destructor_class_type(?dtor: FunctionDecl, ?classType: ClassType)
-destructor_class_type(?dtor, ?classType) :-
-   class_type_destructor(?dtor, ?classType).
-
 .comp CPlusPlus {
 
   //----------------------------------------------------------------------------
@@ -89,7 +81,7 @@ destructor_class_type(?dtor, ?classType) :-
   :-
     ( call_instr_fn_target(?initInstr, ?ctor)
     ; invoke_instr_fn_target(?initInstr, ?ctor) ),
-    constructor_class_type(?ctor, ?type),
+    class_type_constructor(?ctor, ?type),
     instr_func(?initInstr, ?inFunction),
     actual_arg(?initInstr, 0, ?this),
     stripctx_operand_points_to(?alloc, ?this).
