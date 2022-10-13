@@ -71,15 +71,10 @@ _typeinfo_class_name(?typeInfo, ?className) :-
    ?n = strlen(?tIName),
    ?className = substr(?tIName, 13, ?n - 13).
 
-// TODO(lb): Remove me!
-.decl _typeinfo_by_class_name(?className: symbol , ?typeInfo: GlobalVariable)
-_typeinfo_by_class_name(?className, ?typeInfo) :-
-   _typeinfo_class_name(?typeInfo, ?className).
-
 // typeinfo of class
 class_type_typeinfo(?classType, ?typeInfo) :-
    class_type_name(?classType, ?className),
-   _typeinfo_by_class_name(?className, ?typeInfo).
+   _typeinfo_class_name(?typeInfo, ?className).
 
 // Extract class name from demangled vtable name. The latter is of the
 // form: vtable for CLASS-NAME
@@ -246,7 +241,7 @@ unpadded_struct_type(?type) :-
 // Typeinfo objects of template types
 template_typeinfo(?typeInfo) :-
    match(".*<.*>", ?name),
-   _typeinfo_by_class_name(?name, ?typeInfo).
+   _typeinfo_class_name(?typeInfo, ?name).
 
 //------------------------------------------------------------------------------
 // Constructors and Destructors for objects of this class type
