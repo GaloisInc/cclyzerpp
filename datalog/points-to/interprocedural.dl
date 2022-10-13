@@ -164,8 +164,7 @@ func_by_location(?alloc, ?callee) :-
 
 // Actual argument of func call
 
-// TODO(lb): This Instruction should be CallBase
-.decl actual_arg(?instr: Instruction, ?index: ArgumentIndex, ?argument: Operand)
+.decl actual_arg(?instr: CallBase, ?index: ArgumentIndex, ?argument: Operand)
 
 actual_arg(?invokeInstr, ?index, ?argument) :-
   invoke_instr_arg(?invokeInstr, ?index, ?argument).
