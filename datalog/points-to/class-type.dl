@@ -103,13 +103,13 @@ class_type_vtable(?classType, ?vt) :-
 .decl _typeinfo_class_type(?typeInfo: GlobalVariable, ?classType: ClassType)
 
 _typeinfo_class_type(?typeInfo, ?classType) :-
-   !unpadded_struct_type(?classType),
+   !store_struct_type(?classType),
    !template_typeinfo(?typeInfo),
    !template_type(?classType),
    class_type_typeinfo(?classType, ?typeInfo).
 
 _typeinfo_class_type(?typeInfo, ?classType) :-
-   !unpadded_struct_type(?classType),
+   !store_struct_type(?classType),
    template_typeinfo(?typeInfo),
    template_type(?classType),
    class_type_typeinfo(?classType, ?typeInfo).
@@ -224,10 +224,10 @@ template_type(?type) :-
    ?dotSuffix != "base",
    ?dotSuffix != "base\"".
 
-// Types that are unpadded versions of their originals, to be used as
+// Types that are store versions of their originals, to be used as
 // base types via inheritance
-.decl unpadded_struct_type(?type: StructType)
-unpadded_struct_type(?type) :-
+.decl store_struct_type(?type: StructType)
+store_struct_type(?type) :-
    struct_type(?type),
    match(".*\\.base",?type).
 

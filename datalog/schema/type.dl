@@ -14,8 +14,8 @@
 
 // Sizes of types in bytes
 
-.decl type_has_size(t:Type, size:Bytes)
-.decl type_has_unpadded_size(t:Type, size:Bytes)
+.decl type_size(t:Type, size:Bytes)
+.decl type_store_size(t:Type, size:Bytes)
 
 // For constraints
 .decl schema_invalid_type(type:Type, file:File, line:Line)
@@ -83,10 +83,10 @@ int8_type("i8").
 int32_type("i32").
 int64_type("i64").
 
-type_has_size(t, 1) :- int1_type(t).
-type_has_size(t, 1) :- int8_type(t).
-type_has_size(t, 4) :- int32_type(t).
-type_has_size(t, 8) :- int64_type(t).
+type_size(t, 1) :- int1_type(t).
+type_size(t, 1) :- int8_type(t).
+type_size(t, 4) :- int32_type(t).
+type_size(t, 8) :- int64_type(t).
 
 // Boolean alias
 boolean_type(t) :- int1_type(t).
@@ -114,12 +114,12 @@ fp128_type("fp128").
 x86_fp80_type("x86_fp80").
 ppc_fp128_type("ppc_fp128").
 
-type_has_size(t, 8) :- double_type(t).
-type_has_size(t, 4) :- float_type(t).
-type_has_size(t, 2) :- half_type(t).
-type_has_size(t, 16) :- fp128_type(t).
-type_has_size(t, 10) :- x86_fp80_type(t).
-type_has_size(t, 16) :- ppc_fp128_type(t).
+type_size(t, 8) :- double_type(t).
+type_size(t, 4) :- float_type(t).
+type_size(t, 2) :- half_type(t).
+type_size(t, 16) :- fp128_type(t).
+type_size(t, 10) :- x86_fp80_type(t).
+type_size(t, 16) :- ppc_fp128_type(t).
 
 //------------------------------------------------------------------------------
 // [Derived Types]
@@ -193,7 +193,7 @@ type_is_firstclass(Type) :-
 //----------------------
 
 .decl array_type_has_component(type:ArrayType, comp:Type)
-.decl array_type_has_size(type:ArrayType, size:number)
+.decl array_type_size(type:ArrayType, size:number)
 
 schema_invalid_type(Type, __FILE__, __LINE__) :-
    schema_sanity(),
@@ -203,7 +203,7 @@ schema_invalid_type(Type, __FILE__, __LINE__) :-
 schema_invalid_type(Type, __FILE__, __LINE__) :-
    schema_sanity(),
    array_type(Type),
-   !array_type_has_size(Type, _).
+   !array_type_size(Type, _).
 
 
 .decl int8_array_type(type:ArrayType)
@@ -319,7 +319,7 @@ schema_invalid_type(Type, __FILE__, __LINE__) :-
 //----------------------
 
 .decl vector_type_has_component(type:VectorType, comp:Type)
-.decl vector_type_has_size(type:VectorType, size:number)
+.decl vector_type_size(type:VectorType, size:number)
 
 .decl integer_vector_type(type:VectorType)
 .decl fp_vector_type(type:VectorType)
@@ -367,12 +367,12 @@ schema_invalid_type(Type, __FILE__, __LINE__) :-
 schema_invalid_type(Type, __FILE__, __LINE__) :-
    schema_sanity(),
    vector_type(Type),
-   !vector_type_has_size(Type, _).
+   !vector_type_size(Type, _).
 
 schema_invalid_type(Type, __FILE__, __LINE__) :-
    schema_sanity(),
    vector_type(Type),
-   vector_type_has_size(Type, Size),
+   vector_type_size(Type, Size),
    Size <= 0.
 
 schema_invalid_type(Type, __FILE__, __LINE__) :-
@@ -403,13 +403,13 @@ schema_invalid_type(Type, __FILE__, __LINE__) :-
 .decl eq_size_vector_types_(type1:VectorType, type2:VectorType, type3:VectorType)
 
 eq_size_vector_types(Type1, Type2) :-
-   vector_type_has_size(Type1, Size),
-   vector_type_has_size(Type2, Size).
+   vector_type_size(Type1, Size),
+   vector_type_size(Type2, Size).
 
 eq_size_vector_types_(Type1, Type2, Type3) :-
-   vector_type_has_size(Type1, Size),
-   vector_type_has_size(Type2, Size),
-   vector_type_has_size(Type3, Size).
+   vector_type_size(Type1, Size),
+   vector_type_size(Type2, Size),
+   vector_type_size(Type3, Size).
 
 // Two types are vector-compatible if:
 //  (i)  neither is a vector, or

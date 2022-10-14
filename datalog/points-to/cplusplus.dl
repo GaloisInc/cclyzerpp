@@ -134,9 +134,9 @@ sized_alloc_instr(?insn, as(?size, Bytes)) :-
 
 .decl _eligible_base_type(?superType: StructType, ?type: StructType)
 _eligible_base_type(?superType, ?type) :-
-   struct_type_field(?type, 0, ?unpaddedType),
-   struct_type_nfields(?unpaddedType, ?nFields),
-   type_compatible_up_to_field(?superType, ?unpaddedType, ?nFields - 1).
+   struct_type_field(?type, 0, ?storeType),
+   struct_type_nfields(?storeType, ?nFields),
+   type_compatible_up_to_field(?superType, ?storeType, ?nFields - 1).
 
 .decl _type_expands_base_type(?superType: StructType, ?type: StructType)
 _type_expands_base_type(?superType, ?type) :-

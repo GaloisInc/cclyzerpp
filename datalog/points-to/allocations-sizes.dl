@@ -17,7 +17,7 @@ allocation_size(?globalAlloc, ?n) :-
   global_var_linkage(?globalVar, ?linkage),
   ! external_linkage_type(?linkage),
   static_allocation_type(?globalAlloc, ?type),
-  type_has_size(?type, ?n),
+  type_size(?type, ?n),
   ! typeinfo_vtable(?globalVar, _).
 
 // The sizes of external globals may not match the size of their types.
@@ -51,7 +51,7 @@ allocation_size(?stackAlloc, ?n) :-
    constant_to_int(?operand, numElements),
    stack_allocation_by_instr(?insn, ?stackAlloc),
    static_allocation_type(?stackAlloc, ?type),
-   type_has_size(?type, size),
+   type_size(?type, size),
    ?n = (numElements)*(size).
 
 allocation_size(?stackAlloc, ?size) :-
@@ -59,12 +59,12 @@ allocation_size(?stackAlloc, ?size) :-
    !alloca_instr_size(?insn, _),
    stack_allocation_by_instr(?insn, ?stackAlloc),
    static_allocation_type(?stackAlloc, ?type),
-   type_has_size(?type, ?size).
+   type_size(?type, ?size).
 
 allocation_size(?stackAlloc, ?size) :-
    stack_allocation_by_parameter(_, _, ?stackAlloc),
    static_allocation_type(?stackAlloc, ?type),
-   type_has_size(?type, ?size).
+   type_size(?type, ?size).
 
 //-----------------------
 // Heap Allocations

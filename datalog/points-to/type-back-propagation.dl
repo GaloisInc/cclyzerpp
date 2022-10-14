@@ -55,7 +55,7 @@
      _heap_allocation_by_instr(?allocInstr, ?alloc, ?untyped),
      pointer_type_has_component(?ptrType,?type),
      sized_alloc_instr(?allocInstr,?size),
-     type_has_size(?type,?size).
+     type_size(?type,?size).
 
   // In case of known size, we must also allow pointer types whose base
   // component may perfectly divide the known size of the allocation.
@@ -68,7 +68,7 @@
      pointer_type_has_component(?ptrType,?type),
      pointer_type_base_component(?ptrType, ?baseType),
      sized_alloc_instr(?allocInstr, size),
-     type_has_size(?baseType,baseSize),
+     type_size(?baseType,baseSize),
      baseSize != 0, // TODO: Does anything else need to be done in this case?
      size = (size / baseSize) * baseSize.
 

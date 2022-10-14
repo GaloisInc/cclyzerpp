@@ -171,7 +171,7 @@ _SPECS: FrozenSet[RelationSpec] = frozenset(
             properties=frozenset({(binary, frozenset({BinaryRelationProperty.REFLEXIVE}))}),
         ),
         RelationSpec(
-            name="type_has_size",
+            name="type_size",
             types=(str, int),
             properties=frozenset({(binary, frozenset({BinaryRelationProperty.FUNCTIONAL}))}),
         ),
@@ -181,7 +181,7 @@ _SPECS: FrozenSet[RelationSpec] = frozenset(
             properties=frozenset({(binary, frozenset({BinaryRelationProperty.FUNCTIONAL}))}),
         ),
         RelationSpec(
-            name="vector_type_has_size",
+            name="vector_type_size",
             types=(str, int),
             properties=frozenset({(binary, frozenset({BinaryRelationProperty.FUNCTIONAL}))}),
         ),

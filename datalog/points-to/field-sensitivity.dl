@@ -23,7 +23,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   constant_to_int(?indexOp, ?index),
   getelementptr_instr_base_type(?insn, ?ptrType),
   pointer_type_has_component(?ptrType, ?type),
-  type_has_size(?type, ?size).
+  type_size(?type, ?size).
 
 .comp GEP {
   //----------------------------------------------------------------------------
@@ -203,7 +203,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
     allocation_type(?baseAlloc, ?allocType),
     alloc_region(?baseAlloc, ?region),
     ! pointer_offset(?region, ?allocType, ?offset),
-    type_has_size(?allocType, ?elemSize),
+    type_size(?allocType, ?elemSize),
     ?elemSize != 0,
     ?offset % max(?elemSize, 1) = 0,
     alloc_subregion_at_any_array_index(?baseAlloc, ?alloc).
@@ -246,12 +246,12 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
     alloc_region(?grandparent, ?region),
     ( ( basic_allocation(?grandparent)
       , ! pointer_offset(?region, ?allocType, ?startOffset + ?offset)
-      , type_has_size(?allocType, ?elemSize)
+      , type_size(?allocType, ?elemSize)
       )
     ; ( alloc_subregion_at_path_component(_, ?grandparent)
       , ! array_offset(?region, ?allocType, ?startOffset + ?offset)
       , array_type_has_component(?allocType, ?elemType)
-      , type_has_size(?allocType, ?elemSize)
+      , type_size(?allocType, ?elemSize)
       )
     ),
     ?elemSize != 0,

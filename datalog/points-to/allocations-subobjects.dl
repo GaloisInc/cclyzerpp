@@ -64,7 +64,7 @@ pointer_index(?region, ?type, ?finalIdx) :-
   // The first index of a GEP always a pointer type.
   pointer_type_has_component(?declaredType, ?declaredElemType),
   ( ( type_compatible(?type, ?declaredElemType)
-    , type_has_size(?type, ?size)
+    , type_size(?type, ?size)
     )
   ; // This case is not redundant with the previous in the case; there may be
     // types ?type where there is no pointer_type_has_component(_, ?type).
@@ -72,12 +72,12 @@ pointer_index(?region, ?type, ?finalIdx) :-
     // pointer types to them are compatible (i8 and i64 vs. i8* and i64*).
     ( pointer_type_has_component(?ptrType, ?type)
     , type_compatible(?ptrType, ?declaredType)
-    , type_has_size(?type, ?size)
+    , type_size(?type, ?size)
     )
   ),
   // Adjust the index... (this calculation should match what's done for GEP)
   ?size > 0,
-  type_has_size(?declaredElemType, ?declaredSize),
+  type_size(?declaredElemType, ?declaredSize),
   // Soufflé can still divide by zero here if it reorders clauses, so we take max
   ?finalIdx = (?index * ?declaredSize) / max(?size, 1),
   // Check that the type sizes divide evenly...
@@ -91,7 +91,7 @@ pointer_offset(?region, ?type, 0) :-
 
 pointer_offset(?region, ?type, ?index * ?size) :-
   pointer_index(?region, ?type, ?index),
-  type_has_size(?type, ?size).
+  type_size(?type, ?size).
 
 // Find all statically possible array indices
 
@@ -124,7 +124,7 @@ array_indices(?region, ?type, ?constantIndex) :-
 array_offset(?region, ?type, ?index * ?size) :-
   array_indices(?region, ?type, ?index),
   array_type_has_component(?type, ?elemType),
-  type_has_size(?elemType, ?size).
+  type_size(?elemType, ?size).
 
 //---------------------------------------------------------------
 // [Paths]
@@ -385,7 +385,7 @@ not_array_index(?component) :- path_component_at_any_index(?component).
     input_allocation_size(?alloc, ?size),
     allocation_type(?alloc, ?type),
     alloc_region(?alloc, ?region),
-    type_has_size(?type, ?elemSize),
+    type_size(?type, ?elemSize),
     pointer_index(?region, ?type, ?index),
     // While it is valid to create a pointer to one past the end of an array,
     // such a pointer can't participate in loads or stores, so we don't track
@@ -405,7 +405,7 @@ not_array_index(?component) :- path_component_at_any_index(?component).
     allocation_type(?alloc, ?type),
     alloc_region(?alloc, ?region),
     array_type_has_component(?type, ?elementType),
-    type_has_size(?elementType, ?elemSize),
+    type_size(?elementType, ?elemSize),
     array_indices(?region, ?type, ?index),
     ?elemSize * ?index < ?size.
 
@@ -466,7 +466,7 @@ not_array_index(?component) :- path_component_at_any_index(?component).
   alloc_subregion_offset(?base, ?subAlloc, ?idx * ?size) :-
     alloc_subregion_at_array_index(?base, ?idx, ?subAlloc),
     allocation_type(?subAlloc, ?type),
-    type_has_size(?type, ?size).
+    type_size(?type, ?size).
 
   //---------------------------------------------------------------
   // Size
@@ -477,13 +477,13 @@ not_array_index(?component) :- path_component_at_any_index(?component).
   allocation_size(?subAlloc, ?size) :-
     alloc_subregion_at_array_index(_, _, ?subAlloc),
     allocation_type(?subAlloc, ?type),
-    type_has_size(?type, ?size).
+    type_size(?type, ?size).
 
   // The [*]-index is treated as a single suballocation.
   allocation_size(?subAlloc, ?size) :-
     alloc_subregion_at_any_array_index(_, ?subAlloc),
     allocation_type(?subAlloc, ?type),
-    type_has_size(?type, ?size).
+    type_size(?type, ?size).
 
   // Padding is not included because it can't be read or written. This means the
   // size of the children allocations may not sum to the size of the parent.
@@ -491,7 +491,7 @@ not_array_index(?component) :- path_component_at_any_index(?component).
     alloc_subregion_at_field(?base, ?field, ?fieldAlloc),
     alloc_subregion_at_field(?base, ?field + 1, _),  // not the last field
     allocation_type(?fieldAlloc, ?type),
-    type_has_size(?type, ?size).
+    type_size(?type, ?size).
 
   // The last field of a struct might have additional space, e.g. a [0 x i8].
   allocation_size(?subAlloc, ?size - ?offset) :-

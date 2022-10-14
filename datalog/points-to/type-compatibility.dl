@@ -71,15 +71,15 @@ type_compatible(?from,?to) :-
 type_compatible(?type1, ?type2) :-
    array_type_has_component(?type1, ?comp1),
    array_type_has_component(?type2, ?comp2),
-   ( (!array_type_has_size(?type1, _) )
-   ; (!array_type_has_size(?type2, _) )),
+   ( (!array_type_size(?type1, _) )
+   ; (!array_type_size(?type2, _) )),
    type_compatible(?comp1, ?comp2).
 
 type_compatible(?type1, ?type2) :-
    array_type_has_component(?type1, ?comp1),
    array_type_has_component(?type2, ?comp2),
-   array_type_has_size(?type1, ?size),
-   array_type_has_size(?type2, ?size),
+   array_type_size(?type1, ?size),
+   array_type_size(?type2, ?size),
    type_compatible(?comp1, ?comp2).
 
 // Pointer types

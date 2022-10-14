@@ -30,7 +30,7 @@ void TypeVisitor::visitType(const llvm::Type *type) {
     // Store size of type in bytes
     refmode_t typeId = gen.refmode<llvm::Type>(*type);
 
-    gen.writeFact(pred::type::alloc_size, typeId, allocSize);
+    gen.writeFact(pred::type::size, typeId, allocSize);
     gen.writeFact(pred::type::store_size, typeId, storeSize);
   }
 

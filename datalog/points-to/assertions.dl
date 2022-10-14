@@ -19,13 +19,13 @@ assert_every_allocation_has_a_type(?alloc) :-
 .decl assert_array_type_size(?type: Type, ?numElems: number, ?elemSize: number, ?size: number)
 assert_array_type_size(?type, ?numElems, ?elemSize, ?size) :-
   array_type_has_component(?type, ?elemType),
-  type_has_size(?type, ?size),
-  array_type_has_size(?type, ?numElems),
-  type_has_size(?elemType, ?elemSize),
+  type_size(?type, ?size),
+  array_type_size(?type, ?numElems),
+  type_size(?elemType, ?elemSize),
   ?numElems * ?elemSize != ?size.
 
-.decl assert_type_has_size(?type: Type)
-assert_type_has_size(?type) :-
+.decl assert_type_size(?type: Type)
+assert_type_size(?type) :-
   type(?type),
   ! func_type(?type),
   ! opaque_struct_type(?type),
@@ -33,12 +33,12 @@ assert_type_has_size(?type) :-
   ! label_type(?type),
   ! metadata_type(?type),
   ! x86mmx_type(?type),
-  ! type_has_size(?type, _).
+  ! type_size(?type, _).
 
 .decl assert_type_unique_size(?type: Type, ?sz1: number, ?sz2: number)
 assert_type_unique_size(?type, ?sz1, ?sz2) :-
-  type_has_size(?type, ?sz1),
-  type_has_size(?type, ?sz2),
+  type_size(?type, ?sz1),
+  type_size(?type, ?sz2),
   ?sz1 != ?sz2.
 
 //------------------------------------------------------------------------------

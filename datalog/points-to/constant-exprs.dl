@@ -58,8 +58,8 @@ gep_constant_expr_index_offset(?insn, 0, ?alloc, ?offset) :-
    gep_constant_expr_indexes_from(?insn, 0, ?alloc, ?ptrType),
    pointer_type_has_component(?ptrType, ?type),
    static_allocation_type(?alloc, ?allocType),
-   type_has_size(?type, ?pSize),
-   type_has_size(?allocType, ?aSize),
+   type_size(?type, ?pSize),
+   type_size(?allocType, ?aSize),
    getelementptr_constant_expression_index(?insn, 0, ?indexOp),
    constant_to_int(?indexOp, ?offset),
    ?aSize != 0, // TODO: Does anything else need to be done in this case?
