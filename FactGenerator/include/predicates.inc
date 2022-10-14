@@ -228,15 +228,14 @@ GROUP_END(resume)
 
 GROUP_BEGIN(invoke)
 PREDICATE2(invoke, instr)
+PREDICATEI(invoke, arg)
 PREDICATEI(invoke, func_operand)
 PREDICATEI(invoke, calling_conv)
 PREDICATEI(invoke, return_attr)
 PREDICATEI(invoke, param_attr)
 PREDICATEI(invoke, fn_attr)
-// TODO(#42): Rename for consistency
-PREDICATE(invoke, arg, invoke_instr_arg)
-PREDICATE(invoke, normal_label, invoke_instr_normal_label)
-PREDICATE(invoke, exc_label, invoke_instr_exception_label)
+PREDICATEI(invoke, normal_label)
+PREDICATEI(invoke, exception_label)
 GROUP_END(invoke)
 
 // Vector Operations
@@ -450,13 +449,12 @@ GROUP_END(va_arg)
 GROUP_BEGIN(call)
 PREDICATE2(call, instr)
 PREDICATEI(call, func_operand)
+PREDICATEI(call, arg)
 PREDICATEI(call, calling_conv)
 PREDICATEI(call, return_attr)
 PREDICATEI(call, param_attr)
 PREDICATEI(call, fn_attr)
 PREDICATEI(call, tail_opt)
-// TODO(#42):
-PREDICATE(call, arg, call_instr_arg)
 GROUP_END(call)
 
 GROUP_BEGIN(landingpad)

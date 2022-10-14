@@ -290,7 +290,7 @@ void InstructionVisitor::visitInvokeInst(const llvm::InvokeInst &II) {
     writeInstrOperand(pred::invoke::arg, iref, II.getArgOperand(op), op);
 
   writeInstrOperand(pred::invoke::normal_label, iref, II.getNormalDest());
-  writeInstrOperand(pred::invoke::exc_label, iref, II.getUnwindDest());
+  writeInstrOperand(pred::invoke::exception_label, iref, II.getUnwindDest());
 
   // Function Attributes
   const Attributes &Attrs = II.getAttributes();
