@@ -99,19 +99,6 @@ func_nparams(Func, Total) :-
 
 //------------------------------------------------------------------------------
 // [Parameter Attributes]
-//
-// The return type and each parameter of a function type may have
-// a set of parameter attributes associated with them.
-//
-// Parameter attributes are used to communicate additional information
-// about the result or parameters of a function.
-//
-// Parameter attributes are considered to be part of the function,
-// not of the function type, so functions with different parameter
-// attributes can have the same function type.
-//
-// Parameter attributes are simple keywords that follow the type specified.
-// If multiple parameter attributes are needed, they are space separated.
 //------------------------------------------------------------------------------
 
 .decl func_func_attr(func:FunctionDecl, attr:Attribute)
