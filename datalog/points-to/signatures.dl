@@ -46,7 +46,7 @@ func_needs_signature(?func) :-
     "@memcpy"=substr(?name,0,7);
     "@llvm.memcpy"=substr(?name,0,12)),
   func_ty(?func, ?type),
-  func_type_return(?type, ?rtype),
+  func_type_return_(?type, ?rtype),
   pointer_type(?rtype).
 
 func_needs_signature(?func) :-

@@ -237,7 +237,7 @@ func_returns_value(?retValue, ?inFunction) :-
   interp_assignment(?calleeCtx, ?toVar, ?callerCtx, ?argument) :-
     _va_arg_target(?toVar, ?argType, ?callee),
     func_ty(?callee, ?type),
-    func_type_has_varargs(?type),
+    func_type_varargs(?type),
     func_type_nparams(?type, ?n),
     callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr),
     actual_arg(?callerInstr, ?index, ?argument),

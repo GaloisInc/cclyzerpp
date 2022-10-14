@@ -177,14 +177,14 @@ void TypeVisitor::visitFunctionType(const FunctionType *functionType) {
   if (functionType->isVarArg()) gen.writeFact(pred::func_type::varargs, funcId);
 
   // Record return type
-  gen.writeFact(pred::func_type::return_type, funcId, returnTypeId);
+  gen.writeFact(pred::func_type::return_, funcId, returnTypeId);
 
   // Record function formal parameters
   for (size_t i = 0; i < nParameters; i++) {
     const llvm::Type *paramType = functionType->getFunctionParamType(i);
     refmode_t paramTypeId = gen.refmode<llvm::Type>(*paramType);
 
-    gen.writeFact(pred::func_type::param_type, funcId, i, paramTypeId);
+    gen.writeFact(pred::func_type::param, funcId, i, paramTypeId);
   }
 
   // Record number of formal parameters

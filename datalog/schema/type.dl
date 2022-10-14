@@ -217,8 +217,8 @@ int8_array_type(Type) :-
 // Function type
 //----------------------
 
-.decl func_type_has_varargs(type:FunctionType)
-.decl func_type_return(type:FunctionType, ret:Type)
+.decl func_type_varargs(type:FunctionType)
+.decl func_type_return_(type:FunctionType, ret:Type)
 .decl func_type_param(type:FunctionType, index:ArgumentIndex, param:Type)
 .decl func_type_nparams(type:FunctionType, total:number)
 
@@ -230,7 +230,7 @@ schema_invalid_type(Type, __FILE__, __LINE__) :-
 schema_invalid_type(Type, __FILE__, __LINE__) :-
    schema_sanity(),
    func_type(Type),
-   func_type_return(Type, RetType),
+   func_type_return_(Type, RetType),
    (metadata_type(RetType) ; label_type(RetType)).
 
 

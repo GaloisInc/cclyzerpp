@@ -139,7 +139,7 @@ _SPECS: FrozenSet[RelationSpec] = frozenset(
             ),
         ),
         RelationSpec(
-            name="func_type_return",
+            name="func_type_return_",
             types=(str, str),
             properties=frozenset({(binary, frozenset({BinaryRelationProperty.FUNCTIONAL}))}),
         ),

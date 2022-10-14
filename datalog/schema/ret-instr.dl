@@ -43,14 +43,14 @@ func_is_illformed(Func) :-
    ret_instr_void_(Instr),
    instr_func(Instr, Func),
    func_ty(Func, FuncType),
-   func_type_return(FuncType, RetType),
+   func_type_return_(FuncType, RetType),
    !void_type(RetType).
 
 func_is_illformed(Func) :-
    ret_instr_operand(Instr, Value),
    instr_func(Instr, Func),
    func_ty(Func, FuncType),
-   func_type_return(FuncType, RetType),
+   func_type_return_(FuncType, RetType),
    !void_type(RetType),
    !operand_has_type(Value, RetType).
 
@@ -59,7 +59,7 @@ func_is_illformed(Func) :-
    !ret_instr_void_(Instr),
    instr_func(Instr, Func),
    func_ty(Func, FuncType),
-   func_type_return(FuncType, RetType),
+   func_type_return_(FuncType, RetType),
    void_type(RetType).
 
 

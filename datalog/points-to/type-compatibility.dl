@@ -42,8 +42,8 @@ type_compatible(?type1,?type2) :-
 .decl type_compatible_up_to_arg(?from:FunctionType, ?to:FunctionType, ?index:ArgumentIndex)
 
 type_compatible_up_to_arg(?from, ?to, 0) :-
-   func_type_return(?from, ?returnType1),
-   func_type_return(?to , ?returnType2),
+   func_type_return_(?from, ?returnType1),
+   func_type_return_(?to , ?returnType2),
    type_compatible(?returnType1, ?returnType2).
 
 type_compatible_up_to_arg(?from, ?to, i+1) :-
@@ -63,7 +63,7 @@ type_compatible(?from,?to) :-
 
 type_compatible(?from,?to) :-
    func_type_nparams(?to, ?nparams),
-   func_type_has_varargs(?to),
+   func_type_varargs(?to),
    type_compatible_up_to_arg(?from, ?to, ?nparams).
 
 // Array types

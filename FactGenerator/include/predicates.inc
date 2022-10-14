@@ -488,10 +488,11 @@ GROUP_END(type)
 
 GROUP_BEGIN(func_type)
 PREDICATE(func_type, id, func_type)
-PREDICATE(func_type, varargs, func_type_has_varargs)
-PREDICATE(func_type, return_type, func_type_return)
-PREDICATE(func_type, param_type, func_type_param)
-PREDICATE(func_type, nparams, func_type_nparams)
+PREDICATE2(func_type, varargs)
+// Can't be named 'return' because it's a C++ keyword.
+PREDICATE2(func_type, return_)
+PREDICATE2(func_type, param)
+PREDICATE2(func_type, nparams)
 GROUP_END(func_type)
 
 GROUP_BEGIN(ptr_type)

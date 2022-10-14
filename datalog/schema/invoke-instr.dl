@@ -68,7 +68,7 @@ invoke_instr_fn_type(Instr, FnType) :-
 
 invoke_instr_return_type(Instr, Type) :-
    invoke_instr_fn_type(Instr, FnType),
-   func_type_return(FnType, Type).
+   func_type_return_(FnType, Type).
 
 
 //------------------------------------------------------------------------------
@@ -149,7 +149,7 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    invoke_instr_arg(Instr, Index, _),
    invoke_instr_fn_type(Instr, FnType),
    !func_type_param(FnType, Index, _),
-   !func_type_has_varargs(FnType).
+   !func_type_varargs(FnType).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),

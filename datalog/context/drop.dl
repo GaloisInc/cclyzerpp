@@ -79,7 +79,7 @@ func_type_has_no_pointer_args(?funcType) :-
 
 .decl func_type_has_pointer_return(?funcType: FunctionType)
 func_type_has_pointer_return(?funcType) :-
-  func_type_return(?funcType, ?returnType),
+  func_type_return_(?funcType, ?returnType),
   type_contains_pointer(?returnType).
 
 .decl func_type_has_no_pointer_return(?funcType: FunctionType)
