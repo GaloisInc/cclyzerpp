@@ -15,8 +15,8 @@ terminator_instr(v) :- invoke_instr(v).
 
 // If none is specified, the invoke defaults to using C
 // calling conventions.
-.decl invoke_instr_with_calling_convention(instr:InvokeInstruction, cc:CallingConvention)
-calling_convention(cc) :- invoke_instr_with_calling_convention(_, cc).
+.decl invoke_instr_calling_conv(instr:InvokeInstruction, cc:CallingConvention)
+calling_convention(cc) :- invoke_instr_calling_conv(_, cc).
 
 
 //---------------------------------------------------------------
@@ -44,13 +44,13 @@ indirect_invoke_instr(Instr) :-
 //--------------------------------------------------
 
 .decl invoke_instr_arg(instr:InvokeInstruction, i:ArgumentIndex, arg:Operand)
-.decl invoke_instr_with_return_attr(instr:InvokeInstruction, attr:Attribute)
-.decl invoke_instr_with_param_attr(instr:InvokeInstruction, i:ArgumentIndex, attr:Attribute)
-.decl invoke_instr_with_fn_attr(instr:InvokeInstruction, attr:Attribute)
+.decl invoke_instr_return_attr(instr:InvokeInstruction, attr:Attribute)
+.decl invoke_instr_param_attr(instr:InvokeInstruction, i:ArgumentIndex, attr:Attribute)
+.decl invoke_instr_fn_attr(instr:InvokeInstruction, attr:Attribute)
 
-attr(Attr) :- invoke_instr_with_fn_attr(_, Attr).
-attr(Attr) :- invoke_instr_with_return_attr(_, Attr).
-attr(Attr) :- invoke_instr_with_param_attr(_, _, Attr).
+attr(Attr) :- invoke_instr_fn_attr(_, Attr).
+attr(Attr) :- invoke_instr_return_attr(_, Attr).
+attr(Attr) :- invoke_instr_param_attr(_, _, Attr).
 
 
 //-----------------------------
@@ -123,7 +123,7 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
 // attr compatibility
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
-   invoke_instr_with_return_attr(Instr, Attr),
+   invoke_instr_return_attr(Instr, Attr),
    !parameter_attr__zeroext(Attr),
    !parameter_attr__signext(Attr),
    !parameter_attr__inreg(Attr),
@@ -132,7 +132,7 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
-   invoke_instr_with_fn_attr(Instr, Attr),
+   invoke_instr_fn_attr(Instr, Attr),
    !func_fn_attr__noreturn(Attr),
    !func_fn_attr__nounwind(Attr),
    !func_fn_attr__readonly(Attr),
