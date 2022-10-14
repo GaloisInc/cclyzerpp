@@ -65,7 +65,7 @@ _assert_type_compatible_relaxed(?from, ?to) :-
 _assert_type_compatible_relaxed(?integerType, ?to) :-
   integer_type(?integerType),
   int8_type(?i8Type),
-  pointer_type_has_component(?i8PtrType, ?i8Type),
+  ptr_type_component(?i8PtrType, ?i8Type),
   _assert_type_compatible_relaxed(?i8PtrType, ?to).
 
 // The remaining rules consider pointer/array types compatible if the elements
@@ -77,18 +77,18 @@ _assert_type_compatible_relaxed(?integerType, ?to) :-
 // being applied recursively.
 
 _assert_type_compatible_relaxed(?fromPtr, ?toPtr) :-
-  pointer_type_has_component(?fromPtr, ?from),
-  pointer_type_has_component(?toPtr, ?to),
+  ptr_type_component(?fromPtr, ?from),
+  ptr_type_component(?toPtr, ?to),
   _assert_type_compatible_relaxed_inner(?from, ?to).
 
 _assert_type_compatible_relaxed(?fromPtr, ?toPtr) :-
-  pointer_type_has_component(?fromPtr, ?from),
+  ptr_type_component(?fromPtr, ?from),
   array_type_has_component(?toPtr, ?to),
   _assert_type_compatible_relaxed_inner(?from, ?to).
 
 _assert_type_compatible_relaxed(?fromPtr, ?toPtr) :-
   array_type_has_component(?fromPtr, ?from),
-  pointer_type_has_component(?toPtr, ?to),
+  ptr_type_component(?toPtr, ?to),
   _assert_type_compatible_relaxed_inner(?from, ?to).
 
 _assert_type_compatible_relaxed(?fromPtr, ?toPtr) :-
@@ -111,7 +111,7 @@ assert_type_compatible_constant_points_to(?from, ?to, ?fromTy, ?toTy) :-
   constant_points_to(?from, ?to),
   constant_has_type(?from, ?fromTy),
   subset_allocation_type.allocation_type(?to, ?toTy),
-  pointer_type_has_component(?toTyPtr, ?toTy),
+  ptr_type_component(?toTyPtr, ?toTy),
   ! null_location(?to),
   ! unknown_location(?to),
   ! _assert_type_compatible_relaxed(?fromTy, ?toTyPtr).
@@ -124,7 +124,7 @@ _assert_type_compatible_ptr_points_to_alias(?from, ?to) :-
   subset_aliases.alloc_aliases(?to, ?toAlias),
   subset_allocation_type.allocation_type(?fromAlias, ?fromTy),
   subset_allocation_type.allocation_type(?toAlias, ?toTy),
-  pointer_type_has_component(?toTyPtr, ?toTy),
+  ptr_type_component(?toTyPtr, ?toTy),
   _assert_type_compatible_relaxed(?fromTy, ?toTyPtr).
 
 .decl assert_type_compatible_ptr_points_to(?from: Allocation, ?to: Allocation, ?fromType: Type, ?toType: Type)
@@ -142,7 +142,7 @@ failing_assert_type_compatible_var_points_to(?from, ?to, ?fromTy, ?toTy) :-
   subset.var_points_to(_, ?to, _, ?from),
   variable_has_type(?from, ?fromTy),
   subset_allocation_type.allocation_type(?to, ?toTy),
-  pointer_type_has_component(?toTyPtr, ?toTy),
+  ptr_type_component(?toTyPtr, ?toTy),
   ! null_location(?to),
   ! unknown_location(?to),
   ! _assert_type_compatible_relaxed(?fromTy, ?toTyPtr).
@@ -189,7 +189,7 @@ assert_every_gep_constant_expr_points_to_something(?cExpr) :-
 .decl assert_every_pointer_constant_points_to_something(?constant: Constant)
 assert_every_pointer_constant_points_to_something(?constant) :-
   constant_has_type(?constant, ?constantType),
-  pointer_type(?constantType),
+  ptr_type(?constantType),
   ! constant_points_to(?constant, _),
   ! undef_constant(?constant),
   ! inline_asm(?constant).
@@ -206,7 +206,7 @@ failing_assert_reachable_pointer_vars_point_to_something(?var) :-
   instr_assigns_to(?inst, ?var),
   subset.callgraph.reachable_instr(?inst),
   variable_has_type(?var, ?ty),
-  pointer_type(?ty),
+  ptr_type(?ty),
   ! subset.var_points_to(_, _, _, ?var).
 
 //------------------------------------------------------------------------------

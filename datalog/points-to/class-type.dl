@@ -252,7 +252,7 @@ class_type_constructor(?ctor, ?type)
    func_name(?ctor, ?funcName),
    func_ty(?ctor, ?fType),
    func_type_param(?fType, 0, ?ptrType),
-   pointer_type_has_component(?ptrType, ?type),
+   ptr_type_component(?ptrType, ?type),
    ( contains("C1", ?funcName)
    ; contains("C2", ?funcName)
    ).
@@ -265,7 +265,7 @@ class_type_destructor(?dtor, ?type)
    func_name(?dtor, ?funcName),
    func_ty(?dtor, ?fType),
    func_type_param(?fType, 0, ?ptrType),
-   pointer_type_has_component(?ptrType, ?type),
+   ptr_type_component(?ptrType, ?type),
    ( contains("D1", ?funcName)
    ; contains("D2", ?funcName)
    ).

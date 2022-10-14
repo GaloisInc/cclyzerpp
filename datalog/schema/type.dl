@@ -159,7 +159,7 @@ type_size(t, 16) :- ppc_fp128_type(t).
 
 .decl derived_type(type:DerivedType)
 .decl func_type(type:FunctionType)
-.decl pointer_type(type:PointerType)
+.decl ptr_type(type:PointerType)
 .decl vector_type(type:VectorType)
 .decl aggregate_type(type:AggregateType)
 .decl array_type(type:ArrayType)
@@ -168,7 +168,7 @@ type_size(t, 16) :- ppc_fp128_type(t).
 
 type(t) :- derived_type(t).
 derived_type(t) :- func_type(t).
-derived_type(t) :- pointer_type(t).
+derived_type(t) :- ptr_type(t).
 derived_type(t) :- vector_type(t).
 derived_type(t) :- aggregate_type(t).
 aggregate_type(t) :- array_type(t).
@@ -238,61 +238,61 @@ schema_invalid_type(Type, __FILE__, __LINE__) :-
 // Pointer type
 //----------------------
 
-.decl pointer_type_has_component(type:PointerType, comp:Type)
-.decl pointer_type_has_addr_space(type:PointerType, addr:number)
+.decl ptr_type_component(type:PointerType, comp:Type)
+.decl ptr_type_addr_space(type:PointerType, addr:number)
 
-.decl integer_pointer_type(type:PointerType)
-.decl fp_pointer_type(type:PointerType)
-.decl struct_pointer_type(type:PointerType)
-.decl array_pointer_type(type:PointerType)
-.decl vector_pointer_type(type:PointerType)
-.decl pointer_type_to_firstclass(type:PointerType)
-.decl pointer_type_base_component(type:PointerType, baseComp:Type)
+.decl integer_ptr_type(type:PointerType)
+.decl fp_ptr_type(type:PointerType)
+.decl struct_ptr_type(type:PointerType)
+.decl array_ptr_type(type:PointerType)
+.decl vector_ptr_type(type:PointerType)
+.decl ptr_type_to_firstclass(type:PointerType)
+.decl ptr_type_base_component(type:PointerType, baseComp:Type)
 
-integer_pointer_type(Type) :-
-   pointer_type_has_component(Type, Comp),
+integer_ptr_type(Type) :-
+   ptr_type_component(Type, Comp),
    integer_type(Comp).
 
-fp_pointer_type(Type) :-
-   pointer_type_has_component(Type, Comp),
+fp_ptr_type(Type) :-
+   ptr_type_component(Type, Comp),
    fp_type(Comp).
 
-struct_pointer_type(Type) :-
-   pointer_type_has_component(Type, Comp),
+struct_ptr_type(Type) :-
+   ptr_type_component(Type, Comp),
    struct_type(Comp).
 
-array_pointer_type(Type) :-
-   pointer_type_has_component(Type, Comp),
+array_ptr_type(Type) :-
+   ptr_type_component(Type, Comp),
    array_type(Comp).
 
-vector_pointer_type(Type) :-
-   pointer_type_has_component(Type, Comp),
+vector_ptr_type(Type) :-
+   ptr_type_component(Type, Comp),
    vector_type(Comp).
 
-pointer_type_to_firstclass(Type) :-
-   pointer_type_has_component(Type, Comp),
+ptr_type_to_firstclass(Type) :-
+   ptr_type_component(Type, Comp),
    type_is_firstclass(Comp).
 
 
 schema_invalid_type(Type, __FILE__, __LINE__) :-
    schema_sanity(),
-   pointer_type(Type),
-   !pointer_type_has_component(Type, _).
+   ptr_type(Type),
+   !ptr_type_component(Type, _).
 
 schema_invalid_type(Type, __FILE__, __LINE__) :-
    schema_sanity(),
-   pointer_type(Type),
-   pointer_type_has_component(Type, Comp),
+   ptr_type(Type),
+   ptr_type_component(Type, Comp),
    (void_type(Comp) ; label_type(Comp)).
 
 // Get to the base component
-pointer_type_base_component(Type, BaseComp) :-
-   pointer_type_has_component(Type, BaseComp),
-   !pointer_type(BaseComp).
+ptr_type_base_component(Type, BaseComp) :-
+   ptr_type_component(Type, BaseComp),
+   !ptr_type(BaseComp).
 
-pointer_type_base_component(Type, BaseComp) :-
-   pointer_type_has_component(Type, Comp),
-   pointer_type_base_component(Comp,BaseComp).
+ptr_type_base_component(Type, BaseComp) :-
+   ptr_type_component(Type, Comp),
+   ptr_type_base_component(Comp,BaseComp).
 
 
 //----------------------
@@ -345,7 +345,7 @@ boolean_vector_type(Type) :-
 
 pointer_vector_type(Type) :-
    vector_type_has_component(Type, Comp),
-   pointer_type(Comp).
+   ptr_type(Comp).
 
 
 //------------------------------------------------------------------------------
@@ -379,14 +379,14 @@ schema_invalid_type(Type, __FILE__, __LINE__) :-
    schema_sanity(),
    vector_type(Type),
    vector_type_has_component(Type, CompType),
-   !integer_type(CompType), !fp_type(CompType), !pointer_type(CompType).
+   !integer_type(CompType), !fp_type(CompType), !ptr_type(CompType).
 
 
 //------------------------------------------------------------------------------
 // The original version of the constraint contained these two atoms:
-//   integer_pointer_type(Comp) ; fp_pointer_type(Comp)
+//   integer_ptr_type(Comp) ; fp_pointer_type(Comp)
 // instead of the single:
-//   pointer_type(Comp)
+//   ptr_type(Comp)
 //
 // In fact, the LLVM reference manual states that: /elementtype may be
 // any integer or floating point type, or a pointer to these types./

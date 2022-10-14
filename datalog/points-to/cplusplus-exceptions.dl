@@ -131,9 +131,9 @@ cxx_throw_func(?func) :-
    func_type_param(?fType, 0, ?type1),
    func_type_param(?fType, 1, ?type2),
    func_type_param(?fType, 2, ?type3),
-   pointer_type(?type1),
-   pointer_type(?type2),
-   pointer_type(?type3),
+   ptr_type(?type1),
+   ptr_type(?type2),
+   ptr_type(?type3),
    func_type_nparams(?fType, 3).
 
 

@@ -496,9 +496,9 @@ PREDICATE2(func_type, nparams)
 GROUP_END(func_type)
 
 GROUP_BEGIN(ptr_type)
-PREDICATE(ptr_type, id, pointer_type)
-PREDICATE(ptr_type, component_type, pointer_type_has_component)
-PREDICATE(ptr_type, addr_space, pointer_type_has_addr_space)
+PREDICATE(ptr_type, id, ptr_type)
+PREDICATE2(ptr_type, component)
+PREDICATE2(ptr_type, addr_space)
 GROUP_END(ptr_type)
 
 GROUP_BEGIN(vector_type)

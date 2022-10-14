@@ -29,8 +29,8 @@ dynamically_sized_alloc(argvAlloc) :- argv_alloc(argvAlloc).
 static_allocation_type(argvAlloc, i8PtrPtrType) :-
   int8_type(i8),
   argv_alloc(argvAlloc),
-  pointer_type_has_component(i8PtrType, i8),
-  pointer_type_has_component(i8PtrPtrType, i8PtrType).
+  ptr_type_component(i8PtrType, i8),
+  ptr_type_component(i8PtrPtrType, i8PtrType).
 
 .decl argv_ptr_points_to(from: Allocation, to: Allocation)
 
@@ -43,7 +43,7 @@ dynamically_sized_alloc(newAlloc)
   argv_alloc(argvAlloc),
   static_subobjects.alloc_subregion_at_array_index(argvAlloc, index, subAlloc),
   int8_type(i8),
-  pointer_type_has_component(i8PtrType, i8),
+  ptr_type_component(i8PtrType, i8),
   newAlloc = cat(cat("*argv[", to_string(index)), "]-alloc").
 
 .decl argv_var_points_to(?aCtx: Context, ?alloc: Allocation, ?ctx: Context, ?var: Variable)

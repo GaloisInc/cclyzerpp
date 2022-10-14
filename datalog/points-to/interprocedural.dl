@@ -127,7 +127,7 @@ func_by_location(?alloc, ?callee) :-
      func_by_location(?funcLoc, ?callee),
      func_ty(?callee, ?actualType),
      operand_has_type(?funcOp, ?funcOpType),
-     pointer_type_has_component(?funcOpType, ?declaredType),
+     ptr_type_component(?funcOpType, ?declaredType),
      type_compatible(?actualType, ?declaredType).
 
   callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr)
@@ -148,7 +148,7 @@ func_by_location(?alloc, ?callee) :-
      func_by_location(?funcLoc, ?callee),
      func_ty(?callee, ?actualType),
      operand_has_type(?funcOp, ?funcOpType),
-     pointer_type_has_component(?funcOpType, ?declaredType),
+     ptr_type_component(?funcOpType, ?declaredType),
      type_compatible(?actualType, ?declaredType).
 
   callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr)

@@ -85,18 +85,18 @@ type_compatible(?type1, ?type2) :-
 // Pointer types
 
 type_compatible(?ptrType1, ?ptrType2) :-
-   pointer_type_has_component(?ptrType1 , ?type1),
-   pointer_type_has_component(?ptrType2 , ?type2),
+   ptr_type_component(?ptrType1 , ?type1),
+   ptr_type_component(?ptrType2 , ?type2),
    type_compatible(?type1, ?type2).
 
 // Any (non-func) pointer type can be seen as an array of bytes
 
 type_compatible(?from, ?to) :-
-   pointer_type_has_component(?to, ?i8),
+   ptr_type_component(?to, ?i8),
    int8_type(?i8),
-   pointer_type(?from).
+   ptr_type(?from).
 
 type_compatible(?from, ?to) :-
-   pointer_type_has_component(?from, ?i8),
+   ptr_type_component(?from, ?i8),
    int8_type(?i8),
-   pointer_type(?to).
+   ptr_type(?to).

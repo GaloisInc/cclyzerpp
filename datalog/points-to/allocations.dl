@@ -53,7 +53,7 @@ static_allocation_type(?stackAlloc, ?type) :-
    stack_allocation_by_parameter(?func, ?index, ?stackAlloc),
    func_ty(?func, ?funcType),
    func_type_param(?funcType, ?index, ?paramType),
-   pointer_type_has_component(?paramType, ?type).
+   ptr_type_component(?paramType, ?type).
 
 //---------------------------------------------------------------------
 // [Heap Allocations]
@@ -73,7 +73,7 @@ static_allocation_type(?heapAlloc, ?elementType)
    instr_func(?instr,  ?instrFunc),
 
    variable_has_type(?var, ?type),
-   pointer_type_has_component(?type, ?elementType),
+   ptr_type_component(?type, ?elementType),
 
    any_reachable_func(?instrFunc),
    build_heap_allocation(?heapAlloc, ?instrFunc, ?type, ?var).

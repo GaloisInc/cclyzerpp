@@ -22,7 +22,7 @@ variable_is_label(Var) :-
 
 variable_is_pointer(Var) :-
    variable_has_type(Var, Type),
-   pointer_type(Type).
+   ptr_type(Type).
 
 variable_is_firstclass(Var) :-
    variable_has_type(Var, Type),
@@ -123,4 +123,4 @@ operand_is_firstclass(Op) :-
 
 operand_is_pointer(Op) :-
    operand_has_type(Op, Type),
-   pointer_type(Type).
+   ptr_type(Type).

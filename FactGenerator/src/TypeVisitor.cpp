@@ -102,7 +102,7 @@ void TypeVisitor::visitPointerType(const PointerType *ptrType) {
   gen.writeFact(pred::ptr_type::id, typeId);
 
   // Record pointer element type
-  gen.writeFact(pred::ptr_type::component_type, typeId, elemTypeId);
+  gen.writeFact(pred::ptr_type::component, typeId, elemTypeId);
 
   // Record pointer address space
   if (unsigned addressSpace = ptrType->getPointerAddressSpace())

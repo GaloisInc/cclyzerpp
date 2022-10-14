@@ -146,6 +146,6 @@ _type_expands_base_type(?superType, ?type) :-
    _type_expands_base_type(?intermType, ?type).
 
 type_compatible(?ptrActualType, ?ptrDeclaredType) :-
-   pointer_type_has_component(?ptrActualType, ?actualType),
-   pointer_type_has_component(?ptrDeclaredType, ?declaredType),
+   ptr_type_component(?ptrActualType, ?actualType),
+   ptr_type_component(?ptrDeclaredType, ?declaredType),
    _type_expands_base_type(?declaredType, ?actualType).

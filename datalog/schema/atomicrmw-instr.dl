@@ -112,7 +112,7 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    atomicrmw_instr_address(Instr, AddressPtr),
    operand_has_type(AddressPtr, PtrType),
-   !pointer_type(PtrType).
+   !ptr_type(PtrType).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
@@ -120,4 +120,4 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    atomicrmw_instr_value(Instr, Value),
    operand_has_type(AddressPtr, PtrType),
    operand_has_type(Value, ValueType),
-   !pointer_type_has_component(PtrType, ValueType).
+   !ptr_type_component(PtrType, ValueType).

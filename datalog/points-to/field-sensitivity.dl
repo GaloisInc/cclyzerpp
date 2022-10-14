@@ -22,7 +22,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   getelementptr_instr_index(?insn, 0, ?indexOp),
   constant_to_int(?indexOp, ?index),
   getelementptr_instr_base_type(?insn, ?ptrType),
-  pointer_type_has_component(?ptrType, ?type),
+  ptr_type_component(?ptrType, ?type),
   type_size(?type, ?size).
 
 .comp GEP {
@@ -99,7 +99,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
     ( path_component_at_index(?component, _)
     ; path_component_at_any_index(?component)
     ),
-    pointer_type_has_component(?type, ?allocType),
+    ptr_type_component(?type, ?allocType),
     type_compatible(?gepType, ?type).
 
   //------------------------------------------------------------------------------
@@ -163,7 +163,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   //   `some_alloc` if `%MyVar` points to `some_alloc`
   gep_points_to(?insn, 0, ?alloc, ?alloc) :-
     gep_indexes_from(?insn, 0, ?alloc, ?alloc, ?type),
-    pointer_type(?type),
+    ptr_type(?type),
     gep_zero_index_offset(?insn, 0).
 
   // Indexing the pointer at an offset for which a subregion of
@@ -174,7 +174,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   //   `some_alloc` has a subregion at array index 5.
   gep_points_to(?insn, 0, ?baseAlloc, ?alloc) :-
     gep_indexes_from(?insn, 0, ?baseAlloc, ?baseAlloc, ?type),
-    pointer_type(?type),
+    ptr_type(?type),
     basic_allocation(?baseAlloc),
     gep_zero_index_offset(?insn, ?offset),
     alloc_subregion_offset(?baseAlloc, ?alloc, ?offset).
@@ -197,7 +197,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   gep_points_to(?insn, 0, ?baseAlloc, ?alloc)
     :-
     gep_indexes_from(?insn, 0, ?baseAlloc, ?baseAlloc, ?type),
-    pointer_type(?type),
+    ptr_type(?type),
     basic_allocation(?baseAlloc),
     gep_zero_index_offset(?insn, ?offset),
     allocation_type(?baseAlloc, ?allocType),
@@ -217,7 +217,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   //   `some_alloc` has a subregion at array index 7.
   gep_points_to(?insn, 0, ?baseAlloc, ?alloc) :-
     gep_indexes_from(?insn, 0, ?baseAlloc, ?baseAlloc, ?type),
-    pointer_type(?type),
+    ptr_type(?type),
     alloc_subregion_at_array_index(?grandparent, _, ?baseAlloc),
     alloc_subregion_offset(?grandparent, ?baseAlloc, ?startOffset),
     gep_zero_index_offset(?insn, ?offset),
@@ -238,7 +238,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   gep_points_to(?insn, 0, ?baseAlloc, ?alloc)
     :-
     gep_indexes_from(?insn, 0, ?baseAlloc, ?baseAlloc, ?type),
-    pointer_type(?type),
+    ptr_type(?type),
     alloc_subregion_at_array_index(?grandparent, _, ?baseAlloc),
     alloc_subregion_offset(?grandparent, ?baseAlloc, ?startOffset),
     gep_zero_index_offset(?insn, ?offset),
@@ -265,7 +265,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   //   `some_alloc[*]` if `%MyVar` points to `some_alloc[*]`.
   gep_points_to(?insn, 0, ?baseAlloc, ?baseAlloc) :-
     gep_indexes_from(?insn, 0, ?baseAlloc, ?baseAlloc, ?type),
-    pointer_type(?type),
+    ptr_type(?type),
     alloc_subregion_at_any_array_index(_, ?baseAlloc).
 
   // Indexing the pointer at a variable offset where the indexed
@@ -275,7 +275,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   //   `some_alloc[*]` if `%MyVar` points to `some_alloc`.
   gep_points_to(?insn, 0, ?baseAlloc, ?alloc) :-
     gep_indexes_from(?insn, 0, ?baseAlloc, ?baseAlloc, ?type),
-    pointer_type(?type),
+    ptr_type(?type),
     getelementptr_instr_index(?insn, 0, ?indexOp),
     ! operand_to_int(?indexOp, _),
     alloc_subregion_at_any_array_index(?baseAlloc, ?alloc).
@@ -340,7 +340,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   //   `%struct.foo` and the `bar` field of the struct is at offset 4 bytes.
   gep_points_to(?insn, ?n, ?baseAlloc, ?alloc) :-
     gep_indexes_from(?insn, ?n, ?baseAlloc, ?parent, ?type),
-    pointer_type_has_component(?type, ?i8),
+    ptr_type_component(?type, ?i8),
     int8_type(?i8),
     allocation_type(?parent, ?parentType),
     struct_type(?parentType),
@@ -354,7 +354,7 @@ gep_zero_index_offset(?insn, ?index * ?size) :-
   // pointer points to any field.
   gep_points_to(?insn, ?n, ?baseAlloc, ?alloc) :-
     gep_indexes_from(?insn, ?n, ?baseAlloc, ?parent, ?type),
-    pointer_type_has_component(?type, ?i8),
+    ptr_type_component(?type, ?i8),
     int8_type(?i8),
     allocation_type(?parent, ?parentType),
     struct_type(?parentType),

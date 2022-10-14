@@ -103,7 +103,7 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    icmp_instr_from_type(Instr, Type),
    !integer_type(Type),
-   !pointer_type(Type),
+   !ptr_type(Type),
    !integer_vector_type(Type),
    !pointer_vector_type(Type).
 

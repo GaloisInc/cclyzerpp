@@ -47,7 +47,7 @@ func_needs_signature(?func) :-
     "@llvm.memcpy"=substr(?name,0,12)),
   func_ty(?func, ?type),
   func_type_return_(?type, ?rtype),
-  pointer_type(?rtype).
+  ptr_type(?rtype).
 
 func_needs_signature(?func) :-
   func_decl(?func),
@@ -58,9 +58,9 @@ func_needs_signature(?func) :-
     "@llvm.memcpy"=substr(?name,0,12)),
   func_ty(?func, ?type),
   func_type_param(?type, _, ?ptype),
-  pointer_type_has_component(?ptype, ?comp),
+  ptr_type_component(?ptype, ?comp),
   type_has_subelement(?comp, ?elem),
-  pointer_type(?elem).
+  ptr_type(?elem).
 
 func_pts_signature(?func) :-
   func_name(?func, ?name),
@@ -166,7 +166,7 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
      instr_func(?instr,  ?instrFunc),
 
      variable_has_type(?var,?ptrType),
-     pointer_type_has_component(?ptrType, ?type),
+     ptr_type_component(?ptrType, ?type),
 
      reachable_context(?ctx, ?instrFunc),
      build_signature_allocation(?sigAlloc, ?func, ?instrFunc, ?ptrType, ?var, "return"),
@@ -181,7 +181,7 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
      instr_func(?instr,  ?instrFunc),
 
      variable_has_type(?var,?ptrType),
-     pointer_type_has_component(?ptrType, ?type),
+     ptr_type_component(?ptrType, ?type),
 
      reachable_context(?ctx, ?instrFunc),
      build_signature_allocation_once(?sigAlloc, ?func, ?ptrType, "return"),
@@ -199,7 +199,7 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
      var_points_to(?ptrCtx, ?ptr, ?ctx, ?var),
 
      allocation_type(?ptr, ?ptrType),
-     pointer_type_has_component(?ptrType, ?type),
+     ptr_type_component(?ptrType, ?type),
 
      ?indexStr = to_string(?index),
      build_signature_allocation(?sigAlloc, ?func, ?instrFunc, ?ptrType, ?var, ?indexStr),
@@ -217,7 +217,7 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
      var_points_to(?ptrCtx, ?ptr, ?ctx, ?var),
 
      allocation_type(?ptr, ?ptrType),
-     pointer_type_has_component(?ptrType, ?type),
+     ptr_type_component(?ptrType, ?type),
 
      ?indexStr = to_string(?index),
      build_signature_allocation_once(?sigAlloc, ?func, ?ptrType, ?indexStr),
@@ -404,7 +404,7 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
   sig_var_points_to(?baseACtx, ?baseAlloc, ?callerCtx, ?toVar) :-
      signature_var_points_to_base(?baseACtx, ?baseAlloc, ?callerCtx, ?toVar),
      variable_has_type(?toVar, ?toPtrType),
-     pointer_type_has_component(?toPtrType, ?toType),
+     ptr_type_component(?toPtrType, ?toType),
      allocation_type(?baseAlloc, ?allocType),
      type_compatible(?allocType, ?toType).
 
@@ -412,7 +412,7 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
   //   signature_var_points_to_base(?baseACtx, ?baseAlloc, ?callerCtx, ?toVar),
   //   alloc_subregion_base(?alloc, ?baseAlloc),
   //   variable_has_type(?toVar, ?toPtrType),
-  //   pointer_type_has_component(?toPtrType, ?toType),
+  //   ptr_type_component(?toPtrType, ?toType),
   //   allocation_type(?alloc, ?allocType),
   //   type_compatible(?allocType, ?toType).
 
@@ -420,7 +420,7 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
      signature_ptr_points_to_base(?baseACtx, ?baseAlloc, ?ptrACtx, ?ptrAlloc),
      allocation_type(?baseAlloc, ?allocType),
      allocation_type(?ptrAlloc, ?ptrType),
-     pointer_type_has_component(?ptrType, ?toType),
+     ptr_type_component(?ptrType, ?toType),
      type_compatible(?allocType, ?toType).
 
   //ptr_points_to(?baseACtx, ?baseSubAlloc, ?ptrACtx, ?ptrAlloc) :-
@@ -428,7 +428,7 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
   //   alloc_subregion_base(?baseSubAlloc, ?baseAlloc),
   //   allocation_type(?baseSubAlloc, ?allocType),
   //   allocation_type(?ptrAlloc, ?ptrType),
-  //   pointer_type_has_component(?ptrType, ?toType),
+  //   ptr_type_component(?ptrType, ?toType),
   //   type_compatible(?allocType, ?toType).
 
   //ptr_points_to(?baseACtx, ?baseAlloc, ?ptrACtx, ?ptrSubAlloc) :-
@@ -436,7 +436,7 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
   //   alloc_subregion_base(?ptrSubAlloc, ?ptrAlloc),
   //   allocation_type(?baseAlloc, ?allocType),
   //   allocation_type(?ptrSubAlloc, ?ptrType),
-  //   pointer_type_has_component(?ptrType, ?toType),
+  //   ptr_type_component(?ptrType, ?toType),
   //   type_compatible(?allocType, ?toType).
 
   //ptr_points_to(?baseACtx, ?baseSubAlloc, ?ptrACtx, ?ptrSubAlloc) :-
@@ -445,7 +445,7 @@ build_signature_allocation_once(sigAlloc, func, type, pos) :-
   //   alloc_subregion_base(?ptrSubAlloc, ?ptrAlloc),
   //   allocation_type(?baseSubAlloc, ?allocType),
   //   allocation_type(?ptrSubAlloc, ?ptrType),
-  //   pointer_type_has_component(?ptrType, ?toType),
+  //   ptr_type_component(?ptrType, ?toType),
   //   type_compatible(?allocType, ?toType).
 
 }

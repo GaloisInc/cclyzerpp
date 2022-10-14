@@ -52,7 +52,7 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    ptrtoint_instr(Instr),
    ptrtoint_instr_from_type(Instr, Type),
-   !pointer_type(Type),
+   !ptr_type(Type),
    !pointer_vector_type(Type).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-

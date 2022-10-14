@@ -62,15 +62,15 @@ pointer_index(?region, ?type, ?finalIdx) :-
   ),
   ?index >= 0,
   // The first index of a GEP always a pointer type.
-  pointer_type_has_component(?declaredType, ?declaredElemType),
+  ptr_type_component(?declaredType, ?declaredElemType),
   ( ( type_compatible(?type, ?declaredElemType)
     , type_size(?type, ?size)
     )
   ; // This case is not redundant with the previous in the case; there may be
-    // types ?type where there is no pointer_type_has_component(_, ?type).
+    // types ?type where there is no ptr_type_component(_, ?type).
     // Conversely, there may be types that are not compatible, but such that
     // pointer types to them are compatible (i8 and i64 vs. i8* and i64*).
-    ( pointer_type_has_component(?ptrType, ?type)
+    ( ptr_type_component(?ptrType, ?type)
     , type_compatible(?ptrType, ?declaredType)
     , type_size(?type, ?size)
     )

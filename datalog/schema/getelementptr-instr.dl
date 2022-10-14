@@ -77,12 +77,12 @@ instr_successor_index(Instr, Index, Index + 1) :-
 
 getelementptr_instrterm_type(Instr, 1, Type) :-
    getelementptr_instr_base_type(Instr, PtrType),
-   pointer_type_has_component(PtrType, Type). // no vector-based filter here is needed
+   ptr_type_component(PtrType, Type). // no vector-based filter here is needed
 
 getelementptr_instrterm_type(Instr, 1, Type) :-
    getelementptr_instr_base_type(Instr, VectorPtrType),
    vector_type_has_component(VectorPtrType, PtrType),
-   pointer_type_has_component(PtrType, Type). // for vector-based GEPs
+   ptr_type_component(PtrType, Type). // for vector-based GEPs
 
 getelementptr_instrterm_type(Instr, NextIndex, Type) :-
    getelementptr_instrterm_type(Instr, Index, ArrayType),
@@ -148,7 +148,7 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    getelementptr_instr_base_type(Instr, PtrType),
-   !pointer_type(PtrType),
+   !ptr_type(PtrType),
    !pointer_vector_type(PtrType). // c1
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
@@ -174,7 +174,7 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    !gep_is_vector_based(Instr),
    getelementptr_instr_value_type(Instr, ValueType),
    instr_returns_type(Instr, PtrType),
-   !pointer_type_has_component(PtrType, ValueType). // creturn
+   !ptr_type_component(PtrType, ValueType). // creturn
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
@@ -183,4 +183,4 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    getelementptr_instr_value_type(Instr, ValueType),
    instr_returns_type(Instr, VectorType),
    vector_type_has_component(VectorType, PtrType),
-   !pointer_type_has_component(PtrType, ValueType). // creturn
+   !ptr_type_component(PtrType, ValueType). // creturn

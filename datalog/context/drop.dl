@@ -65,7 +65,7 @@ drop_context_item_by_invoc(?invoc) :-
 .decl type_contains_pointer(?type: Type)
 type_contains_pointer(?type) :-
   type_has_subelement(?type, ?sub),
-  pointer_type(?sub).
+  ptr_type(?sub).
 
 .decl func_type_has_pointer_arg(?funcType: FunctionType)
 func_type_has_pointer_arg(?funcType) :-
@@ -93,6 +93,6 @@ drop_context_by_invoc(?invoc) :-
   ; invoke_instr_func_operand(?invoc, ?funcOp)
   ),
   operand_has_type(?funcOp, ?funcOpType),
-  pointer_type_has_component(?funcOpType, ?declaredType),
+  ptr_type_component(?funcOpType, ?declaredType),
   func_type_has_no_pointer_args(?declaredType),
   func_type_has_no_pointer_return(?declaredType).

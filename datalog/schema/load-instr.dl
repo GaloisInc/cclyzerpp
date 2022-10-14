@@ -57,13 +57,13 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    load_instr(Instr),
    load_instr_address_ptr_type(Instr, PtrType),
-   !pointer_type_to_firstclass(PtrType).
+   !ptr_type_to_firstclass(PtrType).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    load_instr(Instr),
    load_instr_address_ptr_type(Instr, PtrType),
-   pointer_type_has_component(PtrType, CompType),
+   ptr_type_component(PtrType, CompType),
    !instr_returns_type(Instr, CompType).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-

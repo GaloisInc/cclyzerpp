@@ -59,7 +59,7 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    inttoptr_instr(Instr),
    inttoptr_instr_to_type(Instr, Type),
-   !pointer_type(Type),
+   !ptr_type(Type),
    !pointer_vector_type(Type).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-

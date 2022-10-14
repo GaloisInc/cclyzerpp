@@ -23,10 +23,10 @@ cxx_atexit_func(?func) :-
    func_type_param(?fType, 0, ?type1),
    func_type_param(?fType, 1, ?type2),
    func_type_param(?fType, 2, ?type3),
-   pointer_type_has_component(?type1, ?compType1),
+   ptr_type_component(?type1, ?compType1),
    func_type(?compType1),
-   integer_pointer_type(?type2),
-   integer_pointer_type(?type3),
+   integer_ptr_type(?type2),
+   integer_ptr_type(?type3),
    func_type_nparams(?fType, 3).
 
 
@@ -98,7 +98,7 @@ cxx_atexit_func(?func) :-
     func_by_location(?dtorObj, ?dtor),
     func_ty(?dtor, ?dtorType),
     func_type_param(?dtorType, 0, ?ptrType),
-    pointer_type_has_component(?ptrType, ?recvType).
+    ptr_type_component(?ptrType, ?recvType).
 
   called_at_exit(?dtor) :- _dtor_accepts_recv(_, _, ?dtor).
 

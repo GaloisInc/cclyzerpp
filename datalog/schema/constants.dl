@@ -109,7 +109,7 @@ schema_invalid_constant(Constant, __FILE__, __LINE__) :-
    global_var_constant_reference(Constant, GVar),
    global_var_type(GVar, Type),
    constant_has_type(Constant, PtrType),
-   !pointer_type_has_component(PtrType, Type).
+   !ptr_type_component(PtrType, Type).
 
 
 //--------------------------------------
@@ -255,13 +255,13 @@ _constant_expression_next_index(CExpr, Index, Index + 1) :-
 _getelementptr_constant_expression_interm_type(CExpr, 1, Type) :-
    getelementptr_constant_expression_base(CExpr, BaseConstant),
    constant_has_type(BaseConstant, PtrType),
-   pointer_type_has_component(PtrType, Type).
+   ptr_type_component(PtrType, Type).
 
 _getelementptr_constant_expression_interm_type(CExpr, 1, Type) :-
    getelementptr_constant_expression_base(CExpr, BaseConstant),
    constant_has_type(BaseConstant, VectorType),
    vector_type_has_component(VectorType, PtrType),
-   pointer_type_has_component(PtrType, Type).
+   ptr_type_component(PtrType, Type).
 
 _getelementptr_constant_expression_interm_type(CExpr, NextIndex, Type) :-
    _getelementptr_constant_expression_interm_type(CExpr, Index, ArrayType),

@@ -63,7 +63,7 @@ attr(Attr) :- invoke_instr_param_attr(_, _, Attr).
 invoke_instr_fn_type(Instr, FnType) :-
    invoke_instr_func_operand(Instr, FnOp),
    operand_has_type(FnOp, PtrType),
-   pointer_type_has_component(PtrType, FnType),
+   ptr_type_component(PtrType, FnType),
    func_type(FnType).
 
 invoke_instr_return_type(Instr, Type) :-

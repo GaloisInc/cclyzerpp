@@ -36,7 +36,7 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    va_arg_instr(Instr),
    va_arg_instr_va_list(Instr, List),
    operand_has_type(List, ListType),
-   !pointer_type(ListType).
+   !ptr_type(ListType).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),

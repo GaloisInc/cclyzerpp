@@ -67,13 +67,13 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    bitcast_instr(Instr),
    bitcast_instr_from_type(Instr, FromType),
    bitcast_instr_to_type(Instr, ToType),
-   pointer_type(FromType),
-   !pointer_type(ToType).
+   ptr_type(FromType),
+   !ptr_type(ToType).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    bitcast_instr(Instr),
    bitcast_instr_from_type(Instr, FromType),
    bitcast_instr_to_type(Instr, ToType),
-   !pointer_type(FromType),
-   pointer_type(ToType).
+   !ptr_type(FromType),
+   ptr_type(ToType).

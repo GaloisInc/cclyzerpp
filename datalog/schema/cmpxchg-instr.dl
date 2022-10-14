@@ -89,7 +89,7 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    cmpxchg_instr_cmp_value_type(Instr, Type),
    !integer_type(Type),
-   !pointer_type(Type).
+   !ptr_type(Type).
 
 
 // 2. Type equality constaint on ‘<cmp>’ and ‘<new>’ arguments
@@ -110,7 +110,7 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    cmpxchg_instr_address(Instr, AddressPtr),
    cmpxchg_instr_cmp_value_type(Instr, Type),
    operand_has_type(AddressPtr, PtrType),
-   !pointer_type_has_component(PtrType, Type).
+   !ptr_type_component(PtrType, Type).
 
 
 // 4. Return value

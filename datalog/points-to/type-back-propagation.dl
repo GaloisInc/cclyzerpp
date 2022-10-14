@@ -45,7 +45,7 @@
      operand_points_to(?aCtx, ?alloc, _, ?fromOperand),
      _heap_allocation_by_instr(?allocInstr, ?alloc, ?untyped),
      !sized_alloc_instr(?allocInstr,_),
-     pointer_type_has_component(?ptrType,?type).
+     ptr_type_component(?ptrType,?type).
 
   ty_indication2(?type, ?aCtx, ?untyped),
   ty_indication(?type, ?aCtx, ?untyped) :-
@@ -53,7 +53,7 @@
      bitcast_instr_from_operand(?instr,?fromOperand),
      operand_points_to(?aCtx, ?alloc, _, ?fromOperand),
      _heap_allocation_by_instr(?allocInstr, ?alloc, ?untyped),
-     pointer_type_has_component(?ptrType,?type),
+     ptr_type_component(?ptrType,?type),
      sized_alloc_instr(?allocInstr,?size),
      type_size(?type,?size).
 
@@ -65,8 +65,8 @@
      bitcast_instr_from_operand(?instr,?fromOperand),
      operand_points_to(?aCtx, ?alloc, _, ?fromOperand),
      _heap_allocation_by_instr(?allocInstr, ?alloc, ?untyped),
-     pointer_type_has_component(?ptrType,?type),
-     pointer_type_base_component(?ptrType, ?baseType),
+     ptr_type_component(?ptrType,?type),
+     ptr_type_base_component(?ptrType, ?baseType),
      sized_alloc_instr(?allocInstr, size),
      type_size(?baseType,baseSize),
      baseSize != 0, // TODO: Does anything else need to be done in this case?
@@ -87,7 +87,7 @@
      variable_in_func(?var, ?func),
      variable_has_name(?var, ?name),
      func_name(?func, ?funcName),
-     pointer_type_has_component(?ptrType, ?type),
+     ptr_type_component(?ptrType, ?type),
      ?typedAlloc= cat("*typed_heap_alloc", ?funcName, "[" , ?ptrType , " ", ?name, "]").
 
   allocation_pos(?alloc, ?line, ?column) :-
@@ -147,7 +147,7 @@
      stack_allocation_by_instr(?allocInstr, ?alloc),
      alloca_instr_type(?allocInstr, ?allocaType),
      integer_type(?allocaType),
-     pointer_type_has_component(?ptrType,?type).
+     ptr_type_component(?ptrType,?type).
 
   stack_allocation_by_type_instr(?type, ?allocInstr, ?typedAlloc),
     assign_rebase_alloc(?typedAlloc, ?aCtx, ?alloc, ?var),
@@ -161,7 +161,7 @@
      variable_in_func(?var, ?func),
      variable_has_name(?var, ?name),
      func_name(?func, ?funcName),
-     pointer_type_has_component(?ptrType, ?type),
+     ptr_type_component(?ptrType, ?type),
      ?typedAlloc= cat("*typed_stack_alloc", ?funcName, "[", ?ptrType, " ", ?name, "]").
 
   allocation_pos(?alloc, ?line, ?column) :-
