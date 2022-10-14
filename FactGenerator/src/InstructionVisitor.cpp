@@ -551,7 +551,7 @@ void InstructionVisitor::visitCallInst(const llvm::CallInst &CI) {
   for (unsigned op = 0; op < CI.getNumArgOperands(); ++op)
     writeInstrOperand(pred::call::arg, iref, CI.getArgOperand(op), op);
 
-  if (CI.isTailCall()) gen.writeFact(pred::call::tail, iref);
+  if (CI.isTailCall()) gen.writeFact(pred::call::tail_opt, iref);
 
   if (CI.getCallingConv() != llvm::CallingConv::C) {
     refmode_t cconv = gen.refmode(CI.getCallingConv());
