@@ -8,7 +8,7 @@ instr(v) :- invoke_instr(v).
 terminator_instr(v) :- invoke_instr(v).
 
 // Function operand: can be either a constant or a variable
-.decl invoke_instr_fn_operand(instr:InvokeInstruction, op:Operand)
+.decl invoke_instr_func_operand(instr:InvokeInstruction, op:Operand)
 
 // Resolved func of invoke instr. Initially empty.
 .decl invoke_instr_fn_target(instr:InvokeInstruction, func:FunctionDecl)
@@ -31,11 +31,11 @@ calling_convention(cc) :- invoke_instr_calling_conv(_, cc).
 .decl indirect_invoke_instr(instr:InvokeInstruction)
 
 direct_invoke_instr(Instr) :-
-   invoke_instr_fn_operand(Instr, Constant),
+   invoke_instr_func_operand(Instr, Constant),
    constant(Constant).
 
 indirect_invoke_instr(Instr) :-
-   invoke_instr_fn_operand(Instr, Variable),
+   invoke_instr_func_operand(Instr, Variable),
    variable(Variable).
 
 
@@ -61,7 +61,7 @@ attr(Attr) :- invoke_instr_param_attr(_, _, Attr).
 .decl invoke_instr_return_type(instr:InvokeInstruction, type:Type)
 
 invoke_instr_fn_type(Instr, FnType) :-
-   invoke_instr_fn_operand(Instr, FnOp),
+   invoke_instr_func_operand(Instr, FnOp),
    operand_has_type(FnOp, PtrType),
    pointer_type_has_component(PtrType, FnType),
    func_type(FnType).
@@ -108,7 +108,7 @@ invoke_instr_return_type(Instr, Type) :-
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    invoke_instr(Instr),
-   !invoke_instr_fn_operand(Instr, _).
+   !invoke_instr_func_operand(Instr, _).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
