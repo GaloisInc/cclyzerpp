@@ -161,7 +161,7 @@ void FactGenerator::writeFnAttributes(
           writeFact(PredGroup::return_attr, refmode, attr);
           break;
         case Attributes::AttrIndex::FunctionIndex:
-          writeFact(PredGroup::fn_attr, refmode, attr);
+          writeFact(PredGroup::func_attr, refmode, attr);
           break;
         default:
           writeFact(PredGroup::param_attr, refmode, index - 1, attr);

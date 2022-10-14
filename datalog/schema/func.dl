@@ -114,11 +114,11 @@ func_nparams(Func, Total) :-
 // If multiple parameter attrs are needed, they are space separated.
 //------------------------------------------------------------------------------
 
-.decl func_fn_attr(func:FunctionDecl, attr:Attribute)
+.decl func_func_attr(func:FunctionDecl, attr:Attribute)
 .decl func_return_attr(func:FunctionDecl, attr:Attribute)
 .decl func_param_attr(func:FunctionDecl, index:ArgumentIndex, attr:Attribute)
 
-attr(Attr) :- func_fn_attr(_, Attr).
+attr(Attr) :- func_func_attr(_, Attr).
 attr(Attr) :- func_return_attr(_, Attr).
 attr(Attr) :- func_param_attr(_, _, Attr).
 

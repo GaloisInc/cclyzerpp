@@ -46,9 +46,9 @@ indirect_invoke_instr(Instr) :-
 .decl invoke_instr_arg(instr:InvokeInstruction, i:ArgumentIndex, arg:Operand)
 .decl invoke_instr_return_attr(instr:InvokeInstruction, attr:Attribute)
 .decl invoke_instr_param_attr(instr:InvokeInstruction, i:ArgumentIndex, attr:Attribute)
-.decl invoke_instr_fn_attr(instr:InvokeInstruction, attr:Attribute)
+.decl invoke_instr_func_attr(instr:InvokeInstruction, attr:Attribute)
 
-attr(Attr) :- invoke_instr_fn_attr(_, Attr).
+attr(Attr) :- invoke_instr_func_attr(_, Attr).
 attr(Attr) :- invoke_instr_return_attr(_, Attr).
 attr(Attr) :- invoke_instr_param_attr(_, _, Attr).
 
@@ -132,14 +132,14 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
-   invoke_instr_fn_attr(Instr, Attr),
-   !func_fn_attr__noreturn(Attr),
-   !func_fn_attr__nounwind(Attr),
-   !func_fn_attr__readonly(Attr),
-   !func_fn_attr__readnone(Attr),
-   !func_fn_attr__cold(Attr),
-   !func_fn_attr__returns_twice(Attr),
-   !func_fn_attr__builtin(Attr),
+   invoke_instr_func_attr(Instr, Attr),
+   !func_func_attr__noreturn(Attr),
+   !func_func_attr__nounwind(Attr),
+   !func_func_attr__readonly(Attr),
+   !func_func_attr__readnone(Attr),
+   !func_func_attr__cold(Attr),
+   !func_func_attr__returns_twice(Attr),
+   !func_func_attr__builtin(Attr),
    !target_dependent_attr(Attr). // c5
 
 
