@@ -92,13 +92,13 @@ constant_references_variable(OtherConstant, GVar) :-
 
 _instr_calls_func(Instr, Func) :-
    direct_call_instr(Instr),
-   call_instr_fn_operand(Instr, FunctionConstant),
+   call_instr_func_operand(Instr, FunctionConstant),
    constant(FunctionConstant),
    constant_references_func(FunctionConstant, Func).
 
 _instr_calls_func(Instr, Func) :-
    direct_invoke_instr(Instr),
-   invoke_instr_fn_operand(Instr, FunctionConstant),
+   invoke_instr_func_operand(Instr, FunctionConstant),
    constant(FunctionConstant),
    constant_references_func(FunctionConstant, Func).
 

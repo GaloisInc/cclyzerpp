@@ -89,8 +89,8 @@ func_type_has_no_pointer_return(?funcType) :-
 
 drop_context_by_invoc(?invoc) :-
   user_option_value("drop_redundant_contexts", "on"),
-  ( call_instr_fn_operand(?invoc, ?funcOp)
-  ; invoke_instr_fn_operand(?invoc, ?funcOp)
+  ( call_instr_func_operand(?invoc, ?funcOp)
+  ; invoke_instr_func_operand(?invoc, ?funcOp)
   ),
   operand_has_type(?funcOp, ?funcOpType),
   pointer_type_has_component(?funcOpType, ?declaredType),

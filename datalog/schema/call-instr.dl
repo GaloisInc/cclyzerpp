@@ -7,7 +7,7 @@
 instr(v) :- call_instr(v).
 
 // Function operand: can be either a constant or a variable
-.decl call_instr_fn_operand(instr:CallInstruction, op:Operand)
+.decl call_instr_func_operand(instr:CallInstruction, op:Operand)
 
 // Resolved func of call instr. Initially empty.
 .decl call_instr_fn_target(instr:CallInstruction, func:FunctionDecl)
@@ -35,15 +35,15 @@ calling_convention(cc) :- call_instr_calling_conv(_, cc).
 .decl asm_call_instr(instr:CallInstruction)
 
 direct_call_instr(Instr) :-
-   call_instr_fn_operand(Instr, Constant),
+   call_instr_func_operand(Instr, Constant),
    constant(Constant), !inline_asm(Constant).
 
 indirect_call_instr(Instr) :-
-   call_instr_fn_operand(Instr, Variable),
+   call_instr_func_operand(Instr, Variable),
    variable(Variable).
 
 asm_call_instr(Instr) :-
-   call_instr_fn_operand(Instr, Constant),
+   call_instr_func_operand(Instr, Constant),
    inline_asm(Constant).
 
 
@@ -69,7 +69,7 @@ attr(Attr) :- call_instr_param_attr(_, _, Attr).
 .decl call_instr_return_type(instr:CallInstruction, type:Type)
 
 call_instr_fn_type(Instr, FnType) :-
-   call_instr_fn_operand(Instr, FnOp),
+   call_instr_func_operand(Instr, FnOp),
    operand_has_type(FnOp, PtrType),
    pointer_type_has_component(PtrType, FnType),
    func_type(FnType).
@@ -100,7 +100,7 @@ call_instr_return_type(Instr, Type) :-
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    call_instr(Instr),
-   !call_instr_fn_operand(Instr, _).
+   !call_instr_func_operand(Instr, _).
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),

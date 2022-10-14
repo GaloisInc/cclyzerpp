@@ -271,7 +271,7 @@ assert_reachable_direct_calls_have_callees(?ctx, ?call) :-
   subset.callgraph.reachable_context(?ctx, ?instrFunc),
   instr_func(?call, ?instrFunc),
   direct_call_instr(?call),
-  call_instr_fn_operand(?call, ?funcOp),
+  call_instr_func_operand(?call, ?funcOp),
   ! undef_constant(?funcOp),
   ! subset.callgraph.callgraph_edge(_, _, ?ctx, ?call).
 

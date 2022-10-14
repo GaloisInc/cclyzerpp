@@ -283,7 +283,7 @@ void InstructionVisitor::visitInvokeInst(const llvm::InvokeInst &II) {
 #endif
 
   // invoke instruction function (also records type)
-  writeInstrOperand(pred::invoke::function, iref, invokeOp);
+  writeInstrOperand(pred::invoke::func_operand, iref, invokeOp);
 
   // actual args
   for (unsigned op = 0; op < II.getNumArgOperands(); ++op)
@@ -546,7 +546,7 @@ void InstructionVisitor::visitCallInst(const llvm::CallInst &CI) {
 #endif
 
   // call instruction function (also records type)
-  writeInstrOperand(pred::call::function, iref, callOp);
+  writeInstrOperand(pred::call::func_operand, iref, callOp);
 
   for (unsigned op = 0; op < CI.getNumArgOperands(); ++op)
     writeInstrOperand(pred::call::arg, iref, CI.getArgOperand(op), op);
