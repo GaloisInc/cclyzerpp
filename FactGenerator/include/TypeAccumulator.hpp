@@ -59,7 +59,7 @@ class cclyzer::llvm_utils::TypeAccumulator {
     } else if (elementType->isStructTy()) {
       visitStructType(elementType);
     } else if (elementType->isVectorTy()) {
-#if LLVM_VERSION_MAJOR > 12
+#if LLVM_VERSION_MAJOR > 10
       visitType(llvm::cast<llvm::VectorType>(elementType)->getElementType());
 #else
       visitType(elementType->getVectorElementType());

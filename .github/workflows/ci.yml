@@ -14,7 +14,8 @@ env:
   # This will be empty on events that aren't pull requests.
   ACTUAL_GITHUB_SHA_ON_PULL_REQUEST: "${{ github.event.pull_request.head.sha }}"
   # TODO(#12): Upgrade to Ubuntu 22.04 (jammy), Clang 15, LLVM 15
-  LLVM_VERSION: "10"
+  # See also the matrix of the build job.
+  LLVM_VERSION: "11"
   CLANG_VERSION: "12"
   UBUNTU_VERSION: "20.04"
   UBUNTU_NAME: "focal"
@@ -37,6 +38,11 @@ jobs:
 
   build:
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        llvm_version: [10, 11]
+    env:
+      LLVM_VERSION: ${{ matrix.llvm_version }}
     steps:
     - uses: actions/checkout@v3
 
@@ -67,7 +73,7 @@ jobs:
           --mount type=bind,src=$PWD,target=/work \
           --workdir /work \
           "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
-          cmake -G Ninja -B build -S .
+          cmake -DLLVM_VERSION=${LLVM_VERSION} -G Ninja -B build -S .
 
         docker run \
           --rm \
@@ -142,10 +148,11 @@ jobs:
           --mount type=bind,src=$PWD,target=/work \
           --workdir /work \
           "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
-          cmake -DCLANG_VERSION=${CLANG_VERSION} -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -G Ninja -S . -B build
+          cmake -DCLANG_VERSION=${CLANG_VERSION} -DLLVM_VERSION=${LLVM_VERSION} -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -G Ninja -S . -B build
 
         docker run \
           --rm \
+          --env CLANG_VERSION=${CLANG_VERSION} \
           --mount type=bind,src=$PWD,target=/work \
           --workdir /work \
           "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
@@ -186,7 +193,7 @@ jobs:
           --mount type=bind,src=$PWD,target=/work \
           --workdir /work \
           "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
-          cmake -G Ninja -B build -S .
+          cmake -DLLVM_VERSION=${LLVM_VERSION} -G Ninja -B build -S .
 
         docker run \
           --rm \

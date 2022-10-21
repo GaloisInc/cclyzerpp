@@ -8,7 +8,7 @@ ARG UBUNTU_NAME=focal
 ARG UBUNTU_VERSION=20.04
 FROM ubuntu:$UBUNTU_VERSION as dev
 ARG CLANG_VERSION=12
-ARG LLVM_VERSION=10
+ARG LLVM_VERSION=11
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG UBUNTU_NAME
 ARG UBUNTU_VERSION
@@ -52,7 +52,7 @@ RUN apt-get update && \
       clang-${CLANG_VERSION} \
       clang-format-${CLANG_VERSION} \
       clang-tidy-${CLANG_VERSION} \
-      libomp-${LLVM_VERSION}-dev \
+      libomp-${CLANG_VERSION}-dev \
       llvm-${LLVM_VERSION} \
       llvm-${LLVM_VERSION}-dev && \
     update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-${CLANG_VERSION} 60 && \

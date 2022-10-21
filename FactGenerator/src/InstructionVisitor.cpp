@@ -276,7 +276,7 @@ void InstructionVisitor::visitIndirectBrInst(const llvm::IndirectBrInst &IBR) {
 void InstructionVisitor::visitInvokeInst(const llvm::InvokeInst &II) {
   refmode_t iref = recordInstruction(pred::invoke::instr, II);
 
-#if LLVM_VERSION_MAJOR > 12
+#if LLVM_VERSION_MAJOR > 10
   const llvm::Value *invokeOp = II.getCalledOperand();
 #else
   const llvm::Value *invokeOp = II.getCalledValue();
@@ -539,7 +539,7 @@ void InstructionVisitor::visitCallInst(const llvm::CallInst &CI) {
   // instructions due to the constraint that all direct calls must
   // be able to determine the function to be called.
 
-#if LLVM_VERSION_MAJOR > 12
+#if LLVM_VERSION_MAJOR > 10
   const llvm::Value *callOp = CI.getCalledOperand();
 #else
   const llvm::Value *callOp = CI.getCalledValue();
@@ -586,7 +586,7 @@ void InstructionVisitor::visitDbgDeclareInst(const llvm::DbgDeclareInst &DDI) {
 
   // Record source variable name
   if (const llvm::DILocalVariable *var = DDI.getVariable()) {
-#if LLVM_VERSION_MAJOR > 12
+#if LLVM_VERSION_MAJOR > 10
     string name = var->getName().str();
 #else
     string name = var->getName();

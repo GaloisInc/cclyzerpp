@@ -67,7 +67,7 @@ void TypeVisitor::visitType(const llvm::Type *type) {
     case llvm::Type::PointerTyID:
       visitPointerType(cast<PointerType>(type));
       break;
-#if LLVM_VERSION_MAJOR > 12
+#if LLVM_VERSION_MAJOR > 10
     case llvm::Type::ScalableVectorTyID:
       visitVectorType(cast<VectorType>(type));
       break;
@@ -83,9 +83,11 @@ void TypeVisitor::visitType(const llvm::Type *type) {
       break;
     case llvm::Type::TokenTyID:  // TODO: handle this type
       break;
-#if LLVM_VERSION_MAJOR > 12
+#if LLVM_VERSION_MAJOR > 10
     case llvm::Type::BFloatTyID:  // TODO: handle this type
       break;
+#endif
+#if LLVM_VERSION_MAJOR > 12
     case llvm::Type::X86_AMXTyID:  // TODO: handle this type
       break;
 #endif
@@ -193,7 +195,7 @@ void TypeVisitor::visitFunctionType(const FunctionType *functionType) {
 
 void TypeVisitor::visitVectorType(const VectorType *vectorType) {
   refmode_t tref = gen.refmode<llvm::Type>(*vectorType);
-#if LLVM_VERSION_MAJOR > 12
+#if LLVM_VERSION_MAJOR > 10
   Type *componentType = vectorType->getElementType();
   if (llvm::isa<llvm::FixedVectorType>(vectorType)) {
     size_t nElements =
