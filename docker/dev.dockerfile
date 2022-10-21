@@ -3,10 +3,15 @@
 # Image with all cclyzer++ development tools, i.e., everything needed by
 # cclyzer++ developers to build and test cclyzer++.
 
-# TODO(#12): Upgrade to 22.04, LLVM 15
-ARG BASE=ubuntu:20.04
-FROM $BASE as dev
+    # TODO(#12): Upgrade to Ubuntu 22.04 (jammy), Clang 15, LLVM 15
+ARG UBUNTU_NAME=focal
+ARG UBUNTU_VERSION=20.04
+FROM ubuntu:$UBUNTU_VERSION as dev
+ARG CLANG_VERSION=10
 ARG LLVM_VERSION=10
+# https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
+ARG UBUNTU_NAME
+ARG UBUNTU_VERSION
 SHELL ["/bin/bash", "-c", "-o", "pipefail"]
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -41,19 +46,19 @@ RUN apt-get update && \
     apt-get update && \
     apt-get --yes install --no-install-recommends souffle && \
     wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
-    echo "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy main" | tee /etc/apt/sources.list.d/llvm.list && \
+    echo "deb http://apt.llvm.org/${UBUNTU_NAME}/ llvm-toolchain-${UBUNTU_NAME} main" | tee /etc/apt/sources.list.d/llvm.list && \
     apt-get update && \
     apt-get --yes install --no-install-recommends \
-      clang-${LLVM_VERSION} \
-      clang-format-${LLVM_VERSION} \
-      clang-tidy-${LLVM_VERSION} \
+      clang-${CLANG_VERSION} \
+      clang-format-${CLANG_VERSION} \
+      clang-tidy-${CLANG_VERSION} \
       libomp-${LLVM_VERSION}-dev \
       llvm-${LLVM_VERSION} \
       llvm-${LLVM_VERSION}-dev && \
-    update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-${LLVM_VERSION} 60 && \
-    update-alternatives --install /usr/bin/cc cc /usr/bin/clang-${LLVM_VERSION} 60 && \
-    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${LLVM_VERSION} 60 && \
-    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${LLVM_VERSION} 60 && \
+    update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-${CLANG_VERSION} 60 && \
+    update-alternatives --install /usr/bin/cc cc /usr/bin/clang-${CLANG_VERSION} 60 && \
+    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${CLANG_VERSION} 60 && \
+    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${CLANG_VERSION} 60 && \
     update-alternatives --install /usr/bin/opt opt /usr/bin/opt-${LLVM_VERSION} 60 && \
     rm -rf /var/lib/apt/lists/*
 RUN gem install fpm -v 1.14.2

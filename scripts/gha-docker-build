@@ -46,6 +46,10 @@ cd docker
 docker build \
   --file "${file}" \
   --build-arg BUILDKIT_INLINE_CACHE=1 \
+  --build-arg "UBUNTU_NAME=${UBUNTU_NAME:?Please set UBUNTU_NAME}" \
+  --build-arg "CLANG_VERSION=${CLANG_VERSION:?Please set CLANG_VERSION}" \
+  --build-arg "LLVM_VERSION=${LLVM_VERSION:?Please set LLVM_VERSION}" \
+  --build-arg "UBUNTU_VERSION=${UBUNTU_VERSION:?Please set UBUNTU_VERSION}" \
   --cache-from "${full_image_name}:${prev_ref}" \
   --cache-from "${full_image_name}:main" \
   --tag "${full_image_name}:${ref}" \

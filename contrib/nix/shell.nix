@@ -4,9 +4,9 @@
 
 pkgs.mkShell {
   buildInputs =  [
-    pkgs.clang_11
+    pkgs.clang_10
     pkgs.cmake
-    pkgs.llvm_11
+    pkgs.llvm_10
     pkgs.ninja
   ];
 }

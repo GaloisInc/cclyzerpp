@@ -88,11 +88,32 @@ Many thanks to the authors of cclyzer for their contributions! The cclyzer
 license is included with the source distribution of cclyzer++ as
 ``LICENSE-cclyzer.txt``.
 
-.. _tutorial: http://yanniss.github.io/points-to-tutorial15.pdf
-
 Project Status
 --------------
 
-cclyzer++ is not currently actively developed or maintained by Galois, Inc.
-Points of contact are: Langston Barrett (email: langston at galois dot com)
-Scott Moore (email: scott at galois dot com).
+cclyzer++ is actively developed and maintained by Galois, Inc. Points of contact
+are: Langston Barrett (email: langston at galois dot com) Scott Moore (email:
+scott at galois dot com).
+
+
+Versioning
+----------
+
+Since v0.4.0, cclyzer++ has attempted to follow `semantic versioning 2.0.0
+<semver>`_.
+
+LLVM Library Version
+********************
+
+cclyzer++ currently builds against LLVM 10. There are plans to support multiple
+versions and more recent versions.
+
+Development Tools
+*****************
+
+cclyzer++ currently builds with Clang 10 (including other Clang tools such as
+clang-format and clang-tidy). There are plans to build with more recent versions
+of Clang.
+
+.. _tutorial: http://yanniss.github.io/points-to-tutorial15.pdf
+.. _semver: https://semver.org/spec/v2.0.0.html

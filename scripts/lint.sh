@@ -3,7 +3,7 @@
 set -eo pipefail
 
 for f in ./src/*.cpp ./FactGenerator/**/*.cpp; do
-  clang-format-10 "${f}" | diff "${f}" -
+  "clang-format-${CLANG_VERSION}" "${f}" | diff "${f}" -
 done
 
 if ! [[ -f build/compile_commands.json ]]; then

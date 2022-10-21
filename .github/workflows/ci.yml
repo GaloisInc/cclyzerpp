@@ -13,10 +13,15 @@ env:
   SPHINXOPTS: "-W --keep-going"
   # This will be empty on events that aren't pull requests.
   ACTUAL_GITHUB_SHA_ON_PULL_REQUEST: "${{ github.event.pull_request.head.sha }}"
+  # TODO(#12): Upgrade to Ubuntu 22.04 (jammy), Clang 15, LLVM 15
+  LLVM_VERSION: "10"
+  CLANG_VERSION: "10"
+  UBUNTU_VERSION: "20.04"
+  UBUNTU_NAME: "focal"
 
 jobs:
   doc:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3
 
@@ -31,7 +36,7 @@ jobs:
         publish_dir: doc/_build/html
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3
 
@@ -115,7 +120,7 @@ jobs:
         ./scripts/gha-docker-build "dist" "cclyzerpp-dist"
 
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3
 
@@ -137,7 +142,7 @@ jobs:
           --mount type=bind,src=$PWD,target=/work \
           --workdir /work \
           "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
-          cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -G Ninja -S . -B build
+          cmake -DCLANG_VERSION=${CLANG_VERSION} -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -G Ninja -S . -B build
 
         docker run \
           --rm \
@@ -147,7 +152,7 @@ jobs:
           bash scripts/lint.sh
 
   release:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     if: startsWith(github.ref, 'refs/tags/v')
     permissions:
       contents: write
