@@ -19,7 +19,7 @@ Cutting a Release
 
 - Run the extended test suite (see ``EXTRA_TESTS`` above).
 - Ensure that the :doc:`changelog` is up to date.
-- Bump the project version``CMakeLists.txt`` and ``dist.dockerfile``.
+- Bump the project version``CMakeLists.txt``.
 - Push a new tag that starts with ``v``, e.g., ``v0.2``, and the CI build will
   create a draft release on Github.
 

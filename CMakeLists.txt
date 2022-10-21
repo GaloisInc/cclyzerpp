@@ -1,7 +1,7 @@
 # minimum version: 3.12 for CMAKE_PROJECT_VERSION
 cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
-project(cclyzer++ LANGUAGES C CXX VERSION 0.3)
+project(cclyzer++ LANGUAGES C CXX VERSION 0.4.0)
 
 # -----------------------------------------------------------------------------
 
