@@ -5,8 +5,11 @@ project(cclyzer++ LANGUAGES C CXX VERSION 0.4.0)
 
 # -----------------------------------------------------------------------------
 
-set(LLVM_VER 10)
-find_package(LLVM ${LLVM_VER}.0 REQUIRED CONFIG)
+if(NOT (DEFINED LLVM_VERSION))
+  set(LLVM_VERSION 11)
+endif()
+
+find_package(LLVM ${LLVM_VERSION}.0 REQUIRED CONFIG)
 message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
 message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
 
@@ -92,6 +95,8 @@ target_compile_features(SoufflePA PUBLIC cxx_std_17)
 target_compile_options(
   SoufflePA
   PUBLIC # -Werror
+         -Werror=switch
+         -Werror=return-type
          -pedantic-errors
          -Wall
          -Wextra
@@ -205,7 +210,7 @@ endforeach()
 # -----------------------------------------------------------------------------
 
 if(NOT (DEFINED CLANG_VERSION))
-  set(CLANG_VERSION ${LLVM_VER})
+  set(CLANG_VERSION ${LLVM_VERSION})
 endif()
 
 find_program(
