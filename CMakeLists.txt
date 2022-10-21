@@ -204,14 +204,18 @@ endforeach()
 
 # -----------------------------------------------------------------------------
 
+if(NOT (DEFINED CLANG_VERSION))
+  set(CLANG_VERSION ${LLVM_VER})
+endif()
+
 find_program(
   CLANG_TIDY
-  NAMES "clang-tidy" "clang-tidy-${LLVM_VER}"
+  NAMES "clang-tidy" "clang-tidy-${CLANG_VERSION}"
   DOC "Path to clang-tidy executable.")
 
 find_program(
   CLANG_FORMAT
-  NAMES "clang-format" "clang-format-${LLVM_VER}"
+  NAMES "clang-format" "clang-format-${CLANG_VERSION}"
   DOC "Path to clang-format executable.")
 
 if(CLANG_TIDY)
