@@ -5,7 +5,8 @@ project(cclyzer++ LANGUAGES C CXX VERSION 0.3)
 
 # -----------------------------------------------------------------------------
 
-find_package(LLVM 10.0 REQUIRED CONFIG)
+set(LLVM_VER 10)
+find_package(LLVM ${LLVM_VER}.0 REQUIRED CONFIG)
 message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
 message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
 
@@ -117,21 +118,6 @@ foreach(spa_source ${SPA_SOURCES})
   endif()
 endforeach()
 
-if(CLANG_TIDY)
-  add_custom_target(
-    spa-tidy
-    COMMAND ${CLANG_TIDY} -fix -p=${CMAKE_BINARY_DIR} -quiet
-            ${ABSOLUTE_SPA_SOURCES}
-    COMMENT "Linting with clang-tidy...")
-endif()
-
-if(CLANG_FORMAT)
-  add_custom_target(
-    spa-format
-    COMMAND ${CLANG_FORMAT} -i ${ABSOLUTE_SPA_SOURCES}
-    COMMENT "Formatting with clang-format...")
-endif()
-
 add_library(PAPassInterface INTERFACE)
 
 target_sources(PAPassInterface
@@ -218,16 +204,14 @@ endforeach()
 
 # -----------------------------------------------------------------------------
 
-# Add clang-tidy target
 find_program(
   CLANG_TIDY
-  NAMES "clang-tidy"
+  NAMES "clang-tidy" "clang-tidy-${LLVM_VER}"
   DOC "Path to clang-tidy executable.")
 
-# Add clang-format target
 find_program(
   CLANG_FORMAT
-  NAMES "clang-format"
+  NAMES "clang-format" "clang-format-${LLVM_VER}"
   DOC "Path to clang-format executable.")
 
 if(CLANG_TIDY)
@@ -236,6 +220,21 @@ if(CLANG_TIDY)
     COMMAND ${CLANG_TIDY} -fix -p=${CMAKE_BINARY_DIR} -quiet
             ${ABSOLUTE_FACTGEN_SOURCES}
     COMMENT "Linting with clang-tidy...")
+endif()
+
+if(CLANG_TIDY)
+  add_custom_target(
+    spa-tidy
+    COMMAND ${CLANG_TIDY} -fix -p=${CMAKE_BINARY_DIR} -quiet
+            ${ABSOLUTE_SPA_SOURCES}
+    COMMENT "Linting with clang-tidy...")
+endif()
+
+if(CLANG_FORMAT)
+  add_custom_target(
+    spa-format
+    COMMAND ${CLANG_FORMAT} -i ${ABSOLUTE_SPA_SOURCES}
+    COMMENT "Formatting with clang-format...")
 endif()
 
 # -----------------------------------------------------------------------------

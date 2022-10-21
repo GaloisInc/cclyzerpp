@@ -119,13 +119,32 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install linting tools
+    - name: Build dev image
       run: |
-        sudo apt-get update
-        sudo apt-get install -y clang-format mypy
+        ./scripts/gha-docker-build "dev" "cclyzerpp-dev"
 
-    - name: Run linting script
-      run: bash scripts/lint.sh
+    - name: Lint
+      run: |
+        # See comment above
+        if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+          ref="${ACTUAL_GITHUB_SHA_ON_PULL_REQUEST}"
+        else
+          ref="${GITHUB_SHA}"
+        fi
+
+        docker run \
+          --rm \
+          --mount type=bind,src=$PWD,target=/work \
+          --workdir /work \
+          "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
+          cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -G Ninja -S . -B build
+
+        docker run \
+          --rm \
+          --mount type=bind,src=$PWD,target=/work \
+          --workdir /work \
+          "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
+          bash scripts/lint.sh
 
   release:
     runs-on: ubuntu-latest
