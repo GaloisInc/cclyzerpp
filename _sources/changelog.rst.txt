@@ -7,6 +7,26 @@ Changelog
 next
 ****
 
+`v0.4.0`_ - 2022-10-21
+********************
+
+`Compare to v0.3 <https://github.com/GaloisInc/cclyzerpp/compare/v0.4.0...v0.3>`_.
+
+Changed
+~~~~~~~
+
+- Improved type-safety in the Datalog code.
+- Several relations were renamed for the sake of consistency between the
+  FactGenerator and the analysis code (Datalog).
+
+Removed
+~~~~~~~
+
+- Removed the unused ``subset-and-unification`` build target.
+- Removed the instantiations of the ``ThrowInstruction`` component in both
+  analyses.
+- Removed a few extraneous relations.
+
 `v0.3`_ - 2022-10-12
 ********************
 
