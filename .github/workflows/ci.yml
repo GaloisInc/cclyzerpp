@@ -15,7 +15,7 @@ env:
   ACTUAL_GITHUB_SHA_ON_PULL_REQUEST: "${{ github.event.pull_request.head.sha }}"
   # TODO(#12): Upgrade to Ubuntu 22.04 (jammy), Clang 15, LLVM 15
   LLVM_VERSION: "10"
-  CLANG_VERSION: "10"
+  CLANG_VERSION: "12"
   UBUNTU_VERSION: "20.04"
   UBUNTU_NAME: "focal"
 

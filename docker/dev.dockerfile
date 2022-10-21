@@ -3,11 +3,11 @@
 # Image with all cclyzer++ development tools, i.e., everything needed by
 # cclyzer++ developers to build and test cclyzer++.
 
-    # TODO(#12): Upgrade to Ubuntu 22.04 (jammy), Clang 15, LLVM 15
+# TODO(#12): Upgrade to Ubuntu 22.04 (jammy), Clang 15, LLVM 15
 ARG UBUNTU_NAME=focal
 ARG UBUNTU_VERSION=20.04
 FROM ubuntu:$UBUNTU_VERSION as dev
-ARG CLANG_VERSION=10
+ARG CLANG_VERSION=12
 ARG LLVM_VERSION=10
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG UBUNTU_NAME
