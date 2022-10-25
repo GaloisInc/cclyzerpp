@@ -7,15 +7,12 @@
 *global_alloc@.str[*][*]	1
 *global_alloc@.str[0]	13
 *global_alloc@.str[0][*]	1
-*global_alloc@dynamic_size_global	8
 *global_alloc@dynamic_size_global[*]	8
 *global_alloc@dynamic_size_global[0]	8
-*global_alloc@large_const_size_global	512
 *global_alloc@large_const_size_global[*]	512
 *global_alloc@large_const_size_global[*][*]	4
 *global_alloc@large_const_size_global[0]	512
 *global_alloc@large_const_size_global[0][*]	4
-*global_alloc@small_const_size_global	32
 *global_alloc@small_const_size_global[*]	32
 *global_alloc@small_const_size_global[*][*]	4
 *global_alloc@small_const_size_global[0]	32

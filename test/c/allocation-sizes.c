@@ -7,9 +7,9 @@
 #define LARGE_CONST_SIZE 128
 #define SMALL_CONST_SIZE 8
 
-int small_const_size_global[SMALL_CONST_SIZE];
-int large_const_size_global[LARGE_CONST_SIZE];
-int *dynamic_size_global;
+int small_const_size_global[SMALL_CONST_SIZE] = {0};
+int large_const_size_global[LARGE_CONST_SIZE] = {0};
+int *dynamic_size_global = {0};
 
 void set(int *, int) __attribute__((noinline));
 void set(int *buf, int sz) {
