@@ -6,7 +6,6 @@ if(NOT (DEFINED FPM_BIN))
 endif()
 
 set(DEB cclyzer++_${CMAKE_PROJECT_VERSION}-1_amd64.deb)
-# TODO(lb): There is a runtime dependency on boost
 add_custom_command(
   OUTPUT ${DEB}
   COMMAND
