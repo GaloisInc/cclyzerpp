@@ -29,7 +29,7 @@ Worked example:
 
   git checkout main
   git pull
-  git tag -a v0.1 -m v0.1
+  git tag -a v0.X.0 -m v0.X.0
   git push --tags
 
 After waiting for the CI build, manually edit the release as required and hit
