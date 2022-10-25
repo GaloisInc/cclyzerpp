@@ -8,7 +8,7 @@ next
 ****
 
 `v0.4.0`_ - 2022-10-21
-********************
+**********************
 
 `Compare to v0.3 <https://github.com/GaloisInc/cclyzerpp/compare/v0.4.0...v0.3>`_.
 
@@ -97,4 +97,5 @@ Known Issues
 .. _v0.1: https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.1
 .. _v0.2: https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.2
 .. _v0.3: https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.3
+.. _v0.4: https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.4
 .. _#69: https://github.com/GaloisInc/cclyzerpp/issues/69
