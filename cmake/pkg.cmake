@@ -6,6 +6,7 @@ if(NOT (DEFINED FPM_BIN))
 endif()
 
 set(DEB cclyzer++_${CMAKE_PROJECT_VERSION}-1_amd64.deb)
+# TODO(lb): There is a runtime dependency on boost
 add_custom_command(
   OUTPUT ${DEB}
   COMMAND
@@ -16,7 +17,12 @@ add_custom_command(
   --version ${CMAKE_PROJECT_VERSION}
   --name cclyzer++
   --license bsd3
-  --depends llvm-${LLVM_VERSION}
+  --depends llvm-${LLVM_MAJOR_VERSION}
+  --depends libboost-system-dev
+  --depends libboost-filesystem-dev
+  --depends libboost-iostreams-dev
+  --depends libboost-program-options-dev
+  --depends libomp-${CLANG_VERSION}-dev
   --architecture x86_64
   --description cclyzer++
   --url https://galoisinc.github.io/cclyzerpp/

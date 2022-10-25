@@ -5,11 +5,11 @@ project(cclyzer++ LANGUAGES C CXX VERSION 0.4.0)
 
 # -----------------------------------------------------------------------------
 
-if(NOT (DEFINED LLVM_VERSION))
-  set(LLVM_VERSION 11)
+if(NOT (DEFINED LLVM_MAJOR_VERSION))
+  set(LLVM_MAJOR_VERSION 11)
 endif()
 
-find_package(LLVM ${LLVM_VERSION}.0 REQUIRED CONFIG)
+find_package(LLVM ${LLVM_MAJOR_VERSION}.0 REQUIRED CONFIG)
 message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
 message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
 
@@ -210,7 +210,7 @@ endforeach()
 # -----------------------------------------------------------------------------
 
 if(NOT (DEFINED CLANG_VERSION))
-  set(CLANG_VERSION ${LLVM_VERSION})
+  set(CLANG_VERSION ${LLVM_MAJOR_VERSION})
 endif()
 
 find_program(
