@@ -37,7 +37,7 @@ class ContextManager {
  public:
   // Type definitions
   using context = Context;
-  typedef std::vector<context>::iterator iterator;
+  using iterator = std::vector<context>::iterator;
   using const_iterator = std::vector<context>::const_iterator;
   using reverse_iterator = std::vector<context>::reverse_iterator;
   using const_reverse_iterator = std::vector<context>::const_reverse_iterator;
