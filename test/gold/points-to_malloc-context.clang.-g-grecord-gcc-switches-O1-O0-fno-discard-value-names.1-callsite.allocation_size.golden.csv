@@ -1,4 +1,3 @@
-*global_alloc@global_obj	8
 *global_alloc@global_obj[*]	8
 *global_alloc@global_obj[*].?/0	4
 *global_alloc@global_obj[*].?/1	4

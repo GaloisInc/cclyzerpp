@@ -50,7 +50,7 @@ nil	*global_alloc@.str.1[0]	nil	<notes.c>:parse:3:1:getelementptr inbounds ([12 
 nil	*global_alloc@.str.1[0][*]	nil	<notes.c>:handle:3:1:getelementptr inbounds ([12 x i8], [12 x i8]* @.str.1, i64 0, i64 0)
 nil	*global_alloc@.str.1[0][*]	nil	<notes.c>:parse:3:1:getelementptr inbounds ([12 x i8], [12 x i8]* @.str.1, i64 0, i64 0)
 nil	*global_alloc@.str.2	nil	<notes.c>:handle:3:6:@.str.2
-nil	*global_alloc@.str.2	nil	<notes.c>:handle_loop:21:6:@.str.2
+nil	*global_alloc@.str.2	nil	<notes.c>:handle_loop:10:6:@.str.2
 nil	*global_alloc@.str.2	nil	<notes.c>:hex_str:4:6:@.str.2
 nil	*global_alloc@.str.2	nil	<notes.c>:parse:3:6:@.str.2
 nil	*global_alloc@.str.20	nil	<notes.c>:cmd_read:7:2:@.str.20
@@ -68,11 +68,11 @@ nil	*global_alloc@.str.23[0]	nil	<notes.c>:cmd_read:11:1:getelementptr inbounds 
 nil	*global_alloc@.str.23[0][*]	[<notes.c>:cmd_read:11, nil]	<notes.c>:notes_strdup:%s
 nil	*global_alloc@.str.23[0][*]	nil	<notes.c>:cmd_read:11:1:getelementptr inbounds ([13 x i8], [13 x i8]* @.str.23, i64 0, i64 0)
 nil	*global_alloc@.str.2[0]	nil	<notes.c>:handle:3:5:getelementptr inbounds ([8 x i8], [8 x i8]* @.str.2, i64 0, i64 0)
-nil	*global_alloc@.str.2[0]	nil	<notes.c>:handle_loop:21:5:getelementptr inbounds ([8 x i8], [8 x i8]* @.str.2, i64 0, i64 0)
+nil	*global_alloc@.str.2[0]	nil	<notes.c>:handle_loop:10:5:getelementptr inbounds ([8 x i8], [8 x i8]* @.str.2, i64 0, i64 0)
 nil	*global_alloc@.str.2[0]	nil	<notes.c>:hex_str:4:5:getelementptr inbounds ([8 x i8], [8 x i8]* @.str.2, i64 0, i64 0)
 nil	*global_alloc@.str.2[0]	nil	<notes.c>:parse:3:5:getelementptr inbounds ([8 x i8], [8 x i8]* @.str.2, i64 0, i64 0)
 nil	*global_alloc@.str.2[0][*]	nil	<notes.c>:handle:3:5:getelementptr inbounds ([8 x i8], [8 x i8]* @.str.2, i64 0, i64 0)
-nil	*global_alloc@.str.2[0][*]	nil	<notes.c>:handle_loop:21:5:getelementptr inbounds ([8 x i8], [8 x i8]* @.str.2, i64 0, i64 0)
+nil	*global_alloc@.str.2[0][*]	nil	<notes.c>:handle_loop:10:5:getelementptr inbounds ([8 x i8], [8 x i8]* @.str.2, i64 0, i64 0)
 nil	*global_alloc@.str.2[0][*]	nil	<notes.c>:hex_str:4:5:getelementptr inbounds ([8 x i8], [8 x i8]* @.str.2, i64 0, i64 0)
 nil	*global_alloc@.str.2[0][*]	nil	<notes.c>:parse:3:5:getelementptr inbounds ([8 x i8], [8 x i8]* @.str.2, i64 0, i64 0)
 nil	*global_alloc@.str.3	nil	<notes.c>:handle:9:2:@.str.3
@@ -85,18 +85,18 @@ nil	*global_alloc@.str.4[0]	[<notes.c>:handle:25, nil]	<notes.c>:notes_strdup:%s
 nil	*global_alloc@.str.4[0]	nil	<notes.c>:handle:25:1:getelementptr inbounds ([17 x i8], [17 x i8]* @.str.4, i64 0, i64 0)
 nil	*global_alloc@.str.4[0][*]	[<notes.c>:handle:25, nil]	<notes.c>:notes_strdup:%s
 nil	*global_alloc@.str.4[0][*]	nil	<notes.c>:handle:25:1:getelementptr inbounds ([17 x i8], [17 x i8]* @.str.4, i64 0, i64 0)
-nil	*global_alloc@.str.5	nil	<notes.c>:handle_loop:12:2:@.str.5
 nil	*global_alloc@.str.5	nil	<notes.c>:handle_loop:2:2:@.str.5
-nil	*global_alloc@.str.5[0]	nil	<notes.c>:handle_loop:12:1:getelementptr inbounds ([8 x i8], [8 x i8]* @.str.5, i64 0, i64 0)
+nil	*global_alloc@.str.5	nil	<notes.c>:handle_loop:36:2:@.str.5
 nil	*global_alloc@.str.5[0]	nil	<notes.c>:handle_loop:2:1:getelementptr inbounds ([8 x i8], [8 x i8]* @.str.5, i64 0, i64 0)
-nil	*global_alloc@.str.5[0][*]	nil	<notes.c>:handle_loop:12:1:getelementptr inbounds ([8 x i8], [8 x i8]* @.str.5, i64 0, i64 0)
+nil	*global_alloc@.str.5[0]	nil	<notes.c>:handle_loop:36:1:getelementptr inbounds ([8 x i8], [8 x i8]* @.str.5, i64 0, i64 0)
 nil	*global_alloc@.str.5[0][*]	nil	<notes.c>:handle_loop:2:1:getelementptr inbounds ([8 x i8], [8 x i8]* @.str.5, i64 0, i64 0)
-nil	*global_alloc@.str.6	nil	<notes.c>:handle_loop:21:2:@.str.6
-nil	*global_alloc@.str.6[0]	nil	<notes.c>:handle_loop:21:1:getelementptr inbounds ([16 x i8], [16 x i8]* @.str.6, i64 0, i64 0)
-nil	*global_alloc@.str.6[0][*]	nil	<notes.c>:handle_loop:21:1:getelementptr inbounds ([16 x i8], [16 x i8]* @.str.6, i64 0, i64 0)
-nil	*global_alloc@.str.7	nil	<notes.c>:handle_loop:43:2:@.str.7
-nil	*global_alloc@.str.7[0]	nil	<notes.c>:handle_loop:43:1:getelementptr inbounds ([2 x i8], [2 x i8]* @.str.7, i64 0, i64 0)
-nil	*global_alloc@.str.7[0][*]	nil	<notes.c>:handle_loop:43:1:getelementptr inbounds ([2 x i8], [2 x i8]* @.str.7, i64 0, i64 0)
+nil	*global_alloc@.str.5[0][*]	nil	<notes.c>:handle_loop:36:1:getelementptr inbounds ([8 x i8], [8 x i8]* @.str.5, i64 0, i64 0)
+nil	*global_alloc@.str.6	nil	<notes.c>:handle_loop:10:2:@.str.6
+nil	*global_alloc@.str.6[0]	nil	<notes.c>:handle_loop:10:1:getelementptr inbounds ([16 x i8], [16 x i8]* @.str.6, i64 0, i64 0)
+nil	*global_alloc@.str.6[0][*]	nil	<notes.c>:handle_loop:10:1:getelementptr inbounds ([16 x i8], [16 x i8]* @.str.6, i64 0, i64 0)
+nil	*global_alloc@.str.7	nil	<notes.c>:handle_loop:32:2:@.str.7
+nil	*global_alloc@.str.7[0]	nil	<notes.c>:handle_loop:32:1:getelementptr inbounds ([2 x i8], [2 x i8]* @.str.7, i64 0, i64 0)
+nil	*global_alloc@.str.7[0][*]	nil	<notes.c>:handle_loop:32:1:getelementptr inbounds ([2 x i8], [2 x i8]* @.str.7, i64 0, i64 0)
 nil	*global_alloc@.str.8	[<<main-context>>, nil]	<notes.c>:main:8:2:@.str.8
 nil	*global_alloc@.str.8[0]	[<<main-context>>, nil]	<notes.c>:main:8:1:getelementptr inbounds ([25 x i8], [25 x i8]* @.str.8, i64 0, i64 0)
 nil	*global_alloc@.str.8[0][*]	[<<main-context>>, nil]	<notes.c>:main:8:1:getelementptr inbounds ([25 x i8], [25 x i8]* @.str.8, i64 0, i64 0)
@@ -116,9 +116,9 @@ nil	*global_alloc@TOO_FEW_ARGS	nil	<notes.c>:cmd_write:3:0:@TOO_FEW_ARGS
 nil	*global_alloc@__PRETTY_FUNCTION__.handle	nil	<notes.c>:handle:3:11:@__PRETTY_FUNCTION__.handle
 nil	*global_alloc@__PRETTY_FUNCTION__.handle[0]	nil	<notes.c>:handle:3:10:getelementptr inbounds ([21 x i8], [21 x i8]* @__PRETTY_FUNCTION__.handle, i64 0, i64 0)
 nil	*global_alloc@__PRETTY_FUNCTION__.handle[0][*]	nil	<notes.c>:handle:3:10:getelementptr inbounds ([21 x i8], [21 x i8]* @__PRETTY_FUNCTION__.handle, i64 0, i64 0)
-nil	*global_alloc@__PRETTY_FUNCTION__.handle_loop	nil	<notes.c>:handle_loop:21:11:@__PRETTY_FUNCTION__.handle_loop
-nil	*global_alloc@__PRETTY_FUNCTION__.handle_loop[0]	nil	<notes.c>:handle_loop:21:10:getelementptr inbounds ([21 x i8], [21 x i8]* @__PRETTY_FUNCTION__.handle_loop, i64 0, i64 0)
-nil	*global_alloc@__PRETTY_FUNCTION__.handle_loop[0][*]	nil	<notes.c>:handle_loop:21:10:getelementptr inbounds ([21 x i8], [21 x i8]* @__PRETTY_FUNCTION__.handle_loop, i64 0, i64 0)
+nil	*global_alloc@__PRETTY_FUNCTION__.handle_loop	nil	<notes.c>:handle_loop:10:11:@__PRETTY_FUNCTION__.handle_loop
+nil	*global_alloc@__PRETTY_FUNCTION__.handle_loop[0]	nil	<notes.c>:handle_loop:10:10:getelementptr inbounds ([21 x i8], [21 x i8]* @__PRETTY_FUNCTION__.handle_loop, i64 0, i64 0)
+nil	*global_alloc@__PRETTY_FUNCTION__.handle_loop[0][*]	nil	<notes.c>:handle_loop:10:10:getelementptr inbounds ([21 x i8], [21 x i8]* @__PRETTY_FUNCTION__.handle_loop, i64 0, i64 0)
 nil	*global_alloc@__PRETTY_FUNCTION__.hex_str	nil	<notes.c>:hex_str:4:11:@__PRETTY_FUNCTION__.hex_str
 nil	*global_alloc@__PRETTY_FUNCTION__.hex_str[0]	nil	<notes.c>:hex_str:4:10:getelementptr inbounds ([36 x i8], [36 x i8]* @__PRETTY_FUNCTION__.hex_str, i64 0, i64 0)
 nil	*global_alloc@__PRETTY_FUNCTION__.hex_str[0][*]	nil	<notes.c>:hex_str:4:10:getelementptr inbounds ([36 x i8], [36 x i8]* @__PRETTY_FUNCTION__.hex_str, i64 0, i64 0)
@@ -126,7 +126,7 @@ nil	*global_alloc@__PRETTY_FUNCTION__.parse	nil	<notes.c>:parse:3:11:@__PRETTY_F
 nil	*global_alloc@__PRETTY_FUNCTION__.parse[0]	nil	<notes.c>:parse:3:10:getelementptr inbounds ([21 x i8], [21 x i8]* @__PRETTY_FUNCTION__.parse, i64 0, i64 0)
 nil	*global_alloc@__PRETTY_FUNCTION__.parse[0][*]	nil	<notes.c>:parse:3:10:getelementptr inbounds ([21 x i8], [21 x i8]* @__PRETTY_FUNCTION__.parse, i64 0, i64 0)
 nil	*global_alloc@__assert_fail	nil	<notes.c>:handle:3:0:@__assert_fail
-nil	*global_alloc@__assert_fail	nil	<notes.c>:handle_loop:21:0:@__assert_fail
+nil	*global_alloc@__assert_fail	nil	<notes.c>:handle_loop:10:0:@__assert_fail
 nil	*global_alloc@__assert_fail	nil	<notes.c>:hex_str:4:0:@__assert_fail
 nil	*global_alloc@__assert_fail	nil	<notes.c>:parse:3:0:@__assert_fail
 nil	*global_alloc@accept	nil	<notes.c>:accept_loop:2:0:@accept
@@ -145,22 +145,22 @@ nil	*global_alloc@exit	[<<main-context>>, nil]	<notes.c>:main:9:0:@exit
 nil	*global_alloc@exit	nil	<notes.c>:oom:2:0:@exit
 nil	*global_alloc@fclose	nil	<notes.c>:cmd_read:17:0:@fclose
 nil	*global_alloc@fclose	nil	<notes.c>:cmd_write:20:0:@fclose
-nil	*global_alloc@fclose	nil	<notes.c>:key:20:0:@fclose
-nil	*global_alloc@fclose	nil	<notes.c>:key:29:0:@fclose
-nil	*global_alloc@fgets_unlocked	nil	<notes.c>:cmd_read:16:0:@fgets_unlocked
+nil	*global_alloc@fclose	nil	<notes.c>:key:21:0:@fclose
+nil	*global_alloc@fclose	nil	<notes.c>:key:23:0:@fclose
+nil	*global_alloc@fgets	nil	<notes.c>:cmd_read:16:0:@fgets
 nil	*global_alloc@fopen	nil	<notes.c>:cmd_read:7:0:@fopen
 nil	*global_alloc@fopen	nil	<notes.c>:cmd_write:13:0:@fopen
 nil	*global_alloc@fopen	nil	<notes.c>:key:4:0:@fopen
 nil	*global_alloc@fprintf	nil	<notes.c>:cmd_write:19:0:@fprintf
-nil	*global_alloc@fread_unlocked	nil	<notes.c>:key:16:0:@fread_unlocked
+nil	*global_alloc@fread	nil	<notes.c>:key:16:0:@fread
 nil	*global_alloc@free	nil	<notes.c>:cmd_write:17:0:@free
 nil	*global_alloc@free	nil	<notes.c>:handle:31:0:@free
-nil	*global_alloc@free	nil	<notes.c>:handle_loop:44:0:@free
+nil	*global_alloc@free	nil	<notes.c>:handle_loop:33:0:@free
 nil	*global_alloc@free	nil	<notes.c>:parse:37:0:@free
 nil	*global_alloc@fwrite	nil	<notes.c>:oom:1:0:@fwrite
-nil	*global_alloc@handle	nil	<notes.c>:handle_loop:37:0:@handle
+nil	*global_alloc@handle	nil	<notes.c>:handle_loop:26:0:@handle
 nil	*global_alloc@handle_loop	nil	<notes.c>:accept_loop:6:0:@handle_loop
-nil	*global_alloc@hex_str	nil	<notes.c>:key:30:0:@hex_str
+nil	*global_alloc@hex_str	nil	<notes.c>:key:24:0:@hex_str
 nil	*global_alloc@hex_str.hex_digits	nil	<notes.c>:hex_str:23:0:@hex_str.hex_digits
 nil	*global_alloc@hex_str.hex_digits	nil	<notes.c>:hex_str:29:0:@hex_str.hex_digits
 nil	*global_alloc@hex_str.hex_digits[*]	nil	<notes.c>:hex_str:%arrayidx16
@@ -171,7 +171,7 @@ nil	*global_alloc@key	nil	<notes.c>:cmd_write:11:0:@key
 nil	*global_alloc@listen	[<<main-context>>, nil]	<notes.c>:main:27:0:@listen
 nil	*global_alloc@llvm.dbg.declare	[<<main-context>>, nil]	<notes.c>:main:3:0:@llvm.dbg.declare
 nil	*global_alloc@llvm.dbg.declare	nil	<notes.c>:cmd_read:15:0:@llvm.dbg.declare
-nil	*global_alloc@llvm.dbg.declare	nil	<notes.c>:handle_loop:14:0:@llvm.dbg.declare
+nil	*global_alloc@llvm.dbg.declare	nil	<notes.c>:handle_loop:38:0:@llvm.dbg.declare
 nil	*global_alloc@llvm.dbg.declare	nil	<notes.c>:handle_loop:5:0:@llvm.dbg.declare
 nil	*global_alloc@llvm.dbg.declare	nil	<notes.c>:key:3:0:@llvm.dbg.declare
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<notes.c>:main:35:0:@llvm.dbg.value
@@ -204,9 +204,9 @@ nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:handle:23:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:handle:26:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:handle:29:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:handle:6:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:handle_loop:16:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:handle_loop:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:handle_loop:38:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:handle_loop:27:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:handle_loop:40:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:handle_loop:7:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:hex_str:0:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:hex_str:10:0:@llvm.dbg.value
@@ -221,7 +221,7 @@ nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:hex_str:9:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:key:10:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:key:14:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:key:17:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:key:24:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:key:19:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:key:5:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:key:9:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:new_cmd:0:0:@llvm.dbg.value
@@ -237,14 +237,13 @@ nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:parse:5:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:parse:7:0:@llvm.dbg.value
 nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<notes.c>:main:37:0:@llvm.lifetime.end.p0i8
 nil	*global_alloc@llvm.lifetime.end.p0i8	nil	<notes.c>:cmd_read:19:0:@llvm.lifetime.end.p0i8
-nil	*global_alloc@llvm.lifetime.end.p0i8	nil	<notes.c>:handle_loop:10:0:@llvm.lifetime.end.p0i8
-nil	*global_alloc@llvm.lifetime.end.p0i8	nil	<notes.c>:handle_loop:19:0:@llvm.lifetime.end.p0i8
+nil	*global_alloc@llvm.lifetime.end.p0i8	nil	<notes.c>:handle_loop:34:0:@llvm.lifetime.end.p0i8
+nil	*global_alloc@llvm.lifetime.end.p0i8	nil	<notes.c>:handle_loop:43:0:@llvm.lifetime.end.p0i8
 nil	*global_alloc@llvm.lifetime.end.p0i8	nil	<notes.c>:handle_loop:45:0:@llvm.lifetime.end.p0i8
-nil	*global_alloc@llvm.lifetime.end.p0i8	nil	<notes.c>:handle_loop:47:0:@llvm.lifetime.end.p0i8
-nil	*global_alloc@llvm.lifetime.end.p0i8	nil	<notes.c>:key:33:0:@llvm.lifetime.end.p0i8
+nil	*global_alloc@llvm.lifetime.end.p0i8	nil	<notes.c>:key:27:0:@llvm.lifetime.end.p0i8
 nil	*global_alloc@llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<notes.c>:main:2:0:@llvm.lifetime.start.p0i8
 nil	*global_alloc@llvm.lifetime.start.p0i8	nil	<notes.c>:cmd_read:14:0:@llvm.lifetime.start.p0i8
-nil	*global_alloc@llvm.lifetime.start.p0i8	nil	<notes.c>:handle_loop:13:0:@llvm.lifetime.start.p0i8
+nil	*global_alloc@llvm.lifetime.start.p0i8	nil	<notes.c>:handle_loop:37:0:@llvm.lifetime.start.p0i8
 nil	*global_alloc@llvm.lifetime.start.p0i8	nil	<notes.c>:handle_loop:4:0:@llvm.lifetime.start.p0i8
 nil	*global_alloc@llvm.lifetime.start.p0i8	nil	<notes.c>:key:2:0:@llvm.lifetime.start.p0i8
 nil	*global_alloc@llvm.memset.p0i8.i64	[<<main-context>>, nil]	<notes.c>:main:11:0:@llvm.memset.p0i8.i64
@@ -272,12 +271,12 @@ nil	*global_alloc@printf	[<<main-context>>, nil]	<notes.c>:main:26:0:@printf
 nil	*global_alloc@puts	[<<main-context>>, nil]	<notes.c>:main:23:0:@puts
 nil	*global_alloc@puts	[<<main-context>>, nil]	<notes.c>:main:30:0:@puts
 nil	*global_alloc@puts	[<<main-context>>, nil]	<notes.c>:main:8:0:@puts
-nil	*global_alloc@recv	nil	<notes.c>:handle_loop:15:0:@recv
+nil	*global_alloc@recv	nil	<notes.c>:handle_loop:39:0:@recv
 nil	*global_alloc@recv	nil	<notes.c>:handle_loop:6:0:@recv
-nil	*global_alloc@send	nil	<notes.c>:handle_loop:12:0:@send
 nil	*global_alloc@send	nil	<notes.c>:handle_loop:2:0:@send
-nil	*global_alloc@send	nil	<notes.c>:handle_loop:42:0:@send
-nil	*global_alloc@send	nil	<notes.c>:handle_loop:43:0:@send
+nil	*global_alloc@send	nil	<notes.c>:handle_loop:31:0:@send
+nil	*global_alloc@send	nil	<notes.c>:handle_loop:32:0:@send
+nil	*global_alloc@send	nil	<notes.c>:handle_loop:36:0:@send
 nil	*global_alloc@shutdown	nil	<notes.c>:accept_loop:7:0:@shutdown
 nil	*global_alloc@socket	[<<main-context>>, nil]	<notes.c>:main:4:0:@socket
 nil	*global_alloc@stderr	nil	<notes.c>:oom:0:0:@stderr
@@ -293,7 +292,7 @@ nil	*global_alloc@strdup	[<notes.c>:cmd_write:9, nil]	<notes.c>:notes_strdup:1:0
 nil	*global_alloc@strdup	[<notes.c>:handle:25, nil]	<notes.c>:notes_strdup:1:0:@strdup
 nil	*global_alloc@strdup	[<notes.c>:handle:9, nil]	<notes.c>:notes_strdup:1:0:@strdup
 nil	*global_alloc@strlen	nil	<notes.c>:cmd_write:6:0:@strlen
-nil	*global_alloc@strlen	nil	<notes.c>:handle_loop:41:0:@strlen
+nil	*global_alloc@strlen	nil	<notes.c>:handle_loop:30:0:@strlen
 nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:cmd_write:%call6
 nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:cmd_write:%retval.1
 nil	*heap_alloc@hex_str[i8* %call]	nil	<notes.c>:handle:%call5
@@ -351,11 +350,11 @@ nil	*null*	nil	<notes.c>:handle:1:0:null
 nil	*null*	nil	<notes.c>:handle:28:0:null
 nil	*null*	nil	<notes.c>:handle:7:0:null
 nil	*null*	nil	<notes.c>:handle_loop:%call18
-nil	*null*	nil	<notes.c>:handle_loop:39:0:null
+nil	*null*	nil	<notes.c>:handle_loop:28:0:null
 nil	*null*	nil	<notes.c>:hex_str:2:0:null
 nil	*null*	nil	<notes.c>:key:%retval.3
-nil	*null*	nil	<notes.c>:key:32:0:null
-nil	*null*	nil	<notes.c>:key:32:1:null
+nil	*null*	nil	<notes.c>:key:26:0:null
+nil	*null*	nil	<notes.c>:key:26:1:null
 nil	*null*	nil	<notes.c>:key:6:0:null
 nil	*null*	nil	<notes.c>:new_cmd:%arg
 nil	*null*	nil	<notes.c>:notes_malloc:3:0:null

@@ -24,7 +24,6 @@
 [<<main-context>>, nil]	*typed_heap_alloc@_Z4fun2v[%struct.obj* %call][0].?/0	*typed_heap_alloc@_Z4fun2v[%struct.obj* %call]
 [<<main-context>>, nil]	*typed_heap_alloc@_Z4fun2v[%struct.obj* %call][0].?/0	*typed_heap_alloc@_Z4fun2v[%struct.obj* %call][0]
 [<<main-context>>, nil]	*typed_heap_alloc@_Z4fun2v[%struct.obj* %call][0].?/0	*typed_heap_alloc@_Z4fun2v[%struct.obj* %call][0].?/0
-nil	*global_alloc@_Z2idP3obj	*global_alloc@_Z2idP3obj
 nil	*global_alloc@_Z4fun1v	*global_alloc@_Z4fun1v
 nil	*global_alloc@_Z4fun2v	*global_alloc@_Z4fun2v
 nil	*global_alloc@_Z4fun3v	*global_alloc@_Z4fun3v
