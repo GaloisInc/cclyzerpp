@@ -104,6 +104,8 @@ Since v0.4.0, cclyzer++ has attempted to follow `semantic versioning 2.0.0
 LLVM Library Version
 ********************
 
+.. TODO(lb): Policy for supporting different LLVM versions
+
 cclyzer++ currently builds against LLVM 11 by default and can be built with
 LLVM 10. There are `plans <llvmver>`_ to support recent versions.
 
