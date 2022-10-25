@@ -234,6 +234,6 @@ jobs:
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "build/*.deb"
-        body: "See doc/changelog.rst"
+        body: "See [doc/changelog.rst](https://github.com/GaloisInc/cclyzerpp/blob/main/doc/changelog.rst)."
         draft: true
         token: ${{ secrets.GITHUB_TOKEN }}
