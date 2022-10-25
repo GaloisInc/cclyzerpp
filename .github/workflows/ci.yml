@@ -20,7 +20,7 @@ env:
   # will error - we use Clang to compile test programs, and cclyzer++ must be
   # able to read the bitcode it outputs. We currently only run tests with the
   # most recent (matching) Clang/LLVM combination.
-  LLVM_VERSION: "11"
+  LLVM_MAJOR_VERSION: "11"
   CLANG_VERSION: "11"
   UBUNTU_VERSION: "20.04"
   UBUNTU_NAME: "focal"
@@ -49,7 +49,7 @@ jobs:
           - "10"
           - "11"
     env:
-      LLVM_VERSION: ${{ matrix.llvm_version }}
+      LLVM_MAJOR_VERSION: ${{ matrix.llvm_version }}
     steps:
     - uses: actions/checkout@v3
 
@@ -80,7 +80,7 @@ jobs:
           --mount type=bind,src=$PWD,target=/work \
           --workdir /work \
           "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
-          cmake -DLLVM_VERSION=${LLVM_VERSION} -G Ninja -B build -S .
+          cmake -DLLVM_MAJOR_VERSION=${LLVM_MAJOR_VERSION} -G Ninja -B build -S .
 
         docker run \
           --rm \
@@ -99,7 +99,7 @@ jobs:
 
     - name: Run tests
       # See NOTE[Clang+LLVM]
-      if: ${{ env.LLVM_VERSION == env.CLANG_VERSION }}
+      if: ${{ env.LLVM_MAJOR_VERSION == env.CLANG_VERSION }}
       run: |
         # See previous comment
         if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
@@ -157,7 +157,13 @@ jobs:
           --mount type=bind,src=$PWD,target=/work \
           --workdir /work \
           "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
-          cmake -DCLANG_VERSION=${CLANG_VERSION} -DLLVM_VERSION=${LLVM_VERSION} -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -G Ninja -S . -B build
+          cmake \
+          -DCLANG_VERSION=${CLANG_VERSION} \
+          -DLLVM_MAJOR_VERSION=${LLVM_MAJOR_VERSION} \
+          -DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
+          -G Ninja \
+          -S . \
+          -B build
 
         docker run \
           --rm \
@@ -202,7 +208,7 @@ jobs:
           --mount type=bind,src=$PWD,target=/work \
           --workdir /work \
           "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
-          cmake -DLLVM_VERSION=${LLVM_VERSION} -G Ninja -B build -S .
+          cmake -DLLVM_MAJOR_VERSION=${LLVM_MAJOR_VERSION} -G Ninja -B build -S .
 
         docker run \
           --rm \

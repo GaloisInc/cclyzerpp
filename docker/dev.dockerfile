@@ -9,7 +9,7 @@ ARG UBUNTU_VERSION=20.04
 FROM ubuntu:$UBUNTU_VERSION as dev
 # See NOTE[Clang+LLVM] in ci.yml
 ARG CLANG_VERSION=11
-ARG LLVM_VERSION=11
+ARG LLVM_MAJOR_VERSION=11
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG UBUNTU_NAME
 ARG UBUNTU_VERSION
@@ -54,13 +54,13 @@ RUN apt-get update && \
       clang-format-${CLANG_VERSION} \
       clang-tidy-${CLANG_VERSION} \
       libomp-${CLANG_VERSION}-dev \
-      llvm-${LLVM_VERSION} \
-      llvm-${LLVM_VERSION}-dev && \
+      llvm-${LLVM_MAJOR_VERSION} \
+      llvm-${LLVM_MAJOR_VERSION}-dev && \
     update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-${CLANG_VERSION} 60 && \
     update-alternatives --install /usr/bin/cc cc /usr/bin/clang-${CLANG_VERSION} 60 && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${CLANG_VERSION} 60 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${CLANG_VERSION} 60 && \
-    update-alternatives --install /usr/bin/opt opt /usr/bin/opt-${LLVM_VERSION} 60 && \
+    update-alternatives --install /usr/bin/opt opt /usr/bin/opt-${LLVM_MAJOR_VERSION} 60 && \
     rm -rf /var/lib/apt/lists/*
 RUN gem install fpm -v 1.14.2
 RUN pip install \ mypy==0.982 \
