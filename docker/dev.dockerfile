@@ -7,7 +7,8 @@
 ARG UBUNTU_NAME=focal
 ARG UBUNTU_VERSION=20.04
 FROM ubuntu:$UBUNTU_VERSION as dev
-ARG CLANG_VERSION=12
+# See NOTE[Clang+LLVM] in ci.yml
+ARG CLANG_VERSION=11
 ARG LLVM_VERSION=11
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG UBUNTU_NAME

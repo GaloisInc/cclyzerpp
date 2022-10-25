@@ -15,8 +15,13 @@ env:
   ACTUAL_GITHUB_SHA_ON_PULL_REQUEST: "${{ github.event.pull_request.head.sha }}"
   # TODO(#12): Upgrade to Ubuntu 22.04 (jammy), Clang 15, LLVM 15
   # See also the matrix of the build job.
+  #
+  # NOTE[Clang+LLVM]: If the Clang version outstrips the LLVM version, the tests
+  # will error - we use Clang to compile test programs, and cclyzer++ must be
+  # able to read the bitcode it outputs. We currently only run tests with the
+  # most recent (matching) Clang/LLVM combination.
   LLVM_VERSION: "11"
-  CLANG_VERSION: "12"
+  CLANG_VERSION: "11"
   UBUNTU_VERSION: "20.04"
   UBUNTU_NAME: "focal"
 
@@ -40,7 +45,9 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        llvm_version: [10, 11]
+        llvm_version:
+          - "10"
+          - "11"
     env:
       LLVM_VERSION: ${{ matrix.llvm_version }}
     steps:
@@ -91,6 +98,8 @@ jobs:
         if-no-files-found: error
 
     - name: Run tests
+      # See NOTE[Clang+LLVM]
+      if: ${{ env.LLVM_VERSION == env.CLANG_VERSION }}
       run: |
         # See previous comment
         if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
