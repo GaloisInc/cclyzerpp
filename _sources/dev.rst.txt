@@ -19,8 +19,9 @@ Cutting a Release
 
 - Run the extended test suite (see ``EXTRA_TESTS`` above).
 - Ensure that the :doc:`changelog` is up to date.
-- Bump the project version``CMakeLists.txt``. Use a release candidate version.
+- Bump the project version``CMakeLists.txt``.
 - Push a new tag that starts with ``v``, i.e., ``v0.X.0-rc.1``.
+  Use a release candidate version.
 
 Worked example:
 
@@ -31,8 +32,8 @@ Worked example:
   git tag -a v0.X.0-rc1 -m v0.X.0-rc1
   git push --tags
 
-After waiting for the CI build, then drop the ``-rc.1`` from ``CMakeLists.txt``,
-make a new commit with a message like ``v0.X.0``, then:
+After waiting for the CI build, then drop the ``-rc.1`` make a new commit with a
+message like ``v0.X.0``, then:
 
 .. code-block:: shell
 
