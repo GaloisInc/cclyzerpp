@@ -7,10 +7,27 @@ Changelog
 next
 ****
 
+`v0.5.0`_ - 2022-10-21
+**********************
+
+`Compare to v0.4.0 <https://github.com/GaloisInc/cclyzerpp/compare/v0.4.0...v0.5.0>`_.
+
+Changed
+~~~~~~~
+
+- cclyzer++ now builds against (and requires) LLVM 11. It can still be built
+  from source against LLVM 10, but the Debian package and Docker images all use
+  LLVM 11 (see also `#98`_).
+
+Fixed
+~~~~~
+
+- The Debian package now correctly lists its dependencies
+
 `v0.4.0`_ - 2022-10-21
 **********************
 
-`Compare to v0.3 <https://github.com/GaloisInc/cclyzerpp/compare/v0.4.0...v0.3>`_.
+`Compare to v0.3 <https://github.com/GaloisInc/cclyzerpp/compare/v0.3...v0.4.0>`_.
 
 Changed
 ~~~~~~~
@@ -98,4 +115,6 @@ Known Issues
 .. _v0.2: https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.2
 .. _v0.3: https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.3
 .. _v0.4.0: https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.4.0
+.. _v0.5.0: https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.5.0
 .. _#69: https://github.com/GaloisInc/cclyzerpp/issues/69
+.. _#98: https://github.com/GaloisInc/cclyzerpp/issues/98

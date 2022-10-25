@@ -49,19 +49,26 @@ extra tests, set <code class="docutils literal notranslate"><span class="pre">EX
 <ul class="simple">
 <li><p>Run the extended test suite (see <code class="docutils literal notranslate"><span class="pre">EXTRA_TESTS</span></code> above).</p></li>
 <li><p>Ensure that the <a class="reference internal" href="changelog.html"><span class="doc">Changelog</span></a> is up to date.</p></li>
-<li><p>Bump the project version``CMakeLists.txt``.</p></li>
-<li><p>Push a new tag that starts with <code class="docutils literal notranslate"><span class="pre">v</span></code>, e.g., <code class="docutils literal notranslate"><span class="pre">v0.2</span></code>, and the CI build will
-create a draft release on Github.</p></li>
+<li><p>Bump the project version``CMakeLists.txt``. Use a release candidate version.</p></li>
+<li><p>Push a new tag that starts with <code class="docutils literal notranslate"><span class="pre">v</span></code>, i.e., <code class="docutils literal notranslate"><span class="pre">v0.X.0-rc.1</span></code>.</p></li>
 </ul>
 <p>Worked example:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git checkout main
 git pull
-git tag -a v0.1 -m v0.1
+git tag -a v0.X.0-rc1 -m v0.X.0-rc1
 git push --tags
 </pre></div>
 </div>
-<p>After waiting for the CI build, manually edit the release as required and hit
-“publish”.</p>
+<p>After waiting for the CI build, then drop the <code class="docutils literal notranslate"><span class="pre">-rc.1</span></code> from <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>,
+make a new commit with a message like <code class="docutils literal notranslate"><span class="pre">v0.X.0</span></code>, then:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git checkout main
+git pull
+git tag -a v0.X.0 -m v0.X.0
+git push --tags
+</pre></div>
+</div>
+<p>Wait again for the CI build, which will create a draft release on Github. Then
+manually edit the release as required and hit “publish”.</p>
 </div>
 <div class="section" id="naming-conventions">
 <h2>Naming Conventions<a class="headerlink" href="#naming-conventions" title="Permalink to this headline">¶</a></h2>
