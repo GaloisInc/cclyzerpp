@@ -37,6 +37,5 @@ nil	*global_alloc@global_obj[0]	*global_alloc@global_obj[0].?/0
 nil	*global_alloc@global_obj[0].?/0	*global_alloc@global_obj
 nil	*global_alloc@global_obj[0].?/0	*global_alloc@global_obj[0]
 nil	*global_alloc@global_obj[0].?/0	*global_alloc@global_obj[0].?/0
-nil	*global_alloc@id	*global_alloc@id
 nil	*global_alloc@llvm.dbg.value	*global_alloc@llvm.dbg.value
 nil	*global_alloc@malloc	*global_alloc@malloc

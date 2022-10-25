@@ -168,10 +168,10 @@ nil	*global_alloc@cmd_read	*global_alloc@cmd_read
 nil	*global_alloc@cmd_write	*global_alloc@cmd_write
 nil	*global_alloc@exit	*global_alloc@exit
 nil	*global_alloc@fclose	*global_alloc@fclose
-nil	*global_alloc@fgets_unlocked	*global_alloc@fgets_unlocked
+nil	*global_alloc@fgets	*global_alloc@fgets
 nil	*global_alloc@fopen	*global_alloc@fopen
 nil	*global_alloc@fprintf	*global_alloc@fprintf
-nil	*global_alloc@fread_unlocked	*global_alloc@fread_unlocked
+nil	*global_alloc@fread	*global_alloc@fread
 nil	*global_alloc@free	*global_alloc@free
 nil	*global_alloc@fwrite	*global_alloc@fwrite
 nil	*global_alloc@handle	*global_alloc@handle
