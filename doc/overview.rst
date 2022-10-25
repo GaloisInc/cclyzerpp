@@ -40,9 +40,9 @@ other external libraries. Such models are crucial for soundness. See
 Language Support
 ----------------
 
-cclyzer++ has primarily been tested on LLVM code produced by Clang 10 when
-compiling from C and C++ for x86_64. Your mileage may vary with other languages,
-compilers, and targets.
+cclyzer++ has primarily been tested on LLVM code produced by Clang 10 and 11
+when compiling from C and C++ for x86_64. Your mileage may vary with other
+languages, compilers, and targets.
 
 Bibliography
 ------------
@@ -66,7 +66,7 @@ Comparison to cclyzer
 As mentioned above, cclyzer++ is based on cclyzer. The major differences are that
 cclyzer++
 
-* supports LLVM 10
+* supports LLVM 10 and 11
 * is implemented in Soufflé rather than LogicBlox
 * has :ref:`a C++ interface <cpp>`, rather than a Python one
 * has runtime-configurable context-sensitivity and heap-cloning
@@ -95,7 +95,6 @@ cclyzer++ is actively developed and maintained by Galois, Inc. Points of contact
 are: Langston Barrett (email: langston at galois dot com) Scott Moore (email:
 scott at galois dot com).
 
-
 Versioning
 ----------
 
@@ -105,15 +104,16 @@ Since v0.4.0, cclyzer++ has attempted to follow `semantic versioning 2.0.0
 LLVM Library Version
 ********************
 
-cclyzer++ currently builds against LLVM 10. There are plans to support multiple
-versions and more recent versions.
+cclyzer++ currently builds against LLVM 11 by default and can be built with
+LLVM 10. There are `plans <llvmver>`_ to support recent versions.
 
 Development Tools
 *****************
 
-cclyzer++ currently builds with Clang 10 (including other Clang tools such as
-clang-format and clang-tidy). There are plans to build with more recent versions
-of Clang.
+cclyzer++ currently builds with Clang 11 (including other Clang tools such as
+clang-format and clang-tidy). There are `plans <llvmver>`_ to build with more
+recent versions of Clang.
 
 .. _tutorial: http://yanniss.github.io/points-to-tutorial15.pdf
+.. _llvmver: https://github.com/GaloisInc/cclyzerpp/issues/12
 .. _semver: https://semver.org/spec/v2.0.0.html
