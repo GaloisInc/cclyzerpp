@@ -16,6 +16,7 @@ add_custom_command(
   --version ${CMAKE_PROJECT_VERSION}
   --name cclyzer++
   --license bsd3
+  --depends llvm-${LLVM_VERSION}
   --architecture x86_64
   --description cclyzer++
   --url https://galoisinc.github.io/cclyzerpp/
