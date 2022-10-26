@@ -3,13 +3,13 @@
 # Image with all cclyzer++ development tools, i.e., everything needed by
 # cclyzer++ developers to build and test cclyzer++.
 
-# TODO(#12): Upgrade to Ubuntu 22.04 (jammy), Clang 15, LLVM 15
-ARG UBUNTU_NAME=focal
-ARG UBUNTU_VERSION=20.04
+# TODO(#12): Upgrade to Clang 15, LLVM 15
+ARG UBUNTU_NAME=jammy
+ARG UBUNTU_VERSION=22.04
 FROM ubuntu:$UBUNTU_VERSION as dev
 # See NOTE[Clang+LLVM] in ci.yml
-ARG CLANG_VERSION=12
-ARG LLVM_MAJOR_VERSION=12
+ARG CLANG_VERSION=13
+ARG LLVM_MAJOR_VERSION=13
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG UBUNTU_NAME
 ARG UBUNTU_VERSION
@@ -45,9 +45,13 @@ RUN apt-get update && \
     wget --no-verbose https://souffle-lang.github.io/ppa/souffle-key.public -O /usr/share/keyrings/souffle-archive-keyring.gpg && \
     echo "deb [signed-by=/usr/share/keyrings/souffle-archive-keyring.gpg] https://souffle-lang.github.io/ppa/ubuntu/ stable main" | tee /etc/apt/sources.list.d/souffle.list && \
     apt-get update && \
-    apt-get --yes install --no-install-recommends souffle && \
-    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
-    echo "deb http://apt.llvm.org/${UBUNTU_NAME}/ llvm-toolchain-${UBUNTU_NAME} main" | tee /etc/apt/sources.list.d/llvm.list && \
+    apt-get --yes install --no-install-recommends souffle
+RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
+    if [[ ${LLVM_VERSION} -lt 13 ]]; then \
+      echo "deb http://apt.llvm.org/${UBUNTU_NAME}/ llvm-toolchain-${UBUNTU_NAME} main" | tee /etc/apt/sources.list.d/llvm.list; \
+    else \
+      echo "deb http://apt.llvm.org/${UBUNTU_NAME}/ llvm-toolchain-${UBUNTU_NAME}-${LLVM_MAJOR_VERSION} main" | tee /etc/apt/sources.list.d/llvm.list; \
+    fi && \
     apt-get update && \
     apt-get --yes install --no-install-recommends \
       clang-${CLANG_VERSION} \

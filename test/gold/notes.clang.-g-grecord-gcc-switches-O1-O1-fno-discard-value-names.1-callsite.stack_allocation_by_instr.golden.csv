@@ -1,4 +1,4 @@
-<notes.c>:cmd_read:0	*stack_alloc@cmd_read[[1024 x i8]* %data]
+<notes.c>:handle:0	*stack_alloc@handle[[1024 x i8]* %data.i]
+<notes.c>:handle:1	*stack_alloc@handle[[32 x i8]* %data.i.i]
 <notes.c>:handle_loop:0	*stack_alloc@handle_loop[[1024 x i8]* %req]
-<notes.c>:key:0	*stack_alloc@key[[32 x i8]* %data]
 <notes.c>:main:0	*stack_alloc@main[%struct.sockaddr_in* %sa]

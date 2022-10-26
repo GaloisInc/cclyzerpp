@@ -29,8 +29,6 @@ nil	*global_alloc@.str.1[0]	*global_alloc@.str.1
 nil	*global_alloc@.str.1[0][*]	*global_alloc@.str.1[0]
 nil	*global_alloc@.str.20[0]	*global_alloc@.str.20
 nil	*global_alloc@.str.20[0][*]	*global_alloc@.str.20[0]
-nil	*global_alloc@.str.22[0]	*global_alloc@.str.22
-nil	*global_alloc@.str.22[0][*]	*global_alloc@.str.22[0]
 nil	*global_alloc@.str.23[0]	*global_alloc@.str.23
 nil	*global_alloc@.str.23[0][*]	*global_alloc@.str.23[0]
 nil	*global_alloc@.str.2[0]	*global_alloc@.str.2
@@ -56,27 +54,23 @@ nil	*global_alloc@__PRETTY_FUNCTION__.handle[0]	*global_alloc@__PRETTY_FUNCTION_
 nil	*global_alloc@__PRETTY_FUNCTION__.handle[0][*]	*global_alloc@__PRETTY_FUNCTION__.handle[0]
 nil	*global_alloc@__PRETTY_FUNCTION__.handle_loop[0]	*global_alloc@__PRETTY_FUNCTION__.handle_loop
 nil	*global_alloc@__PRETTY_FUNCTION__.handle_loop[0][*]	*global_alloc@__PRETTY_FUNCTION__.handle_loop[0]
-nil	*global_alloc@__PRETTY_FUNCTION__.hex_str[0]	*global_alloc@__PRETTY_FUNCTION__.hex_str
-nil	*global_alloc@__PRETTY_FUNCTION__.hex_str[0][*]	*global_alloc@__PRETTY_FUNCTION__.hex_str[0]
-nil	*global_alloc@__PRETTY_FUNCTION__.parse[0]	*global_alloc@__PRETTY_FUNCTION__.parse
-nil	*global_alloc@__PRETTY_FUNCTION__.parse[0][*]	*global_alloc@__PRETTY_FUNCTION__.parse[0]
 nil	*global_alloc@hex_str.hex_digits[*]	*global_alloc@hex_str.hex_digits
-nil	*heap_alloc@hex_str[i8* %call][*]	*heap_alloc@hex_str[i8* %call]
-nil	*heap_alloc@hex_str[i8* %call][64]	*heap_alloc@hex_str[i8* %call]
-nil	*heap_alloc@notes_malloc[i8* %call][0]	*heap_alloc@notes_malloc[i8* %call]
-nil	*heap_alloc@notes_malloc[i8* %call][8]	*heap_alloc@notes_malloc[i8* %call]
-nil	*stack_alloc@cmd_read[[1024 x i8]* %data][0]	*stack_alloc@cmd_read[[1024 x i8]* %data]
-nil	*stack_alloc@cmd_read[[1024 x i8]* %data][0][*]	*stack_alloc@cmd_read[[1024 x i8]* %data][0]
+nil	*heap_alloc@handle[i8* %call.i.i.i23][*]	*heap_alloc@handle[i8* %call.i.i.i23]
+nil	*heap_alloc@handle[i8* %call.i.i.i23][64]	*heap_alloc@handle[i8* %call.i.i.i23]
+nil	*heap_alloc@handle[i8* %call.i.i.i][0]	*heap_alloc@handle[i8* %call.i.i.i]
+nil	*heap_alloc@handle[i8* %call.i.i.i][8]	*heap_alloc@handle[i8* %call.i.i.i]
+nil	*stack_alloc@handle[[1024 x i8]* %data.i][0]	*stack_alloc@handle[[1024 x i8]* %data.i]
+nil	*stack_alloc@handle[[1024 x i8]* %data.i][0][*]	*stack_alloc@handle[[1024 x i8]* %data.i][0]
+nil	*stack_alloc@handle[[32 x i8]* %data.i.i][*]	*stack_alloc@handle[[32 x i8]* %data.i.i]
+nil	*stack_alloc@handle[[32 x i8]* %data.i.i][0]	*stack_alloc@handle[[32 x i8]* %data.i.i]
+nil	*stack_alloc@handle[[32 x i8]* %data.i.i][0][*]	*stack_alloc@handle[[32 x i8]* %data.i.i][0]
 nil	*stack_alloc@handle_loop[[1024 x i8]* %req][*]	*stack_alloc@handle_loop[[1024 x i8]* %req]
 nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0]	*stack_alloc@handle_loop[[1024 x i8]* %req]
 nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	*stack_alloc@handle_loop[[1024 x i8]* %req][0]
-nil	*stack_alloc@key[[32 x i8]* %data][*]	*stack_alloc@key[[32 x i8]* %data]
-nil	*stack_alloc@key[[32 x i8]* %data][0]	*stack_alloc@key[[32 x i8]* %data]
-nil	*stack_alloc@key[[32 x i8]* %data][0][*]	*stack_alloc@key[[32 x i8]* %data][0]
-nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]
-nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]
-nil	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/1	*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]
-nil	*typed_heap_alloc@notes_malloc[i32* %call][0]	*typed_heap_alloc@notes_malloc[i32* %call]
-nil	*typed_heap_alloc@notes_malloc[i32* %call][2]	*typed_heap_alloc@notes_malloc[i32* %call]
-nil	*typed_heap_alloc@notes_malloc[i8* %call][0]	*typed_heap_alloc@notes_malloc[i8* %call]
-nil	*typed_heap_alloc@notes_malloc[i8* %call][8]	*typed_heap_alloc@notes_malloc[i8* %call]
+nil	*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i][0]	*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i]
+nil	*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i][0].?/0	*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i][0]
+nil	*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i][0].?/1	*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i][0]
+nil	*typed_heap_alloc@handle[i32* %call.i.i.i][0]	*typed_heap_alloc@handle[i32* %call.i.i.i]
+nil	*typed_heap_alloc@handle[i32* %call.i.i.i][2]	*typed_heap_alloc@handle[i32* %call.i.i.i]
+nil	*typed_heap_alloc@handle[i8* %call.i.i.i][0]	*typed_heap_alloc@handle[i8* %call.i.i.i]
+nil	*typed_heap_alloc@handle[i8* %call.i.i.i][8]	*typed_heap_alloc@handle[i8* %call.i.i.i]

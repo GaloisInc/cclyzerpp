@@ -20,14 +20,14 @@ env:
   # will error - we use Clang to compile test programs, and cclyzer++ must be
   # able to read the bitcode it outputs. We currently only run tests with the
   # most recent (matching) Clang/LLVM combination.
-  LLVM_MAJOR_VERSION: "12"
-  CLANG_VERSION: "12"
-  UBUNTU_VERSION: "20.04"
-  UBUNTU_NAME: "focal"
+  LLVM_MAJOR_VERSION: "13"
+  CLANG_VERSION: "13"
+  UBUNTU_VERSION: "22.04"
+  UBUNTU_NAME: "jammy"
 
 jobs:
   doc:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
 
@@ -42,15 +42,30 @@ jobs:
         publish_dir: doc/_build/html
 
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        llvm_version:
-          - "10"
-          - "11"
-          - "12"
+        include:
+        - clang_version: "12"
+          llvm_version: "10"
+          ubuntu_version: "20.04"
+          ubuntu_name: "focal"
+        - clang_version: "12"
+          llvm_version: "11"
+          ubuntu_version: "20.04"
+          ubuntu_name: "focal"
+        - clang_version: "12"
+          llvm_version: "12"
+          ubuntu_version: "20.04"
+          ubuntu_name: "focal"
+        - llvm_version: "13"
+          ubuntu_version: "22.04"
+          ubuntu_name: "jammy"
     env:
       LLVM_MAJOR_VERSION: ${{ matrix.llvm_version }}
+      CLANG_VERSION: ${{ matrix.llvm_version }}
+      UBUNTU_VERSION: ${{ matrix.ubuntu_version }}
+      UBUNTU_NAME: ${{ matrix.ubuntu_name }}
     steps:
     - uses: actions/checkout@v3
 
@@ -100,7 +115,7 @@ jobs:
 
     - name: Run tests
       # See NOTE[Clang+LLVM]
-      if: ${{ env.LLVM_MAJOR_VERSION == env.CLANG_VERSION }}
+      if: ${{ env.LLVM_MAJOR_VERSION == 13 }}
       run: |
         # See previous comment
         if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
@@ -136,7 +151,7 @@ jobs:
         ./scripts/gha-docker-build "dist" "cclyzerpp-dist"
 
   lint:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
 
@@ -175,7 +190,7 @@ jobs:
           bash scripts/lint.sh
 
   release:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     if: startsWith(github.ref, 'refs/tags/v')
     permissions:
       contents: write

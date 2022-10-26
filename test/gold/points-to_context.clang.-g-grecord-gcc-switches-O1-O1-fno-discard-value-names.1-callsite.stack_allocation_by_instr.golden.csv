@@ -1,4 +1,0 @@
-<points-to_context.c>:main:0	*stack_alloc@main[i32** %pa]
-<points-to_context.c>:main:1	*stack_alloc@main[i32* %a]
-<points-to_context.c>:main:2	*stack_alloc@main[i32** %pb]
-<points-to_context.c>:main:3	*stack_alloc@main[i32* %b]

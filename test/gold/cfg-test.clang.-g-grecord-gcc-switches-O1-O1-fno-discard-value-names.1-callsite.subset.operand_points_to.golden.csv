@@ -1,16 +1,16 @@
 nil	*argv-alloc	[<<main-context>>, nil]	<cfg-test.c>:main:%argv
-nil	*global_alloc@baz	[<<main-context>>, nil]	<cfg-test.c>:main:6:0:@baz
-nil	*global_alloc@foo	[<<main-context>>, nil]	<cfg-test.c>:main:4:0:@foo
-nil	*global_alloc@foo	[<<main-context>>, nil]	<cfg-test.c>:main:7:0:@foo
-nil	*global_alloc@global	nil	<cfg-test.c>:baz:0:1:@global
-nil	*global_alloc@global	nil	<cfg-test.c>:foo:4:0:@global
+nil	*global_alloc@global	[<<main-context>>, nil]	<cfg-test.c>:main:7:0:@global
+nil	*global_alloc@global	[<<main-context>>, nil]	<cfg-test.c>:main:9:1:@global
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cfg-test.c>:main:0:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cfg-test.c>:main:10:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cfg-test.c>:main:11:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cfg-test.c>:main:12:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cfg-test.c>:main:13:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cfg-test.c>:main:14:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cfg-test.c>:main:1:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cfg-test.c>:main:2:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cfg-test.c>:main:3:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cfg-test.c>:main:4:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cfg-test.c>:main:5:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cfg-test.c>:main:6:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cfg-test.c>:main:8:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cfg-test.c>:main:9:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	nil	<cfg-test.c>:foo:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	nil	<cfg-test.c>:foo:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	nil	<cfg-test.c>:foo:2:0:@llvm.dbg.value

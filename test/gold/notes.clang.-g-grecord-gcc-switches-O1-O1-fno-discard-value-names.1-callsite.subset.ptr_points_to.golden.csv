@@ -8,7 +8,7 @@ nil	*global_alloc@.str[0]	nil	*global_alloc@TOO_FEW_ARGS
 nil	*global_alloc@.str[0]	nil	*global_alloc@TOO_FEW_ARGS[0]
 nil	*global_alloc@.str[0][*]	nil	*global_alloc@TOO_FEW_ARGS
 nil	*global_alloc@.str[0][*]	nil	*global_alloc@TOO_FEW_ARGS[0]
-nil	*null*	nil	*heap_alloc@notes_malloc[i8* %call][8]
-nil	*null*	nil	*typed_heap_alloc@notes_malloc[i32* %call][2]
-nil	*null*	nil	*typed_heap_alloc@notes_malloc[i8* %call][8]
+nil	*null*	nil	*heap_alloc@handle[i8* %call.i.i.i][8]
+nil	*null*	nil	*typed_heap_alloc@handle[i32* %call.i.i.i][2]
+nil	*null*	nil	*typed_heap_alloc@handle[i8* %call.i.i.i][8]
 nil	*unknown*	nil	*unknown*

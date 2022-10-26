@@ -1,2 +1,0 @@
-i8	<points-to_context.c>:main:1	*typed_stack_alloc@main[i8* %a]
-i8	<points-to_context.c>:main:3	*typed_stack_alloc@main[i8* %b]

@@ -1,10 +1,6 @@
-[<<main-context>>, nil]	<points-to_malloc-context.c>:fun1	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:0
-[<<main-context>>, nil]	<points-to_malloc-context.c>:fun2	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:2
-[<<main-context>>, nil]	<points-to_malloc-context.c>:fun3	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:4
-[<<main-context>>, nil]	<points-to_malloc-context.c>:fun4	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:6
-[<points-to_malloc-context.c>:fun1:0, nil]	<points-to_malloc-context.c>:malloc	[<<main-context>>, nil]	<points-to_malloc-context.c>:fun1:0
-[<points-to_malloc-context.c>:fun2:0, nil]	<points-to_malloc-context.c>:malloc	[<<main-context>>, nil]	<points-to_malloc-context.c>:fun2:0
-nil	<points-to_malloc-context.c>:llvm.dbg.value	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:1
-nil	<points-to_malloc-context.c>:llvm.dbg.value	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:3
+[<points-to_malloc-context.c>:main:0, nil]	<points-to_malloc-context.c>:malloc	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:0
+[<points-to_malloc-context.c>:main:3, nil]	<points-to_malloc-context.c>:malloc	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:3
+nil	<points-to_malloc-context.c>:llvm.dbg.value	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:2
 nil	<points-to_malloc-context.c>:llvm.dbg.value	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:5
+nil	<points-to_malloc-context.c>:llvm.dbg.value	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:6
 nil	<points-to_malloc-context.c>:llvm.dbg.value	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:7

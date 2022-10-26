@@ -85,7 +85,11 @@ auto PointerAnalysisAAResult::alias(
     const llvm::MemoryLocation &other_location,
     llvm::AAQueryInfo &AAQI) -> llvm::AliasResult {
   if (location.Ptr == other_location.Ptr) {
+#if LLVM_VERSION_MAJOR > 12
+    return llvm::AliasResult::MustAlias;
+#else
     return llvm::MustAlias;
+#endif
   }
 
   std::unordered_set<boost::flyweight<std::string>> points_to_set;
@@ -110,7 +114,11 @@ auto PointerAnalysisAAResult::alias(
     }
   }
 
+#if LLVM_VERSION_MAJOR > 12
+  return llvm::AliasResult::NoAlias;
+#else
   return llvm::NoAlias;
+#endif
 }
 
 static auto get_interface(Analysis which) -> std::unique_ptr<PAInterface> {
