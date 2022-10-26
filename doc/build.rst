@@ -3,6 +3,10 @@ Building and Running
 
 .. note::
 
+  Pre-built Debian packages are available from the `releases page`_.
+
+.. note::
+
   You can download a pre-built Docker image with all of the build dependencies
   rather than installing them on your host. See :doc:`docker` for details.
 
@@ -128,3 +132,4 @@ interface, install LLVM and run
 more options - though many of them are irrelevant.
 
 .. _Soufflé build documentation: https://souffle-lang.github.io/build
+.. _releases page: https://github.com/GaloisInc/cclyzerpp/releases
