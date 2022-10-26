@@ -9,6 +9,8 @@ cclyzer++ ships with two dockerfiles in ``docker/``:
 Obtaining Images
 ****************
 
+.. _ghcr:
+
 Pulling from GHCR
 ~~~~~~~~~~~~~~~~~
 
@@ -19,6 +21,8 @@ You can pull pre-built images from GHCR like so:
   docker pull ghcr.io/galoisinc/cclyzerpp-dev:main
 
 Tags can be branch names or commit SHAs of releases.
+
+.. _docker-build:
 
 Building Locally
 ~~~~~~~~~~~~~~~~
