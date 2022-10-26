@@ -20,7 +20,14 @@ You can pull pre-built images from GHCR like so:
 
   docker pull ghcr.io/galoisinc/cclyzerpp-dev:main
 
-Tags can be branch names or commit SHAs of releases.
+The ``main`` tag refers to the most recent release. You can also specify a tag
+or commit SHA of a previous release, e.g.,
+
+.. code-block:: bash
+
+  # The following are equivalent:
+  docker pull ghcr.io/galoisinc/cclyzerpp-dev:v0.5.0
+  docker pull ghcr.io/galoisinc/cclyzerpp-dev:47bea4c4223d653209d28b932824618128f47910
 
 .. _docker-build:
 
