@@ -87,7 +87,7 @@ void TypeVisitor::visitType(const llvm::Type *type) {
     case llvm::Type::BFloatTyID:  // TODO: handle this type
       break;
 #endif
-#if LLVM_VERSION_MAJOR > 12
+#if LLVM_VERSION_MAJOR > 11
     case llvm::Type::X86_AMXTyID:  // TODO: handle this type
       break;
 #endif

@@ -37,7 +37,7 @@
 [<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0].?/0	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0].?/0
 [<<main-context>>, nil]	*typed_stack_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag[i8* %__dnew]	*typed_stack_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag[i8* %__dnew]
 [<cxxbasic.cpp>:main:19, nil]	*stack_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c[i8* %__c.addr]	*stack_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c[i8* %__c.addr]
-[<cxxbasic.cpp>:main:34, nil]	*stack_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c[i8* %__c.addr]	*stack_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c[i8* %__c.addr]
+[<cxxbasic.cpp>:main:30, nil]	*stack_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c[i8* %__c.addr]	*stack_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c[i8* %__c.addr]
 nil	*argv-alloc	*argv-alloc
 nil	*argv-alloc	*argv-alloc[0]
 nil	*argv-alloc[0]	*argv-alloc

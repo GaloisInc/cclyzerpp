@@ -1,6 +1,8 @@
 [<<main-context>>, nil]	<notes.c>:bind	[<<main-context>>, nil]	<notes.c>:main:19
 [<<main-context>>, nil]	<notes.c>:llvm.memset.p0i8.i64	[<<main-context>>, nil]	<notes.c>:main:11
 [<<main-context>>, nil]	<notes.c>:printf	[<<main-context>>, nil]	<notes.c>:main:26
+[<notes.c>:accept_loop:1, nil]	<notes.c>:accept	nil	<notes.c>:accept_loop:1
+[<notes.c>:accept_loop:11, nil]	<notes.c>:accept	nil	<notes.c>:accept_loop:11
 [<notes.c>:cmd_read:11, nil]	<notes.c>:notes_strdup	nil	<notes.c>:cmd_read:11
 [<notes.c>:cmd_read:11, nil]	<notes.c>:strdup	[<notes.c>:cmd_read:11, nil]	<notes.c>:notes_strdup:1
 [<notes.c>:cmd_read:14, nil]	<notes.c>:llvm.lifetime.start.p0i8	nil	<notes.c>:cmd_read:14
@@ -57,12 +59,11 @@
 [<notes.c>:parse:3, nil]	<notes.c>:__assert_fail	nil	<notes.c>:parse:3
 [<notes.c>:parse:30, nil]	<notes.c>:strcmp	nil	<notes.c>:parse:30
 [<notes.c>:parse:37, nil]	<notes.c>:free	nil	<notes.c>:parse:37
-nil	<notes.c>:accept	nil	<notes.c>:accept_loop:2
 nil	<notes.c>:accept_loop	[<<main-context>>, nil]	<notes.c>:main:34
 nil	<notes.c>:close	[<<main-context>>, nil]	<notes.c>:main:22
 nil	<notes.c>:close	[<<main-context>>, nil]	<notes.c>:main:31
 nil	<notes.c>:close	[<<main-context>>, nil]	<notes.c>:main:36
-nil	<notes.c>:close	nil	<notes.c>:accept_loop:11
+nil	<notes.c>:close	nil	<notes.c>:accept_loop:15
 nil	<notes.c>:close	nil	<notes.c>:accept_loop:9
 nil	<notes.c>:cmd_read	nil	<notes.c>:handle:22
 nil	<notes.c>:cmd_write	nil	<notes.c>:handle:17
@@ -101,7 +102,8 @@ nil	<notes.c>:llvm.dbg.value	[<notes.c>:handle:25, nil]	<notes.c>:notes_strdup:2
 nil	<notes.c>:llvm.dbg.value	[<notes.c>:handle:9, nil]	<notes.c>:notes_strdup:0
 nil	<notes.c>:llvm.dbg.value	[<notes.c>:handle:9, nil]	<notes.c>:notes_strdup:2
 nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:accept_loop:0
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:accept_loop:3
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:accept_loop:12
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:accept_loop:2
 nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:cmd_read:1
 nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:cmd_read:8
 nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:cmd_write:0
