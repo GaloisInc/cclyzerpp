@@ -1,3 +1,3 @@
 <allocation-sizes.c>:main:0	*stack_alloc@main[[8 x i32]* %small_const_size_stack]
 <allocation-sizes.c>:main:1	*stack_alloc@main[[128 x i32]* %large_const_size_stack]
-<allocation-sizes.c>:main:17	*stack_alloc@main[i32* %vla]
+<allocation-sizes.c>:main:19	*stack_alloc@main[i32* %vla]

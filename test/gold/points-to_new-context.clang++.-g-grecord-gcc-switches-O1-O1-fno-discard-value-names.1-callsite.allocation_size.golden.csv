@@ -4,23 +4,23 @@
 *global_alloc@global_obj[0]	8
 *global_alloc@global_obj[0].?/0	4
 *global_alloc@global_obj[0].?/1	4
-*heap_alloc@_Z4fun1v[i8* %call]	8
-*heap_alloc@_Z4fun1v[i8* %call][*]	1
-*heap_alloc@_Z4fun1v[i8* %call][0]	1
-*heap_alloc@_Z4fun2v[i8* %call]	8
-*heap_alloc@_Z4fun2v[i8* %call][*]	1
-*heap_alloc@_Z4fun2v[i8* %call][0]	1
-*typed_heap_alloc@_Z4fun1v[%struct.obj* %call]	8
-*typed_heap_alloc@_Z4fun1v[%struct.obj* %call][*]	8
-*typed_heap_alloc@_Z4fun1v[%struct.obj* %call][*].?/0	4
-*typed_heap_alloc@_Z4fun1v[%struct.obj* %call][*].?/1	4
-*typed_heap_alloc@_Z4fun1v[%struct.obj* %call][0]	8
-*typed_heap_alloc@_Z4fun1v[%struct.obj* %call][0].?/0	4
-*typed_heap_alloc@_Z4fun1v[%struct.obj* %call][0].?/1	4
-*typed_heap_alloc@_Z4fun2v[%struct.obj* %call]	8
-*typed_heap_alloc@_Z4fun2v[%struct.obj* %call][*]	8
-*typed_heap_alloc@_Z4fun2v[%struct.obj* %call][*].?/0	4
-*typed_heap_alloc@_Z4fun2v[%struct.obj* %call][*].?/1	4
-*typed_heap_alloc@_Z4fun2v[%struct.obj* %call][0]	8
-*typed_heap_alloc@_Z4fun2v[%struct.obj* %call][0].?/0	4
-*typed_heap_alloc@_Z4fun2v[%struct.obj* %call][0].?/1	4
+*heap_alloc@main[i8* %call.i13]	8
+*heap_alloc@main[i8* %call.i13][*]	1
+*heap_alloc@main[i8* %call.i13][0]	1
+*heap_alloc@main[i8* %call.i]	8
+*heap_alloc@main[i8* %call.i][*]	1
+*heap_alloc@main[i8* %call.i][0]	1
+*typed_heap_alloc@main[%struct.obj* %call.i13]	8
+*typed_heap_alloc@main[%struct.obj* %call.i13][*]	8
+*typed_heap_alloc@main[%struct.obj* %call.i13][*].?/0	4
+*typed_heap_alloc@main[%struct.obj* %call.i13][*].?/1	4
+*typed_heap_alloc@main[%struct.obj* %call.i13][0]	8
+*typed_heap_alloc@main[%struct.obj* %call.i13][0].?/0	4
+*typed_heap_alloc@main[%struct.obj* %call.i13][0].?/1	4
+*typed_heap_alloc@main[%struct.obj* %call.i]	8
+*typed_heap_alloc@main[%struct.obj* %call.i][*]	8
+*typed_heap_alloc@main[%struct.obj* %call.i][*].?/0	4
+*typed_heap_alloc@main[%struct.obj* %call.i][*].?/1	4
+*typed_heap_alloc@main[%struct.obj* %call.i][0]	8
+*typed_heap_alloc@main[%struct.obj* %call.i][0].?/0	4
+*typed_heap_alloc@main[%struct.obj* %call.i][0].?/1	4

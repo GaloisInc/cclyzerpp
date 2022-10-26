@@ -1,10 +1,6 @@
-[<<main-context>>, nil]	<points-to_new-context.cpp>:_Z4fun1v	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:0
-[<<main-context>>, nil]	<points-to_new-context.cpp>:_Z4fun2v	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:2
-[<<main-context>>, nil]	<points-to_new-context.cpp>:_Z4fun3v	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:4
-[<<main-context>>, nil]	<points-to_new-context.cpp>:_Z4fun4v	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:6
-[<points-to_new-context.cpp>:_Z4fun1v:0, [<<main-context>>, nil]]	<points-to_new-context.cpp>:_Znwm	[<<main-context>>, nil]	<points-to_new-context.cpp>:_Z4fun1v:0
-[<points-to_new-context.cpp>:_Z4fun2v:0, [<<main-context>>, nil]]	<points-to_new-context.cpp>:_Znwm	[<<main-context>>, nil]	<points-to_new-context.cpp>:_Z4fun2v:0
-nil	<points-to_new-context.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:1
-nil	<points-to_new-context.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:3
+[<points-to_new-context.cpp>:main:0, [<<main-context>>, nil]]	<points-to_new-context.cpp>:_Znwm	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:0
+[<points-to_new-context.cpp>:main:3, [<<main-context>>, nil]]	<points-to_new-context.cpp>:_Znwm	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:3
+nil	<points-to_new-context.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:2
 nil	<points-to_new-context.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:5
+nil	<points-to_new-context.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:6
 nil	<points-to_new-context.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:7

@@ -10,12 +10,6 @@ nil	*argv[0]-alloc	nil	*argv-alloc
 nil	*argv[0]-alloc	nil	*argv-alloc[0]
 nil	*argv[0]-alloc[0]	nil	*argv-alloc
 nil	*argv[0]-alloc[0]	nil	*argv-alloc[0]
-nil	*global_alloc@.str	[<<main-context>>, nil]	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr]
-nil	*global_alloc@.str	[<<main-context>>, nil]	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr][0]
-nil	*global_alloc@.str[0]	[<<main-context>>, nil]	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr]
-nil	*global_alloc@.str[0]	[<<main-context>>, nil]	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr][0]
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr]
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr][0]
 nil	*global_alloc@_GLOBAL__sub_I_cxxbasic.cpp	nil	*global_alloc@llvm.global_ctors[0][0].?/1
 nil	*null*	nil	*global_alloc@llvm.global_ctors[0][0].?/2
 nil	*unknown*	nil	*unknown*

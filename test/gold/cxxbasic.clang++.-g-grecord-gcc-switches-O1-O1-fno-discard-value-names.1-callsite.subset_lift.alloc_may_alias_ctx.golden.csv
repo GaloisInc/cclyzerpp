@@ -1,9 +1,3 @@
-[<<main-context>>, nil]	*stack_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag[i64* %__dnew]	*stack_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag[i64* %__dnew]
-[<<main-context>>, nil]	*stack_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm[i8* %ref.tmp]	*stack_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm[i8* %ref.tmp]
-[<<main-context>>, nil]	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr]	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr]
-[<<main-context>>, nil]	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr]	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr][0]
-[<<main-context>>, nil]	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr][0]	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr]
-[<<main-context>>, nil]	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr][0]	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr][0]
 [<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]
 [<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]
 [<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0
@@ -25,19 +19,8 @@
 [<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0
 [<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2
 [<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/1	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/1
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0]
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0].?/0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0]
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0].?/0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0].?/0	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0].?/0	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0]
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0].?/0	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0].?/0
-[<<main-context>>, nil]	*typed_stack_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag[i8* %__dnew]	*typed_stack_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag[i8* %__dnew]
-[<cxxbasic.cpp>:main:19, nil]	*stack_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c[i8* %__c.addr]	*stack_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c[i8* %__c.addr]
-[<cxxbasic.cpp>:main:30, nil]	*stack_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c[i8* %__c.addr]	*stack_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c[i8* %__c.addr]
+[<<main-context>>, nil]	*stack_alloc@main[i8* %__c.addr.i32]	*stack_alloc@main[i8* %__c.addr.i32]
+[<<main-context>>, nil]	*stack_alloc@main[i8* %__c.addr.i]	*stack_alloc@main[i8* %__c.addr.i]
 nil	*argv-alloc	*argv-alloc
 nil	*argv-alloc	*argv-alloc[0]
 nil	*argv-alloc[0]	*argv-alloc
@@ -58,85 +41,21 @@ nil	*global_alloc@.str.2	*global_alloc@.str.2[0]
 nil	*global_alloc@.str.2[0]	*global_alloc@.str.2
 nil	*global_alloc@.str.2[0]	*global_alloc@.str.2[0]
 nil	*global_alloc@.str.2[0][*]	*global_alloc@.str.2[0][*]
-nil	*global_alloc@.str.3	*global_alloc@.str.3
-nil	*global_alloc@.str.3	*global_alloc@.str.3[0]
-nil	*global_alloc@.str.3[0]	*global_alloc@.str.3
-nil	*global_alloc@.str.3[0]	*global_alloc@.str.3[0]
-nil	*global_alloc@.str.3[0][*]	*global_alloc@.str.3[0][*]
 nil	*global_alloc@.str[0]	*global_alloc@.str
 nil	*global_alloc@.str[0]	*global_alloc@.str[0]
 nil	*global_alloc@.str[0][*]	*global_alloc@.str[0][*]
 nil	*global_alloc@_GLOBAL__sub_I_cxxbasic.cpp	*global_alloc@_GLOBAL__sub_I_cxxbasic.cpp
-nil	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm
-nil	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcEC2ERKS1_	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcEC2ERKS1_
-nil	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcEC2Ev	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcEC2Ev
-nil	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcED2Ev	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcED2Ev
-nil	*global_alloc@_ZN9__gnu_cxx17__is_null_pointerIKcEEbPT_	*global_alloc@_ZN9__gnu_cxx17__is_null_pointerIKcEEbPT_
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4sizeEv	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4sizeEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv
-nil	*global_alloc@_ZNKSt9basic_iosIcSt11char_traitsIcEE7rdstateEv	*global_alloc@_ZNKSt9basic_iosIcSt11char_traitsIcEE7rdstateEv
-nil	*global_alloc@_ZNSaIcEC2ERKS_	*global_alloc@_ZNSaIcEC2ERKS_
-nil	*global_alloc@_ZNSaIcEC2Ev	*global_alloc@_ZNSaIcEC2Ev
-nil	*global_alloc@_ZNSaIcED2Ev	*global_alloc@_ZNSaIcED2Ev
-nil	*global_alloc@_ZNSt11char_traitsIcE4copyEPcPKcm	*global_alloc@_ZNSt11char_traitsIcE4copyEPcPKcm
-nil	*global_alloc@_ZNSt11char_traitsIcE6assignERcRKc	*global_alloc@_ZNSt11char_traitsIcE6assignERcRKc
-nil	*global_alloc@_ZNSt11char_traitsIcE6lengthEPKc	*global_alloc@_ZNSt11char_traitsIcE6lengthEPKc
-nil	*global_alloc@_ZNSt14pointer_traitsIPKcE10pointer_toERS0_	*global_alloc@_ZNSt14pointer_traitsIPKcE10pointer_toERS0_
-nil	*global_alloc@_ZNSt14pointer_traitsIPcE10pointer_toERc	*global_alloc@_ZNSt14pointer_traitsIPcE10pointer_toERc
-nil	*global_alloc@_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm	*global_alloc@_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv
 nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_capacityEm	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_capacityEm
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_construct_auxIPKcEEvT_S8_St12__false_type	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_construct_auxIPKcEEvT_S8_St12__false_type
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_get_allocatorEv	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_get_allocatorEv
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEPc	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEPc
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_lengthEm	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_lengthEm
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSEPKc	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSEPKc
 nil	*global_alloc@_ZNSt8ios_base4InitC1Ev	*global_alloc@_ZNSt8ios_base4InitC1Ev
 nil	*global_alloc@_ZNSt8ios_base4InitD1Ev	*global_alloc@_ZNSt8ios_base4InitD1Ev
-nil	*global_alloc@_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate	*global_alloc@_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate
-nil	*global_alloc@_ZNSt9basic_iosIcSt11char_traitsIcEE8setstateESt12_Ios_Iostate	*global_alloc@_ZNSt9basic_iosIcSt11char_traitsIcEE8setstateESt12_Ios_Iostate
-nil	*global_alloc@_ZSt10__distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag	*global_alloc@_ZSt10__distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag
-nil	*global_alloc@_ZSt11__addressofIKcEPT_RS1_	*global_alloc@_ZSt11__addressofIKcEPT_RS1_
-nil	*global_alloc@_ZSt11__addressofIcEPT_RS0_	*global_alloc@_ZSt11__addressofIcEPT_RS0_
 nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
-nil	*global_alloc@_ZSt19__iterator_categoryIPKcENSt15iterator_traitsIT_E17iterator_categoryERKS3_	*global_alloc@_ZSt19__iterator_categoryIPKcENSt15iterator_traitsIT_E17iterator_categoryERKS3_
-nil	*global_alloc@_ZSt19__throw_logic_errorPKc	*global_alloc@_ZSt19__throw_logic_errorPKc
 nil	*global_alloc@_ZSt4cout	*global_alloc@_ZSt4cout
-nil	*global_alloc@_ZSt4cout[*]	*global_alloc@_ZSt4cout[*]
-nil	*global_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_	*global_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_
-nil	*global_alloc@_ZSt9addressofIKcEPT_RS1_	*global_alloc@_ZSt9addressofIKcEPT_RS1_
-nil	*global_alloc@_ZSt9addressofIcEPT_RS0_	*global_alloc@_ZSt9addressofIcEPT_RS0_
-nil	*global_alloc@_ZSt9terminatev	*global_alloc@_ZSt9terminatev
 nil	*global_alloc@_ZStL8__ioinit	*global_alloc@_ZStL8__ioinit
 nil	*global_alloc@_ZStL8__ioinit	*global_alloc@_ZStL8__ioinit[0].?/0
 nil	*global_alloc@_ZStL8__ioinit[0].?/0	*global_alloc@_ZStL8__ioinit
 nil	*global_alloc@_ZStL8__ioinit[0].?/0	*global_alloc@_ZStL8__ioinit[0].?/0
-nil	*global_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc	*global_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
-nil	*global_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c	*global_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c
-nil	*global_alloc@_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE	*global_alloc@_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE
-nil	*global_alloc@_ZStorSt12_Ios_IostateS_	*global_alloc@_ZStorSt12_Ios_IostateS_
 nil	*global_alloc@_ZdlPv	*global_alloc@_ZdlPv
-nil	*global_alloc@__clang_call_terminate	*global_alloc@__clang_call_terminate
 nil	*global_alloc@__cxa_atexit	*global_alloc@__cxa_atexit
-nil	*global_alloc@__cxa_begin_catch	*global_alloc@__cxa_begin_catch
-nil	*global_alloc@__cxa_call_unexpected	*global_alloc@__cxa_call_unexpected
-nil	*global_alloc@__cxx_global_var_init	*global_alloc@__cxx_global_var_init
 nil	*global_alloc@__dso_handle	*global_alloc@__dso_handle
 nil	*global_alloc@__gxx_personality_v0	*global_alloc@__gxx_personality_v0
 nil	*global_alloc@llvm.dbg.declare	*global_alloc@llvm.dbg.declare
@@ -147,4 +66,3 @@ nil	*global_alloc@llvm.lifetime.end.p0i8	*global_alloc@llvm.lifetime.end.p0i8
 nil	*global_alloc@llvm.lifetime.start.p0i8	*global_alloc@llvm.lifetime.start.p0i8
 nil	*global_alloc@llvm.memcpy.p0i8.p0i8.i64	*global_alloc@llvm.memcpy.p0i8.p0i8.i64
 nil	*global_alloc@rand	*global_alloc@rand
-nil	*global_alloc@strlen	*global_alloc@strlen

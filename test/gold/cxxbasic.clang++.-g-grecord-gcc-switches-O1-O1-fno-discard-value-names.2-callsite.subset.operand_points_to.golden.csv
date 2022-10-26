@@ -1,673 +1,154 @@
-[<<main-context>>, nil]	*stack_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag[i64* %__dnew]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:%1
-[<<main-context>>, nil]	*stack_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag[i64* %__dnew]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:%__dnew
-[<<main-context>>, nil]	*stack_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm[i8* %ref.tmp]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:%ref.tmp
-[<<main-context>>, nil]	*stack_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm[i8* %ref.tmp]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:8, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6assignERcRKc:%__c2
-[<<main-context>>, nil]	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt19__iterator_categoryIPKcENSt15iterator_traitsIT_E17iterator_categoryERKS3_:%0
-[<<main-context>>, nil]	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_:%__first.addr
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcEC2ERKS1_:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSaIcEC2ERKS_:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSaIcEC2ERKS_:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_capacityEm:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_construct_auxIPKcEEvT_S8_St12__false_type:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEPc:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEPc:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_lengthEm:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:%1
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:%_M_dataplus
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSEPKc:%this
 [<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%0
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%2
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%_M_p.i13.i.i
 [<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%foo
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:1, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:1, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:1, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:1, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:1, [<cxxbasic.cpp>:main:18, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:1, [<cxxbasic.cpp>:main:18, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:1, [<cxxbasic.cpp>:main:29, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:1, [<cxxbasic.cpp>:main:29, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:3, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:3, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:3, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:3, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:4, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:4, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc:2, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4sizeEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:16, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcED2Ev:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:16, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:16, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:3, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcED2Ev:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:3, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:3, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:3, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcED2Ev:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:3, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:3, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:8, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcED2Ev:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:8, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:8, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:8, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcED2Ev:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:8, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:8, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:3, [<cxxbasic.cpp>:main:18, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4sizeEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:3, [<cxxbasic.cpp>:main:29, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4sizeEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:18, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:18, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:%__str
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm:%__a
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_get_allocatorEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_get_allocatorEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:%3
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:29, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:29, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:%__str
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm:%__a
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_get_allocatorEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_get_allocatorEv:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:%3
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcEC2ERKS1_:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSaIcEC2ERKS_:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSaIcEC2ERKS_:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEPc:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:%_M_dataplus
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:1, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:1, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:1, [<cxxbasic.cpp>:main:18, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:1, [<cxxbasic.cpp>:main:29, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:3, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:3, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:4, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcEC2ERKS1_:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSaIcEC2ERKS_:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSaIcEC2ERKS_:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEPc:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:%_M_dataplus
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:1, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:1, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:1, [<cxxbasic.cpp>:main:18, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:1, [<cxxbasic.cpp>:main:29, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:3, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:3, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:4, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0.?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0.?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEPc:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0.?/0	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:1, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0.?/0	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:1, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0.?/0	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:1, [<cxxbasic.cpp>:main:18, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0.?/0	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:1, [<cxxbasic.cpp>:main:29, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0.?/0	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:3, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0.?/0	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:3, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0.?/0	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0.?/0	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:4, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%_M_p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/1	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_lengthEm:%_M_string_length
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/1	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc:2, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4sizeEv:%_M_string_length
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/1	[<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:3, [<cxxbasic.cpp>:main:18, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4sizeEv:%_M_string_length
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/1	[<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:3, [<cxxbasic.cpp>:main:29, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4sizeEv:%_M_string_length
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE4copyEPcPKcm:%__s1
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt14pointer_traitsIPcE10pointer_toERc:%__r
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt14pointer_traitsIPcE10pointer_toERc:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_capacityEm:%_M_allocated_capacity
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_:%__dat
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:%call7
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv:%arraydecay
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:%__p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm:%__d
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt11__addressofIcEPT_RS0_:%__r
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt9addressofIcEPT_RS0_:%__r
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt9addressofIcEPT_RS0_:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:1, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:1, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:1, [<cxxbasic.cpp>:main:18, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:1, [<cxxbasic.cpp>:main:29, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:3, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:3, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:4, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm:5, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6assignERcRKc:%__c1
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:18, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:18, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm:%__p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:%call2
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv:%arraydecay
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt14pointer_traitsIPKcE10pointer_toERS0_:%__r
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt14pointer_traitsIPKcE10pointer_toERS0_:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm:%__p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:%call2
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv:%_M_allocated_capacity
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZSt11__addressofIKcEPT_RS1_:%__r
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZSt9addressofIKcEPT_RS1_:%__r
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZSt9addressofIKcEPT_RS1_:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:29, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:29, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm:%__p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:%call2
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv:%arraydecay
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt14pointer_traitsIPKcE10pointer_toERS0_:%__r
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt14pointer_traitsIPKcE10pointer_toERS0_:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm:%__p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:%call2
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv:%_M_allocated_capacity
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZSt11__addressofIKcEPT_RS1_:%__r
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZSt9addressofIKcEPT_RS1_:%__r
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZSt9addressofIKcEPT_RS1_:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE4copyEPcPKcm:%__s1
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_capacityEm:%_M_allocated_capacity
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:%call7
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:%arrayidx
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:%__p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm:%__d
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:1, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:1, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:1, [<cxxbasic.cpp>:main:18, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:1, [<cxxbasic.cpp>:main:29, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:3, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:3, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:4, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:8, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6assignERcRKc:%__c1
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm:5, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6assignERcRKc:%__c1
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:main:18, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:main:18, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm:%__p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm:%__p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:%call2
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv:%_M_allocated_capacity
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:main:29, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:main:29, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm:%__p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:%call
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm:%__p
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:%call2
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv:%_M_allocated_capacity
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/1	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:%arrayidx
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/1	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:8, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6assignERcRKc:%__c1
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcEC2ERKS1_:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcEC2Ev:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSaIcEC2ERKS_:%1
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSaIcEC2ERKS_:%__a
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSaIcEC2Ev:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSaIcEC2Ev:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_:%__a
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:%__a
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%1
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%ref.tmp
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	[<cxxbasic.cpp>:main:11, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcED2Ev:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	[<cxxbasic.cpp>:main:11, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	[<cxxbasic.cpp>:main:11, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	[<cxxbasic.cpp>:main:21, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcED2Ev:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	[<cxxbasic.cpp>:main:21, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:%0
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]	[<cxxbasic.cpp>:main:21, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:%this
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%1
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0].?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%1
-[<<main-context>>, nil]	*typed_stack_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag[i8* %__dnew]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:%1
-[<<main-context>>, nil]	*typed_stack_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag[i8* %__dnew]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:%__dnew
-[<cxxbasic.cpp>:main:19, [<<main-context>>, nil]]	*stack_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c[i8* %__c.addr]	[<cxxbasic.cpp>:main:19, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c:%__c.addr
-[<cxxbasic.cpp>:main:30, [<<main-context>>, nil]]	*stack_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c[i8* %__c.addr]	[<cxxbasic.cpp>:main:30, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c:%__c.addr
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%_M_p.i13.i.i
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%_M_p.i13.i.i
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0.?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%_M_p.i13.i.i
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/1	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%_M_string_length.i.i.i.i
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%.cast
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%.cast40
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%1
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%11
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%4
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%7
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%9
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%arraydecay.i.i.i.i
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%arraydecay.i.i.i.i36
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%11
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%4
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%7
+[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%9
+[<<main-context>>, nil]	*stack_alloc@main[i8* %__c.addr.i32]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%__c.addr.i32
+[<<main-context>>, nil]	*stack_alloc@main[i8* %__c.addr.i]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%__c.addr.i
 nil	*argv-alloc	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%argv
-nil	*global_alloc@.str	[<<main-context>>, nil]	<cxxbasic.cpp>:main:10:2:@.str
-nil	*global_alloc@.str.1	[<<main-context>>, nil]	<cxxbasic.cpp>:main:17:3:@.str.1
-nil	*global_alloc@.str.1	[<<main-context>>, nil]	<cxxbasic.cpp>:main:28:3:@.str.1
-nil	*global_alloc@.str.1[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:17:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
-nil	*global_alloc@.str.1[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:28:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
-nil	*global_alloc@.str.1[0]	[<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:14, [<cxxbasic.cpp>:main:17, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6lengthEPKc:%__s
-nil	*global_alloc@.str.1[0]	[<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:14, [<cxxbasic.cpp>:main:28, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6lengthEPKc:%__s
-nil	*global_alloc@.str.1[0]	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:%__s
-nil	*global_alloc@.str.1[0]	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:%__s
-nil	*global_alloc@.str.1[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:17:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
-nil	*global_alloc@.str.1[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:28:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
-nil	*global_alloc@.str.1[0][*]	[<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:14, [<cxxbasic.cpp>:main:17, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6lengthEPKc:%__s
-nil	*global_alloc@.str.1[0][*]	[<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:14, [<cxxbasic.cpp>:main:28, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6lengthEPKc:%__s
-nil	*global_alloc@.str.1[0][*]	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:%__s
-nil	*global_alloc@.str.1[0][*]	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:%__s
-nil	*global_alloc@.str.2	[<<main-context>>, nil]	<cxxbasic.cpp>:main:27:2:@.str.2
-nil	*global_alloc@.str.2[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc:%__s
-nil	*global_alloc@.str.2[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSEPKc:%__s
-nil	*global_alloc@.str.2[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:27:1:getelementptr inbounds ([4 x i8], [4 x i8]* @.str.2, i64 0, i64 0)
-nil	*global_alloc@.str.2[0]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc:3, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6lengthEPKc:%__s
-nil	*global_alloc@.str.2[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc:%__s
-nil	*global_alloc@.str.2[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSEPKc:%__s
-nil	*global_alloc@.str.2[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:27:1:getelementptr inbounds ([4 x i8], [4 x i8]* @.str.2, i64 0, i64 0)
-nil	*global_alloc@.str.2[0][*]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc:3, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6lengthEPKc:%__s
-nil	*global_alloc@.str.3	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:9:2:@.str.3
-nil	*global_alloc@.str.3[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:9:1:getelementptr inbounds ([42 x i8], [42 x i8]* @.str.3, i64 0, i64 0)
-nil	*global_alloc@.str.3[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:9:1:getelementptr inbounds ([42 x i8], [42 x i8]* @.str.3, i64 0, i64 0)
-nil	*global_alloc@.str[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZN9__gnu_cxx17__is_null_pointerIKcEEbPT_:%__ptr
-nil	*global_alloc@.str[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE4copyEPcPKcm:%__s2
-nil	*global_alloc@.str[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_:%__beg
-nil	*global_alloc@.str[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:%__beg
-nil	*global_alloc@.str[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:%__k1
-nil	*global_alloc@.str[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:%sub.ptr.rhs.cast
-nil	*global_alloc@.str[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_construct_auxIPKcEEvT_S8_St12__false_type:%__beg
-nil	*global_alloc@.str[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm:%__s
-nil	*global_alloc@.str[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:%__s
-nil	*global_alloc@.str[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt10__distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag:%__first
-nil	*global_alloc@.str[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt10__distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag:%sub.ptr.rhs.cast
-nil	*global_alloc@.str[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_:%__first
-nil	*global_alloc@.str[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:10:1:getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i64 0, i64 0)
-nil	*global_alloc@.str[0]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm:5, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6assignERcRKc:%__c2
-nil	*global_alloc@.str[0]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:8, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6lengthEPKc:%__s
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZN9__gnu_cxx17__is_null_pointerIKcEEbPT_:%__ptr
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE4copyEPcPKcm:%__s2
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_:%__beg
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_:%__end
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:%__beg
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:%__end
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:%__k1
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:%__k2
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:%sub.ptr.lhs.cast
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:%sub.ptr.rhs.cast
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_construct_auxIPKcEEvT_S8_St12__false_type:%__beg
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_construct_auxIPKcEEvT_S8_St12__false_type:%__end
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm:%__s
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:%__s
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:%add.ptr
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:%cond
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt10__distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag:%__first
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt10__distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag:%__last
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt10__distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag:%sub.ptr.lhs.cast
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt10__distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag:%sub.ptr.rhs.cast
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_:%__first
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_:%__last
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:10:1:getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i64 0, i64 0)
-nil	*global_alloc@.str[0][*]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm:5, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6assignERcRKc:%__c2
-nil	*global_alloc@.str[0][*]	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:8, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6lengthEPKc:%__s
-nil	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm:4:0:@_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm
-nil	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm:4:0:@_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm
-nil	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcEC2ERKS1_	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSaIcEC2ERKS_:4:0:@_ZN9__gnu_cxx13new_allocatorIcEC2ERKS1_
-nil	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcEC2Ev	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSaIcEC2Ev:2:0:@_ZN9__gnu_cxx13new_allocatorIcEC2Ev
-nil	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcED2Ev	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:16, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:2:0:@_ZN9__gnu_cxx13new_allocatorIcED2Ev
-nil	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcED2Ev	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:3, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:2:0:@_ZN9__gnu_cxx13new_allocatorIcED2Ev
-nil	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcED2Ev	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:3, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:2:0:@_ZN9__gnu_cxx13new_allocatorIcED2Ev
-nil	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcED2Ev	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:8, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:2:0:@_ZN9__gnu_cxx13new_allocatorIcED2Ev
-nil	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcED2Ev	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:8, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:2:0:@_ZN9__gnu_cxx13new_allocatorIcED2Ev
-nil	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcED2Ev	[<cxxbasic.cpp>:main:11, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:2:0:@_ZN9__gnu_cxx13new_allocatorIcED2Ev
-nil	*global_alloc@_ZN9__gnu_cxx13new_allocatorIcED2Ev	[<cxxbasic.cpp>:main:21, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:2:0:@_ZN9__gnu_cxx13new_allocatorIcED2Ev
-nil	*global_alloc@_ZN9__gnu_cxx17__is_null_pointerIKcEEbPT_	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:5:0:@_ZN9__gnu_cxx17__is_null_pointerIKcEEbPT_
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv:1:0:@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv:1:0:@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:2:0:@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:2:0:@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv	[<cxxbasic.cpp>:main:18, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:2:0:@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv	[<cxxbasic.cpp>:main:29, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:2:0:@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4sizeEv	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc:2:0:@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4sizeEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4sizeEv	[<cxxbasic.cpp>:main:18, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:3:0:@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4sizeEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4sizeEv	[<cxxbasic.cpp>:main:29, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:3:0:@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4sizeEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:25:0:@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:4:0:@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv	[<cxxbasic.cpp>:main:18, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:1:0:@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:1:0:@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:3:0:@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv	[<cxxbasic.cpp>:main:29, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:1:0:@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:1:0:@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv
-nil	*global_alloc@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:3:0:@_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv
-nil	*global_alloc@_ZNKSt9basic_iosIcSt11char_traitsIcEE7rdstateEv	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt9basic_iosIcSt11char_traitsIcEE8setstateESt12_Ios_Iostate:2:0:@_ZNKSt9basic_iosIcSt11char_traitsIcEE7rdstateEv
-nil	*global_alloc@_ZNKSt9basic_iosIcSt11char_traitsIcEE7rdstateEv	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt9basic_iosIcSt11char_traitsIcEE8setstateESt12_Ios_Iostate:2:0:@_ZNKSt9basic_iosIcSt11char_traitsIcEE7rdstateEv
-nil	*global_alloc@_ZNSaIcEC2ERKS_	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_:4:0:@_ZNSaIcEC2ERKS_
-nil	*global_alloc@_ZNSaIcEC2Ev	[<<main-context>>, nil]	<cxxbasic.cpp>:main:9:0:@_ZNSaIcEC2Ev
-nil	*global_alloc@_ZNSaIcED2Ev	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:16:0:@_ZNSaIcED2Ev
-nil	*global_alloc@_ZNSaIcED2Ev	[<<main-context>>, nil]	<cxxbasic.cpp>:main:11:0:@_ZNSaIcED2Ev
-nil	*global_alloc@_ZNSaIcED2Ev	[<<main-context>>, nil]	<cxxbasic.cpp>:main:21:0:@_ZNSaIcED2Ev
-nil	*global_alloc@_ZNSaIcED2Ev	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:3:0:@_ZNSaIcED2Ev
-nil	*global_alloc@_ZNSaIcED2Ev	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:8:0:@_ZNSaIcED2Ev
-nil	*global_alloc@_ZNSaIcED2Ev	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:3:0:@_ZNSaIcED2Ev
-nil	*global_alloc@_ZNSaIcED2Ev	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:8:0:@_ZNSaIcED2Ev
-nil	*global_alloc@_ZNSt11char_traitsIcE4copyEPcPKcm	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm:7:0:@_ZNSt11char_traitsIcE4copyEPcPKcm
-nil	*global_alloc@_ZNSt11char_traitsIcE6assignERcRKc	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:8:0:@_ZNSt11char_traitsIcE6assignERcRKc
-nil	*global_alloc@_ZNSt11char_traitsIcE6assignERcRKc	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm:5:0:@_ZNSt11char_traitsIcE6assignERcRKc
-nil	*global_alloc@_ZNSt11char_traitsIcE6lengthEPKc	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc:3:0:@_ZNSt11char_traitsIcE6lengthEPKc
-nil	*global_alloc@_ZNSt11char_traitsIcE6lengthEPKc	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:8:0:@_ZNSt11char_traitsIcE6lengthEPKc
-nil	*global_alloc@_ZNSt11char_traitsIcE6lengthEPKc	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:14:0:@_ZNSt11char_traitsIcE6lengthEPKc
-nil	*global_alloc@_ZNSt11char_traitsIcE6lengthEPKc	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:14:0:@_ZNSt11char_traitsIcE6lengthEPKc
-nil	*global_alloc@_ZNSt14pointer_traitsIPKcE10pointer_toERS0_	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv:3:0:@_ZNSt14pointer_traitsIPKcE10pointer_toERS0_
-nil	*global_alloc@_ZNSt14pointer_traitsIPKcE10pointer_toERS0_	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv:3:0:@_ZNSt14pointer_traitsIPKcE10pointer_toERS0_
-nil	*global_alloc@_ZNSt14pointer_traitsIPcE10pointer_toERc	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv:3:0:@_ZNSt14pointer_traitsIPcE10pointer_toERc
-nil	*global_alloc@_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:5:0:@_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm
-nil	*global_alloc@_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:5:0:@_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv:5:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv:5:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:1:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:1:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc:4:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_capacityEm	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:23:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_capacityEm
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:5:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:12:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_construct_auxIPKcEEvT_S8_St12__false_type:4:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:4:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:29:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:26:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_construct_auxIPKcEEvT_S8_St12__false_type	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_:3:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_construct_auxIPKcEEvT_S8_St12__false_type
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_get_allocatorEv	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:2:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_get_allocatorEv
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_get_allocatorEv	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:2:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_get_allocatorEv
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSEPKc:2:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEPc	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:20:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEPc
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:6:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:19:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_lengthEm	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:3:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_lengthEm
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_	[<<main-context>>, nil]	<cxxbasic.cpp>:main:10:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev	[<<main-context>>, nil]	<cxxbasic.cpp>:main:25:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev	[<<main-context>>, nil]	<cxxbasic.cpp>:main:31:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSEPKc	[<<main-context>>, nil]	<cxxbasic.cpp>:main:27:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSEPKc
-nil	*global_alloc@_ZNSt8ios_base4InitC1Ev	[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxx_global_var_init:0:0:@_ZNSt8ios_base4InitC1Ev
-nil	*global_alloc@_ZNSt8ios_base4InitC1Ev	nil	<cxxbasic.cpp>:__cxx_global_var_init:0:0:@_ZNSt8ios_base4InitC1Ev
-nil	*global_alloc@_ZNSt8ios_base4InitD1Ev	[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxx_global_var_init:1:1:bitcast (void (%"class.std::ios_base::Init"*)* @_ZNSt8ios_base4InitD1Ev to void (i8*)*)
-nil	*global_alloc@_ZNSt8ios_base4InitD1Ev	[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxx_global_var_init:1:2:@_ZNSt8ios_base4InitD1Ev
-nil	*global_alloc@_ZNSt8ios_base4InitD1Ev	nil	<cxxbasic.cpp>:__cxx_global_var_init:1:1:bitcast (void (%"class.std::ios_base::Init"*)* @_ZNSt8ios_base4InitD1Ev to void (i8*)*)
-nil	*global_alloc@_ZNSt8ios_base4InitD1Ev	nil	<cxxbasic.cpp>:__cxx_global_var_init:1:2:@_ZNSt8ios_base4InitD1Ev
-nil	*global_alloc@_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt9basic_iosIcSt11char_traitsIcEE8setstateESt12_Ios_Iostate:4:0:@_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate
-nil	*global_alloc@_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt9basic_iosIcSt11char_traitsIcEE8setstateESt12_Ios_Iostate:4:0:@_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate
-nil	*global_alloc@_ZNSt9basic_iosIcSt11char_traitsIcEE8setstateESt12_Ios_Iostate	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:12:0:@_ZNSt9basic_iosIcSt11char_traitsIcEE8setstateESt12_Ios_Iostate
-nil	*global_alloc@_ZNSt9basic_iosIcSt11char_traitsIcEE8setstateESt12_Ios_Iostate	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:12:0:@_ZNSt9basic_iosIcSt11char_traitsIcEE8setstateESt12_Ios_Iostate
-nil	*global_alloc@_ZSt10__distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_:6:0:@_ZSt10__distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag
-nil	*global_alloc@_ZSt11__addressofIKcEPT_RS1_	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZSt9addressofIKcEPT_RS1_:1:0:@_ZSt11__addressofIKcEPT_RS1_
-nil	*global_alloc@_ZSt11__addressofIKcEPT_RS1_	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZSt9addressofIKcEPT_RS1_:1:0:@_ZSt11__addressofIKcEPT_RS1_
-nil	*global_alloc@_ZSt11__addressofIcEPT_RS0_	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt9addressofIcEPT_RS0_:1:0:@_ZSt11__addressofIcEPT_RS0_
-nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:15:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
-nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<cxxbasic.cpp>:main:18, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:4:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
-nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<cxxbasic.cpp>:main:19, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c:5:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
-nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:15:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
-nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<cxxbasic.cpp>:main:29, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:4:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
-nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<cxxbasic.cpp>:main:30, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c:5:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
-nil	*global_alloc@_ZSt19__iterator_categoryIPKcENSt15iterator_traitsIT_E17iterator_categoryERKS3_	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_:5:0:@_ZSt19__iterator_categoryIPKcENSt15iterator_traitsIT_E17iterator_categoryERKS3_
-nil	*global_alloc@_ZSt19__throw_logic_errorPKc	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:9:0:@_ZSt19__throw_logic_errorPKc
-nil	*global_alloc@_ZSt4cout	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%call11
-nil	*global_alloc@_ZSt4cout	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%call3
-nil	*global_alloc@_ZSt4cout	[<<main-context>>, nil]	<cxxbasic.cpp>:main:17:1:@_ZSt4cout
-nil	*global_alloc@_ZSt4cout	[<<main-context>>, nil]	<cxxbasic.cpp>:main:28:1:@_ZSt4cout
-nil	*global_alloc@_ZSt4cout	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:%0
-nil	*global_alloc@_ZSt4cout	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:%2
-nil	*global_alloc@_ZSt4cout	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:%__out
-nil	*global_alloc@_ZSt4cout	[<cxxbasic.cpp>:main:18, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:%__os
-nil	*global_alloc@_ZSt4cout	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:%0
-nil	*global_alloc@_ZSt4cout	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:%2
-nil	*global_alloc@_ZSt4cout	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:%__out
-nil	*global_alloc@_ZSt4cout	[<cxxbasic.cpp>:main:29, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:%__os
-nil	*global_alloc@_ZSt4cout[*]	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt9basic_iosIcSt11char_traitsIcEE7rdstateEv:%this
-nil	*global_alloc@_ZSt4cout[*]	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt9basic_iosIcSt11char_traitsIcEE8setstateESt12_Ios_Iostate:%this
-nil	*global_alloc@_ZSt4cout[*]	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:%3
-nil	*global_alloc@_ZSt4cout[*]	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:%add.ptr
-nil	*global_alloc@_ZSt4cout[*]	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt9basic_iosIcSt11char_traitsIcEE7rdstateEv:%this
-nil	*global_alloc@_ZSt4cout[*]	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt9basic_iosIcSt11char_traitsIcEE8setstateESt12_Ios_Iostate:%this
-nil	*global_alloc@_ZSt4cout[*]	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:%3
-nil	*global_alloc@_ZSt4cout[*]	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:%add.ptr
-nil	*global_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:13:0:@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_
-nil	*global_alloc@_ZSt9addressofIKcEPT_RS1_	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt14pointer_traitsIPKcE10pointer_toERS0_:1:0:@_ZSt9addressofIKcEPT_RS1_
-nil	*global_alloc@_ZSt9addressofIKcEPT_RS1_	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt14pointer_traitsIPKcE10pointer_toERS0_:1:0:@_ZSt9addressofIKcEPT_RS1_
-nil	*global_alloc@_ZSt9addressofIcEPT_RS0_	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt14pointer_traitsIPcE10pointer_toERc:1:0:@_ZSt9addressofIcEPT_RS0_
-nil	*global_alloc@_ZSt9terminatev	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:10, [<<main-context>>, nil]]	<cxxbasic.cpp>:__clang_call_terminate:1:0:@_ZSt9terminatev
-nil	*global_alloc@_ZSt9terminatev	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:9, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:__clang_call_terminate:1:0:@_ZSt9terminatev
-nil	*global_alloc@_ZSt9terminatev	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:9, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:__clang_call_terminate:1:0:@_ZSt9terminatev
-nil	*global_alloc@_ZStL8__ioinit	[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxx_global_var_init:0:1:@_ZStL8__ioinit
-nil	*global_alloc@_ZStL8__ioinit	[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxx_global_var_init:1:4:@_ZStL8__ioinit
-nil	*global_alloc@_ZStL8__ioinit	nil	<cxxbasic.cpp>:__cxx_global_var_init:0:1:@_ZStL8__ioinit
-nil	*global_alloc@_ZStL8__ioinit	nil	<cxxbasic.cpp>:__cxx_global_var_init:1:4:@_ZStL8__ioinit
-nil	*global_alloc@_ZStL8__ioinit[0].?/0	[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxx_global_var_init:1:3:getelementptr inbounds (%"class.std::ios_base::Init", %"class.std::ios_base::Init"* @_ZStL8__ioinit, i64 0, i32 0)
-nil	*global_alloc@_ZStL8__ioinit[0].?/0	nil	<cxxbasic.cpp>:__cxx_global_var_init:1:3:getelementptr inbounds (%"class.std::ios_base::Init", %"class.std::ios_base::Init"* @_ZStL8__ioinit, i64 0, i32 0)
-nil	*global_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc	[<<main-context>>, nil]	<cxxbasic.cpp>:main:17:0:@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
-nil	*global_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc	[<<main-context>>, nil]	<cxxbasic.cpp>:main:28:0:@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
-nil	*global_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c	[<<main-context>>, nil]	<cxxbasic.cpp>:main:19:0:@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c
-nil	*global_alloc@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c	[<<main-context>>, nil]	<cxxbasic.cpp>:main:30:0:@_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c
-nil	*global_alloc@_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE	[<<main-context>>, nil]	<cxxbasic.cpp>:main:18:0:@_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE
-nil	*global_alloc@_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE	[<<main-context>>, nil]	<cxxbasic.cpp>:main:29:0:@_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE
-nil	*global_alloc@_ZStorSt12_Ios_IostateS_	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt9basic_iosIcSt11char_traitsIcEE8setstateESt12_Ios_Iostate:3:0:@_ZStorSt12_Ios_IostateS_
-nil	*global_alloc@_ZStorSt12_Ios_IostateS_	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt9basic_iosIcSt11char_traitsIcEE8setstateESt12_Ios_Iostate:3:0:@_ZStorSt12_Ios_IostateS_
-nil	*global_alloc@_ZdlPv	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm:3:0:@_ZdlPv
-nil	*global_alloc@_ZdlPv	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm:3:0:@_ZdlPv
-nil	*global_alloc@__clang_call_terminate	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:10:0:@__clang_call_terminate
-nil	*global_alloc@__clang_call_terminate	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:9:0:@__clang_call_terminate
-nil	*global_alloc@__clang_call_terminate	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:9:0:@__clang_call_terminate
-nil	*global_alloc@__cxa_atexit	[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxx_global_var_init:1:0:@__cxa_atexit
-nil	*global_alloc@__cxa_atexit	nil	<cxxbasic.cpp>:__cxx_global_var_init:1:0:@__cxa_atexit
-nil	*global_alloc@__cxa_begin_catch	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:10, [<<main-context>>, nil]]	<cxxbasic.cpp>:__clang_call_terminate:0:0:@__cxa_begin_catch
-nil	*global_alloc@__cxa_begin_catch	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:9, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:__clang_call_terminate:0:0:@__cxa_begin_catch
-nil	*global_alloc@__cxa_begin_catch	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:9, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:__clang_call_terminate:0:0:@__cxa_begin_catch
-nil	*global_alloc@__cxa_call_unexpected	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:9:0:@__cxa_call_unexpected
-nil	*global_alloc@__cxa_call_unexpected	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:9:0:@__cxa_call_unexpected
-nil	*global_alloc@__cxx_global_var_init	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:0:0:@__cxx_global_var_init
-nil	*global_alloc@__dso_handle	[<<startup-context>>, nil]	<cxxbasic.cpp>:__cxx_global_var_init:1:7:@__dso_handle
-nil	*global_alloc@__dso_handle	nil	<cxxbasic.cpp>:__cxx_global_var_init:1:7:@__dso_handle
-nil	*global_alloc@__gxx_personality_v0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:0:bitcast (i32 (...)* @__gxx_personality_v0 to i8*)
-nil	*global_alloc@__gxx_personality_v0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:1:@__gxx_personality_v0
-nil	*global_alloc@__gxx_personality_v0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:0:bitcast (i32 (...)* @__gxx_personality_v0 to i8*)
-nil	*global_alloc@__gxx_personality_v0	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:1:@__gxx_personality_v0
-nil	*global_alloc@__gxx_personality_v0	[<<main-context>>, nil]	<cxxbasic.cpp>:main:0:bitcast (i32 (...)* @__gxx_personality_v0 to i8*)
-nil	*global_alloc@__gxx_personality_v0	[<<main-context>>, nil]	<cxxbasic.cpp>:main:1:@__gxx_personality_v0
-nil	*global_alloc@__gxx_personality_v0	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:0:bitcast (i32 (...)* @__gxx_personality_v0 to i8*)
-nil	*global_alloc@__gxx_personality_v0	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:1:@__gxx_personality_v0
-nil	*global_alloc@__gxx_personality_v0	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:0:bitcast (i32 (...)* @__gxx_personality_v0 to i8*)
-nil	*global_alloc@__gxx_personality_v0	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:1:@__gxx_personality_v0
-nil	*global_alloc@__gxx_personality_v0	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:0:bitcast (i32 (...)* @__gxx_personality_v0 to i8*)
-nil	*global_alloc@__gxx_personality_v0	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:1:@__gxx_personality_v0
-nil	*global_alloc@__gxx_personality_v0	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:0:bitcast (i32 (...)* @__gxx_personality_v0 to i8*)
-nil	*global_alloc@__gxx_personality_v0	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:1:@__gxx_personality_v0
-nil	*global_alloc@llvm.dbg.declare	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:4:0:@llvm.dbg.declare
-nil	*global_alloc@llvm.dbg.declare	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_construct_auxIPKcEEvT_S8_St12__false_type:3:0:@llvm.dbg.declare
-nil	*global_alloc@llvm.dbg.declare	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt10__distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag:2:0:@llvm.dbg.declare
-nil	*global_alloc@llvm.dbg.declare	[<<main-context>>, nil]	<cxxbasic.cpp>:main:6:0:@llvm.dbg.declare
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcEC2ERKS1_:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcEC2ERKS1_:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcEC2Ev:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZN9__gnu_cxx17__is_null_pointerIKcEEbPT_:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSaIcEC2ERKS_:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSaIcEC2ERKS_:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSaIcEC2Ev:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE4copyEPcPKcm:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE4copyEPcPKcm:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE4copyEPcPKcm:2:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt14pointer_traitsIPcE10pointer_toERc:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_capacityEm:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_capacityEm:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC2EPcRKS3_:2:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_:2:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:14:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:18:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:22:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:28:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:2:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:3:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:2:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:2:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_construct_auxIPKcEEvT_S8_St12__false_type:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_construct_auxIPKcEEvT_S8_St12__false_type:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_construct_auxIPKcEEvT_S8_St12__false_type:2:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEPc:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEPc:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm:2:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_lengthEm:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_lengthEm:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:2:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSEPKc:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSEPKc:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt10__distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt10__distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt11__addressofIcEPT_RS0_:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt19__iterator_categoryIPKcENSt15iterator_traitsIT_E17iterator_categoryERKS3_:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_:3:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_:4:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt9addressofIcEPT_RS0_:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:2:0:@llvm.dbg.value
+nil	*global_alloc@.str	[<<main-context>>, nil]	<cxxbasic.cpp>:main:35:2:@.str
+nil	*global_alloc@.str.1	[<<main-context>>, nil]	<cxxbasic.cpp>:main:102:3:@.str.1
+nil	*global_alloc@.str.1	[<<main-context>>, nil]	<cxxbasic.cpp>:main:55:3:@.str.1
+nil	*global_alloc@.str.1[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:102:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
+nil	*global_alloc@.str.1[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:55:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
+nil	*global_alloc@.str.1[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:102:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
+nil	*global_alloc@.str.1[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:55:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
+nil	*global_alloc@.str.2	[<<main-context>>, nil]	<cxxbasic.cpp>:main:99:3:@.str.2
+nil	*global_alloc@.str.2[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:99:2:getelementptr inbounds ([4 x i8], [4 x i8]* @.str.2, i64 0, i64 0)
+nil	*global_alloc@.str.2[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:99:2:getelementptr inbounds ([4 x i8], [4 x i8]* @.str.2, i64 0, i64 0)
+nil	*global_alloc@.str[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:35:1:getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i64 0, i64 0)
+nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:35:1:getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i64 0, i64 0)
+nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm	[<<main-context>>, nil]	<cxxbasic.cpp>:main:99:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm
+nil	*global_alloc@_ZNSt8ios_base4InitC1Ev	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:0:0:@_ZNSt8ios_base4InitC1Ev
+nil	*global_alloc@_ZNSt8ios_base4InitD1Ev	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:1:1:bitcast (void (%"class.std::ios_base::Init"*)* @_ZNSt8ios_base4InitD1Ev to void (i8*)*)
+nil	*global_alloc@_ZNSt8ios_base4InitD1Ev	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:1:2:@_ZNSt8ios_base4InitD1Ev
+nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:102:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
+nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:110:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
+nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:116:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
+nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:55:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
+nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:63:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
+nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:69:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
+nil	*global_alloc@_ZSt4cout	[<<main-context>>, nil]	<cxxbasic.cpp>:main:102:1:@_ZSt4cout
+nil	*global_alloc@_ZSt4cout	[<<main-context>>, nil]	<cxxbasic.cpp>:main:110:1:@_ZSt4cout
+nil	*global_alloc@_ZSt4cout	[<<main-context>>, nil]	<cxxbasic.cpp>:main:55:1:@_ZSt4cout
+nil	*global_alloc@_ZSt4cout	[<<main-context>>, nil]	<cxxbasic.cpp>:main:63:1:@_ZSt4cout
+nil	*global_alloc@_ZStL8__ioinit	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:0:1:@_ZStL8__ioinit
+nil	*global_alloc@_ZStL8__ioinit	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:1:4:@_ZStL8__ioinit
+nil	*global_alloc@_ZStL8__ioinit[0].?/0	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:1:3:getelementptr inbounds (%"class.std::ios_base::Init", %"class.std::ios_base::Init"* @_ZStL8__ioinit, i64 0, i32 0)
+nil	*global_alloc@_ZdlPv	[<<main-context>>, nil]	<cxxbasic.cpp>:main:136:0:@_ZdlPv
+nil	*global_alloc@_ZdlPv	[<<main-context>>, nil]	<cxxbasic.cpp>:main:91:0:@_ZdlPv
+nil	*global_alloc@__cxa_atexit	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:1:0:@__cxa_atexit
+nil	*global_alloc@__dso_handle	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:1:7:@__dso_handle
+nil	*global_alloc@__gxx_personality_v0	[<<main-context>>, nil]	<cxxbasic.cpp>:main:10:@__gxx_personality_v0
+nil	*global_alloc@__gxx_personality_v0	[<<main-context>>, nil]	<cxxbasic.cpp>:main:9:bitcast (i32 (...)* @__gxx_personality_v0 to i8*)
+nil	*global_alloc@llvm.dbg.declare	[<<main-context>>, nil]	<cxxbasic.cpp>:main:22:0:@llvm.dbg.declare
+nil	*global_alloc@llvm.dbg.declare	[<<main-context>>, nil]	<cxxbasic.cpp>:main:7:0:@llvm.dbg.declare
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:100:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:101:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:103:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:104:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:105:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:106:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:108:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:10:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:112:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:113:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:115:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:118:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:119:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:11:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:120:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:121:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:123:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:127:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:128:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:129:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:130:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:131:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:132:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:133:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:134:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:135:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:13:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:14:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:15:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:18:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:19:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:20:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:21:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:23:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:24:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:26:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:27:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:28:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:29:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:30:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:31:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:33:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:34:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:36:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:37:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:38:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:39:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:3:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:1, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:1, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:1, [<cxxbasic.cpp>:main:18, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:1, [<cxxbasic.cpp>:main:29, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:3, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:3, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:4, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:8, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6assignERcRKc:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:8, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6assignERcRKc:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc:2, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4sizeEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc:3, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6lengthEPKc:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm:5, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6assignERcRKc:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_S_copyEPcPKcm:5, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6assignERcRKc:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:16, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcED2Ev:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:16, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:8, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6lengthEPKc:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:3, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcED2Ev:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:3, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:3, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcED2Ev:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:3, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:8, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcED2Ev:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:8, [<cxxbasic.cpp>:main:25, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:8, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcED2Ev:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:8, [<cxxbasic.cpp>:main:31, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:14, [<cxxbasic.cpp>:main:17, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6lengthEPKc:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:14, [<cxxbasic.cpp>:main:28, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6lengthEPKc:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:3, [<cxxbasic.cpp>:main:18, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4sizeEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:3, [<cxxbasic.cpp>:main:29, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4sizeEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:11, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcED2Ev:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:11, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt9basic_iosIcSt11char_traitsIcEE7rdstateEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt9basic_iosIcSt11char_traitsIcEE8setstateESt12_Ios_Iostate:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt9basic_iosIcSt11char_traitsIcEE8setstateESt12_Ios_Iostate:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:18, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:18, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:18, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:19, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:19, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c:2:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:19, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c:4:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:21, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcED2Ev:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:21, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSaIcED2Ev:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm:2:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt14pointer_traitsIPKcE10pointer_toERS0_:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm:2:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_get_allocatorEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZSt11__addressofIKcEPT_RS1_:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZSt9addressofIKcEPT_RS1_:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt9basic_iosIcSt11char_traitsIcEE7rdstateEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt9basic_iosIcSt11char_traitsIcEE8setstateESt12_Ios_Iostate:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt9basic_iosIcSt11char_traitsIcEE8setstateESt12_Ios_Iostate:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:29, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE4dataEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:29, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:29, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsIcSt11char_traitsIcESaIcEERSt13basic_ostreamIT_T0_ES7_RKNSt7__cxx1112basic_stringIS4_S5_T1_EE:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:30, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:30, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c:2:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:30, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c:4:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZN9__gnu_cxx13new_allocatorIcE10deallocateEPcm:2:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt14pointer_traitsIPKcE10pointer_toERS0_:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt16allocator_traitsISaIcEE10deallocateERS0_Pcm:2:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_destroyEm:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_get_allocatorEv:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZSt11__addressofIKcEPT_RS1_:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZSt9addressofIKcEPT_RS1_:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	nil	<cxxbasic.cpp>:_ZStorSt12_Ios_IostateS_:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	nil	<cxxbasic.cpp>:_ZStorSt12_Ios_IostateS_:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:30:0:@llvm.lifetime.end.p0i8
-nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:9:0:@llvm.lifetime.end.p0i8
-nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:12:0:@llvm.lifetime.end.p0i8
-nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:22:0:@llvm.lifetime.end.p0i8
-nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:32:0:@llvm.lifetime.end.p0i8
-nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:35:0:@llvm.lifetime.end.p0i8
-nil	*global_alloc@llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:12:0:@llvm.lifetime.start.p0i8
-nil	*global_alloc@llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm:6:0:@llvm.lifetime.start.p0i8
-nil	*global_alloc@llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:5:0:@llvm.lifetime.start.p0i8
-nil	*global_alloc@llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:8:0:@llvm.lifetime.start.p0i8
-nil	*global_alloc@llvm.memcpy.p0i8.p0i8.i64	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE4copyEPcPKcm:5:0:@llvm.memcpy.p0i8.p0i8.i64
-nil	*global_alloc@rand	[<<main-context>>, nil]	<cxxbasic.cpp>:main:13:0:@rand
-nil	*global_alloc@strlen	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6assignEPKc:3, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6lengthEPKc:1:0:@strlen
-nil	*global_alloc@strlen	[<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:8, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6lengthEPKc:1:0:@strlen
-nil	*global_alloc@strlen	[<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:14, [<cxxbasic.cpp>:main:17, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6lengthEPKc:1:0:@strlen
-nil	*global_alloc@strlen	[<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:14, [<cxxbasic.cpp>:main:28, nil]]	<cxxbasic.cpp>:_ZNSt11char_traitsIcE6lengthEPKc:1:0:@strlen
-nil	*null*	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZN9__gnu_cxx17__is_null_pointerIKcEEbPT_:1:0:null
-nil	*null*	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:8:0:null
-nil	*null*	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:6:0:null
-nil	*null*	[<cxxbasic.cpp>:main:17, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:2:0:null
-nil	*null*	[<cxxbasic.cpp>:main:25, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:5:0:null
-nil	*null*	[<cxxbasic.cpp>:main:28, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc:2:0:null
-nil	*null*	[<cxxbasic.cpp>:main:31, [<<main-context>>, nil]]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev:5:0:null
-nil	*unknown*	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_:%__end
-nil	*unknown*	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_M_constructIPKcEEvT_S8_St20forward_iterator_tag:%__end
-nil	*unknown*	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:%__k2
-nil	*unknown*	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcPKcS7_:%sub.ptr.lhs.cast
-nil	*unknown*	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE16_M_construct_auxIPKcEEvT_S8_St12__false_type:%__end
-nil	*unknown*	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:%cond
-nil	*unknown*	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_:11:0:inttoptr (i64 -1 to i8*)
-nil	*unknown*	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt10__distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag:%__last
-nil	*unknown*	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt10__distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag:%sub.ptr.lhs.cast
-nil	*unknown*	[<<main-context>>, nil]	<cxxbasic.cpp>:_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_:%__last
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:40:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:43:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:46:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:47:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:4:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:53:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:54:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:56:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:57:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:58:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:59:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:61:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:65:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:66:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:68:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:73:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:74:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:75:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:76:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:78:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:82:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:83:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:84:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:85:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:86:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:87:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:88:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:89:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:8:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:90:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:93:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:94:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:95:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:96:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:97:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:9:0:@llvm.dbg.value
+nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:117:0:@llvm.lifetime.end.p0i8
+nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:138:0:@llvm.lifetime.end.p0i8
+nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:140:0:@llvm.lifetime.end.p0i8
+nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:70:0:@llvm.lifetime.end.p0i8
+nil	*global_alloc@llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:111:0:@llvm.lifetime.start.p0i8
+nil	*global_alloc@llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:64:0:@llvm.lifetime.start.p0i8
+nil	*global_alloc@llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:6:0:@llvm.lifetime.start.p0i8
+nil	*global_alloc@llvm.memcpy.p0i8.p0i8.i64	[<<main-context>>, nil]	<cxxbasic.cpp>:main:35:0:@llvm.memcpy.p0i8.p0i8.i64
+nil	*global_alloc@rand	[<<main-context>>, nil]	<cxxbasic.cpp>:main:49:0:@rand

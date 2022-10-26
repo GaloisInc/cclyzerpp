@@ -450,7 +450,14 @@ void InstructionVisitor::visitGetElementPtrInst(
     if (const auto *c = dyn_cast<llvm::Constant>(GepOperand)) {
       if (c->getUniqueInteger().isIntN(16)) {
         // Compute integer string representation
-        string int_value = c->getUniqueInteger().toString(10, true);
+        // TODO(lb): Compute both signed and unsigned representations
+#if LLVM_VERSION_MAJOR > 12
+        llvm::SmallString<16> s;
+        c->getUniqueInteger().toStringUnsigned(s, 10);
+        std::string int_value = std::string(s);
+#else
+        std::string int_value = c->getUniqueInteger().toString(10, true);
+#endif
 
         // Write constant to integer fact
         gen.writeFact(pred::constant::to_integer, opref, int_value);

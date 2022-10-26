@@ -6,7 +6,7 @@ project(cclyzer++ LANGUAGES C CXX VERSION 0.5.0)
 # -----------------------------------------------------------------------------
 
 if(NOT (DEFINED LLVM_MAJOR_VERSION))
-  set(LLVM_MAJOR_VERSION 12)
+  set(LLVM_MAJOR_VERSION 13)
 endif()
 
 find_package(LLVM ${LLVM_MAJOR_VERSION}.0 REQUIRED CONFIG)

@@ -1,7 +1,6 @@
 <cxxbasic.cpp>:@.str	*global_alloc@.str
 <cxxbasic.cpp>:@.str.1	*global_alloc@.str.1
 <cxxbasic.cpp>:@.str.2	*global_alloc@.str.2
-<cxxbasic.cpp>:@.str.3	*global_alloc@.str.3
 <cxxbasic.cpp>:@_ZSt4cout	*global_alloc@_ZSt4cout
 <cxxbasic.cpp>:@_ZStL8__ioinit	*global_alloc@_ZStL8__ioinit
 <cxxbasic.cpp>:@__dso_handle	*global_alloc@__dso_handle

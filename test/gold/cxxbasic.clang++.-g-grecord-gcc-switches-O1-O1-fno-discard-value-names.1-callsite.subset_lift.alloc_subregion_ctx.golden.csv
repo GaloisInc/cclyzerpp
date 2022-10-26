@@ -1,21 +1,14 @@
-[<<main-context>>, nil]	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr][0]	*stack_alloc@_ZSt8distanceIPKcENSt15iterator_traitsIT_E15difference_typeES3_S3_[i8** %__first.addr]
 [<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo]
 [<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]
 [<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0.?/0	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/0
 [<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/1	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]
 [<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0]
 [<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/0	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2.?/1	*stack_alloc@main[%"class.std::__cxx11::basic_string"* %foo][0].?/2
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp]
-[<<main-context>>, nil]	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0].?/0	*stack_alloc@main[%"class.std::allocator"* %ref.tmp][0]
 nil	*argv-alloc[0]	*argv-alloc
 nil	*argv[0]-alloc[0]	*argv[0]-alloc
 nil	*global_alloc@.str.1[0]	*global_alloc@.str.1
 nil	*global_alloc@.str.1[0][*]	*global_alloc@.str.1[0]
 nil	*global_alloc@.str.2[0]	*global_alloc@.str.2
 nil	*global_alloc@.str.2[0][*]	*global_alloc@.str.2[0]
-nil	*global_alloc@.str.3[0]	*global_alloc@.str.3
-nil	*global_alloc@.str.3[0][*]	*global_alloc@.str.3[0]
 nil	*global_alloc@.str[0]	*global_alloc@.str
 nil	*global_alloc@.str[0][*]	*global_alloc@.str[0]
-nil	*global_alloc@_ZSt4cout[*]	*global_alloc@_ZSt4cout

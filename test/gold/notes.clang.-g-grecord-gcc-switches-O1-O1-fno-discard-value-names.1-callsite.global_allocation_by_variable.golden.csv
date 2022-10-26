@@ -12,7 +12,6 @@
 <notes.c>:@.str.19	*global_alloc@.str.19
 <notes.c>:@.str.2	*global_alloc@.str.2
 <notes.c>:@.str.20	*global_alloc@.str.20
-<notes.c>:@.str.22	*global_alloc@.str.22
 <notes.c>:@.str.23	*global_alloc@.str.23
 <notes.c>:@.str.3	*global_alloc@.str.3
 <notes.c>:@.str.4	*global_alloc@.str.4
@@ -24,7 +23,5 @@
 <notes.c>:@TOO_FEW_ARGS	*global_alloc@TOO_FEW_ARGS
 <notes.c>:@__PRETTY_FUNCTION__.handle	*global_alloc@__PRETTY_FUNCTION__.handle
 <notes.c>:@__PRETTY_FUNCTION__.handle_loop	*global_alloc@__PRETTY_FUNCTION__.handle_loop
-<notes.c>:@__PRETTY_FUNCTION__.hex_str	*global_alloc@__PRETTY_FUNCTION__.hex_str
-<notes.c>:@__PRETTY_FUNCTION__.parse	*global_alloc@__PRETTY_FUNCTION__.parse
 <notes.c>:@hex_str.hex_digits	*global_alloc@hex_str.hex_digits
 <notes.c>:@stderr	*global_alloc@stderr

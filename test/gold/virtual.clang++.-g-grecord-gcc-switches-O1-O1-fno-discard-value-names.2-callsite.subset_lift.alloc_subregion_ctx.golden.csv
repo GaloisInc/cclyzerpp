@@ -57,11 +57,6 @@ nil	*global_alloc@_ZTV5Llama[0].?/0	*global_alloc@_ZTV5Llama[0]
 nil	*global_alloc@_ZTV5Llama[0].?/0[0]	*global_alloc@_ZTV5Llama[0].?/0
 nil	*global_alloc@_ZTV5Llama[0].?/0[1]	*global_alloc@_ZTV5Llama[0].?/0
 nil	*global_alloc@_ZTV5Llama[0].?/0[2]	*global_alloc@_ZTV5Llama[0].?/0
-nil	*global_alloc@_ZTV6Animal[0]	*global_alloc@_ZTV6Animal
-nil	*global_alloc@_ZTV6Animal[0].?/0	*global_alloc@_ZTV6Animal[0]
-nil	*global_alloc@_ZTV6Animal[0].?/0[0]	*global_alloc@_ZTV6Animal[0].?/0
-nil	*global_alloc@_ZTV6Animal[0].?/0[1]	*global_alloc@_ZTV6Animal[0].?/0
-nil	*global_alloc@_ZTV6Animal[0].?/0[2]	*global_alloc@_ZTV6Animal[0].?/0
 nil	*global_alloc@_ZTV6Poodle[0]	*global_alloc@_ZTV6Poodle
 nil	*global_alloc@_ZTV6Poodle[0].?/0	*global_alloc@_ZTV6Poodle[0]
 nil	*global_alloc@_ZTV6Poodle[0].?/0[0]	*global_alloc@_ZTV6Poodle[0].?/0

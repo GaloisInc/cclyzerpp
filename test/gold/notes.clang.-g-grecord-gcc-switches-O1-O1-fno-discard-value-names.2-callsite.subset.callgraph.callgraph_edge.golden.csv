@@ -3,32 +3,44 @@
 [<<main-context>>, nil]	<notes.c>:printf	[<<main-context>>, nil]	<notes.c>:main:26
 [<notes.c>:accept_loop:1, nil]	<notes.c>:accept	nil	<notes.c>:accept_loop:1
 [<notes.c>:accept_loop:11, nil]	<notes.c>:accept	nil	<notes.c>:accept_loop:11
-[<notes.c>:cmd_read:11, nil]	<notes.c>:notes_strdup	nil	<notes.c>:cmd_read:11
-[<notes.c>:cmd_read:11, nil]	<notes.c>:strdup	[<notes.c>:cmd_read:11, nil]	<notes.c>:notes_strdup:1
-[<notes.c>:cmd_read:14, nil]	<notes.c>:llvm.lifetime.start.p0i8	nil	<notes.c>:cmd_read:14
-[<notes.c>:cmd_read:17, nil]	<notes.c>:fclose	nil	<notes.c>:cmd_read:17
-[<notes.c>:cmd_read:18, nil]	<notes.c>:notes_strdup	nil	<notes.c>:cmd_read:18
-[<notes.c>:cmd_read:18, nil]	<notes.c>:strdup	[<notes.c>:cmd_read:18, nil]	<notes.c>:notes_strdup:1
-[<notes.c>:cmd_read:19, nil]	<notes.c>:llvm.lifetime.end.p0i8	nil	<notes.c>:cmd_read:19
-[<notes.c>:cmd_read:5, nil]	<notes.c>:notes_strdup	nil	<notes.c>:cmd_read:5
-[<notes.c>:cmd_read:5, nil]	<notes.c>:strdup	[<notes.c>:cmd_read:5, nil]	<notes.c>:notes_strdup:1
-[<notes.c>:cmd_read:7, nil]	<notes.c>:fopen	nil	<notes.c>:cmd_read:7
-[<notes.c>:cmd_write:13, nil]	<notes.c>:fopen	nil	<notes.c>:cmd_write:13
-[<notes.c>:cmd_write:17, nil]	<notes.c>:free	nil	<notes.c>:cmd_write:17
-[<notes.c>:cmd_write:20, nil]	<notes.c>:fclose	nil	<notes.c>:cmd_write:20
-[<notes.c>:cmd_write:4, nil]	<notes.c>:notes_strdup	nil	<notes.c>:cmd_write:4
-[<notes.c>:cmd_write:4, nil]	<notes.c>:strdup	[<notes.c>:cmd_write:4, nil]	<notes.c>:notes_strdup:1
-[<notes.c>:cmd_write:6, nil]	<notes.c>:strlen	nil	<notes.c>:cmd_write:6
-[<notes.c>:cmd_write:9, nil]	<notes.c>:notes_strdup	nil	<notes.c>:cmd_write:9
-[<notes.c>:cmd_write:9, nil]	<notes.c>:strdup	[<notes.c>:cmd_write:9, nil]	<notes.c>:notes_strdup:1
-[<notes.c>:handle:25, nil]	<notes.c>:notes_strdup	nil	<notes.c>:handle:25
-[<notes.c>:handle:25, nil]	<notes.c>:strdup	[<notes.c>:handle:25, nil]	<notes.c>:notes_strdup:1
-[<notes.c>:handle:3, nil]	<notes.c>:__assert_fail	nil	<notes.c>:handle:3
-[<notes.c>:handle:31, nil]	<notes.c>:free	nil	<notes.c>:handle:31
-[<notes.c>:handle:9, nil]	<notes.c>:notes_strdup	nil	<notes.c>:handle:9
-[<notes.c>:handle:9, nil]	<notes.c>:strdup	[<notes.c>:handle:9, nil]	<notes.c>:notes_strdup:1
+[<notes.c>:handle:103, nil]	<notes.c>:llvm.lifetime.start.p0i8	nil	<notes.c>:handle:103
+[<notes.c>:handle:105, nil]	<notes.c>:fopen	nil	<notes.c>:handle:105
+[<notes.c>:handle:122, nil]	<notes.c>:fclose	nil	<notes.c>:handle:122
+[<notes.c>:handle:124, nil]	<notes.c>:fclose	nil	<notes.c>:handle:124
+[<notes.c>:handle:128, nil]	<notes.c>:malloc	nil	<notes.c>:handle:128
+[<notes.c>:handle:162, nil]	<notes.c>:llvm.lifetime.end.p0i8	nil	<notes.c>:handle:162
+[<notes.c>:handle:164, nil]	<notes.c>:fopen	nil	<notes.c>:handle:164
+[<notes.c>:handle:168, nil]	<notes.c>:free	nil	<notes.c>:handle:168
+[<notes.c>:handle:171, nil]	<notes.c>:fclose	nil	<notes.c>:handle:171
+[<notes.c>:handle:180, nil]	<notes.c>:strdup	nil	<notes.c>:handle:180
+[<notes.c>:handle:185, nil]	<notes.c>:fwrite	nil	<notes.c>:handle:185
+[<notes.c>:handle:188, nil]	<notes.c>:fopen	nil	<notes.c>:handle:188
+[<notes.c>:handle:193, nil]	<notes.c>:strdup	nil	<notes.c>:handle:193
+[<notes.c>:handle:198, nil]	<notes.c>:fwrite	nil	<notes.c>:handle:198
+[<notes.c>:handle:202, nil]	<notes.c>:llvm.lifetime.start.p0i8	nil	<notes.c>:handle:202
+[<notes.c>:handle:205, nil]	<notes.c>:fclose	nil	<notes.c>:handle:205
+[<notes.c>:handle:207, nil]	<notes.c>:strdup	nil	<notes.c>:handle:207
+[<notes.c>:handle:212, nil]	<notes.c>:fwrite	nil	<notes.c>:handle:212
+[<notes.c>:handle:215, nil]	<notes.c>:llvm.lifetime.end.p0i8	nil	<notes.c>:handle:215
+[<notes.c>:handle:218, nil]	<notes.c>:strdup	nil	<notes.c>:handle:218
+[<notes.c>:handle:22, nil]	<notes.c>:malloc	nil	<notes.c>:handle:22
+[<notes.c>:handle:223, nil]	<notes.c>:fwrite	nil	<notes.c>:handle:223
+[<notes.c>:handle:229, nil]	<notes.c>:free	nil	<notes.c>:handle:229
+[<notes.c>:handle:27, nil]	<notes.c>:fwrite	nil	<notes.c>:handle:27
+[<notes.c>:handle:38, nil]	<notes.c>:strcmp	nil	<notes.c>:handle:38
+[<notes.c>:handle:44, nil]	<notes.c>:strcmp	nil	<notes.c>:handle:44
+[<notes.c>:handle:5, nil]	<notes.c>:__assert_fail	nil	<notes.c>:handle:5
+[<notes.c>:handle:50, nil]	<notes.c>:strcmp	nil	<notes.c>:handle:50
+[<notes.c>:handle:56, nil]	<notes.c>:free	nil	<notes.c>:handle:56
+[<notes.c>:handle:63, nil]	<notes.c>:strdup	nil	<notes.c>:handle:63
+[<notes.c>:handle:68, nil]	<notes.c>:fwrite	nil	<notes.c>:handle:68
+[<notes.c>:handle:82, nil]	<notes.c>:strdup	nil	<notes.c>:handle:82
+[<notes.c>:handle:87, nil]	<notes.c>:fwrite	nil	<notes.c>:handle:87
+[<notes.c>:handle:90, nil]	<notes.c>:strlen	nil	<notes.c>:handle:90
+[<notes.c>:handle:94, nil]	<notes.c>:strdup	nil	<notes.c>:handle:94
+[<notes.c>:handle:99, nil]	<notes.c>:fwrite	nil	<notes.c>:handle:99
 [<notes.c>:handle_loop:10, nil]	<notes.c>:__assert_fail	nil	<notes.c>:handle_loop:10
-[<notes.c>:handle_loop:2, nil]	<notes.c>:send	nil	<notes.c>:handle_loop:2
+[<notes.c>:handle_loop:3, nil]	<notes.c>:send	nil	<notes.c>:handle_loop:3
 [<notes.c>:handle_loop:30, nil]	<notes.c>:strlen	nil	<notes.c>:handle_loop:30
 [<notes.c>:handle_loop:31, nil]	<notes.c>:send	nil	<notes.c>:handle_loop:31
 [<notes.c>:handle_loop:32, nil]	<notes.c>:send	nil	<notes.c>:handle_loop:32
@@ -41,123 +53,98 @@
 [<notes.c>:handle_loop:43, nil]	<notes.c>:llvm.lifetime.end.p0i8	nil	<notes.c>:handle_loop:43
 [<notes.c>:handle_loop:45, nil]	<notes.c>:llvm.lifetime.end.p0i8	nil	<notes.c>:handle_loop:45
 [<notes.c>:handle_loop:6, nil]	<notes.c>:recv	nil	<notes.c>:handle_loop:6
-[<notes.c>:hex_str:4, nil]	<notes.c>:__assert_fail	nil	<notes.c>:hex_str:4
-[<notes.c>:hex_str:7, nil]	<notes.c>:malloc	nil	<notes.c>:hex_str:7
-[<notes.c>:key:2, nil]	<notes.c>:llvm.lifetime.start.p0i8	nil	<notes.c>:key:2
-[<notes.c>:key:21, nil]	<notes.c>:fclose	nil	<notes.c>:key:21
-[<notes.c>:key:23, nil]	<notes.c>:fclose	nil	<notes.c>:key:23
-[<notes.c>:key:27, nil]	<notes.c>:llvm.lifetime.end.p0i8	nil	<notes.c>:key:27
-[<notes.c>:key:4, nil]	<notes.c>:fopen	nil	<notes.c>:key:4
 [<notes.c>:main:2, [<<main-context>>, nil]]	<notes.c>:llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<notes.c>:main:2
 [<notes.c>:main:23, [<<main-context>>, nil]]	<notes.c>:puts	[<<main-context>>, nil]	<notes.c>:main:23
 [<notes.c>:main:30, [<<main-context>>, nil]]	<notes.c>:puts	[<<main-context>>, nil]	<notes.c>:main:30
 [<notes.c>:main:37, [<<main-context>>, nil]]	<notes.c>:llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<notes.c>:main:37
 [<notes.c>:main:8, [<<main-context>>, nil]]	<notes.c>:puts	[<<main-context>>, nil]	<notes.c>:main:8
-[<notes.c>:notes_malloc:1, nil]	<notes.c>:malloc	nil	<notes.c>:notes_malloc:1
-[<notes.c>:parse:18, nil]	<notes.c>:strcmp	nil	<notes.c>:parse:18
-[<notes.c>:parse:24, nil]	<notes.c>:strcmp	nil	<notes.c>:parse:24
-[<notes.c>:parse:3, nil]	<notes.c>:__assert_fail	nil	<notes.c>:parse:3
-[<notes.c>:parse:30, nil]	<notes.c>:strcmp	nil	<notes.c>:parse:30
-[<notes.c>:parse:37, nil]	<notes.c>:free	nil	<notes.c>:parse:37
 nil	<notes.c>:accept_loop	[<<main-context>>, nil]	<notes.c>:main:34
 nil	<notes.c>:close	[<<main-context>>, nil]	<notes.c>:main:22
 nil	<notes.c>:close	[<<main-context>>, nil]	<notes.c>:main:31
 nil	<notes.c>:close	[<<main-context>>, nil]	<notes.c>:main:36
 nil	<notes.c>:close	nil	<notes.c>:accept_loop:15
 nil	<notes.c>:close	nil	<notes.c>:accept_loop:9
-nil	<notes.c>:cmd_read	nil	<notes.c>:handle:22
-nil	<notes.c>:cmd_write	nil	<notes.c>:handle:17
 nil	<notes.c>:exit	[<<main-context>>, nil]	<notes.c>:main:24
 nil	<notes.c>:exit	[<<main-context>>, nil]	<notes.c>:main:32
 nil	<notes.c>:exit	[<<main-context>>, nil]	<notes.c>:main:9
-nil	<notes.c>:exit	nil	<notes.c>:oom:2
-nil	<notes.c>:fgets	nil	<notes.c>:cmd_read:16
-nil	<notes.c>:fprintf	nil	<notes.c>:cmd_write:19
-nil	<notes.c>:fread	nil	<notes.c>:key:16
-nil	<notes.c>:fwrite	nil	<notes.c>:oom:1
+nil	<notes.c>:exit	nil	<notes.c>:handle:100
+nil	<notes.c>:exit	nil	<notes.c>:handle:186
+nil	<notes.c>:exit	nil	<notes.c>:handle:199
+nil	<notes.c>:exit	nil	<notes.c>:handle:213
+nil	<notes.c>:exit	nil	<notes.c>:handle:224
+nil	<notes.c>:exit	nil	<notes.c>:handle:28
+nil	<notes.c>:exit	nil	<notes.c>:handle:69
+nil	<notes.c>:exit	nil	<notes.c>:handle:88
+nil	<notes.c>:fgets	nil	<notes.c>:handle:204
+nil	<notes.c>:fprintf	nil	<notes.c>:handle:170
+nil	<notes.c>:fread	nil	<notes.c>:handle:117
 nil	<notes.c>:handle	nil	<notes.c>:handle_loop:26
 nil	<notes.c>:handle_loop	nil	<notes.c>:accept_loop:6
-nil	<notes.c>:hex_str	nil	<notes.c>:key:24
-nil	<notes.c>:key	nil	<notes.c>:cmd_write:11
 nil	<notes.c>:listen	[<<main-context>>, nil]	<notes.c>:main:27
 nil	<notes.c>:llvm.dbg.declare	[<<main-context>>, nil]	<notes.c>:main:3
-nil	<notes.c>:llvm.dbg.declare	nil	<notes.c>:cmd_read:15
+nil	<notes.c>:llvm.dbg.declare	nil	<notes.c>:handle:104
+nil	<notes.c>:llvm.dbg.declare	nil	<notes.c>:handle:203
 nil	<notes.c>:llvm.dbg.declare	nil	<notes.c>:handle_loop:38
 nil	<notes.c>:llvm.dbg.declare	nil	<notes.c>:handle_loop:5
-nil	<notes.c>:llvm.dbg.declare	nil	<notes.c>:key:3
 nil	<notes.c>:llvm.dbg.value	[<<main-context>>, nil]	<notes.c>:main:35
 nil	<notes.c>:llvm.dbg.value	[<<main-context>>, nil]	<notes.c>:main:5
-nil	<notes.c>:llvm.dbg.value	[<notes.c>:cmd_read:11, nil]	<notes.c>:notes_strdup:0
-nil	<notes.c>:llvm.dbg.value	[<notes.c>:cmd_read:11, nil]	<notes.c>:notes_strdup:2
-nil	<notes.c>:llvm.dbg.value	[<notes.c>:cmd_read:18, nil]	<notes.c>:notes_strdup:0
-nil	<notes.c>:llvm.dbg.value	[<notes.c>:cmd_read:18, nil]	<notes.c>:notes_strdup:2
-nil	<notes.c>:llvm.dbg.value	[<notes.c>:cmd_read:5, nil]	<notes.c>:notes_strdup:0
-nil	<notes.c>:llvm.dbg.value	[<notes.c>:cmd_read:5, nil]	<notes.c>:notes_strdup:2
-nil	<notes.c>:llvm.dbg.value	[<notes.c>:cmd_write:4, nil]	<notes.c>:notes_strdup:0
-nil	<notes.c>:llvm.dbg.value	[<notes.c>:cmd_write:4, nil]	<notes.c>:notes_strdup:2
-nil	<notes.c>:llvm.dbg.value	[<notes.c>:cmd_write:9, nil]	<notes.c>:notes_strdup:0
-nil	<notes.c>:llvm.dbg.value	[<notes.c>:cmd_write:9, nil]	<notes.c>:notes_strdup:2
-nil	<notes.c>:llvm.dbg.value	[<notes.c>:handle:25, nil]	<notes.c>:notes_strdup:0
-nil	<notes.c>:llvm.dbg.value	[<notes.c>:handle:25, nil]	<notes.c>:notes_strdup:2
-nil	<notes.c>:llvm.dbg.value	[<notes.c>:handle:9, nil]	<notes.c>:notes_strdup:0
-nil	<notes.c>:llvm.dbg.value	[<notes.c>:handle:9, nil]	<notes.c>:notes_strdup:2
 nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:accept_loop:0
 nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:accept_loop:12
 nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:accept_loop:2
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:cmd_read:1
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:cmd_read:8
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:cmd_write:0
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:cmd_write:12
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:cmd_write:14
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:0
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:11
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:10
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:106
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:110
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:111
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:115
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:118
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:120
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:125
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:126
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:127
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:129
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:130
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:131
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:135
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:136
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:15
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:153
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:155
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:163
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:165
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:175
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:179
 nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:18
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:181
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:189
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:19
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:192
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:194
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:2
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:20
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:206
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:208
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:21
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:217
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:219
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:227
 nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:23
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:26
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:29
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:6
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:31
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:37
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:59
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:62
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:64
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:7
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:71
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:77
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:8
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:81
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:83
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:93
+nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle:95
 nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle_loop:1
 nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle_loop:27
 nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle_loop:40
 nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:handle_loop:7
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:hex_str:0
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:hex_str:1
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:hex_str:10
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:hex_str:17
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:hex_str:18
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:hex_str:35
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:hex_str:37
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:hex_str:6
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:hex_str:8
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:hex_str:9
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:key:10
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:key:14
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:key:17
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:key:19
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:key:5
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:key:9
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:new_cmd:0
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:new_cmd:1
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:new_cmd:4
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:notes_malloc:0
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:notes_malloc:2
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:parse:0
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:parse:12
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:parse:15
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:parse:17
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:parse:5
-nil	<notes.c>:llvm.dbg.value	nil	<notes.c>:parse:7
-nil	<notes.c>:new_cmd	nil	<notes.c>:parse:16
-nil	<notes.c>:notes_malloc	nil	<notes.c>:new_cmd:2
-nil	<notes.c>:oom	[<notes.c>:cmd_read:11, nil]	<notes.c>:notes_strdup:5
-nil	<notes.c>:oom	[<notes.c>:cmd_read:18, nil]	<notes.c>:notes_strdup:5
-nil	<notes.c>:oom	[<notes.c>:cmd_read:5, nil]	<notes.c>:notes_strdup:5
-nil	<notes.c>:oom	[<notes.c>:cmd_write:4, nil]	<notes.c>:notes_strdup:5
-nil	<notes.c>:oom	[<notes.c>:cmd_write:9, nil]	<notes.c>:notes_strdup:5
-nil	<notes.c>:oom	[<notes.c>:handle:25, nil]	<notes.c>:notes_strdup:5
-nil	<notes.c>:oom	[<notes.c>:handle:9, nil]	<notes.c>:notes_strdup:5
-nil	<notes.c>:oom	nil	<notes.c>:notes_malloc:5
-nil	<notes.c>:parse	nil	<notes.c>:handle:5
 nil	<notes.c>:shutdown	nil	<notes.c>:accept_loop:7
 nil	<notes.c>:socket	[<<main-context>>, nil]	<notes.c>:main:4
-nil	<notes.c>:strchr	nil	<notes.c>:parse:6
+nil	<notes.c>:strchr	nil	<notes.c>:handle:9

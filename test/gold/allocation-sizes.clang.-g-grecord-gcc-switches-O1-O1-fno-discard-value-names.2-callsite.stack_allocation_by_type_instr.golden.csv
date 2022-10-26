@@ -1,1 +1,1 @@
-i8	<allocation-sizes.c>:main:17	*typed_stack_alloc@main[i8* %vla]
+i8	<allocation-sizes.c>:main:19	*typed_stack_alloc@main[i8* %vla]

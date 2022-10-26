@@ -1,111 +1,111 @@
 [<<main-context>>, nil]	*heap_alloc@main[i8* %call2]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%10
 [<<main-context>>, nil]	*heap_alloc@main[i8* %call2]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%7
 [<<main-context>>, nil]	*heap_alloc@main[i8* %call2]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%call2
-[<<main-context>>, nil]	*heap_alloc@main[i8* %call2]	[<allocation-sizes.c>:main:32, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*heap_alloc@main[i8* %call2]	[<allocation-sizes.c>:main:32, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call2]	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call2]	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%buf
 [<<main-context>>, nil]	*heap_alloc@main[i8* %call2][0]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%10
 [<<main-context>>, nil]	*heap_alloc@main[i8* %call2][0]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%7
-[<<main-context>>, nil]	*heap_alloc@main[i8* %call2][0]	[<allocation-sizes.c>:main:32, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*heap_alloc@main[i8* %call2][0]	[<allocation-sizes.c>:main:32, nil]	<allocation-sizes.c>:set:%buf
-[<<main-context>>, nil]	*heap_alloc@main[i8* %call2][4]	[<allocation-sizes.c>:main:32, nil]	<allocation-sizes.c>:set:%arrayidx
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call2][0]	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call2][0]	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call2][4]	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%arrayidx
 [<<main-context>>, nil]	*heap_alloc@main[i8* %call3]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%4
 [<<main-context>>, nil]	*heap_alloc@main[i8* %call3]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%call3
-[<<main-context>>, nil]	*heap_alloc@main[i8* %call3]	[<allocation-sizes.c>:main:38, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*heap_alloc@main[i8* %call3]	[<allocation-sizes.c>:main:38, nil]	<allocation-sizes.c>:set:%buf
-[<<main-context>>, nil]	*heap_alloc@main[i8* %call3][4]	[<allocation-sizes.c>:main:38, nil]	<allocation-sizes.c>:set:%arrayidx
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call3]	[<allocation-sizes.c>:main:40, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call3]	[<allocation-sizes.c>:main:40, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call3][4]	[<allocation-sizes.c>:main:40, nil]	<allocation-sizes.c>:set:%arrayidx
 [<<main-context>>, nil]	*heap_alloc@main[i8* %call4]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%5
 [<<main-context>>, nil]	*heap_alloc@main[i8* %call4]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%call4
-[<<main-context>>, nil]	*heap_alloc@main[i8* %call4]	[<allocation-sizes.c>:main:39, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*heap_alloc@main[i8* %call4]	[<allocation-sizes.c>:main:39, nil]	<allocation-sizes.c>:set:%buf
-[<<main-context>>, nil]	*heap_alloc@main[i8* %call4][4]	[<allocation-sizes.c>:main:39, nil]	<allocation-sizes.c>:set:%arrayidx
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call4]	[<allocation-sizes.c>:main:41, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call4]	[<allocation-sizes.c>:main:41, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call4][4]	[<allocation-sizes.c>:main:41, nil]	<allocation-sizes.c>:set:%arrayidx
 [<<main-context>>, nil]	*heap_alloc@main[i8* %call7]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%6
 [<<main-context>>, nil]	*heap_alloc@main[i8* %call7]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%call7
-[<<main-context>>, nil]	*heap_alloc@main[i8* %call7]	[<allocation-sizes.c>:main:40, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*heap_alloc@main[i8* %call7]	[<allocation-sizes.c>:main:40, nil]	<allocation-sizes.c>:set:%buf
-[<<main-context>>, nil]	*heap_alloc@main[i8* %call7][4]	[<allocation-sizes.c>:main:40, nil]	<allocation-sizes.c>:set:%arrayidx
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call7]	[<allocation-sizes.c>:main:42, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call7]	[<allocation-sizes.c>:main:42, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call7][4]	[<allocation-sizes.c>:main:42, nil]	<allocation-sizes.c>:set:%arrayidx
 [<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%1
 [<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%arraydecay8
 [<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%large_const_size_stack
-[<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack]	[<allocation-sizes.c>:main:36, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack]	[<allocation-sizes.c>:main:36, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack]	[<allocation-sizes.c>:main:38, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack]	[<allocation-sizes.c>:main:38, nil]	<allocation-sizes.c>:set:%buf
 [<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack][0]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%arraydecay8
-[<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack][0]	[<allocation-sizes.c>:main:36, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack][0]	[<allocation-sizes.c>:main:36, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack][0]	[<allocation-sizes.c>:main:38, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack][0]	[<allocation-sizes.c>:main:38, nil]	<allocation-sizes.c>:set:%buf
 [<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack][0][*]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%arraydecay8
-[<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack][0][*]	[<allocation-sizes.c>:main:36, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack][0][*]	[<allocation-sizes.c>:main:36, nil]	<allocation-sizes.c>:set:%arrayidx
-[<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack][0][*]	[<allocation-sizes.c>:main:36, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack][0][*]	[<allocation-sizes.c>:main:38, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack][0][*]	[<allocation-sizes.c>:main:38, nil]	<allocation-sizes.c>:set:%arrayidx
+[<<main-context>>, nil]	*stack_alloc@main[[128 x i32]* %large_const_size_stack][0][*]	[<allocation-sizes.c>:main:38, nil]	<allocation-sizes.c>:set:%buf
 [<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%0
 [<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%arraydecay
 [<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%small_const_size_stack
-[<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack]	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack]	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack]	[<allocation-sizes.c>:main:36, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack]	[<allocation-sizes.c>:main:36, nil]	<allocation-sizes.c>:set:%buf
 [<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack][0]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%arraydecay
-[<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack][0]	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack][0]	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack][0]	[<allocation-sizes.c>:main:36, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack][0]	[<allocation-sizes.c>:main:36, nil]	<allocation-sizes.c>:set:%buf
 [<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack][0][*]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%arraydecay
-[<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack][0][*]	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack][0][*]	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%arrayidx
-[<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack][0][*]	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack][0][*]	[<allocation-sizes.c>:main:36, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack][0][*]	[<allocation-sizes.c>:main:36, nil]	<allocation-sizes.c>:set:%arrayidx
+[<<main-context>>, nil]	*stack_alloc@main[[8 x i32]* %small_const_size_stack][0][*]	[<allocation-sizes.c>:main:36, nil]	<allocation-sizes.c>:set:%buf
 [<<main-context>>, nil]	*stack_alloc@main[i32* %vla]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%vla
-[<<main-context>>, nil]	*stack_alloc@main[i32* %vla]	[<allocation-sizes.c>:main:37, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*stack_alloc@main[i32* %vla]	[<allocation-sizes.c>:main:37, nil]	<allocation-sizes.c>:set:%buf
-[<<main-context>>, nil]	*stack_alloc@main[i32* %vla][1]	[<allocation-sizes.c>:main:37, nil]	<allocation-sizes.c>:set:%arrayidx
+[<<main-context>>, nil]	*stack_alloc@main[i32* %vla]	[<allocation-sizes.c>:main:39, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*stack_alloc@main[i32* %vla]	[<allocation-sizes.c>:main:39, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*stack_alloc@main[i32* %vla][1]	[<allocation-sizes.c>:main:39, nil]	<allocation-sizes.c>:set:%arrayidx
 [<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call3]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%4
 [<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call3]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%call3
-[<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call3]	[<allocation-sizes.c>:main:38, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call3]	[<allocation-sizes.c>:main:38, nil]	<allocation-sizes.c>:set:%buf
-[<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call3][1]	[<allocation-sizes.c>:main:38, nil]	<allocation-sizes.c>:set:%arrayidx
+[<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call3]	[<allocation-sizes.c>:main:40, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call3]	[<allocation-sizes.c>:main:40, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call3][1]	[<allocation-sizes.c>:main:40, nil]	<allocation-sizes.c>:set:%arrayidx
 [<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call4]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%5
 [<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call4]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%call4
-[<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call4]	[<allocation-sizes.c>:main:39, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call4]	[<allocation-sizes.c>:main:39, nil]	<allocation-sizes.c>:set:%buf
-[<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call4][1]	[<allocation-sizes.c>:main:39, nil]	<allocation-sizes.c>:set:%arrayidx
+[<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call4]	[<allocation-sizes.c>:main:41, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call4]	[<allocation-sizes.c>:main:41, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call4][1]	[<allocation-sizes.c>:main:41, nil]	<allocation-sizes.c>:set:%arrayidx
 [<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call7]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%6
 [<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call7]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%call7
-[<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call7]	[<allocation-sizes.c>:main:40, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call7]	[<allocation-sizes.c>:main:40, nil]	<allocation-sizes.c>:set:%buf
-[<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call7][1]	[<allocation-sizes.c>:main:40, nil]	<allocation-sizes.c>:set:%arrayidx
+[<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call7]	[<allocation-sizes.c>:main:42, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call7]	[<allocation-sizes.c>:main:42, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*typed_heap_alloc@main[i32* %call7][1]	[<allocation-sizes.c>:main:42, nil]	<allocation-sizes.c>:set:%arrayidx
 [<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call2]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%10
 [<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call2]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%7
 [<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call2]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%call2
-[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call2]	[<allocation-sizes.c>:main:32, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call2]	[<allocation-sizes.c>:main:32, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call2]	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call2]	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%buf
 [<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call2][0]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%10
 [<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call2][0]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%7
-[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call2][0]	[<allocation-sizes.c>:main:32, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call2][0]	[<allocation-sizes.c>:main:32, nil]	<allocation-sizes.c>:set:%buf
-[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call2][4]	[<allocation-sizes.c>:main:32, nil]	<allocation-sizes.c>:set:%arrayidx
+[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call2][0]	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call2][0]	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call2][4]	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%arrayidx
 [<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call3]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%4
 [<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call3]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%call3
-[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call3]	[<allocation-sizes.c>:main:38, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call3]	[<allocation-sizes.c>:main:38, nil]	<allocation-sizes.c>:set:%buf
-[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call3][4]	[<allocation-sizes.c>:main:38, nil]	<allocation-sizes.c>:set:%arrayidx
+[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call3]	[<allocation-sizes.c>:main:40, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call3]	[<allocation-sizes.c>:main:40, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call3][4]	[<allocation-sizes.c>:main:40, nil]	<allocation-sizes.c>:set:%arrayidx
 [<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call4]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%5
 [<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call4]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%call4
-[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call4]	[<allocation-sizes.c>:main:39, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call4]	[<allocation-sizes.c>:main:39, nil]	<allocation-sizes.c>:set:%buf
-[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call4][4]	[<allocation-sizes.c>:main:39, nil]	<allocation-sizes.c>:set:%arrayidx
+[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call4]	[<allocation-sizes.c>:main:41, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call4]	[<allocation-sizes.c>:main:41, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call4][4]	[<allocation-sizes.c>:main:41, nil]	<allocation-sizes.c>:set:%arrayidx
 [<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call7]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%6
 [<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call7]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%call7
-[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call7]	[<allocation-sizes.c>:main:40, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call7]	[<allocation-sizes.c>:main:40, nil]	<allocation-sizes.c>:set:%buf
-[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call7][4]	[<allocation-sizes.c>:main:40, nil]	<allocation-sizes.c>:set:%arrayidx
+[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call7]	[<allocation-sizes.c>:main:42, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call7]	[<allocation-sizes.c>:main:42, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*typed_heap_alloc@main[i8* %call7][4]	[<allocation-sizes.c>:main:42, nil]	<allocation-sizes.c>:set:%arrayidx
 [<<main-context>>, nil]	*typed_stack_alloc@main[i8* %vla]	[<<main-context>>, nil]	<allocation-sizes.c>:main:%vla
-[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %vla]	[<allocation-sizes.c>:main:37, nil]	<allocation-sizes.c>:set:%0
-[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %vla]	[<allocation-sizes.c>:main:37, nil]	<allocation-sizes.c>:set:%buf
-[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %vla][4]	[<allocation-sizes.c>:main:37, nil]	<allocation-sizes.c>:set:%arrayidx
-nil	*global_alloc@large_const_size_global[0]	[<allocation-sizes.c>:main:30, nil]	<allocation-sizes.c>:set:%0
-nil	*global_alloc@large_const_size_global[0]	[<allocation-sizes.c>:main:30, nil]	<allocation-sizes.c>:set:%buf
-nil	*global_alloc@large_const_size_global[0][*]	[<allocation-sizes.c>:main:30, nil]	<allocation-sizes.c>:set:%0
-nil	*global_alloc@large_const_size_global[0][*]	[<allocation-sizes.c>:main:30, nil]	<allocation-sizes.c>:set:%arrayidx
-nil	*global_alloc@large_const_size_global[0][*]	[<allocation-sizes.c>:main:30, nil]	<allocation-sizes.c>:set:%buf
-nil	*global_alloc@small_const_size_global[0]	[<allocation-sizes.c>:main:29, nil]	<allocation-sizes.c>:set:%0
-nil	*global_alloc@small_const_size_global[0]	[<allocation-sizes.c>:main:29, nil]	<allocation-sizes.c>:set:%buf
-nil	*global_alloc@small_const_size_global[0][*]	[<allocation-sizes.c>:main:29, nil]	<allocation-sizes.c>:set:%0
-nil	*global_alloc@small_const_size_global[0][*]	[<allocation-sizes.c>:main:29, nil]	<allocation-sizes.c>:set:%arrayidx
-nil	*global_alloc@small_const_size_global[0][*]	[<allocation-sizes.c>:main:29, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %vla]	[<allocation-sizes.c>:main:39, nil]	<allocation-sizes.c>:set:%0
+[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %vla]	[<allocation-sizes.c>:main:39, nil]	<allocation-sizes.c>:set:%buf
+[<<main-context>>, nil]	*typed_stack_alloc@main[i8* %vla][4]	[<allocation-sizes.c>:main:39, nil]	<allocation-sizes.c>:set:%arrayidx
+nil	*global_alloc@large_const_size_global[0]	[<allocation-sizes.c>:main:32, nil]	<allocation-sizes.c>:set:%0
+nil	*global_alloc@large_const_size_global[0]	[<allocation-sizes.c>:main:32, nil]	<allocation-sizes.c>:set:%buf
+nil	*global_alloc@large_const_size_global[0][*]	[<allocation-sizes.c>:main:32, nil]	<allocation-sizes.c>:set:%0
+nil	*global_alloc@large_const_size_global[0][*]	[<allocation-sizes.c>:main:32, nil]	<allocation-sizes.c>:set:%arrayidx
+nil	*global_alloc@large_const_size_global[0][*]	[<allocation-sizes.c>:main:32, nil]	<allocation-sizes.c>:set:%buf
+nil	*global_alloc@small_const_size_global[0]	[<allocation-sizes.c>:main:31, nil]	<allocation-sizes.c>:set:%0
+nil	*global_alloc@small_const_size_global[0]	[<allocation-sizes.c>:main:31, nil]	<allocation-sizes.c>:set:%buf
+nil	*global_alloc@small_const_size_global[0][*]	[<allocation-sizes.c>:main:31, nil]	<allocation-sizes.c>:set:%0
+nil	*global_alloc@small_const_size_global[0][*]	[<allocation-sizes.c>:main:31, nil]	<allocation-sizes.c>:set:%arrayidx
+nil	*global_alloc@small_const_size_global[0][*]	[<allocation-sizes.c>:main:31, nil]	<allocation-sizes.c>:set:%buf
 nil	*null*	[<<main-context>>, nil]	<allocation-sizes.c>:main:%10
 nil	*null*	[<<main-context>>, nil]	<allocation-sizes.c>:main:%7
-nil	*null*	[<allocation-sizes.c>:main:32, nil]	<allocation-sizes.c>:set:%0
-nil	*null*	[<allocation-sizes.c>:main:32, nil]	<allocation-sizes.c>:set:%buf
+nil	*null*	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%0
+nil	*null*	[<allocation-sizes.c>:main:34, nil]	<allocation-sizes.c>:set:%buf

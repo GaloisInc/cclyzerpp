@@ -15,9 +15,9 @@ auto extract_from_array(const llvm::json::Array &json_array, size_t index)
     -> llvm::Optional<std::string> {
   auto val = json_array[index].getAsString();
   if (val.hasValue()) {
-    return llvm::Optional("@" + val.getValue().str());
+    return {"@" + val.getValue().str()};
   }
-  return llvm::Optional<std::string>();
+  return {};
 }
 
 template <typename T, typename... Ts>

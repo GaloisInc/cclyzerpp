@@ -66,11 +66,6 @@
 *global_alloc@.str.20[*][*]	1
 *global_alloc@.str.20[0]	2
 *global_alloc@.str.20[0][*]	1
-*global_alloc@.str.22	11
-*global_alloc@.str.22[*]	11
-*global_alloc@.str.22[*][*]	1
-*global_alloc@.str.22[0]	11
-*global_alloc@.str.22[0][*]	1
 *global_alloc@.str.23	13
 *global_alloc@.str.23[*]	13
 *global_alloc@.str.23[*][*]	1
@@ -133,16 +128,6 @@
 *global_alloc@__PRETTY_FUNCTION__.handle_loop[*][*]	1
 *global_alloc@__PRETTY_FUNCTION__.handle_loop[0]	21
 *global_alloc@__PRETTY_FUNCTION__.handle_loop[0][*]	1
-*global_alloc@__PRETTY_FUNCTION__.hex_str	36
-*global_alloc@__PRETTY_FUNCTION__.hex_str[*]	36
-*global_alloc@__PRETTY_FUNCTION__.hex_str[*][*]	1
-*global_alloc@__PRETTY_FUNCTION__.hex_str[0]	36
-*global_alloc@__PRETTY_FUNCTION__.hex_str[0][*]	1
-*global_alloc@__PRETTY_FUNCTION__.parse	21
-*global_alloc@__PRETTY_FUNCTION__.parse[*]	21
-*global_alloc@__PRETTY_FUNCTION__.parse[*][*]	1
-*global_alloc@__PRETTY_FUNCTION__.parse[0]	21
-*global_alloc@__PRETTY_FUNCTION__.parse[0][*]	1
 *global_alloc@hex_str.hex_digits	17
 *global_alloc@hex_str.hex_digits[*]	17
 *global_alloc@hex_str.hex_digits[*][*]	1
@@ -152,32 +137,32 @@
 *global_alloc@stderr[0]	8
 *global_alloc@stderr[1]	8
 *global_alloc@stderr[8]	8
-*heap_alloc@hex_str[i8* %call]	65
-*heap_alloc@hex_str[i8* %call][*]	1
-*heap_alloc@hex_str[i8* %call][0]	1
-*heap_alloc@hex_str[i8* %call][1]	1
-*heap_alloc@hex_str[i8* %call][64]	1
-*heap_alloc@hex_str[i8* %call][8]	1
-*heap_alloc@notes_malloc[i8* %call]	16
-*heap_alloc@notes_malloc[i8* %call][*]	1
-*heap_alloc@notes_malloc[i8* %call][0]	1
-*heap_alloc@notes_malloc[i8* %call][1]	1
-*heap_alloc@notes_malloc[i8* %call][8]	1
-*stack_alloc@cmd_read[[1024 x i8]* %data]	1024
-*stack_alloc@cmd_read[[1024 x i8]* %data][*]	1024
-*stack_alloc@cmd_read[[1024 x i8]* %data][*][*]	1
-*stack_alloc@cmd_read[[1024 x i8]* %data][0]	1024
-*stack_alloc@cmd_read[[1024 x i8]* %data][0][*]	1
+*heap_alloc@handle[i8* %call.i.i.i23]	65
+*heap_alloc@handle[i8* %call.i.i.i23][*]	1
+*heap_alloc@handle[i8* %call.i.i.i23][0]	1
+*heap_alloc@handle[i8* %call.i.i.i23][1]	1
+*heap_alloc@handle[i8* %call.i.i.i23][64]	1
+*heap_alloc@handle[i8* %call.i.i.i23][8]	1
+*heap_alloc@handle[i8* %call.i.i.i]	16
+*heap_alloc@handle[i8* %call.i.i.i][*]	1
+*heap_alloc@handle[i8* %call.i.i.i][0]	1
+*heap_alloc@handle[i8* %call.i.i.i][1]	1
+*heap_alloc@handle[i8* %call.i.i.i][8]	1
+*stack_alloc@handle[[1024 x i8]* %data.i]	1024
+*stack_alloc@handle[[1024 x i8]* %data.i][*]	1024
+*stack_alloc@handle[[1024 x i8]* %data.i][*][*]	1
+*stack_alloc@handle[[1024 x i8]* %data.i][0]	1024
+*stack_alloc@handle[[1024 x i8]* %data.i][0][*]	1
+*stack_alloc@handle[[32 x i8]* %data.i.i]	32
+*stack_alloc@handle[[32 x i8]* %data.i.i][*]	32
+*stack_alloc@handle[[32 x i8]* %data.i.i][*][*]	1
+*stack_alloc@handle[[32 x i8]* %data.i.i][0]	32
+*stack_alloc@handle[[32 x i8]* %data.i.i][0][*]	1
 *stack_alloc@handle_loop[[1024 x i8]* %req]	1024
 *stack_alloc@handle_loop[[1024 x i8]* %req][*]	1024
 *stack_alloc@handle_loop[[1024 x i8]* %req][*][*]	1
 *stack_alloc@handle_loop[[1024 x i8]* %req][0]	1024
 *stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	1
-*stack_alloc@key[[32 x i8]* %data]	32
-*stack_alloc@key[[32 x i8]* %data][*]	32
-*stack_alloc@key[[32 x i8]* %data][*][*]	1
-*stack_alloc@key[[32 x i8]* %data][0]	32
-*stack_alloc@key[[32 x i8]* %data][0][*]	1
 *stack_alloc@main[%struct.sockaddr_in* %sa]	16
 *stack_alloc@main[%struct.sockaddr_in* %sa][*]	16
 *stack_alloc@main[%struct.sockaddr_in* %sa][*].?/0	2
@@ -193,19 +178,19 @@
 *stack_alloc@main[%struct.sockaddr_in* %sa][0].?/2.?/0	4
 *stack_alloc@main[%struct.sockaddr_in* %sa][0].?/3	8
 *stack_alloc@main[%struct.sockaddr_in* %sa][0].?/3[*]	1
-*typed_heap_alloc@notes_malloc[%struct.cmd* %call]	16
-*typed_heap_alloc@notes_malloc[%struct.cmd* %call][*]	16
-*typed_heap_alloc@notes_malloc[%struct.cmd* %call][*].?/0	4
-*typed_heap_alloc@notes_malloc[%struct.cmd* %call][*].?/1	8
-*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0]	16
-*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/0	4
-*typed_heap_alloc@notes_malloc[%struct.cmd* %call][0].?/1	8
-*typed_heap_alloc@notes_malloc[i32* %call]	16
-*typed_heap_alloc@notes_malloc[i32* %call][*]	4
-*typed_heap_alloc@notes_malloc[i32* %call][0]	4
-*typed_heap_alloc@notes_malloc[i32* %call][2]	4
-*typed_heap_alloc@notes_malloc[i8* %call]	16
-*typed_heap_alloc@notes_malloc[i8* %call][*]	1
-*typed_heap_alloc@notes_malloc[i8* %call][0]	1
-*typed_heap_alloc@notes_malloc[i8* %call][1]	1
-*typed_heap_alloc@notes_malloc[i8* %call][8]	1
+*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i]	16
+*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i][*]	16
+*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i][*].?/0	4
+*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i][*].?/1	8
+*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i][0]	16
+*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i][0].?/0	4
+*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i][0].?/1	8
+*typed_heap_alloc@handle[i32* %call.i.i.i]	16
+*typed_heap_alloc@handle[i32* %call.i.i.i][*]	4
+*typed_heap_alloc@handle[i32* %call.i.i.i][0]	4
+*typed_heap_alloc@handle[i32* %call.i.i.i][2]	4
+*typed_heap_alloc@handle[i8* %call.i.i.i]	16
+*typed_heap_alloc@handle[i8* %call.i.i.i][*]	1
+*typed_heap_alloc@handle[i8* %call.i.i.i][0]	1
+*typed_heap_alloc@handle[i8* %call.i.i.i][1]	1
+*typed_heap_alloc@handle[i8* %call.i.i.i][8]	1

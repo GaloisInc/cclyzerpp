@@ -1,37 +1,3 @@
-[<type-backprop.c>:use_double:5, nil]	*heap_alloc@my_calloc[i8* %call]	*heap_alloc@my_calloc[i8* %call]
-[<type-backprop.c>:use_double:5, nil]	*heap_alloc@my_calloc[i8* %call]	*heap_alloc@my_calloc[i8* %call][0]
-[<type-backprop.c>:use_double:5, nil]	*heap_alloc@my_calloc[i8* %call][0]	*heap_alloc@my_calloc[i8* %call]
-[<type-backprop.c>:use_double:5, nil]	*heap_alloc@my_calloc[i8* %call][0]	*heap_alloc@my_calloc[i8* %call][0]
-[<type-backprop.c>:use_double:5, nil]	*typed_heap_alloc@my_calloc[%struct.double_struct* %call]	*typed_heap_alloc@my_calloc[%struct.double_struct* %call]
-[<type-backprop.c>:use_double:5, nil]	*typed_heap_alloc@my_calloc[%struct.double_struct* %call]	*typed_heap_alloc@my_calloc[%struct.double_struct* %call][0]
-[<type-backprop.c>:use_double:5, nil]	*typed_heap_alloc@my_calloc[%struct.double_struct* %call]	*typed_heap_alloc@my_calloc[%struct.double_struct* %call][0].?/0
-[<type-backprop.c>:use_double:5, nil]	*typed_heap_alloc@my_calloc[%struct.double_struct* %call][0]	*typed_heap_alloc@my_calloc[%struct.double_struct* %call]
-[<type-backprop.c>:use_double:5, nil]	*typed_heap_alloc@my_calloc[%struct.double_struct* %call][0]	*typed_heap_alloc@my_calloc[%struct.double_struct* %call][0]
-[<type-backprop.c>:use_double:5, nil]	*typed_heap_alloc@my_calloc[%struct.double_struct* %call][0]	*typed_heap_alloc@my_calloc[%struct.double_struct* %call][0].?/0
-[<type-backprop.c>:use_double:5, nil]	*typed_heap_alloc@my_calloc[%struct.double_struct* %call][0].?/0	*typed_heap_alloc@my_calloc[%struct.double_struct* %call]
-[<type-backprop.c>:use_double:5, nil]	*typed_heap_alloc@my_calloc[%struct.double_struct* %call][0].?/0	*typed_heap_alloc@my_calloc[%struct.double_struct* %call][0]
-[<type-backprop.c>:use_double:5, nil]	*typed_heap_alloc@my_calloc[%struct.double_struct* %call][0].?/0	*typed_heap_alloc@my_calloc[%struct.double_struct* %call][0].?/0
-[<type-backprop.c>:use_double:5, nil]	*typed_heap_alloc@my_calloc[double** %call]	*typed_heap_alloc@my_calloc[double** %call]
-[<type-backprop.c>:use_double:5, nil]	*typed_heap_alloc@my_calloc[double** %call]	*typed_heap_alloc@my_calloc[double** %call][0]
-[<type-backprop.c>:use_double:5, nil]	*typed_heap_alloc@my_calloc[double** %call][0]	*typed_heap_alloc@my_calloc[double** %call]
-[<type-backprop.c>:use_double:5, nil]	*typed_heap_alloc@my_calloc[double** %call][0]	*typed_heap_alloc@my_calloc[double** %call][0]
-[<type-backprop.c>:use_int:5, nil]	*heap_alloc@my_calloc[i8* %call]	*heap_alloc@my_calloc[i8* %call]
-[<type-backprop.c>:use_int:5, nil]	*heap_alloc@my_calloc[i8* %call]	*heap_alloc@my_calloc[i8* %call][0]
-[<type-backprop.c>:use_int:5, nil]	*heap_alloc@my_calloc[i8* %call][0]	*heap_alloc@my_calloc[i8* %call]
-[<type-backprop.c>:use_int:5, nil]	*heap_alloc@my_calloc[i8* %call][0]	*heap_alloc@my_calloc[i8* %call][0]
-[<type-backprop.c>:use_int:5, nil]	*typed_heap_alloc@my_calloc[%struct.int_struct* %call]	*typed_heap_alloc@my_calloc[%struct.int_struct* %call]
-[<type-backprop.c>:use_int:5, nil]	*typed_heap_alloc@my_calloc[%struct.int_struct* %call]	*typed_heap_alloc@my_calloc[%struct.int_struct* %call][0]
-[<type-backprop.c>:use_int:5, nil]	*typed_heap_alloc@my_calloc[%struct.int_struct* %call]	*typed_heap_alloc@my_calloc[%struct.int_struct* %call][0].?/0
-[<type-backprop.c>:use_int:5, nil]	*typed_heap_alloc@my_calloc[%struct.int_struct* %call][0]	*typed_heap_alloc@my_calloc[%struct.int_struct* %call]
-[<type-backprop.c>:use_int:5, nil]	*typed_heap_alloc@my_calloc[%struct.int_struct* %call][0]	*typed_heap_alloc@my_calloc[%struct.int_struct* %call][0]
-[<type-backprop.c>:use_int:5, nil]	*typed_heap_alloc@my_calloc[%struct.int_struct* %call][0]	*typed_heap_alloc@my_calloc[%struct.int_struct* %call][0].?/0
-[<type-backprop.c>:use_int:5, nil]	*typed_heap_alloc@my_calloc[%struct.int_struct* %call][0].?/0	*typed_heap_alloc@my_calloc[%struct.int_struct* %call]
-[<type-backprop.c>:use_int:5, nil]	*typed_heap_alloc@my_calloc[%struct.int_struct* %call][0].?/0	*typed_heap_alloc@my_calloc[%struct.int_struct* %call][0]
-[<type-backprop.c>:use_int:5, nil]	*typed_heap_alloc@my_calloc[%struct.int_struct* %call][0].?/0	*typed_heap_alloc@my_calloc[%struct.int_struct* %call][0].?/0
-[<type-backprop.c>:use_int:5, nil]	*typed_heap_alloc@my_calloc[i32** %call]	*typed_heap_alloc@my_calloc[i32** %call]
-[<type-backprop.c>:use_int:5, nil]	*typed_heap_alloc@my_calloc[i32** %call]	*typed_heap_alloc@my_calloc[i32** %call][0]
-[<type-backprop.c>:use_int:5, nil]	*typed_heap_alloc@my_calloc[i32** %call][0]	*typed_heap_alloc@my_calloc[i32** %call]
-[<type-backprop.c>:use_int:5, nil]	*typed_heap_alloc@my_calloc[i32** %call][0]	*typed_heap_alloc@my_calloc[i32** %call][0]
 nil	*argv-alloc	*argv-alloc
 nil	*argv-alloc	*argv-alloc[0]
 nil	*argv-alloc[0]	*argv-alloc
@@ -51,24 +17,4 @@ nil	*global_alloc@.str[0]	*global_alloc@.str
 nil	*global_alloc@.str[0]	*global_alloc@.str[0]
 nil	*global_alloc@.str[0][*]	*global_alloc@.str[0][*]
 nil	*global_alloc@llvm.dbg.value	*global_alloc@llvm.dbg.value
-nil	*global_alloc@llvm.lifetime.end.p0i8	*global_alloc@llvm.lifetime.end.p0i8
-nil	*global_alloc@llvm.lifetime.start.p0i8	*global_alloc@llvm.lifetime.start.p0i8
-nil	*global_alloc@malloc	*global_alloc@malloc
-nil	*global_alloc@my_calloc	*global_alloc@my_calloc
-nil	*global_alloc@print_double	*global_alloc@print_double
-nil	*global_alloc@print_int	*global_alloc@print_int
 nil	*global_alloc@printf	*global_alloc@printf
-nil	*global_alloc@use_double	*global_alloc@use_double
-nil	*global_alloc@use_int	*global_alloc@use_int
-nil	*stack_alloc@use_double[double* %x]	*stack_alloc@use_double[double* %x]
-nil	*stack_alloc@use_double[double* %x]	*stack_alloc@use_double[double* %x][0]
-nil	*stack_alloc@use_double[double* %x][0]	*stack_alloc@use_double[double* %x]
-nil	*stack_alloc@use_double[double* %x][0]	*stack_alloc@use_double[double* %x][0]
-nil	*stack_alloc@use_int[i32* %x]	*stack_alloc@use_int[i32* %x]
-nil	*stack_alloc@use_int[i32* %x]	*stack_alloc@use_int[i32* %x][0]
-nil	*stack_alloc@use_int[i32* %x][0]	*stack_alloc@use_int[i32* %x]
-nil	*stack_alloc@use_int[i32* %x][0]	*stack_alloc@use_int[i32* %x][0]
-nil	*typed_stack_alloc@use_int[i8* %x]	*typed_stack_alloc@use_int[i8* %x]
-nil	*typed_stack_alloc@use_int[i8* %x]	*typed_stack_alloc@use_int[i8* %x][0]
-nil	*typed_stack_alloc@use_int[i8* %x][0]	*typed_stack_alloc@use_int[i8* %x]
-nil	*typed_stack_alloc@use_int[i8* %x][0]	*typed_stack_alloc@use_int[i8* %x][0]

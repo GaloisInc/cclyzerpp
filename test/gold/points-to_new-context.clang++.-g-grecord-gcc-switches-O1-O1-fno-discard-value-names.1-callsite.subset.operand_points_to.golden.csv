@@ -1,42 +1,26 @@
-[<<main-context>>, nil]	*heap_alloc@_Z4fun1v[i8* %call]	[<<main-context>>, nil]	<points-to_new-context.cpp>:_Z4fun1v:%0
-[<<main-context>>, nil]	*heap_alloc@_Z4fun1v[i8* %call]	[<<main-context>>, nil]	<points-to_new-context.cpp>:_Z4fun1v:%call
-[<<main-context>>, nil]	*heap_alloc@_Z4fun1v[i8* %call]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%call
-[<<main-context>>, nil]	*heap_alloc@_Z4fun1v[i8* %call]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field1
-[<<main-context>>, nil]	*heap_alloc@_Z4fun1v[i8* %call][0]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field1
-[<<main-context>>, nil]	*heap_alloc@_Z4fun2v[i8* %call]	[<<main-context>>, nil]	<points-to_new-context.cpp>:_Z4fun2v:%0
-[<<main-context>>, nil]	*heap_alloc@_Z4fun2v[i8* %call]	[<<main-context>>, nil]	<points-to_new-context.cpp>:_Z4fun2v:%call
-[<<main-context>>, nil]	*heap_alloc@_Z4fun2v[i8* %call]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%call1
-[<<main-context>>, nil]	*heap_alloc@_Z4fun2v[i8* %call]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field14
-[<<main-context>>, nil]	*heap_alloc@_Z4fun2v[i8* %call][0]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field14
-[<<main-context>>, nil]	*typed_heap_alloc@_Z4fun1v[%struct.obj* %call]	[<<main-context>>, nil]	<points-to_new-context.cpp>:_Z4fun1v:%0
-[<<main-context>>, nil]	*typed_heap_alloc@_Z4fun1v[%struct.obj* %call]	[<<main-context>>, nil]	<points-to_new-context.cpp>:_Z4fun1v:%call
-[<<main-context>>, nil]	*typed_heap_alloc@_Z4fun1v[%struct.obj* %call]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%call
-[<<main-context>>, nil]	*typed_heap_alloc@_Z4fun1v[%struct.obj* %call]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field1
-[<<main-context>>, nil]	*typed_heap_alloc@_Z4fun1v[%struct.obj* %call][0]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field1
-[<<main-context>>, nil]	*typed_heap_alloc@_Z4fun1v[%struct.obj* %call][0].?/0	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field1
-[<<main-context>>, nil]	*typed_heap_alloc@_Z4fun2v[%struct.obj* %call]	[<<main-context>>, nil]	<points-to_new-context.cpp>:_Z4fun2v:%0
-[<<main-context>>, nil]	*typed_heap_alloc@_Z4fun2v[%struct.obj* %call]	[<<main-context>>, nil]	<points-to_new-context.cpp>:_Z4fun2v:%call
-[<<main-context>>, nil]	*typed_heap_alloc@_Z4fun2v[%struct.obj* %call]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%call1
-[<<main-context>>, nil]	*typed_heap_alloc@_Z4fun2v[%struct.obj* %call]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field14
-[<<main-context>>, nil]	*typed_heap_alloc@_Z4fun2v[%struct.obj* %call][0]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field14
-[<<main-context>>, nil]	*typed_heap_alloc@_Z4fun2v[%struct.obj* %call][0].?/0	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field14
-nil	*global_alloc@_Z4fun1v	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:0:0:@_Z4fun1v
-nil	*global_alloc@_Z4fun2v	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:2:0:@_Z4fun2v
-nil	*global_alloc@_Z4fun3v	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:4:0:@_Z4fun3v
-nil	*global_alloc@_Z4fun4v	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:6:0:@_Z4fun4v
-nil	*global_alloc@_Znwm	[<<main-context>>, nil]	<points-to_new-context.cpp>:_Z4fun1v:0:0:@_Znwm
-nil	*global_alloc@_Znwm	[<<main-context>>, nil]	<points-to_new-context.cpp>:_Z4fun2v:0:0:@_Znwm
-nil	*global_alloc@global_obj	[<<main-context>>, nil]	<points-to_new-context.cpp>:_Z4fun3v:0:0:@global_obj
-nil	*global_alloc@global_obj	[<<main-context>>, nil]	<points-to_new-context.cpp>:_Z4fun4v:0:0:@global_obj
-nil	*global_alloc@global_obj	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%call2
-nil	*global_alloc@global_obj	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%call3
-nil	*global_alloc@global_obj	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field15
-nil	*global_alloc@global_obj	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field17
-nil	*global_alloc@global_obj[0]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field15
-nil	*global_alloc@global_obj[0]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field17
-nil	*global_alloc@global_obj[0].?/0	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field15
-nil	*global_alloc@global_obj[0].?/0	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field17
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:1:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:3:0:@llvm.dbg.value
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i13]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%1
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i13]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%call.i13
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i13]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field14
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i13][0]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field14
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%0
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%call.i
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field1
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i][0]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field1
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%1
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%call.i13
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field14
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13][0]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field14
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13][0].?/0	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field14
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%0
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%call.i
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field1
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i][0]	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field1
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i][0].?/0	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:%field1
+nil	*global_alloc@_Znwm	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:0:0:@_Znwm
+nil	*global_alloc@_Znwm	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:3:0:@_Znwm
+nil	*global_alloc@global_obj	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:13:1:@global_obj
+nil	*global_alloc@global_obj[0].?/0	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:13:0:getelementptr inbounds (%struct.obj, %struct.obj* @global_obj, i64 0, i32 0)
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:2:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:5:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:6:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<points-to_new-context.cpp>:main:7:0:@llvm.dbg.value

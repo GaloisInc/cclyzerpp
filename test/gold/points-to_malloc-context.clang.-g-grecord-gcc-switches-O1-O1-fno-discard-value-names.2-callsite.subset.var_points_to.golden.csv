@@ -1,30 +1,18 @@
-[<<main-context>>, nil]	*heap_alloc@fun1[i8* %call]	[<<main-context>>, nil]	<points-to_malloc-context.c>:fun1:%0
-[<<main-context>>, nil]	*heap_alloc@fun1[i8* %call]	[<<main-context>>, nil]	<points-to_malloc-context.c>:fun1:%call
-[<<main-context>>, nil]	*heap_alloc@fun1[i8* %call]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%call
-[<<main-context>>, nil]	*heap_alloc@fun1[i8* %call]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field1
-[<<main-context>>, nil]	*heap_alloc@fun1[i8* %call][0]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field1
-[<<main-context>>, nil]	*heap_alloc@fun2[i8* %call]	[<<main-context>>, nil]	<points-to_malloc-context.c>:fun2:%0
-[<<main-context>>, nil]	*heap_alloc@fun2[i8* %call]	[<<main-context>>, nil]	<points-to_malloc-context.c>:fun2:%call
-[<<main-context>>, nil]	*heap_alloc@fun2[i8* %call]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%call1
-[<<main-context>>, nil]	*heap_alloc@fun2[i8* %call]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field14
-[<<main-context>>, nil]	*heap_alloc@fun2[i8* %call][0]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field14
-[<<main-context>>, nil]	*typed_heap_alloc@fun1[%struct.obj* %call]	[<<main-context>>, nil]	<points-to_malloc-context.c>:fun1:%0
-[<<main-context>>, nil]	*typed_heap_alloc@fun1[%struct.obj* %call]	[<<main-context>>, nil]	<points-to_malloc-context.c>:fun1:%call
-[<<main-context>>, nil]	*typed_heap_alloc@fun1[%struct.obj* %call]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%call
-[<<main-context>>, nil]	*typed_heap_alloc@fun1[%struct.obj* %call]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field1
-[<<main-context>>, nil]	*typed_heap_alloc@fun1[%struct.obj* %call][0]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field1
-[<<main-context>>, nil]	*typed_heap_alloc@fun1[%struct.obj* %call][0].?/0	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field1
-[<<main-context>>, nil]	*typed_heap_alloc@fun2[%struct.obj* %call]	[<<main-context>>, nil]	<points-to_malloc-context.c>:fun2:%0
-[<<main-context>>, nil]	*typed_heap_alloc@fun2[%struct.obj* %call]	[<<main-context>>, nil]	<points-to_malloc-context.c>:fun2:%call
-[<<main-context>>, nil]	*typed_heap_alloc@fun2[%struct.obj* %call]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%call1
-[<<main-context>>, nil]	*typed_heap_alloc@fun2[%struct.obj* %call]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field14
-[<<main-context>>, nil]	*typed_heap_alloc@fun2[%struct.obj* %call][0]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field14
-[<<main-context>>, nil]	*typed_heap_alloc@fun2[%struct.obj* %call][0].?/0	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field14
-nil	*global_alloc@global_obj	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%call2
-nil	*global_alloc@global_obj	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%call3
-nil	*global_alloc@global_obj	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field15
-nil	*global_alloc@global_obj	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field17
-nil	*global_alloc@global_obj[0]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field15
-nil	*global_alloc@global_obj[0]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field17
-nil	*global_alloc@global_obj[0].?/0	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field15
-nil	*global_alloc@global_obj[0].?/0	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field17
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i13]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%1
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i13]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%call.i13
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i13]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field14
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i13][0]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field14
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%0
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%call.i
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field1
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i][0]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field1
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%1
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%call.i13
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field14
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13][0]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field14
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13][0].?/0	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field14
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%0
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%call.i
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field1
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i][0]	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field1
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i][0].?/0	[<<main-context>>, nil]	<points-to_malloc-context.c>:main:%field1

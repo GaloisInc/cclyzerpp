@@ -1,41 +1,32 @@
-[<<main-context>>, nil]	*heap_alloc@fun1[i8* %call]	*heap_alloc@fun1[i8* %call]
-[<<main-context>>, nil]	*heap_alloc@fun1[i8* %call]	*heap_alloc@fun1[i8* %call][0]
-[<<main-context>>, nil]	*heap_alloc@fun1[i8* %call][0]	*heap_alloc@fun1[i8* %call]
-[<<main-context>>, nil]	*heap_alloc@fun1[i8* %call][0]	*heap_alloc@fun1[i8* %call][0]
-[<<main-context>>, nil]	*heap_alloc@fun2[i8* %call]	*heap_alloc@fun2[i8* %call]
-[<<main-context>>, nil]	*heap_alloc@fun2[i8* %call]	*heap_alloc@fun2[i8* %call][0]
-[<<main-context>>, nil]	*heap_alloc@fun2[i8* %call][0]	*heap_alloc@fun2[i8* %call]
-[<<main-context>>, nil]	*heap_alloc@fun2[i8* %call][0]	*heap_alloc@fun2[i8* %call][0]
-[<<main-context>>, nil]	*typed_heap_alloc@fun1[%struct.obj* %call]	*typed_heap_alloc@fun1[%struct.obj* %call]
-[<<main-context>>, nil]	*typed_heap_alloc@fun1[%struct.obj* %call]	*typed_heap_alloc@fun1[%struct.obj* %call][0]
-[<<main-context>>, nil]	*typed_heap_alloc@fun1[%struct.obj* %call]	*typed_heap_alloc@fun1[%struct.obj* %call][0].?/0
-[<<main-context>>, nil]	*typed_heap_alloc@fun1[%struct.obj* %call][0]	*typed_heap_alloc@fun1[%struct.obj* %call]
-[<<main-context>>, nil]	*typed_heap_alloc@fun1[%struct.obj* %call][0]	*typed_heap_alloc@fun1[%struct.obj* %call][0]
-[<<main-context>>, nil]	*typed_heap_alloc@fun1[%struct.obj* %call][0]	*typed_heap_alloc@fun1[%struct.obj* %call][0].?/0
-[<<main-context>>, nil]	*typed_heap_alloc@fun1[%struct.obj* %call][0].?/0	*typed_heap_alloc@fun1[%struct.obj* %call]
-[<<main-context>>, nil]	*typed_heap_alloc@fun1[%struct.obj* %call][0].?/0	*typed_heap_alloc@fun1[%struct.obj* %call][0]
-[<<main-context>>, nil]	*typed_heap_alloc@fun1[%struct.obj* %call][0].?/0	*typed_heap_alloc@fun1[%struct.obj* %call][0].?/0
-[<<main-context>>, nil]	*typed_heap_alloc@fun2[%struct.obj* %call]	*typed_heap_alloc@fun2[%struct.obj* %call]
-[<<main-context>>, nil]	*typed_heap_alloc@fun2[%struct.obj* %call]	*typed_heap_alloc@fun2[%struct.obj* %call][0]
-[<<main-context>>, nil]	*typed_heap_alloc@fun2[%struct.obj* %call]	*typed_heap_alloc@fun2[%struct.obj* %call][0].?/0
-[<<main-context>>, nil]	*typed_heap_alloc@fun2[%struct.obj* %call][0]	*typed_heap_alloc@fun2[%struct.obj* %call]
-[<<main-context>>, nil]	*typed_heap_alloc@fun2[%struct.obj* %call][0]	*typed_heap_alloc@fun2[%struct.obj* %call][0]
-[<<main-context>>, nil]	*typed_heap_alloc@fun2[%struct.obj* %call][0]	*typed_heap_alloc@fun2[%struct.obj* %call][0].?/0
-[<<main-context>>, nil]	*typed_heap_alloc@fun2[%struct.obj* %call][0].?/0	*typed_heap_alloc@fun2[%struct.obj* %call]
-[<<main-context>>, nil]	*typed_heap_alloc@fun2[%struct.obj* %call][0].?/0	*typed_heap_alloc@fun2[%struct.obj* %call][0]
-[<<main-context>>, nil]	*typed_heap_alloc@fun2[%struct.obj* %call][0].?/0	*typed_heap_alloc@fun2[%struct.obj* %call][0].?/0
-nil	*global_alloc@fun1	*global_alloc@fun1
-nil	*global_alloc@fun2	*global_alloc@fun2
-nil	*global_alloc@fun3	*global_alloc@fun3
-nil	*global_alloc@fun4	*global_alloc@fun4
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i13]	*heap_alloc@main[i8* %call.i13]
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i13]	*heap_alloc@main[i8* %call.i13][0]
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i13][0]	*heap_alloc@main[i8* %call.i13]
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i13][0]	*heap_alloc@main[i8* %call.i13][0]
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i]	*heap_alloc@main[i8* %call.i]
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i]	*heap_alloc@main[i8* %call.i][0]
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i][0]	*heap_alloc@main[i8* %call.i]
+[<<main-context>>, nil]	*heap_alloc@main[i8* %call.i][0]	*heap_alloc@main[i8* %call.i][0]
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13]	*typed_heap_alloc@main[%struct.obj* %call.i13]
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13]	*typed_heap_alloc@main[%struct.obj* %call.i13][0]
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13]	*typed_heap_alloc@main[%struct.obj* %call.i13][0].?/0
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13][0]	*typed_heap_alloc@main[%struct.obj* %call.i13]
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13][0]	*typed_heap_alloc@main[%struct.obj* %call.i13][0]
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13][0]	*typed_heap_alloc@main[%struct.obj* %call.i13][0].?/0
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13][0].?/0	*typed_heap_alloc@main[%struct.obj* %call.i13]
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13][0].?/0	*typed_heap_alloc@main[%struct.obj* %call.i13][0]
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i13][0].?/0	*typed_heap_alloc@main[%struct.obj* %call.i13][0].?/0
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i]	*typed_heap_alloc@main[%struct.obj* %call.i]
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i]	*typed_heap_alloc@main[%struct.obj* %call.i][0]
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i]	*typed_heap_alloc@main[%struct.obj* %call.i][0].?/0
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i][0]	*typed_heap_alloc@main[%struct.obj* %call.i]
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i][0]	*typed_heap_alloc@main[%struct.obj* %call.i][0]
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i][0]	*typed_heap_alloc@main[%struct.obj* %call.i][0].?/0
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i][0].?/0	*typed_heap_alloc@main[%struct.obj* %call.i]
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i][0].?/0	*typed_heap_alloc@main[%struct.obj* %call.i][0]
+[<<main-context>>, nil]	*typed_heap_alloc@main[%struct.obj* %call.i][0].?/0	*typed_heap_alloc@main[%struct.obj* %call.i][0].?/0
 nil	*global_alloc@global_obj	*global_alloc@global_obj
-nil	*global_alloc@global_obj	*global_alloc@global_obj[0]
 nil	*global_alloc@global_obj	*global_alloc@global_obj[0].?/0
-nil	*global_alloc@global_obj[0]	*global_alloc@global_obj
-nil	*global_alloc@global_obj[0]	*global_alloc@global_obj[0]
-nil	*global_alloc@global_obj[0]	*global_alloc@global_obj[0].?/0
 nil	*global_alloc@global_obj[0].?/0	*global_alloc@global_obj
-nil	*global_alloc@global_obj[0].?/0	*global_alloc@global_obj[0]
 nil	*global_alloc@global_obj[0].?/0	*global_alloc@global_obj[0].?/0
 nil	*global_alloc@llvm.dbg.value	*global_alloc@llvm.dbg.value
 nil	*global_alloc@malloc	*global_alloc@malloc

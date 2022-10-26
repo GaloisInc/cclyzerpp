@@ -123,6 +123,8 @@ def run(programs_path):
                 "-load",
                 BUILD / "libPAPass.so",
                 "-disable-output",
+                # TODO(lb): Use new pass manager
+                "-enable-new-pm=0",
                 "-cclyzer",
                 "-signatures",
                 signatures_path,

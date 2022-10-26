@@ -1,3 +1,3 @@
-%struct.cmd	<notes.c>:notes_malloc:1	*typed_heap_alloc@notes_malloc[%struct.cmd* %call]
-i32	<notes.c>:notes_malloc:1	*typed_heap_alloc@notes_malloc[i32* %call]
-i8	<notes.c>:notes_malloc:1	*typed_heap_alloc@notes_malloc[i8* %call]
+%struct.cmd	<notes.c>:handle:22	*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i]
+i32	<notes.c>:handle:22	*typed_heap_alloc@handle[i32* %call.i.i.i]
+i8	<notes.c>:handle:22	*typed_heap_alloc@handle[i8* %call.i.i.i]
