@@ -129,13 +129,14 @@ nil	*global_alloc@__assert_fail	nil	<notes.c>:handle:3:0:@__assert_fail
 nil	*global_alloc@__assert_fail	nil	<notes.c>:handle_loop:10:0:@__assert_fail
 nil	*global_alloc@__assert_fail	nil	<notes.c>:hex_str:4:0:@__assert_fail
 nil	*global_alloc@__assert_fail	nil	<notes.c>:parse:3:0:@__assert_fail
-nil	*global_alloc@accept	nil	<notes.c>:accept_loop:2:0:@accept
+nil	*global_alloc@accept	nil	<notes.c>:accept_loop:11:0:@accept
+nil	*global_alloc@accept	nil	<notes.c>:accept_loop:1:0:@accept
 nil	*global_alloc@accept_loop	[<<main-context>>, nil]	<notes.c>:main:34:0:@accept_loop
 nil	*global_alloc@bind	[<<main-context>>, nil]	<notes.c>:main:19:0:@bind
 nil	*global_alloc@close	[<<main-context>>, nil]	<notes.c>:main:22:0:@close
 nil	*global_alloc@close	[<<main-context>>, nil]	<notes.c>:main:31:0:@close
 nil	*global_alloc@close	[<<main-context>>, nil]	<notes.c>:main:36:0:@close
-nil	*global_alloc@close	nil	<notes.c>:accept_loop:11:0:@close
+nil	*global_alloc@close	nil	<notes.c>:accept_loop:15:0:@close
 nil	*global_alloc@close	nil	<notes.c>:accept_loop:9:0:@close
 nil	*global_alloc@cmd_read	nil	<notes.c>:handle:22:0:@cmd_read
 nil	*global_alloc@cmd_write	nil	<notes.c>:handle:17:0:@cmd_write
@@ -191,7 +192,8 @@ nil	*global_alloc@llvm.dbg.value	[<notes.c>:handle:25, nil]	<notes.c>:notes_strd
 nil	*global_alloc@llvm.dbg.value	[<notes.c>:handle:9, nil]	<notes.c>:notes_strdup:0:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<notes.c>:handle:9, nil]	<notes.c>:notes_strdup:2:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:accept_loop:0:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:accept_loop:3:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:accept_loop:12:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:accept_loop:2:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:cmd_read:1:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:cmd_read:8:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	nil	<notes.c>:cmd_write:0:0:@llvm.dbg.value
@@ -331,8 +333,10 @@ nil	*null*	[<notes.c>:cmd_write:4, nil]	<notes.c>:notes_strdup:3:0:null
 nil	*null*	[<notes.c>:cmd_write:9, nil]	<notes.c>:notes_strdup:3:0:null
 nil	*null*	[<notes.c>:handle:25, nil]	<notes.c>:notes_strdup:3:0:null
 nil	*null*	[<notes.c>:handle:9, nil]	<notes.c>:notes_strdup:3:0:null
-nil	*null*	nil	<notes.c>:accept_loop:2:1:null
-nil	*null*	nil	<notes.c>:accept_loop:2:2:null
+nil	*null*	nil	<notes.c>:accept_loop:11:1:null
+nil	*null*	nil	<notes.c>:accept_loop:11:2:null
+nil	*null*	nil	<notes.c>:accept_loop:1:1:null
+nil	*null*	nil	<notes.c>:accept_loop:1:2:null
 nil	*null*	nil	<notes.c>:cmd_read:2:0:null
 nil	*null*	nil	<notes.c>:cmd_read:9:0:null
 nil	*null*	nil	<notes.c>:cmd_write:%call6

@@ -20,8 +20,8 @@ env:
   # will error - we use Clang to compile test programs, and cclyzer++ must be
   # able to read the bitcode it outputs. We currently only run tests with the
   # most recent (matching) Clang/LLVM combination.
-  LLVM_MAJOR_VERSION: "11"
-  CLANG_VERSION: "11"
+  LLVM_MAJOR_VERSION: "12"
+  CLANG_VERSION: "12"
   UBUNTU_VERSION: "20.04"
   UBUNTU_NAME: "focal"
 
@@ -48,6 +48,7 @@ jobs:
         llvm_version:
           - "10"
           - "11"
+          - "12"
     env:
       LLVM_MAJOR_VERSION: ${{ matrix.llvm_version }}
     steps:
