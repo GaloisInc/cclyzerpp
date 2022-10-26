@@ -17,7 +17,7 @@ information, rather just outputs a table-based view of the module's AST.
 
 The fact generator is also used to configure the analysis parameters, namely the
 type and amount of context sensitivity and points-to signatures. See the
-:ref:`documentation on configuring the analysis <configuration>` for more
+:ref:`documentation on using the analysis <configuration>` for more
 details.
 
 .. _cpp:
