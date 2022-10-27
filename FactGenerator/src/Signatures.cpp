@@ -1,4 +1,24 @@
-#include "Signatures.hpp"
+#include <llvm/ADT/DenseMap.h>   // for DenseMapPair, DenseMapIterator
+#include <llvm/ADT/Optional.h>   // for Optional
+#include <llvm/ADT/StringRef.h>  // for StringRef
+#include <llvm/Support/Error.h>  // for Expected
+#include <llvm/Support/JSON.h>   // for Array, Value, Object, parse, Obj...
+#include <stddef.h>              // for size_t
+
+#include <ForwardingFactWriter.hpp>   // for ForwardingFactWriter
+#include <boost/filesystem/path.hpp>  // for path
+#include <cstdint>                    // for int64_t
+#include <iterator>                   // for istreambuf_iterator, operator!=
+#include <map>                        // for map
+#include <regex>
+#include <sstream>      // for basic_stringbuf<>::int_type, bas...
+#include <stdexcept>    // for invalid_argument
+#include <string>       // for string, operator==, operator+
+#include <tuple>        // for tuple, get, make_tuple, tuple_cat
+#include <type_traits>  // for remove_reference_t
+#include <vector>       // for vector
+
+#include "predicate_groups.hpp"  // for signature, signature::arg_alloc
 
 template <typename T>
 auto extract_from_array(const llvm::json::Array &json_array, size_t index)

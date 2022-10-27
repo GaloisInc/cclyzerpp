@@ -1,11 +1,24 @@
 #include "RefmodeEngineImpl.hpp"
 
-#include <llvm/IR/Metadata.h>
-#include <llvm/Support/raw_ostream.h>
+#include <llvm/ADT/ilist_iterator.h>   // for ilist_iterator, operator!=
+#include <llvm/ADT/iterator_range.h>   // for iterator_range
+#include <llvm/IR/Argument.h>          // for Argument
+#include <llvm/IR/BasicBlock.h>        // for BasicBlock
+#include <llvm/IR/Instruction.h>       // for Instruction
+#include <llvm/IR/Metadata.h>          // for ValueAsMetadata, Metadata...
+#include <llvm/IR/Type.h>              // for Type
+#include <llvm/IR/Value.h>             // for Value
+#include <llvm/Support/raw_ostream.h>  // for raw_string_ostream, raw_o...
 
-#include <boost/algorithm/string.hpp>
-#include <boost/flyweight.hpp>
-#include <map>
+#include <RefmodeEngine.hpp>                // for RefmodeEngine, refmode_t
+#include <boost/algorithm/string/trim.hpp>  // for trim
+#include <map>                              // for map
+
+// Forward decl
+namespace llvm {
+class Constant;
+class GlobalValue;
+}  // namespace llvm
 
 using cclyzer::refmode_t;
 using cclyzer::RefmodeEngine;

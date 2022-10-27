@@ -1,9 +1,16 @@
-#include <llvm/IR/Type.h>
+// IWYU pragma: no_include <boost/unordered/detail/implementation.hpp>
 
-#include <string>
+#include <llvm/ADT/StringRef.h>  // for StringRef, Stri...
+#include <llvm/IR/Function.h>    // for Function
+#include <stddef.h>              // for size_t
 
-#include "FactGenerator.hpp"
-#include "predicate_groups.hpp"
+#include <boost/unordered/unordered_map.hpp>  // for unordered_map<>...
+#include <string>                             // for string, operator+
+#include <type_traits>                        // for add_const<>::type
+#include <utility>                            // for tuple_element<>...
+
+#include "FactGenerator.hpp"     // for FactGenerator
+#include "predicate_groups.hpp"  // for variable, predi...
 
 using cclyzer::FactGenerator;
 namespace pred = cclyzer::predicates;

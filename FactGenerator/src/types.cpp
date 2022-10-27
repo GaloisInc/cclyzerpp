@@ -1,12 +1,16 @@
-#include <llvm/IR/DataLayout.h>
-#include <llvm/IR/Type.h>
+// IWYU pragma: no_include <boost/unordered/detail/implementation.hpp>
+#include <boost/unordered/unordered_set.hpp>  // for unordered_set<>...
+#include <string>                             // for allocator
 
-#include <string>
+#include "FactGenerator.hpp"     // for FactGenerator
+#include "TypeAccumulator.hpp"   // for TypeAccumulator
+#include "TypeVisitor.hpp"       // for TypeVisitor
+#include "predicate_groups.hpp"  // for primitive_type
 
-#include "FactGenerator.hpp"
-#include "TypeAccumulator.hpp"
-#include "TypeVisitor.hpp"
-#include "predicate_groups.hpp"
+// Forward decls
+namespace llvm {
+class DataLayout;
+}
 
 using cclyzer::FactGenerator;
 namespace pred = cclyzer::predicates;

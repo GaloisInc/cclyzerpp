@@ -1,32 +1,50 @@
 #ifndef CSV_GENERATOR_H__
 #define CSV_GENERATOR_H__
 
-#include <llvm/IR/Constants.h>
-#include <llvm/IR/DataLayout.h>
-#include <llvm/IR/GlobalValue.h>
-#include <llvm/IR/GlobalVariable.h>
-#include <llvm/IR/InlineAsm.h>
-#include <llvm/IR/Type.h>
-#include <llvm/IR/Value.h>
-#include <llvm/Support/raw_ostream.h>
+#include <llvm/ADT/Optional.h>  // for Optional
+#include <llvm/Support/JSON.h>  // IWYU pragma: keep
 
-#include <boost/flyweight.hpp>
-#include <boost/unordered_map.hpp>
-#include <boost/unordered_set.hpp>
-#include <set>
-#include <string>
+#include <boost/container_hash/extensions.hpp>  // for hash
+#include <boost/filesystem/path.hpp>            // for path
+#include <boost/flyweight/flyweight.hpp>        // for flyweight
+#include <boost/unordered/unordered_map.hpp>    // for unordered_map
+#include <boost/unordered/unordered_set.hpp>    // for unordered_set
+#include <map>                                  // for map
+#include <regex>                                // for regex
+#include <string>                               // for string, basic_string
+#include <tuple>                                // for tuple
+#include <vector>                               // for vector
 
-#include "ContextSensitivity.hpp"
-#include "Demangler.hpp"
-#include "FactWriter.hpp"
-#include "ForwardingFactWriter.hpp"
-#include "RefmodeEngine.hpp"
-#include "Signatures.hpp"
-#include "predicate_groups.hpp"
+#include "ContextSensitivity.hpp"    // for ContextSensitivity
+#include "Demangler.hpp"             // for Demangler
+#include "ForwardingFactWriter.hpp"  // for ForwardingFactWriter
+#include "RefmodeEngine.hpp"         // for refmode_t, RefmodeEngine
+#include "predicate_groups.hpp"      // for pred_t
+
+// Forward declarations
+namespace cclyzer {
+class FactWriter;
+}
+namespace llvm {
+class Constant;
+class ConstantArray;
+class ConstantExpr;
+class ConstantStruct;
+class ConstantVector;
+class DataLayout;
+class Function;
+class GlobalAlias;
+class GlobalVariable;
+class InlineAsm;
+class Module;
+class NamedMDNode;
+class Type;
+class Value;
+}  // namespace llvm
 
 namespace cclyzer {
-class FactGenerator;
-}
+class FactGenerator;  // IWYU pragma: keep
+}  // namespace cclyzer
 
 class cclyzer::FactGenerator : private RefmodeEngine,
                                private Demangler,

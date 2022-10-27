@@ -1,15 +1,24 @@
-#include <llvm/IR/ModuleSlotTracker.h>
+#include <assert.h>                     // for assert
+#include <llvm/IR/Function.h>           // for Function
+#include <llvm/IR/ModuleSlotTracker.h>  // for ModuleSlotTracker
+#include <llvm/Support/Casting.h>       // for isa, dyn_cast
 
-#include <memory>
-#include <sstream>
+#include <map>     // for map
+#include <memory>  // for unique_ptr, make_unique
+#include <string>  // for string
+#include <vector>  // for vector
 
-#include "ContextManager.hpp"
-#include "RefmodeEngine.hpp"
+#include "ContextManager.hpp"  // for ContextManager, ContextManage...
+#include "RefmodeEngine.hpp"   // for refmode_t, RefmodeEngine
 
 // Forward declaration
 namespace llvm {
+class BasicBlock;
+class Metadata;
+class Module;
+class Value;
 class raw_string_ostream;
-}
+}  // namespace llvm
 
 // Refmode Policy implementation
 class cclyzer::RefmodeEngine::Impl {

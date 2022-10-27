@@ -1,15 +1,17 @@
 #ifndef OPTIONS_HPP__
 #define OPTIONS_HPP__
 
-#include <llvm/ADT/Optional.h>
+#include <llvm/ADT/Optional.h>  // for Optional
 
-#include <boost/filesystem.hpp>
-#include <string>
+#include <algorithm>                  // for max
+#include <boost/filesystem/path.hpp>  // for path
+#include <string>                     // for string
+#include <vector>                     // for vector
 
-#include "ContextSensitivity.hpp"
+#include "ContextSensitivity.hpp"  // for ContextSensitivity
 
 namespace cclyzer {
-class Options;
+class Options;  // IWYU pragma: keep
 }
 
 class cclyzer::Options {

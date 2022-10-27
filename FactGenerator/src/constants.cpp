@@ -1,9 +1,25 @@
+#include <llvm/ADT/APInt.h>           // for APInt
+#include <llvm/ADT/SmallString.h>     // for SmallString
+#include <llvm/ADT/StringRef.h>       // for StringRef
+#include <llvm/Config/llvm-config.h>  // for LLVM_VERSION_MAJOR
+#include <llvm/IR/Constant.h>         // for Constant
 #include <llvm/IR/Constants.h>
+#include <llvm/IR/Function.h>          // for Function
+#include <llvm/IR/GlobalVariable.h>    // for GlobalVariable
+#include <llvm/Support/Casting.h>      // for isa, cast
+#include <llvm/Support/MathExtras.h>   // for llvm
+#include <llvm/Support/raw_ostream.h>  // for raw_string_ostream
+#include <stddef.h>                    // for size_t
 
-#include <boost/functional/hash.hpp>
+#include <RefmodeEngine.hpp>                    // for refmode_t
+#include <boost/container_hash/extensions.hpp>  // for hash
+#include <boost/flyweight/flyweight.hpp>        // for flyweight, operator<
+#include <boost/operators.hpp>                  // for operator++
+#include <map>                                  // for map
 #include <string>
 
 #include "FactGenerator.hpp"
+#include "llvm/IR/Instruction.h"  // for Instruction::BitCast
 #include "predicate_groups.hpp"
 
 using cclyzer::FactGenerator;

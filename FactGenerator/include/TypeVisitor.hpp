@@ -1,6 +1,13 @@
-#include <llvm/IR/DataLayout.h>
-#include <llvm/IR/DerivedTypes.h>
-#include <llvm/IR/Type.h>
+// Forward decls
+namespace llvm {
+class ArrayType;
+class DataLayout;
+class FunctionType;
+class PointerType;
+class StructType;
+class Type;
+class VectorType;
+}  // namespace llvm
 
 namespace cclyzer {
 // Forward declaration

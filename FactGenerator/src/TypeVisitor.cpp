@@ -1,7 +1,21 @@
 #include "TypeVisitor.hpp"
 
-#include "FactGenerator.hpp"
-#include "predicate_groups.hpp"
+#include <assert.h>                   // for assert
+#include <llvm/ADT/StringRef.h>       // for StringRef
+#include <llvm/Config/llvm-config.h>  // for LLVM_VERSION_MAJOR
+#include <llvm/IR/DataLayout.h>       // for DataLayout, StructLayout
+#include <llvm/IR/DerivedTypes.h>     // for StructType, FunctionType, Vecto...
+#include <llvm/IR/Type.h>             // for Type, Type::ArrayTyID, Type::BF...
+#include <llvm/Support/Casting.h>     // for cast, isa
+#include <llvm/Support/TypeSize.h>    // for TypeSize
+#include <stddef.h>                   // for size_t
+#include <stdint.h>                   // for uint64_t
+
+#include <RefmodeEngine.hpp>  // for refmode_t
+#include <string>             // for basic_string
+
+#include "FactGenerator.hpp"     // for FactGenerator
+#include "predicate_groups.hpp"  // for struct_type, func_type, array_type
 
 using cclyzer::TypeVisitor;
 namespace pred = cclyzer::predicates;

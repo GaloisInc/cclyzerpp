@@ -1,12 +1,31 @@
 #include "Options.hpp"
 
-#include <boost/filesystem.hpp>
-#include <boost/program_options.hpp>
+#include <stdlib.h>  // for exit, EXI...
+
+// IWYU pragma: no_include <boost/detail/basic_pointerbuf.hpp>
+// IWYU pragma: no_include <boost/program_options/detail/parsers.hpp>
+// IWYU pragma: no_include <boost/program_options/detail/value_semantic.hpp>
+#include <ContextSensitivity.hpp>                   // for ContextSe...
+#include <boost/filesystem.hpp>                     // IWYU pragma: keep
+#include <boost/filesystem/convenience.hpp>         // for basename
+#include <boost/filesystem/directory.hpp>           // for directory...
+#include <boost/filesystem/operations.hpp>          // for exists
+#include <boost/filesystem/path_traits.hpp>         // for filesystem
+#include <boost/iterator/iterator_facade.hpp>       // for operator!=
+#include <boost/lexical_cast/bad_lexical_cast.hpp>  // for bad_lexic...
+#include <boost/program_options.hpp>                // IWYU pragma: keep
+#include <boost/program_options/errors.hpp>         // for required_...
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/parsers.hpp>
+#include <boost/program_options/positional_options.hpp>  // for positiona...
+#include <boost/program_options/value_semantic.hpp>      // for typed_value
 #include <boost/program_options/variables_map.hpp>
+#include <boost/range/iterator_range_core.hpp>     // for iterator_...
+#include <boost/type_index/type_index_facade.hpp>  // for operator==
 #include <cassert>
 #include <iostream>
+#include <sstream>  // for basic_str...
+#include <utility>
 
 namespace fs = boost::filesystem;
 namespace po = boost::program_options;

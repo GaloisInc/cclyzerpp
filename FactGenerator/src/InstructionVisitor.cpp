@@ -1,12 +1,36 @@
 #include "InstructionVisitor.hpp"
 
-#include <llvm/IR/DebugInfo.h>
-#include <llvm/IR/Operator.h>
+#include <llvm/ADT/APInt.h>             // for APInt
+#include <llvm/ADT/SmallString.h>       // for SmallString
+#include <llvm/ADT/StringRef.h>         // for StringRef
+#include <llvm/ADT/iterator.h>          // for iterator_facade_base
+#include <llvm/ADT/iterator_range.h>    // for iterator_range
+#include <llvm/Config/llvm-config.h>    // for LLVM_VERSION_MAJOR
+#include <llvm/IR/BasicBlock.h>         // for BasicBlock
+#include <llvm/IR/CallingConv.h>        // for C
+#include <llvm/IR/Constant.h>           // for Constant
+#include <llvm/IR/Constants.h>          // for UndefValue, ConstantInt
+#include <llvm/IR/DebugInfoMetadata.h>  // for DILocalVariable
+#include <llvm/IR/DebugLoc.h>           // for DebugLoc
+#include <llvm/IR/Instruction.h>        // for Instruction
+#include <llvm/IR/IntrinsicInst.h>      // for DbgDeclareInst
+#include <llvm/IR/Operator.h>           // for FPMathOperator, OverflowingBi...
+#include <llvm/IR/User.h>               // for User
+#include <llvm/IR/Value.h>              // for Value
+#include <llvm/Support/Casting.h>       // for dyn_cast, isa
+#include <llvm/Support/raw_ostream.h>   // for errs, raw_ostream, raw_fd_ost...
 
-#include <cassert>
-#include <string>
+#include <FactGenerator.hpp>  // for FactGenerator
+#include <RefmodeEngine.hpp>  // for refmode_t
+#include <string>             // for string, basic_string
 
-#include "predicate_groups.hpp"
+#include "predicate_groups.hpp"  // for instr, instr::flag, br, cmpxchg
+namespace llvm {
+class InlineAsm;
+}
+namespace llvm {
+class Type;
+}
 
 namespace pred = cclyzer::predicates;
 

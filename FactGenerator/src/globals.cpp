@@ -1,8 +1,20 @@
-#include <llvm/Config/llvm-config.h>
-#include <llvm/IR/Constants.h>
+#include <llvm/ADT/StringRef.h>       // for StringRef
+#include <llvm/Config/llvm-config.h>  // for LLVM_VERSION_MAJOR, LLVM_VE...
+#include <llvm/IR/DerivedTypes.h>     // for PointerType
+#include <llvm/IR/GlobalAlias.h>      // for GlobalAlias
+#include <llvm/IR/GlobalVariable.h>   // for GlobalVariable
 
-#include "FactGenerator.hpp"
-#include "predicate_groups.hpp"
+#include <RefmodeEngine.hpp>              // for refmode_t
+#include <boost/flyweight/flyweight.hpp>  // for flyweight, operator<
+#include <boost/operators.hpp>            // for operator++
+#include <map>                            // for map
+#include <string>                         // for string, operator==, operator+
+
+#include "FactGenerator.hpp"     // for FactGenerator
+#include "predicate_groups.hpp"  // for global_var, alias, global_v...
+namespace llvm {
+class Constant;
+}
 
 using cclyzer::FactGenerator;
 namespace pred = cclyzer::predicates;
