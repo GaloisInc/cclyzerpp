@@ -8,8 +8,8 @@ ARG UBUNTU_NAME=jammy
 ARG UBUNTU_VERSION=22.04
 FROM ubuntu:$UBUNTU_VERSION as dev
 # See NOTE[Clang+LLVM] in ci.yml
-ARG CLANG_VERSION=13
-ARG LLVM_MAJOR_VERSION=13
+ARG CLANG_VERSION=14
+ARG LLVM_MAJOR_VERSION=14
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG UBUNTU_NAME
 ARG UBUNTU_VERSION

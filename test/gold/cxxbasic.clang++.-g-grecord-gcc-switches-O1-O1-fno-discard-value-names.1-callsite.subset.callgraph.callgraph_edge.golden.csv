@@ -1,41 +1,42 @@
-[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm	[<<main-context>>, nil]	<cxxbasic.cpp>:main:99
-[<<main-context>>, nil]	<cxxbasic.cpp>:llvm.memcpy.p0i8.p0i8.i64	[<<main-context>>, nil]	<cxxbasic.cpp>:main:35
+[<<main-context>>, nil]	<cxxbasic.cpp>:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm	[<<main-context>>, nil]	<cxxbasic.cpp>:main:96
+[<<main-context>>, nil]	<cxxbasic.cpp>:llvm.memcpy.p0i8.p0i8.i64	[<<main-context>>, nil]	<cxxbasic.cpp>:main:32
 [<<startup-context>>, nil]	<cxxbasic.cpp>:_ZNSt8ios_base4InitC1Ev	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:0
 [<<startup-context>>, nil]	<cxxbasic.cpp>:__cxa_atexit	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:1
-[<cxxbasic.cpp>:main:102, nil]	<cxxbasic.cpp>:_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:102
-[<cxxbasic.cpp>:main:110, nil]	<cxxbasic.cpp>:_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:110
-[<cxxbasic.cpp>:main:111, nil]	<cxxbasic.cpp>:llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:111
-[<cxxbasic.cpp>:main:116, nil]	<cxxbasic.cpp>:_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:116
-[<cxxbasic.cpp>:main:117, nil]	<cxxbasic.cpp>:llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:117
-[<cxxbasic.cpp>:main:136, nil]	<cxxbasic.cpp>:_ZdlPv	[<<main-context>>, nil]	<cxxbasic.cpp>:main:136
-[<cxxbasic.cpp>:main:138, nil]	<cxxbasic.cpp>:llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:138
-[<cxxbasic.cpp>:main:140, nil]	<cxxbasic.cpp>:llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:140
-[<cxxbasic.cpp>:main:55, nil]	<cxxbasic.cpp>:_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:55
+[<cxxbasic.cpp>:main:107, nil]	<cxxbasic.cpp>:_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:107
+[<cxxbasic.cpp>:main:108, nil]	<cxxbasic.cpp>:llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:108
+[<cxxbasic.cpp>:main:113, nil]	<cxxbasic.cpp>:_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:113
+[<cxxbasic.cpp>:main:114, nil]	<cxxbasic.cpp>:llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:114
+[<cxxbasic.cpp>:main:133, nil]	<cxxbasic.cpp>:_ZdlPv	[<<main-context>>, nil]	<cxxbasic.cpp>:main:133
+[<cxxbasic.cpp>:main:135, nil]	<cxxbasic.cpp>:llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:135
+[<cxxbasic.cpp>:main:137, nil]	<cxxbasic.cpp>:llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:137
+[<cxxbasic.cpp>:main:52, nil]	<cxxbasic.cpp>:_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:52
 [<cxxbasic.cpp>:main:6, nil]	<cxxbasic.cpp>:llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:6
-[<cxxbasic.cpp>:main:63, nil]	<cxxbasic.cpp>:_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:63
-[<cxxbasic.cpp>:main:64, nil]	<cxxbasic.cpp>:llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:64
-[<cxxbasic.cpp>:main:69, nil]	<cxxbasic.cpp>:_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:69
-[<cxxbasic.cpp>:main:70, nil]	<cxxbasic.cpp>:llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:70
-[<cxxbasic.cpp>:main:91, nil]	<cxxbasic.cpp>:_ZdlPv	[<<main-context>>, nil]	<cxxbasic.cpp>:main:91
-nil	<cxxbasic.cpp>:llvm.dbg.declare	[<<main-context>>, nil]	<cxxbasic.cpp>:main:22
+[<cxxbasic.cpp>:main:60, nil]	<cxxbasic.cpp>:_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:60
+[<cxxbasic.cpp>:main:61, nil]	<cxxbasic.cpp>:llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:61
+[<cxxbasic.cpp>:main:66, nil]	<cxxbasic.cpp>:_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:66
+[<cxxbasic.cpp>:main:67, nil]	<cxxbasic.cpp>:llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:67
+[<cxxbasic.cpp>:main:88, nil]	<cxxbasic.cpp>:_ZdlPv	[<<main-context>>, nil]	<cxxbasic.cpp>:main:88
+[<cxxbasic.cpp>:main:99, nil]	<cxxbasic.cpp>:_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:99
+nil	<cxxbasic.cpp>:llvm.dbg.declare	[<<main-context>>, nil]	<cxxbasic.cpp>:main:20
 nil	<cxxbasic.cpp>:llvm.dbg.declare	[<<main-context>>, nil]	<cxxbasic.cpp>:main:7
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:10
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:100
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:101
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:102
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:103
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:104
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:105
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:106
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:108
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:109
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:11
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:110
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:112
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:113
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:115
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:116
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:117
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:118
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:119
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:120
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:121
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:123
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:124
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:125
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:126
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:127
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:128
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:129
@@ -43,64 +44,60 @@ nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:13
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:130
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:131
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:132
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:133
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:134
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:135
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:14
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:15
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:18
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:19
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:20
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:21
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:23
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:22
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:24
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:25
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:26
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:27
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:28
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:29
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:3
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:30
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:31
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:33
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:34
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:35
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:36
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:37
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:38
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:39
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:4
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:40
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:43
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:46
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:47
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:44
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:50
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:51
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:53
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:54
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:55
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:56
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:57
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:58
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:59
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:61
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:62
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:63
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:65
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:66
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:68
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:70
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:71
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:72
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:73
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:74
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:75
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:76
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:78
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:79
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:8
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:80
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:81
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:82
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:83
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:84
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:85
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:86
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:87
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:88
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:89
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:9
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:90
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:91
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:92
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:93
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:94
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:95
-nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:96
 nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:97
-nil	<cxxbasic.cpp>:rand	[<<main-context>>, nil]	<cxxbasic.cpp>:main:49
+nil	<cxxbasic.cpp>:llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:98
+nil	<cxxbasic.cpp>:rand	[<<main-context>>, nil]	<cxxbasic.cpp>:main:46

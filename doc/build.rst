@@ -27,7 +27,9 @@ Ubuntu 20.04:
 Configuring the Build
 *********************
 
-You can pass ``-DLLVM_MAJOR_VERSION=10`` to CMake to build against LLVM 10.
+You can pass ``-DLLVM_MAJOR_VERSION=<MAJOR_VERSION_NUMBER>`` to CMake to build
+against a specific version of LLVM. See :ref:`LLVM Library Version <llvmver>`
+for supported versions.
 
 Building the Fact Generator
 ***************************

@@ -7,11 +7,11 @@
 [<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/1	[<<main-context>>, nil]	<notes.c>:main:%sin_port
 [<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/2	[<<main-context>>, nil]	<notes.c>:main:%s_addr
 [<<main-context>>, nil]	*stack_alloc@main[%struct.sockaddr_in* %sa][0].?/2.?/0	[<<main-context>>, nil]	<notes.c>:main:%s_addr
-nil	*global_alloc@.str	nil	<notes.c>:handle:%22
+nil	*global_alloc@.str	nil	<notes.c>:handle:%23
 nil	*global_alloc@.str	nil	<notes.c>:handle:%8
-nil	*global_alloc@.str[0]	nil	<notes.c>:handle:%22
+nil	*global_alloc@.str[0]	nil	<notes.c>:handle:%23
 nil	*global_alloc@.str[0]	nil	<notes.c>:handle:%8
-nil	*global_alloc@.str[0][*]	nil	<notes.c>:handle:%22
+nil	*global_alloc@.str[0][*]	nil	<notes.c>:handle:%23
 nil	*global_alloc@.str[0][*]	nil	<notes.c>:handle:%8
 nil	*global_alloc@hex_str.hex_digits[*]	nil	<notes.c>:handle:%arrayidx16.i.i.i
 nil	*global_alloc@hex_str.hex_digits[*]	nil	<notes.c>:handle:%arrayidx9.i.i.i
@@ -26,7 +26,7 @@ nil	*heap_alloc@handle[i8* %call.i.i.i23][*]	nil	<notes.c>:handle:%arrayidx11.i.
 nil	*heap_alloc@handle[i8* %call.i.i.i23][*]	nil	<notes.c>:handle:%arrayidx19.i.i.i
 nil	*heap_alloc@handle[i8* %call.i.i.i23][64]	nil	<notes.c>:handle:%arrayidx21.i.i.i
 nil	*heap_alloc@handle[i8* %call.i.i.i]	nil	<notes.c>:handle:%2
-nil	*heap_alloc@handle[i8* %call.i.i.i]	nil	<notes.c>:handle:%32
+nil	*heap_alloc@handle[i8* %call.i.i.i]	nil	<notes.c>:handle:%33
 nil	*heap_alloc@handle[i8* %call.i.i.i]	nil	<notes.c>:handle:%c
 nil	*heap_alloc@handle[i8* %call.i.i.i]	nil	<notes.c>:handle:%c.i
 nil	*heap_alloc@handle[i8* %call.i.i.i]	nil	<notes.c>:handle:%c1.i.i
@@ -40,7 +40,7 @@ nil	*heap_alloc@handle[i8* %call.i.i.i][0]	nil	<notes.c>:handle:%c12.i
 nil	*heap_alloc@handle[i8* %call.i.i.i][0]	nil	<notes.c>:handle:%c17.i
 nil	*heap_alloc@handle[i8* %call.i.i.i][8]	nil	<notes.c>:handle:%3
 nil	*heap_alloc@handle[i8* %call.i.i.i][8]	nil	<notes.c>:handle:%arg2.i.i
-nil	*null*	nil	<notes.c>:handle:%32
+nil	*null*	nil	<notes.c>:handle:%33
 nil	*null*	nil	<notes.c>:handle:%arg.0.i
 nil	*null*	nil	<notes.c>:handle:%c
 nil	*null*	nil	<notes.c>:handle:%resp.0
@@ -48,10 +48,10 @@ nil	*null*	nil	<notes.c>:handle:%retval.0
 nil	*null*	nil	<notes.c>:handle:%retval.0.i
 nil	*null*	nil	<notes.c>:handle:%retval.3.i.i
 nil	*null*	nil	<notes.c>:handle_loop:%call18
-nil	*stack_alloc@handle[[1024 x i8]* %data.i]	nil	<notes.c>:handle:%27
+nil	*stack_alloc@handle[[1024 x i8]* %data.i]	nil	<notes.c>:handle:%28
 nil	*stack_alloc@handle[[1024 x i8]* %data.i]	nil	<notes.c>:handle:%data.i
-nil	*stack_alloc@handle[[1024 x i8]* %data.i][0]	nil	<notes.c>:handle:%27
-nil	*stack_alloc@handle[[1024 x i8]* %data.i][0][*]	nil	<notes.c>:handle:%27
+nil	*stack_alloc@handle[[1024 x i8]* %data.i][0]	nil	<notes.c>:handle:%28
+nil	*stack_alloc@handle[[1024 x i8]* %data.i][0][*]	nil	<notes.c>:handle:%28
 nil	*stack_alloc@handle[[32 x i8]* %data.i.i]	nil	<notes.c>:handle:%13
 nil	*stack_alloc@handle[[32 x i8]* %data.i.i]	nil	<notes.c>:handle:%data.i.i
 nil	*stack_alloc@handle[[32 x i8]* %data.i.i][*]	nil	<notes.c>:handle:%add.ptr.i.i
@@ -72,7 +72,7 @@ nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	nil	<notes.c>:handle_loop:
 nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	nil	<notes.c>:handle_loop:%arrayidx8
 nil	*stack_alloc@handle_loop[[1024 x i8]* %req][0][*]	nil	<notes.c>:handle_loop:%arrayidx9
 nil	*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i]	nil	<notes.c>:handle:%2
-nil	*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i]	nil	<notes.c>:handle:%32
+nil	*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i]	nil	<notes.c>:handle:%33
 nil	*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i]	nil	<notes.c>:handle:%c
 nil	*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i]	nil	<notes.c>:handle:%c.i
 nil	*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i]	nil	<notes.c>:handle:%c1.i.i
@@ -91,7 +91,7 @@ nil	*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i][0].?/0	nil	<notes.c>:hand
 nil	*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i][0].?/1	nil	<notes.c>:handle:%arg
 nil	*typed_heap_alloc@handle[%struct.cmd* %call.i.i.i][0].?/1	nil	<notes.c>:handle:%arg7
 nil	*typed_heap_alloc@handle[i32* %call.i.i.i]	nil	<notes.c>:handle:%2
-nil	*typed_heap_alloc@handle[i32* %call.i.i.i]	nil	<notes.c>:handle:%32
+nil	*typed_heap_alloc@handle[i32* %call.i.i.i]	nil	<notes.c>:handle:%33
 nil	*typed_heap_alloc@handle[i32* %call.i.i.i]	nil	<notes.c>:handle:%c
 nil	*typed_heap_alloc@handle[i32* %call.i.i.i]	nil	<notes.c>:handle:%c.i
 nil	*typed_heap_alloc@handle[i32* %call.i.i.i]	nil	<notes.c>:handle:%c1.i.i
@@ -106,7 +106,7 @@ nil	*typed_heap_alloc@handle[i32* %call.i.i.i][0]	nil	<notes.c>:handle:%c17.i
 nil	*typed_heap_alloc@handle[i32* %call.i.i.i][2]	nil	<notes.c>:handle:%3
 nil	*typed_heap_alloc@handle[i32* %call.i.i.i][2]	nil	<notes.c>:handle:%arg2.i.i
 nil	*typed_heap_alloc@handle[i8* %call.i.i.i]	nil	<notes.c>:handle:%2
-nil	*typed_heap_alloc@handle[i8* %call.i.i.i]	nil	<notes.c>:handle:%32
+nil	*typed_heap_alloc@handle[i8* %call.i.i.i]	nil	<notes.c>:handle:%33
 nil	*typed_heap_alloc@handle[i8* %call.i.i.i]	nil	<notes.c>:handle:%c
 nil	*typed_heap_alloc@handle[i8* %call.i.i.i]	nil	<notes.c>:handle:%c.i
 nil	*typed_heap_alloc@handle[i8* %call.i.i.i]	nil	<notes.c>:handle:%c1.i.i

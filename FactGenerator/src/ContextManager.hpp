@@ -5,6 +5,7 @@
 #include <llvm/IR/Module.h>
 #include <llvm/IR/Value.h>
 
+#include <map>
 #include <sstream>
 #include <utility>
 #include <vector>
@@ -43,7 +44,7 @@ class ContextManager {
   using const_reverse_iterator = std::vector<context>::const_reverse_iterator;
 
   ContextManager(const llvm::Module& module, const std::string& path)
-      : iFunctionCtx(-1), mod(module), instrIndex(0), constantIndex(0) {
+      :  mod(module) {
     // Compute global prefix for this module
     std::stringstream prefix;
     prefix << '<' << path << '>' << std::flush;
@@ -123,14 +124,14 @@ class ContextManager {
   std::vector<Context> contexts;
 
   // The vector index containing a function context
-  int iFunctionCtx;
+  int iFunctionCtx{-1};
 
   // Current module and path
   const llvm::Module& mod;
 
   // Instruction and constant indices
-  unsigned instrIndex;
-  unsigned constantIndex;
+  unsigned instrIndex{0};
+  unsigned constantIndex{0};
 };
 }  // end of namespace cclyzer
 

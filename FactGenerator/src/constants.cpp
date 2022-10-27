@@ -124,7 +124,12 @@ void FactGenerator::writeConstantExpr(
             pred::ptrtoint_constant_expr::from_ptr_constant, refmode, opref);
         break;
     }
+
+#if LLVM_VERSION_MAJOR > 13
+  } else if (expr.getOpcode() == llvm::Instruction::GetElementPtr) {
+#else
   } else if (expr.isGEPWithNoNotionalOverIndexing()) {
+#endif
     unsigned nOperands = expr.getNumOperands();
 
     for (unsigned i = 0; i < nOperands; i++) {

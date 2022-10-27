@@ -22,133 +22,130 @@
 [<<main-context>>, nil]	*stack_alloc@main[i8* %__c.addr.i32]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%__c.addr.i32
 [<<main-context>>, nil]	*stack_alloc@main[i8* %__c.addr.i]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%__c.addr.i
 nil	*argv-alloc	[<<main-context>>, nil]	<cxxbasic.cpp>:main:%argv
-nil	*global_alloc@.str	[<<main-context>>, nil]	<cxxbasic.cpp>:main:35:2:@.str
-nil	*global_alloc@.str.1	[<<main-context>>, nil]	<cxxbasic.cpp>:main:102:3:@.str.1
-nil	*global_alloc@.str.1	[<<main-context>>, nil]	<cxxbasic.cpp>:main:55:3:@.str.1
-nil	*global_alloc@.str.1[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:102:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
-nil	*global_alloc@.str.1[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:55:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
-nil	*global_alloc@.str.1[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:102:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
-nil	*global_alloc@.str.1[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:55:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
-nil	*global_alloc@.str.2	[<<main-context>>, nil]	<cxxbasic.cpp>:main:99:3:@.str.2
-nil	*global_alloc@.str.2[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:99:2:getelementptr inbounds ([4 x i8], [4 x i8]* @.str.2, i64 0, i64 0)
-nil	*global_alloc@.str.2[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:99:2:getelementptr inbounds ([4 x i8], [4 x i8]* @.str.2, i64 0, i64 0)
-nil	*global_alloc@.str[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:35:1:getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i64 0, i64 0)
-nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:35:1:getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i64 0, i64 0)
-nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm	[<<main-context>>, nil]	<cxxbasic.cpp>:main:99:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm
+nil	*global_alloc@.str	[<<main-context>>, nil]	<cxxbasic.cpp>:main:32:2:@.str
+nil	*global_alloc@.str.1	[<<main-context>>, nil]	<cxxbasic.cpp>:main:52:3:@.str.1
+nil	*global_alloc@.str.1	[<<main-context>>, nil]	<cxxbasic.cpp>:main:99:3:@.str.1
+nil	*global_alloc@.str.1[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:52:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
+nil	*global_alloc@.str.1[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:99:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
+nil	*global_alloc@.str.1[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:52:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
+nil	*global_alloc@.str.1[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:99:2:getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i64 0, i64 0)
+nil	*global_alloc@.str.2	[<<main-context>>, nil]	<cxxbasic.cpp>:main:96:3:@.str.2
+nil	*global_alloc@.str.2[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:96:2:getelementptr inbounds ([4 x i8], [4 x i8]* @.str.2, i64 0, i64 0)
+nil	*global_alloc@.str.2[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:96:2:getelementptr inbounds ([4 x i8], [4 x i8]* @.str.2, i64 0, i64 0)
+nil	*global_alloc@.str[0]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:32:1:getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i64 0, i64 0)
+nil	*global_alloc@.str[0][*]	[<<main-context>>, nil]	<cxxbasic.cpp>:main:32:1:getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i64 0, i64 0)
+nil	*global_alloc@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm	[<<main-context>>, nil]	<cxxbasic.cpp>:main:96:0:@_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm
 nil	*global_alloc@_ZNSt8ios_base4InitC1Ev	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:0:0:@_ZNSt8ios_base4InitC1Ev
 nil	*global_alloc@_ZNSt8ios_base4InitD1Ev	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:1:1:bitcast (void (%"class.std::ios_base::Init"*)* @_ZNSt8ios_base4InitD1Ev to void (i8*)*)
 nil	*global_alloc@_ZNSt8ios_base4InitD1Ev	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:1:2:@_ZNSt8ios_base4InitD1Ev
-nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:102:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
-nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:110:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
-nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:116:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
-nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:55:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
-nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:63:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
-nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:69:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
-nil	*global_alloc@_ZSt4cout	[<<main-context>>, nil]	<cxxbasic.cpp>:main:102:1:@_ZSt4cout
-nil	*global_alloc@_ZSt4cout	[<<main-context>>, nil]	<cxxbasic.cpp>:main:110:1:@_ZSt4cout
-nil	*global_alloc@_ZSt4cout	[<<main-context>>, nil]	<cxxbasic.cpp>:main:55:1:@_ZSt4cout
-nil	*global_alloc@_ZSt4cout	[<<main-context>>, nil]	<cxxbasic.cpp>:main:63:1:@_ZSt4cout
+nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:107:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
+nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:113:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
+nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:52:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
+nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:60:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
+nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:66:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
+nil	*global_alloc@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l	[<<main-context>>, nil]	<cxxbasic.cpp>:main:99:0:@_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
+nil	*global_alloc@_ZSt4cout	[<<main-context>>, nil]	<cxxbasic.cpp>:main:107:1:@_ZSt4cout
+nil	*global_alloc@_ZSt4cout	[<<main-context>>, nil]	<cxxbasic.cpp>:main:52:1:@_ZSt4cout
+nil	*global_alloc@_ZSt4cout	[<<main-context>>, nil]	<cxxbasic.cpp>:main:60:1:@_ZSt4cout
+nil	*global_alloc@_ZSt4cout	[<<main-context>>, nil]	<cxxbasic.cpp>:main:99:1:@_ZSt4cout
 nil	*global_alloc@_ZStL8__ioinit	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:0:1:@_ZStL8__ioinit
 nil	*global_alloc@_ZStL8__ioinit	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:1:4:@_ZStL8__ioinit
 nil	*global_alloc@_ZStL8__ioinit[0].?/0	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:1:3:getelementptr inbounds (%"class.std::ios_base::Init", %"class.std::ios_base::Init"* @_ZStL8__ioinit, i64 0, i32 0)
-nil	*global_alloc@_ZdlPv	[<<main-context>>, nil]	<cxxbasic.cpp>:main:136:0:@_ZdlPv
-nil	*global_alloc@_ZdlPv	[<<main-context>>, nil]	<cxxbasic.cpp>:main:91:0:@_ZdlPv
+nil	*global_alloc@_ZdlPv	[<<main-context>>, nil]	<cxxbasic.cpp>:main:133:0:@_ZdlPv
+nil	*global_alloc@_ZdlPv	[<<main-context>>, nil]	<cxxbasic.cpp>:main:88:0:@_ZdlPv
 nil	*global_alloc@__cxa_atexit	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:1:0:@__cxa_atexit
 nil	*global_alloc@__dso_handle	[<<startup-context>>, nil]	<cxxbasic.cpp>:_GLOBAL__sub_I_cxxbasic.cpp:1:7:@__dso_handle
 nil	*global_alloc@__gxx_personality_v0	[<<main-context>>, nil]	<cxxbasic.cpp>:main:10:@__gxx_personality_v0
 nil	*global_alloc@__gxx_personality_v0	[<<main-context>>, nil]	<cxxbasic.cpp>:main:9:bitcast (i32 (...)* @__gxx_personality_v0 to i8*)
-nil	*global_alloc@llvm.dbg.declare	[<<main-context>>, nil]	<cxxbasic.cpp>:main:22:0:@llvm.dbg.declare
+nil	*global_alloc@llvm.dbg.declare	[<<main-context>>, nil]	<cxxbasic.cpp>:main:20:0:@llvm.dbg.declare
 nil	*global_alloc@llvm.dbg.declare	[<<main-context>>, nil]	<cxxbasic.cpp>:main:7:0:@llvm.dbg.declare
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:100:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:101:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:102:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:103:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:104:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:105:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:106:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:108:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:109:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:10:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:110:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:112:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:113:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:115:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:116:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:117:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:118:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:119:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:11:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:120:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:121:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:123:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:124:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:125:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:126:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:127:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:128:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:129:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:130:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:131:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:132:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:133:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:134:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:135:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:13:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:14:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:15:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:18:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:19:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:20:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:21:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:23:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:22:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:24:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:25:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:26:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:27:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:28:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:29:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:30:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:31:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:33:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:34:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:35:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:36:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:37:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:38:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:39:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:3:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:40:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:43:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:46:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:47:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:44:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:4:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:50:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:51:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:53:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:54:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:55:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:56:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:57:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:58:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:59:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:61:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:62:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:63:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:65:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:66:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:68:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:70:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:71:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:72:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:73:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:74:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:75:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:76:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:78:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:79:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:80:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:81:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:82:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:83:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:84:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:85:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:86:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:87:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:88:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:89:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:8:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:90:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:91:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:92:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:93:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:94:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:95:0:@llvm.dbg.value
-nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:96:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:97:0:@llvm.dbg.value
+nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:98:0:@llvm.dbg.value
 nil	*global_alloc@llvm.dbg.value	[<<main-context>>, nil]	<cxxbasic.cpp>:main:9:0:@llvm.dbg.value
-nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:117:0:@llvm.lifetime.end.p0i8
-nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:138:0:@llvm.lifetime.end.p0i8
-nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:140:0:@llvm.lifetime.end.p0i8
-nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:70:0:@llvm.lifetime.end.p0i8
-nil	*global_alloc@llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:111:0:@llvm.lifetime.start.p0i8
-nil	*global_alloc@llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:64:0:@llvm.lifetime.start.p0i8
+nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:114:0:@llvm.lifetime.end.p0i8
+nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:135:0:@llvm.lifetime.end.p0i8
+nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:137:0:@llvm.lifetime.end.p0i8
+nil	*global_alloc@llvm.lifetime.end.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:67:0:@llvm.lifetime.end.p0i8
+nil	*global_alloc@llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:108:0:@llvm.lifetime.start.p0i8
+nil	*global_alloc@llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:61:0:@llvm.lifetime.start.p0i8
 nil	*global_alloc@llvm.lifetime.start.p0i8	[<<main-context>>, nil]	<cxxbasic.cpp>:main:6:0:@llvm.lifetime.start.p0i8
-nil	*global_alloc@llvm.memcpy.p0i8.p0i8.i64	[<<main-context>>, nil]	<cxxbasic.cpp>:main:35:0:@llvm.memcpy.p0i8.p0i8.i64
-nil	*global_alloc@rand	[<<main-context>>, nil]	<cxxbasic.cpp>:main:49:0:@rand
+nil	*global_alloc@llvm.memcpy.p0i8.p0i8.i64	[<<main-context>>, nil]	<cxxbasic.cpp>:main:32:0:@llvm.memcpy.p0i8.p0i8.i64
+nil	*global_alloc@rand	[<<main-context>>, nil]	<cxxbasic.cpp>:main:46:0:@rand
