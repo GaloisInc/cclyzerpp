@@ -73,12 +73,6 @@
 
   _try_memcpy(?toACtx, ?toAlloc, ?fromACtx, ?fromAlloc, 0)
   :-
-    memcpy_pass_by_value(?toCtx, ?to, ?fromCtx, ?from),
-    operand_points_to(?fromACtx, ?fromAlloc, ?fromCtx, ?from),
-    var_points_to(?toACtx, ?toAlloc, ?toCtx, ?to).
-
-  _try_memcpy(?toACtx, ?toAlloc, ?fromACtx, ?fromAlloc, 0)
-  :-
     memcpy_sig(?toACtx, ?toAlloc, ?fromACtx, ?fromAlloc).
 
   .decl _stripctx_memcpy(?toAlloc: Allocation, ?fromAlloc: Allocation, ?size: number)

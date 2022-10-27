@@ -22,11 +22,6 @@
   callgraph.func_pointer_operand_points_to(?aCtx, ?alloc, ?ctx, ?operand) :-
     operand_points_to(?aCtx, ?alloc, ?ctx, ?operand).
 
-  memcpy_pass_by_value(?calleeCtx, ?param, ?callerCtx, ?argument) :-
-    func_by_value_param(?callee, ?index, ?param),
-    callgraph.callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr),
-    actual_arg(?callerInstr, ?index, ?argument).
-
   ptr_points_to(aCtx, to, aCtx, from) :-
     empty_alloc_context(aCtx),
     argv_ptr_points_to(from, to).

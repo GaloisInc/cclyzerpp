@@ -81,7 +81,6 @@ visibility(vis) :- func_visibility(_, vis).
 
 .decl func_section(func:Function, section:symbol)
 
-
 //----------------------------------
 // Function (Formal) Parameters
 //----------------------------------
@@ -95,28 +94,6 @@ func_nparams(Func, Total) :-
 
 
 .decl func_param(func:Function, index:ArgumentIndex, param:Variable)
-
-
-//------------------------------------------------------------------------------
-// [Parameter Attributes]
-//------------------------------------------------------------------------------
-
-.decl func_func_attr(func:FunctionDecl, attr:Attribute)
-.decl func_return_attr(func:FunctionDecl, attr:Attribute)
-.decl func_param_attr(func:FunctionDecl, index:ArgumentIndex, attr:Attribute)
-
-attr(Attr) :- func_func_attr(_, Attr).
-attr(Attr) :- func_return_attr(_, Attr).
-attr(Attr) :- func_param_attr(_, _, Attr).
-
-// Parameter is passed by value
-.decl func_param_by_value(func:Function, index:number)
-
-func_param_by_value(Func, Index) :-
-   func_param(Func, Index, _),
-   func_param_attr(Func, Index, ByValueAttr),
-   parameter_attr__byval(ByValueAttr).
-
 
 //------------------------------------------------------------------------------
 // [Constraints]

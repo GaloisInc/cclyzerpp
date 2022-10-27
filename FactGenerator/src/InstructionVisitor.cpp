@@ -1,6 +1,5 @@
 #include "InstructionVisitor.hpp"
 
-#include <llvm/IR/Attributes.h>
 #include <llvm/IR/DebugInfo.h>
 #include <llvm/IR/Operator.h>
 
@@ -292,16 +291,6 @@ void InstructionVisitor::visitInvokeInst(const llvm::InvokeInst &II) {
   writeInstrOperand(pred::invoke::normal_label, iref, II.getNormalDest());
   writeInstrOperand(pred::invoke::exception_label, iref, II.getUnwindDest());
 
-  // Function Attributes
-  const Attributes &Attrs = II.getAttributes();
-
-  if (Attrs.hasAttributes(Attributes::ReturnIndex)) {
-    string attrs = Attrs.getAsString(Attributes::ReturnIndex);
-    gen.writeFact(pred::invoke::return_attr, iref, attrs);
-  }
-
-  gen.writeFnAttributes<pred::invoke>(iref, Attrs);
-
   // TODO: Why not CallingConv::C
   if (II.getCallingConv() != llvm::CallingConv::C) {
     refmode_t cconv = gen.refmode(II.getCallingConv());
@@ -564,18 +553,6 @@ void InstructionVisitor::visitCallInst(const llvm::CallInst &CI) {
     refmode_t cconv = gen.refmode(CI.getCallingConv());
     gen.writeFact(pred::call::calling_conv, iref, cconv);
   }
-
-  // Attributes
-  const Attributes &Attrs = CI.getAttributes();
-
-  if (Attrs.hasAttributes(Attributes::ReturnIndex)) {
-    const auto ReturnAttrs = Attrs.getAttributes(Attributes::ReturnIndex);
-    for (const auto Attr : ReturnAttrs) {
-      gen.writeFact(pred::call::return_attr, iref, Attr.getAsString());
-    }
-  }
-
-  gen.writeFnAttributes<pred::call>(iref, Attrs);
 }
 
 void InstructionVisitor::visitDbgDeclareInst(const llvm::DbgDeclareInst &DDI) {

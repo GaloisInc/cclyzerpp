@@ -172,12 +172,6 @@ actual_arg(?invokeInstr, ?index, ?argument) :-
 actual_arg(?callInstr, ?index, ?argument) :-
   call_instr_arg(?callInstr, ?index, ?argument).
 
-.decl func_param_not_by_value(?callee: Function, ?index: ArgumentIndex, ?param: Variable)
-
-func_param_not_by_value(?callee, ?index, ?param) :-
-  func_param(?callee, ?index, ?param),
-  !func_param_by_value(?callee, ?index).
-
 .decl func_returns_value(?retValue: Operand, ?inFunction: Function)
 
 func_returns_value(?retValue, ?inFunction) :-
@@ -207,7 +201,7 @@ func_returns_value(?retValue, ?inFunction) :-
   // Actual argument to formal parameter `assignment`
   interp_assignment(?calleeCtx, ?param, ?callerCtx, ?argument) :-
     callgraph_edge(?calleeCtx, ?callee, ?callerCtx, ?callerInstr),
-    func_param_not_by_value(?callee, ?index, ?param),
+    func_param(?callee, ?index, ?param),
     actual_arg(?callerInstr, ?index, ?argument).
 
   // Returned value to target variable `assignment`
@@ -245,17 +239,3 @@ func_returns_value(?retValue, ?inFunction) :-
     operand_has_type(?argument, ?argType).
 
 }
-
-//------------------------------------------------------------------------------
-//  Pass-by-value Semantics
-//------------------------------------------------------------------------------
-
-// Interprocedural memcpy due to func call
-
-.decl memcpy_pass_by_value(?toCtx: Context, ?toVar: Variable, ?fromCtx: Context, ?fromValue: Operand)
-
-.decl func_by_value_param(?callee: Function, ?index: ArgumentIndex, ?param: Variable)
-
-func_by_value_param(?callee, ?index, ?param) :-
-   func_param(?callee, ?index, ?param),
-   func_param_by_value(?callee, ?index).

@@ -21,6 +21,7 @@ instr(v) :- call_instr(v).
 .decl call_instr_calling_conv(instr:CallInstruction, cc:CallingConvention)
 calling_convention(cc) :- call_instr_calling_conv(_, cc).
 
+.decl call_instr_arg(instr:CallInstruction, i:ArgumentIndex, arg:Operand)
 
 //---------------------------------------------------------------
 // [Direct and Indirect Call Instructions]
@@ -46,21 +47,6 @@ asm_call_instr(Instr) :-
    call_instr_func_operand(Instr, Constant),
    inline_asm(Constant).
 
-
-//--------------------------------------------------
-// Actual arguments and Parameter Attrs
-//--------------------------------------------------
-
-.decl call_instr_arg(instr:CallInstruction, i:ArgumentIndex, arg:Operand)
-.decl call_instr_return_attr(instr:CallInstruction, attr:Attribute)
-.decl call_instr_param_attr(instr:CallInstruction, i:ArgumentIndex, attr:Attribute)
-.decl call_instr_func_attr(instr:CallInstruction, attr:Attribute)
-
-attr(Attr) :- call_instr_func_attr(_, Attr).
-attr(Attr) :- call_instr_return_attr(_, Attr).
-attr(Attr) :- call_instr_param_attr(_, _, Attr).
-
-
 //-----------------------------
 // Signature (func type)
 //-----------------------------
@@ -82,19 +68,15 @@ call_instr_return_type(Instr, Type) :-
 //------------------------------------------------------------------------------
 // [Constraints]
 //
-//  (1) Only ‘zeroext‘, ‘signext‘, and ‘inreg‘ attrs
-//      are valid for return values.
-//  (2) The calling convention of the call must match the
+//  (1) The calling convention of the call must match the
 //      calling convention of the target func.
-//  (3) The type of the call instr is also the type of
+//  (2) The type of the call instr is also the type of
 //      the return value. Functions that return no value are
 //      marked void.
-//  (4) The func type shall be the signature of the pointer
+//  (3) The func type shall be the signature of the pointer
 //      to func value being invoked. The argument types must
 //      match the types implied by this signature.
-//  (5) All arguments must be of first class type.
-//  (6) Only ‘noreturn‘, ‘nounwind‘, ‘readonly‘ and ‘readnone‘
-//      attrs are valid as func attrs.
+//  (4) All arguments must be of first class type.
 //------------------------------------------------------------------------------
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
@@ -106,29 +88,6 @@ schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
    call_instr(Instr),
    !call_instr_fn_type(Instr, _).
-
-// attr compatibility
-schema_invalid_instr(Instr, __FILE__, __LINE__) :-
-   schema_sanity(),
-   call_instr_return_attr(Instr, Attr),
-   !parameter_attr__zeroext(Attr),
-   !parameter_attr__signext(Attr),
-   !parameter_attr__inreg(Attr),
-   !parameter_attr__noalias(Attr),
-   !parameter_attr__dereferenceable(Attr). // c1
-
-schema_invalid_instr(Instr, __FILE__, __LINE__) :-
-   schema_sanity(),
-   call_instr_func_attr(Instr, Attr),
-   !func_func_attr__noreturn(Attr),
-   !func_func_attr__nounwind(Attr),
-   !func_func_attr__readonly(Attr),
-   !func_func_attr__readnone(Attr),
-   !func_func_attr__cold(Attr),
-   !func_func_attr__returns_twice(Attr),
-   !func_func_attr__builtin(Attr),
-   !target_dependent_attr(Attr). // c6
-
 
 // cc compatibility
 //
