@@ -10,7 +10,7 @@ next
 Changed
 ~~~~~~~
 
-- cclyzer++ now builds against (and requires) LLVM 12. See :doc:`build` for how
+- cclyzer++ now builds against (and requires) LLVM 13. See :doc:`build` for how
   to build against other versions of LLVM.
 
 `v0.5.0`_ - 2022-10-21
