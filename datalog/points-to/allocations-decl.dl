@@ -33,7 +33,6 @@ basic_allocation(?alloc) :-
 
 .decl stack_allocation_by_instr(?insn:AllocaInstruction, ?stackAlloc:StackAllocation)
 .decl stack_allocation_by_type_instr(?type:Type, ?insn:AllocaInstruction, ?stackAlloc:StackAllocation)
-.decl stack_allocation_by_parameter(?func:FunctionDecl, ?index:number, ?stackAlloc:StackAllocation)
 
 .decl heap_allocation_by_instr(?insn:CallBase, ?heapAlloc:HeapAllocation)
 .decl heap_allocation_by_type_instr(?type:Type, ?insn:CallBase, ?heapAlloc:HeapAllocation)

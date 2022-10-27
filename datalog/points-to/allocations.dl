@@ -38,23 +38,6 @@ static_allocation_type(?stackAlloc, ?type) :-
    alloca_instr_type(?instr,?type),
    stack_allocation_by_instr(?instr, ?stackAlloc).
 
-/// 2. Parameters with pass-by-value semantics
-
-stack_allocation(?stackAlloc),
- stack_allocation_by_parameter(?func, ?index, ?stackAlloc)
- :-
-   func_param_by_value(?func, ?index),
-   func_param(?func, ?index, ?param),
-   variable_has_type(?param, ?type),
-   any_reachable_func(?func),
-   build_stack_allocation(?stackAlloc, ?func, ?type, ?param).
-
-static_allocation_type(?stackAlloc, ?type) :-
-   stack_allocation_by_parameter(?func, ?index, ?stackAlloc),
-   func_ty(?func, ?funcType),
-   func_type_param(?funcType, ?index, ?paramType),
-   pointer_type_has_component(?paramType, ?type).
-
 //---------------------------------------------------------------------
 // [Heap Allocations]
 //
@@ -150,14 +133,6 @@ heap_allocation_by_mmap(?insn, ?heapAlloc) :-
     reachable_context(?ctx, ?instrFunc),
     record(?newCtx, ?stackAlloc, ?ctx).
 
-  allocated_at(?newCtx, ?stackAlloc, ?ctx, ?param)
-  :-
-    stack_allocation_by_parameter(?func, ?index, ?stackAlloc),
-    func_param_by_value(?func, ?index),
-    func_param(?func, ?index, ?param),
-    reachable_context(?ctx, ?func),
-    record(?newCtx, ?stackAlloc, ?ctx).
-
   allocated_at(?newCtx, ?heapAlloc, ?ctx, ?var)
   :-
     heap_allocation_by_instr(?instr, ?heapAlloc),
@@ -175,8 +150,3 @@ allocation_pos(?alloc, ?line, ?column) :-
    (stack_allocation_by_instr(?insn, ?alloc);
    heap_allocation_by_instr(?insn, ?alloc)),
    instr_pos(?insn, ?line, ?column).
-
-allocation_pos(?alloc, ?line, ?column) :-
-   stack_allocation_by_parameter(?func, ?index, ?alloc),
-   func_param(?func, ?index, ?param),
-   variable_has_debug_decl_pos(?param, ?line, ?column).

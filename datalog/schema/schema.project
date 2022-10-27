@@ -1,5 +1,4 @@
 #include "debug.dl"
-#include "attr.dl"
 #include "calling-convention.dl"
 #include "ordering.dl"
 #include "type.dl"

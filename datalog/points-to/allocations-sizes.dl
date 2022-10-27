@@ -61,11 +61,6 @@ allocation_size(?stackAlloc, ?size) :-
    static_allocation_type(?stackAlloc, ?type),
    type_has_size(?type, ?size).
 
-allocation_size(?stackAlloc, ?size) :-
-   stack_allocation_by_parameter(_, _, ?stackAlloc),
-   static_allocation_type(?stackAlloc, ?type),
-   type_has_size(?type, ?size).
-
 //-----------------------
 // Heap Allocations
 //-----------------------

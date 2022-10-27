@@ -1,5 +1,4 @@
 #include <llvm/Config/llvm-config.h>
-#include <llvm/IR/Attributes.h>
 #include <llvm/IR/Constants.h>
 #include <llvm/IR/Function.h>
 
@@ -74,17 +73,6 @@ void FactGenerator::writeFunction(
   }
 #endif
 
-  // Record function attributes TODO
-  const Attributes &Attrs = func.getAttributes();
-
-  if (Attrs.hasAttributes(Attributes::ReturnIndex))
-    writeFact(
-        pred::func::return_attr,
-        funcref,
-        Attrs.getAsString(Attributes::ReturnIndex));
-
-  writeFnAttributes<pred::func>(funcref, Attrs);
-
   if (func.isDeclaration()) {
     // Record as a function declaration entity
     writeFact(pred::func::id_decl, funcref);
@@ -123,61 +111,3 @@ void FactGenerator::writeFunction(
     recordVariable(varId, arg->getType());
   }
 }
-
-//------------------------------------------------------------------------------
-// Record Function Attributes
-//------------------------------------------------------------------------------
-
-template <typename PredGroup>
-void FactGenerator::writeFnAttributes(
-    const refmode_t &refmode, const Attributes allAttrs) {
-#if LLVM_VERSION_MAJOR < 5  // AttributeSet -> AttributeList
-  for (unsigned i = 0; i < allAttrs.getNumSlots(); ++i) {
-    unsigned index = allAttrs.getSlotIndex(i);
-
-    // Write out each attribute for this slot
-    for (Attributes::iterator it = allAttrs.begin(i), end = allAttrs.end(i);
-         it != end;
-         ++it) {
-      llvm::Attribute attrib = *it;
-#else
-  // Write out each attribute for this slot
-  for (unsigned index = allAttrs.index_begin(), e = allAttrs.index_end();
-       index != e;
-       ++index) {
-    llvm::AttributeSet attrs = allAttrs.getAttributes(index);
-    for (const llvm::Attribute attrib : attrs) {
-#endif
-      std::string attr = attrib.getAsString();
-      attr.erase(std::remove(attr.begin(), attr.end(), '"'), attr.end());
-
-      // Record target-dependent attributes
-      if (attrib.isStringAttribute())
-        writeFact(pred::attr::target_dependent, attr);
-
-      // Record attribute by kind
-      switch (index) {
-        case Attributes::AttrIndex::ReturnIndex:
-          writeFact(PredGroup::return_attr, refmode, attr);
-          break;
-        case Attributes::AttrIndex::FunctionIndex:
-          writeFact(PredGroup::func_attr, refmode, attr);
-          break;
-        default:
-          writeFact(PredGroup::param_attr, refmode, index - 1, attr);
-          break;
-      }
-    }
-  }
-}
-
-// Instantiate template method
-
-template void FactGenerator::writeFnAttributes<pred::func>(
-    const refmode_t &refmode, const Attributes Attrs);
-
-template void FactGenerator::writeFnAttributes<pred::call>(
-    const refmode_t &refmode, const Attributes Attrs);
-
-template void FactGenerator::writeFnAttributes<pred::invoke>(
-    const refmode_t &refmode, const Attributes Attrs);

@@ -1,7 +1,6 @@
 #ifndef CSV_GENERATOR_H__
 #define CSV_GENERATOR_H__
 
-#include <llvm/IR/Attributes.h>
 #include <llvm/IR/Constants.h>
 #include <llvm/IR/DataLayout.h>
 #include <llvm/IR/GlobalValue.h>
@@ -28,12 +27,6 @@
 namespace cclyzer {
 class FactGenerator;
 }
-
-#if LLVM_VERSION_MAJOR < 5  // AttributeSet ->AttributeList
-typedef llvm::AttributeSet Attributes;
-#else
-typedef llvm::AttributeList Attributes;
-#endif
 
 class cclyzer::FactGenerator : private RefmodeEngine,
                                private Demangler,
@@ -71,8 +64,7 @@ class cclyzer::FactGenerator : private RefmodeEngine,
   using pred_t = predicates::pred_t;
 
   /* Constructor must initialize output file streams */
-  FactGenerator(FactWriter &writer)
-      : ForwardingFactWriter(writer) {}
+  FactGenerator(FactWriter &writer) : ForwardingFactWriter(writer) {}
 
   /* Recording variables and types */
   void recordVariable(const std::string &id, const llvm::Type *type) {
@@ -85,9 +77,6 @@ class cclyzer::FactGenerator : private RefmodeEngine,
   }
 
   /* Auxiliary fact writing methods */
-
-  template <typename PredGroup>
-  void writeFnAttributes(const refmode_t &, const Attributes);
 
   template <typename PredGroup, class ConstantType>
   void writeConstantWithOperands(const ConstantType &, const refmode_t &);
@@ -141,9 +130,7 @@ class cclyzer::FactGenerator : private RefmodeEngine,
       gen.enterModule(m, path);
     }
 
-    ~ModuleContext() {
-      gen.exitModule();
-    }
+    ~ModuleContext() { gen.exitModule(); }
 
    private:
     FactGenerator &gen;
