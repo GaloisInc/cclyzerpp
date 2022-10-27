@@ -1,7 +1,13 @@
+// IWYU pragma: no_include <boost/unordered/detail/implementation.hpp>
 #include "FactWriter.hpp"
 
 #include <algorithm>
+#include <boost/filesystem/operations.hpp>   // for create_directory
+#include <boost/filesystem/path_traits.hpp>  // for filesystem
+#include <map>                               // for operator!=, _Rb...
+#include <utility>                           // for move
 
+#include "csv_writer.hpp"  // for csv_writer
 #include "predicate_groups.hpp"
 
 namespace fs = boost::filesystem;

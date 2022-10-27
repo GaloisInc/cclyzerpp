@@ -1,14 +1,18 @@
 #ifndef TYPE_ACCUMULATOR_HPP__
 #define TYPE_ACCUMULATOR_HPP__
 
-#include <llvm/IR/DerivedTypes.h>
-#include <llvm/IR/Type.h>
-#include <llvm/Support/raw_ostream.h>
+#include <llvm/Config/llvm-config.h>   // for LLVM_VERSION_MAJOR
+#include <llvm/IR/DerivedTypes.h>      // for StructType, FunctionType
+#include <llvm/IR/Type.h>              // for Type
+#include <llvm/Support/Casting.h>      // for cast, dyn_cast
+#include <llvm/Support/raw_ostream.h>  // for errs, raw_fd_ostream
+#include <stddef.h>                    // for size_t
 
-#include <boost/unordered_set.hpp>
+#include <boost/container_hash/extensions.hpp>  // for hash
+#include <boost/unordered/unordered_set.hpp>    // for unordered_set
 
 namespace cclyzer::llvm_utils {
-class TypeAccumulator;
+class TypeAccumulator;  // IWYU pragma: keep
 }  // namespace cclyzer::llvm_utils
 
 class cclyzer::llvm_utils::TypeAccumulator {

@@ -1,17 +1,19 @@
 #ifndef REFMODE_ENGINE_HPP__
 #define REFMODE_ENGINE_HPP__
 
-#include <llvm/IR/CallingConv.h>
-#include <llvm/IR/Function.h>
-#include <llvm/IR/GlobalValue.h>
-#include <llvm/IR/GlobalVariable.h>
-#include <llvm/IR/Instructions.h>
-#include <llvm/IR/Module.h>
-#include <llvm/IR/Type.h>
-#include <llvm/IR/Value.h>
+#include <llvm/IR/CallingConv.h>     // IWYU pragma: keep
+#include <llvm/IR/GlobalValue.h>     // IWYU pragma: keep
+#include <llvm/IR/GlobalVariable.h>  // IWYU pragma: keep
+#include <llvm/IR/Instructions.h>    // IWYU pragma: keep
 
-#include <boost/flyweight.hpp>
+#include <boost/flyweight.hpp>  // IWYU pragma: keep
 #include <string>
+
+namespace llvm {
+class Function;
+class Module;
+class Value;
+}  // namespace llvm
 
 namespace cclyzer {
 

@@ -1,17 +1,41 @@
 #include "FactGenerator.hpp"
 
-#include <llvm/IR/CFG.h>
-#include <llvm/IR/Constants.h>
-#include <llvm/IR/Module.h>
-#include <llvm/IR/Operator.h>
+#include <llvm/ADT/SmallVector.h>     // for SmallVector, SmallVectorTemplat...
+#include <llvm/ADT/StringRef.h>       // for StringRef
+#include <llvm/ADT/ilist_iterator.h>  // for operator!=, ilist_iterator
+#include <llvm/IR/BasicBlock.h>       // for BasicBlock
+#include <llvm/IR/CFG.h>              // for const_pred_iterator, pred_begin
+#include <llvm/IR/DebugLoc.h>         // for DebugLoc
+#include <llvm/IR/Function.h>         // for Function
+#include <llvm/IR/GlobalAlias.h>      // for GlobalAlias
+#include <llvm/IR/GlobalVariable.h>   // for GlobalVariable
+#include <llvm/IR/Instruction.h>      // for Instruction
+#include <llvm/IR/Metadata.h>         // for MDNode (ptr only), NamedMDNode
+#include <llvm/IR/Module.h>           // for Module, Module::const_alias_ite...
+#include <llvm/IR/Type.h>             // for Type
+#include <llvm/Support/Casting.h>     // for cast, isa
+#include <llvm/Support/JSON.h>        // for Array
+#include <stddef.h>                   // for size_t
 
-#include <regex>
-#include <string>
+#include <RefmodeEngine.hpp>    // for refmode_t
+#include <boost/operators.hpp>  // for operator++
+#include <regex>                // for regex, regex_search, match_resu...
+#include <string>               // for string, operator==, basic_string
+#include <utility>              // for pair
 
-#include "ContextSensitivity.hpp"
-#include "InstructionVisitor.hpp"
-#include "Signatures.hpp"
-#include "predicate_groups.hpp"
+#include "ContextSensitivity.hpp"  // for context_sensitivity_to_string
+#include "InstructionVisitor.hpp"  // for InstructionVisitor
+#include "Signatures.hpp"          // for emit_signatures, preprocess_sig...
+#include "predicate_groups.hpp"    // for instr, variable, block, block::...
+
+// Forward declarations
+namespace cclyzer {
+class FactWriter;
+}
+namespace llvm {
+class GlobalValue;
+class Value;
+}  // namespace llvm
 
 using cclyzer::FactGenerator;
 using llvm::cast;

@@ -209,6 +209,11 @@ endforeach()
 
 # -----------------------------------------------------------------------------
 
+find_program(IWYU NAMES include-what-you-use iwyu REQUIRED)
+set_property(TARGET factgen-exe PROPERTY CXX_INCLUDE_WHAT_YOU_USE ${IWYU})
+
+# -----------------------------------------------------------------------------
+
 if(NOT (DEFINED CLANG_VERSION))
   set(CLANG_VERSION ${LLVM_MAJOR_VERSION})
 endif()

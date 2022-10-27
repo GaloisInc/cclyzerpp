@@ -1,19 +1,29 @@
-#include <llvm/Config/llvm-config.h>
-#include <llvm/IR/LLVMContext.h>
-#include <llvm/IR/Module.h>
-#include <llvm/IRReader/IRReader.h>
-#include <llvm/Support/SourceMgr.h>
+#include <llvm/ADT/Optional.h>        // for Optional
+#include <llvm/Config/llvm-config.h>  // for LLVM_VERSION_MAJOR, LLVM...
+#include <llvm/IR/LLVMContext.h>      // for LLVMContext
+#include <llvm/IR/Module.h>           // for Module
+#include <llvm/IRReader/IRReader.h>   // for parseIRFile
+#include <llvm/Support/SourceMgr.h>   // for SMDiagnostic
+#include <stdlib.h>                   // for EXIT_FAILURE, EXIT_SUCCESS
 
-#include <boost/filesystem.hpp>
-#include <iostream>
-#include <string>
+#include <boost/filesystem/operations.hpp>   // for canonical
+#include <boost/filesystem/path.hpp>         // for path
+#include <boost/filesystem/path_traits.hpp>  // for filesystem
+#include <iostream>                          // for operator<<, endl, basic_...
+#include <memory>                            // for unique_ptr
+#include <string>                            // for string
+#include <utility>                           // for move
+#include <vector>                            // for vector
 
-#include "ContextSensitivity.hpp"
-#include "FactGenerator.hpp"
-#include "FactWriter.hpp"
-#include "Options.hpp"
-#include "ParseException.hpp"
-#include "factgen.hpp"
+#include "ContextSensitivity.hpp"  // for ContextSensitivity, INSE...
+#include "FactGenerator.hpp"       // for FactGenerator
+#include "FactWriter.hpp"          // for FactWriter
+#include "Options.hpp"             // for Options
+#include "ParseException.hpp"      // for ParseException
+#include "factgen.hpp"             // for factgen
+namespace llvm {
+class DataLayout;
+}
 
 // Type aliases
 namespace fs = boost::filesystem;

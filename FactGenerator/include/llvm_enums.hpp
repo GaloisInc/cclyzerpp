@@ -1,12 +1,12 @@
 #ifndef LLVM_ENUMS_HPP__
 #define LLVM_ENUMS_HPP__
 
-#include <llvm/IR/CallingConv.h>
-#include <llvm/IR/GlobalValue.h>
-#include <llvm/IR/GlobalVariable.h>
-#include <llvm/IR/Instructions.h>
+#include <llvm/IR/CallingConv.h>          // for ID
+#include <llvm/IR/GlobalValue.h>          // for GlobalValue, GlobalValue::L...
+#include <llvm/IR/GlobalVariable.h>       // for GlobalVariable
+#include <llvm/Support/AtomicOrdering.h>  // for AtomicOrdering
 
-#include <string>
+#include <string>  // for string
 
 namespace cclyzer::utils {
 // Functions that convert the various LLVM enums to strings

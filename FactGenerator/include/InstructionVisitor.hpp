@@ -1,17 +1,25 @@
 #ifndef INSTR_VISITOR_H__
 #define INSTR_VISITOR_H__
 
-#include <llvm/IR/InstVisitor.h>
+#include <llvm/IR/InstVisitor.h>          // for InstVisitor
+#include <llvm/IR/InstrTypes.h>           // for CastInst, BinaryOperator
+#include <llvm/IR/Instructions.h>         // for AllocaInst (ptr only), Atom...
+#include <llvm/IR/LLVMContext.h>          // for SingleThread
+#include <llvm/Support/AtomicOrdering.h>  // for AtomicOrdering
+#include <llvm/Support/ErrorHandling.h>   // for llvm
 
-#include <string>
+#include "FactGenerator.hpp"     // for FactGenerator
+#include "RefmodeEngine.hpp"     // for refmode_t
+#include "predicate_groups.hpp"  // for instr, instr::flag
 
-#include "FactGenerator.hpp"
-#include "RefmodeEngine.hpp"
-
-// Add to namespace
-namespace cclyzer {
-class InstructionVisitor;
-}
+// Forward declares
+namespace llvm {
+class DbgDeclareInst;
+class Instruction;
+class Module;
+class User;
+class Value;
+}  // namespace llvm
 
 // Processor of instructions
 class cclyzer::InstructionVisitor

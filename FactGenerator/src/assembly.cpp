@@ -1,11 +1,23 @@
-#include <llvm/IR/InlineAsm.h>
+#include <llvm/IR/DerivedTypes.h>        // for PointerType
+#include <llvm/IR/InlineAsm.h>           // for InlineAsm
+#include <llvm/Support/Casting.h>        // for cast, isa
+#include <llvm/Support/ErrorHandling.h>  // for llvm
+#include <stddef.h>                      // for size_t
 
-#include <boost/algorithm/string/replace.hpp>
-#include <boost/functional/hash.hpp>
-#include <string>
+#include <RefmodeEngine.hpp>                    // for refmode_t
+#include <boost/algorithm/string/replace.hpp>   // for replace_all
+#include <boost/container_hash/extensions.hpp>  // for hash
+#include <boost/iterator/iterator_traits.hpp>   // for iterator_value<>::type
+#include <boost/unordered/unordered_set.hpp>    // for unordered_set
+#include <deque>                                // for _Deque_iterator
+#include <string>                               // for string, allocator
 
-#include "FactGenerator.hpp"
-#include "predicate_groups.hpp"
+#include "FactGenerator.hpp"     // for FactGenerator
+#include "predicate_groups.hpp"  // for constant, inline_asm
+
+namespace llvm {
+class Type;
+}
 
 using cclyzer::FactGenerator;
 using llvm::cast;

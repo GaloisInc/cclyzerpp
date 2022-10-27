@@ -1,9 +1,22 @@
-#include <llvm/Config/llvm-config.h>
-#include <llvm/IR/Constants.h>
-#include <llvm/IR/Function.h>
+#include <llvm/ADT/StringRef.h>       // for StringRef
+#include <llvm/Config/llvm-config.h>  // for LLVM_VERSION_MAJOR, LLVM_VE...
+#include <llvm/IR/Argument.h>         // for Argument
+#include <llvm/IR/CallingConv.h>      // for C
+#include <llvm/IR/DerivedTypes.h>     // for FunctionType
+#include <llvm/IR/Function.h>         // for Function, Function::const_a...
 
-#include "FactGenerator.hpp"
-#include "predicate_groups.hpp"
+#include <RefmodeEngine.hpp>              // for refmode_t
+#include <boost/flyweight/flyweight.hpp>  // for flyweight, operator<
+#include <boost/operators.hpp>            // for operator++
+#include <map>                            // for map
+#include <string>                         // for string, operator==, operator+
+
+#include "FactGenerator.hpp"     // for FactGenerator
+#include "predicate_groups.hpp"  // for func, func::alignment, func...
+namespace llvm {
+class Constant;
+class Value;
+}  // namespace llvm
 
 using cclyzer::FactGenerator;
 namespace pred = cclyzer::predicates;

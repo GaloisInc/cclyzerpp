@@ -1,12 +1,10 @@
 #ifndef PREDICATE_H__
 #define PREDICATE_H__
 
-#include <memory>
+#include <iosfwd>
 #include <set>
 #include <string>
 #include <utility>
-
-#include "Singleton.hpp"
 
 namespace cclyzer {
 /* Forward declarations to be able to define actual registries */

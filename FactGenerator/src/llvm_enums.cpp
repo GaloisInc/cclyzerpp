@@ -1,8 +1,7 @@
 #include "llvm_enums.hpp"
 
-#include <llvm/Support/raw_ostream.h>
-
-#include <sstream>
+#include <llvm/Config/llvm-config.h>   // for LLVM_VERSION_MAJOR, LLVM_VERSI...
+#include <llvm/Support/raw_ostream.h>  // for errs, raw_ostream, raw_fd_ostream
 
 using std::string;
 

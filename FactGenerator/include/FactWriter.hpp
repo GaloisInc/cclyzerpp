@@ -1,16 +1,17 @@
 #ifndef FACT_WRITER_H__
 #define FACT_WRITER_H__
 
-#include <boost/filesystem.hpp>
-#include <boost/unordered_map.hpp>
-#include <string>
+// IWYU pragma: no_include "boost/unordered/detail/implementation.hpp"
+#include <boost/filesystem/path.hpp>          // for path
+#include <boost/unordered/unordered_map.hpp>  // for unordered_map
+#include <string>                             // for string
 
-#include "RefmodeEngine.hpp"  // TODO replace
-#include "csv_writer.hpp"
-#include "predicate.hpp"
+#include "RefmodeEngine.hpp"  // for refmode_t
+#include "csv_writer.hpp"     // for csv_writer
+#include "predicate.hpp"      // for Predicate
 
 namespace cclyzer {
-class FactWriter;
+class FactWriter;  // IWYU pragma: keep
 }
 
 class cclyzer::FactWriter {

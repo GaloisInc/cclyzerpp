@@ -1,14 +1,28 @@
 #include "RefmodeEngine.hpp"
 
-#include <llvm/IR/DebugInfoMetadata.h>
-#include <llvm/IR/InlineAsm.h>
-#include <llvm/Support/raw_ostream.h>
+#include <llvm/IR/BasicBlock.h>         // for BasicBlock
+#include <llvm/IR/Constant.h>           // for Constant
+#include <llvm/IR/DebugInfoMetadata.h>  // for DINode
+#include <llvm/IR/DerivedTypes.h>       // for StructType
+#include <llvm/IR/Function.h>           // for Function
+#include <llvm/IR/GlobalValue.h>        // for GlobalValue
+#include <llvm/IR/Metadata.h>           // for MDNode
+#include <llvm/IR/Type.h>               // for Type
+#include <llvm/Support/Casting.h>       // for cast, dyn_cast, isa
+#include <llvm/Support/raw_ostream.h>   // for raw_string_ostream, raw_ostream
 
-#include <boost/flyweight.hpp>
-#include <sstream>
+#include <memory>   // for unique_ptr
+#include <sstream>  // for ostringstream, operator<<
 
-#include "RefmodeEngineImpl.hpp"
-#include "llvm_enums.hpp"
+#include "ContextManager.hpp"     // for ContextManager
+#include "RefmodeEngineImpl.hpp"  // for RefmodeEngine::Impl
+#include "llvm_enums.hpp"         // for to_string, utils
+namespace llvm {
+class InlineAsm;
+}
+namespace llvm {
+class Instruction;
+}
 
 using cclyzer::refmode_t;
 using cclyzer::RefmodeEngine;
