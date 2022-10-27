@@ -40,7 +40,7 @@ other external libraries. Such models are crucial for soundness. See
 Language Support
 ----------------
 
-cclyzer++ has primarily been tested on LLVM code produced by Clang 10 through 13
+cclyzer++ has primarily been tested on LLVM code produced by Clang 10 through 14
 when compiling from C and C++ for x86_64. Your mileage may vary with other
 languages, compilers, and targets.
 
@@ -66,7 +66,7 @@ Comparison to cclyzer
 As mentioned above, cclyzer++ is based on cclyzer. The major differences are that
 cclyzer++
 
-* supports LLVM 10 through 13
+* supports LLVM 10 through 14
 * is implemented in Soufflé rather than LogicBlox
 * has :ref:`a C++ interface <cpp>`, rather than a Python one
 * has runtime-configurable context-sensitivity and heap-cloning
@@ -101,20 +101,23 @@ Versioning
 Since v0.4.0, cclyzer++ has attempted to follow `semantic versioning 2.0.0
 <semver>`_.
 
+.. _llvmver:
+
 LLVM Library Version
 ********************
 
 .. TODO(lb): Policy for supporting different LLVM versions
 
-cclyzer++ currently builds against LLVM 13 by default and can be built with
-LLVM 10. There are `plans <llvmver>`_ to support recent versions.
+cclyzer++ currently builds against LLVM 14 by default and can be built with
+previous versions 13 through 10. There are `plans <llvmver>`_ to support
+LLVM 15.
 
 Development Tools
 *****************
 
-cclyzer++ currently builds with Clang 13 (including other Clang tools such as
-clang-format and clang-tidy). There are `plans <llvmver>`_ to build with more
-recent versions of Clang.
+cclyzer++ currently builds with Clang 12 or Clang 14 (including other Clang
+tools such as clang-format and clang-tidy). There are `plans <llvmver>`_ to
+build with Clang 15.
 
 .. _tutorial: http://yanniss.github.io/points-to-tutorial15.pdf
 .. _llvmver: https://github.com/GaloisInc/cclyzerpp/issues/12
