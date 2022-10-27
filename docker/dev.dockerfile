@@ -17,6 +17,7 @@ SHELL ["/bin/bash", "-c", "-o", "pipefail"]
 ENV DEBIAN_FRONTEND=noninteractive
 
 # cmake: Build system
+# iwyu: Linter
 # git: Later steps of Dockerfile
 # gnupg: Later steps of Dockerfile
 # ninja-build: Build system
@@ -31,6 +32,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get --yes install --no-install-recommends \
       cmake \
+      iwyu \
       git \
       gnupg \
       ninja-build \
