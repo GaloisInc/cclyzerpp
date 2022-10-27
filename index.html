@@ -60,17 +60,11 @@ and <a class="reference external" href="https://galois.com/blog/2022/08/cclyzer/
 <div class="section" id="table-of-contents">
 <h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption"><span class="caption-text">User Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="architecture.html#the-fact-generator">The Fact Generator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture.html#c-interface">C++ Interface</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="build.html">Building and Running</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="build.html#building-the-fact-generator">Building the Fact Generator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="build.html#configuring-the-analysis">Configuring the Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="build.html#running-the-analysis">Running the Analysis</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
@@ -94,14 +88,6 @@ and <a class="reference external" href="https://galois.com/blog/2022/08/cclyzer/
 <li class="toctree-l2"><a class="reference internal" href="design.html#undefined-behavior">Undefined Behavior</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dev.html#running-tests">Running Tests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dev.html#cutting-a-release">Cutting a Release</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dev.html#naming-conventions">Naming Conventions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dev.html#debugging-regressions">Debugging Regressions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dev.html#performance-tuning">Performance Tuning</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="docker.html#obtaining-images">Obtaining Images</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docker.html#rationale">Rationale</a></li>
@@ -115,7 +101,7 @@ and <a class="reference external" href="https://galois.com/blog/2022/08/cclyzer/
 <li class="toctree-l2"><a class="reference internal" href="implementation.html#assertions">Assertions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="overview.html#notable-features">Notable Features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="overview.html#language-support">Language Support</a></li>
@@ -137,6 +123,32 @@ and <a class="reference external" href="https://galois.com/blog/2022/08/cclyzer/
 <li class="toctree-l2"><a class="reference internal" href="unsoundness.html#external-functions">External Functions</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#configuring-the-analysis">Configuring the Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#running-the-analysis">Running the Analysis</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Developer Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Building</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="build.html#build-dependencies">Build Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build.html#configuring-the-build">Configuring the Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build.html#building-the-fact-generator">Building the Fact Generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build.html#building-the-c-interface">Building the C++ Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#running-tests">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#cutting-a-release">Cutting a Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#naming-conventions">Naming Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#debugging-regressions">Debugging Regressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#performance-tuning">Performance Tuning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
 </ul>
 </div>
 </div>
@@ -176,19 +188,24 @@ Release, Distribution Unlimited.</p>
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption"><span class="caption-text">User Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="build.html">Building and Running</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="design.html">Analysis Design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implementation.html">Analysis Implementation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="signatures.html">Signatures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unsoundness.html">Sources of Unsoundness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
 </ul>
 
 <div class="relations">

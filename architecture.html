@@ -14,7 +14,7 @@
     <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Building and Running" href="build.html" />
+    <link rel="next" title="Changelog" href="changelog.html" />
     <link rel="prev" title="cclyzer++" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -45,13 +45,13 @@ that can be fed to the analysis. It doesn’t do much pre-processing of the
 information, rather just outputs a table-based view of the module’s AST.</p>
 <p>The fact generator is also used to configure the analysis parameters, namely the
 type and amount of context sensitivity and points-to signatures. See the
-<a class="reference internal" href="build.html#configuration"><span class="std std-ref">documentation on configuring the analysis</span></a> for more
+<a class="reference internal" href="usage.html#configuration"><span class="std std-ref">documentation on using the analysis</span></a> for more
 details.</p>
 </div>
 <div class="section" id="c-interface">
 <span id="cpp"></span><h2>C++ Interface<a class="headerlink" href="#c-interface" title="Permalink to this headline">¶</a></h2>
 <p>The C++ interface is an LLVM pass that wraps both the fact generator and the
-analysis itself. It can be used via <code class="docutils literal notranslate"><span class="pre">opt</span></code> (see <a class="reference internal" href="build.html#opt"><span class="std std-ref">With Opt</span></a>) or as a C++
+analysis itself. It can be used via <code class="docutils literal notranslate"><span class="pre">opt</span></code> (see <a class="reference internal" href="usage.html#opt"><span class="std std-ref">With Opt</span></a>) or as a C++
 library. Its library interface exposes the core output relations (e.g.,
 <code class="docutils literal notranslate"><span class="pre">var_points_to</span></code>) of the pointer analysis in terms of LLVM objects (e.g.,
 <code class="docutils literal notranslate"><span class="pre">llvm::Value</span></code>) rather than their serialized string representations that appear
@@ -77,23 +77,28 @@ details on this interface.</p>
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption"><span class="caption-text">User Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Architecture</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#the-fact-generator">The Fact Generator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#c-interface">C++ Interface</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="build.html">Building and Running</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="design.html">Analysis Design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implementation.html">Analysis Implementation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="signatures.html">Signatures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unsoundness.html">Sources of Unsoundness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
 </ul>
 
 <div class="relations">
@@ -101,7 +106,7 @@ details on this interface.</p>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="index.html" title="previous chapter">cclyzer++</a></li>
-      <li>Next: <a href="build.html" title="next chapter">Building and Running</a></li>
+      <li>Next: <a href="changelog.html" title="next chapter">Changelog</a></li>
   </ul></li>
 </ul>
 </div>

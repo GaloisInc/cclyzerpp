@@ -39,19 +39,26 @@ Table of Contents
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: User Documentation
 
    architecture
-   build
    changelog
    design
-   dev
    docker
    implementation
-   legal
+   install
    overview
    signatures
    unsoundness
+   usage
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Developer Documentation
+
+   build
+   dev
+   legal
 
 Indices and tables
 ------------------

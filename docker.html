@@ -15,7 +15,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Analysis Implementation" href="implementation.html" />
-    <link rel="prev" title="Development" href="dev.html" />
+    <link rel="prev" title="Analysis Design" href="design.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -42,20 +42,26 @@
 <div class="section" id="obtaining-images">
 <h2>Obtaining Images<a class="headerlink" href="#obtaining-images" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="pulling-from-ghcr">
-<h3>Pulling from GHCR<a class="headerlink" href="#pulling-from-ghcr" title="Permalink to this headline">¶</a></h3>
+<span id="ghcr"></span><h3>Pulling from GHCR<a class="headerlink" href="#pulling-from-ghcr" title="Permalink to this headline">¶</a></h3>
 <p>You can pull pre-built images from GHCR like so:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker pull ghcr.io/galoisinc/cclyzerpp-dev:main
 </pre></div>
 </div>
-<p>Tags can be branch names or commit SHAs of releases.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">main</span></code> tag refers to the most recent release. You can also specify a tag
+or commit SHA of a previous release, e.g.,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># The following are equivalent:</span>
+docker pull ghcr.io/galoisinc/cclyzerpp-dev:v0.5.0
+docker pull ghcr.io/galoisinc/cclyzerpp-dev:47bea4c4223d653209d28b932824618128f47910
+</pre></div>
+</div>
 </div>
 <div class="section" id="building-locally">
-<h3>Building Locally<a class="headerlink" href="#building-locally" title="Permalink to this headline">¶</a></h3>
+<span id="docker-build"></span><h3>Building Locally<a class="headerlink" href="#building-locally" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> docker
 <span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span> docker build --tag<span class="o">=</span>cclyzerpp-dev --file<span class="o">=</span>dev.dockerfile ..
 </pre></div>
 </div>
-<p>To build the <code class="docutils literal notranslate"><span class="pre">dist</span></code> image, first build cclyzer++ as described in <a class="reference internal" href="build.html"><span class="doc">Building and Running</span></a>.
+<p>To build the <code class="docutils literal notranslate"><span class="pre">dist</span></code> image, first build cclyzer++ as described in <a class="reference internal" href="build.html"><span class="doc">Building</span></a>.
 For example, to do so inside the <code class="docutils literal notranslate"><span class="pre">dev</span></code> image, run this from the source root:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run <span class="se">\</span>
   --rm <span class="se">\</span>
@@ -115,30 +121,35 @@ dependencies cause more cache hits.</p>
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption"><span class="caption-text">User Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="build.html">Building and Running</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="design.html">Analysis Design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Docker</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#obtaining-images">Obtaining Images</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#rationale">Rationale</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="implementation.html">Analysis Implementation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="signatures.html">Signatures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unsoundness.html">Sources of Unsoundness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="dev.html" title="previous chapter">Development</a></li>
+      <li>Previous: <a href="design.html" title="previous chapter">Analysis Design</a></li>
       <li>Next: <a href="implementation.html" title="next chapter">Analysis Implementation</a></li>
   </ul></li>
 </ul>
