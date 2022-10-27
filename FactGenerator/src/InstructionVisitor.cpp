@@ -285,7 +285,11 @@ void InstructionVisitor::visitInvokeInst(const llvm::InvokeInst &II) {
   writeInstrOperand(pred::invoke::func_operand, iref, invokeOp);
 
   // actual args
+#if LLVM_VERSION_MAJOR > 13
+  for (unsigned op = 0; op < II.arg_size(); ++op)
+#else
   for (unsigned op = 0; op < II.getNumArgOperands(); ++op)
+#endif
     writeInstrOperand(pred::invoke::arg, iref, II.getArgOperand(op), op);
 
   writeInstrOperand(pred::invoke::normal_label, iref, II.getNormalDest());
@@ -544,7 +548,11 @@ void InstructionVisitor::visitCallInst(const llvm::CallInst &CI) {
   // call instruction function (also records type)
   writeInstrOperand(pred::call::func_operand, iref, callOp);
 
+#if LLVM_VERSION_MAJOR > 13
+  for (unsigned op = 0; op < CI.arg_size(); ++op)
+#else
   for (unsigned op = 0; op < CI.getNumArgOperands(); ++op)
+#endif
     writeInstrOperand(pred::call::arg, iref, CI.getArgOperand(op), op);
 
   if (CI.isTailCall()) gen.writeFact(pred::call::tail_opt, iref);

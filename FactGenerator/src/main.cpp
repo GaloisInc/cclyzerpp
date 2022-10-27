@@ -49,7 +49,7 @@ void cclyzer::factgen(
 
   // Loop over each input file
   for (FileIt it = firstFile; it != endFile; ++it) {
-    fs::path inputFile = *it;
+    const fs::path &inputFile = *it;
 
     // Parse input file
     std::unique_ptr<llvm::Module> module =

@@ -20,8 +20,8 @@ env:
   # will error - we use Clang to compile test programs, and cclyzer++ must be
   # able to read the bitcode it outputs. We currently only run tests with the
   # most recent (matching) Clang/LLVM combination.
-  LLVM_MAJOR_VERSION: "13"
-  CLANG_VERSION: "13"
+  LLVM_MAJOR_VERSION: "14"
+  CLANG_VERSION: "14"
   UBUNTU_VERSION: "22.04"
   UBUNTU_NAME: "jammy"
 
@@ -58,7 +58,12 @@ jobs:
           llvm_version: "12"
           ubuntu_version: "20.04"
           ubuntu_name: "focal"
-        - llvm_version: "13"
+        - clang_version: "14"
+          llvm_version: "13"
+          ubuntu_version: "22.04"
+          ubuntu_name: "jammy"
+        - clang_version: "14"
+          llvm_version: "14"
           ubuntu_version: "22.04"
           ubuntu_name: "jammy"
     env:
@@ -115,7 +120,7 @@ jobs:
 
     - name: Run tests
       # See NOTE[Clang+LLVM]
-      if: ${{ env.LLVM_MAJOR_VERSION == 13 }}
+      if: ${{ env.LLVM_MAJOR_VERSION == 14 }}
       run: |
         # See previous comment
         if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
