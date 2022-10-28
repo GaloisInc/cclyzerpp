@@ -1,7 +1,7 @@
-#include "predicate_groups.hpp"
+#include "PredicateGroups.hpp"
 using namespace cclyzer::predicates;
 
-// Try: gcc -I include -E src/predicate_groups.cpp
+// Try: gcc -I include -E src/PredicateGroups.cpp
 //
 // GROUP_BEGIN, GROUP_END not needed
 #define GROUP_BEGIN(g)

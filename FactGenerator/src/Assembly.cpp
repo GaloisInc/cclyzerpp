@@ -5,7 +5,7 @@
 #include <string>
 
 #include "FactGenerator.hpp"
-#include "predicate_groups.hpp"
+#include "PredicateGroups.hpp"
 
 using cclyzer::FactGenerator;
 using llvm::cast;

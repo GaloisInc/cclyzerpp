@@ -6,8 +6,8 @@
 #include <string>
 
 #include "RefmodeEngine.hpp"  // TODO replace
-#include "csv_writer.hpp"
-#include "predicate.hpp"
+#include "CsvWriter.hpp"
+#include "Predicate.hpp"
 
 namespace cclyzer {
 class FactWriter;

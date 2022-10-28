@@ -11,9 +11,9 @@
 #include "ContextSensitivity.hpp"
 #include "FactGenerator.hpp"
 #include "FactWriter.hpp"
+#include "Factgen.hpp"
 #include "Options.hpp"
 #include "ParseException.hpp"
-#include "factgen.hpp"
 
 // Type aliases
 namespace fs = boost::filesystem;

@@ -7,8 +7,8 @@
 #include <boost/flyweight.hpp>
 #include <sstream>
 
+#include "LlvmEnums.hpp"
 #include "RefmodeEngineImpl.hpp"
-#include "llvm_enums.hpp"
 
 using cclyzer::refmode_t;
 using cclyzer::RefmodeEngine;

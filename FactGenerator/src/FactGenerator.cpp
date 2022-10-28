@@ -10,8 +10,8 @@
 
 #include "ContextSensitivity.hpp"
 #include "InstructionVisitor.hpp"
+#include "PredicateGroups.hpp"
 #include "Signatures.hpp"
-#include "predicate_groups.hpp"
 
 using cclyzer::FactGenerator;
 using llvm::cast;

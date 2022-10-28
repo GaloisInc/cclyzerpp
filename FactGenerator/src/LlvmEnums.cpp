@@ -1,4 +1,4 @@
-#include "llvm_enums.hpp"
+#include "LlvmEnums.hpp"
 
 #include <llvm/Support/raw_ostream.h>
 

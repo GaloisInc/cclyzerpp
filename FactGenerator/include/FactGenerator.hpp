@@ -22,7 +22,7 @@
 #include "ForwardingFactWriter.hpp"
 #include "RefmodeEngine.hpp"
 #include "Signatures.hpp"
-#include "predicate_groups.hpp"
+#include "PredicateGroups.hpp"
 
 namespace cclyzer {
 class FactGenerator;

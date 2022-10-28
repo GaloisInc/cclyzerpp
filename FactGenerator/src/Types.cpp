@@ -4,9 +4,9 @@
 #include <string>
 
 #include "FactGenerator.hpp"
+#include "PredicateGroups.hpp"
 #include "TypeAccumulator.hpp"
 #include "TypeVisitor.hpp"
-#include "predicate_groups.hpp"
 
 using cclyzer::FactGenerator;
 namespace pred = cclyzer::predicates;
