@@ -101,7 +101,12 @@ jobs:
           --mount type=bind,src=$PWD,target=/work \
           --workdir /work \
           "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
-          cmake -DLLVM_MAJOR_VERSION=${LLVM_MAJOR_VERSION} -G Ninja -B build -S .
+          cmake \
+          -DLLVM_MAJOR_VERSION=${LLVM_MAJOR_VERSION} \
+          -DUBSAN=1 \
+          -G Ninja \
+          -B build \
+          -S .
 
         docker run \
           --rm \
