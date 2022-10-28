@@ -30,7 +30,7 @@ Configuring the Build
 There are several CMake options to configure the build:
 
 - ``-DLLVM_MAJOR_VERSION=<MAJOR_VERSION_NUMBER>``: Build against a specific
-  version of LLVM; see :ref:`LLVM Library Version <llvmver>` for supported
+  version of LLVM; see :ref:`LLVM Library Version <llvmlib>` for supported
   versions.
 
 - ``-DUBSAN=1``: Build the FactGenerator with the undefined behavior sanitizer.

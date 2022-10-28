@@ -101,7 +101,7 @@ Versioning
 Since v0.4.0, cclyzer++ has attempted to follow `semantic versioning 2.0.0
 <semver>`_.
 
-.. _llvmver:
+.. _llvmlib:
 
 LLVM Library Version
 ********************
