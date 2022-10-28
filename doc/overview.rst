@@ -109,14 +109,14 @@ LLVM Library Version
 .. TODO(lb): Policy for supporting different LLVM versions
 
 cclyzer++ currently builds against LLVM 14 by default and can be built with
-previous versions 13 through 10. There are `plans <llvmver>`_ to support
+previous versions 13 through 10. There are `plans <llvmver_>`_ to support
 LLVM 15.
 
 Development Tools
 *****************
 
 cclyzer++ currently builds with Clang 12 or Clang 14 (including other Clang
-tools such as clang-format and clang-tidy). There are `plans <llvmver>`_ to
+tools such as clang-format and clang-tidy). There are `plans <llvmver_>`_ to
 build with Clang 15.
 
 .. _tutorial: http://yanniss.github.io/points-to-tutorial15.pdf
