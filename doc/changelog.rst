@@ -7,11 +7,24 @@ Changelog
 next
 ****
 
+`v0.6.0`_ - 2022-10-27
+**********************
+
+`Compare to v0.5.0 <https://github.com/GaloisInc/cclyzerpp/compare/v0.5.0...v0.6.0>`_.
+
 Changed
 ~~~~~~~
 
-- cclyzer++ now builds against (and requires) LLVM 14. See :doc:`build` for how
-  to build against other versions of LLVM.
+- cclyzer++ now builds against LLVM 14. See :doc:`build` for how to build
+  against other versions of LLVM.
+- Considerable documentation improvements.
+- The Docker images now use Ubuntu 22.04.
+- Release artifacts are now built with optimizations.
+
+Removed
+~~~~~~~
+
+- Removed handling of function attributes in Datalog and FactGenerator code.
 
 `v0.5.0`_ - 2022-10-21
 **********************
@@ -122,5 +135,6 @@ Known Issues
 .. _v0.3: https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.3
 .. _v0.4.0: https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.4.0
 .. _v0.5.0: https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.5.0
+.. _v0.6.0: https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.6.0
 .. _#69: https://github.com/GaloisInc/cclyzerpp/issues/69
 .. _#98: https://github.com/GaloisInc/cclyzerpp/issues/98
