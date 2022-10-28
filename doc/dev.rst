@@ -17,33 +17,26 @@ extra tests, set ``EXTRA_TESTS=1``.
 Cutting a Release
 *****************
 
-- Run the extended test suite (see ``EXTRA_TESTS`` above).
+- Create branch with a name starting with ``release``.
 - Ensure that the :doc:`changelog` is up to date.
 - Bump the project version``CMakeLists.txt``.
-- Push a new tag that starts with ``v``, i.e., ``v0.X.0-rc.1``.
-  Use a release candidate version.
+- Check that CI was successful on the release branch.
+- Merge the release branch to ``main``.
+- Delete the release branch.
+- Create and push a new tag on ``main`` that starts with ``v``, and ends with a
+  semantic version i.e., ``vX.Y.Z``.
+- Wait for CI, then publish the draft release it created.
 
 Worked example:
 
 .. code-block:: shell
 
+  git checkout -b release
+  # Make changes, push, wait, then merge release into main and delete release
   git checkout main
   git pull
-  git tag -a v0.X.0-rc1 -m v0.X.0-rc1
+  git tag -a v0.Y.Z -m v0.Y.Z
   git push --tags
-
-After waiting for the CI build, then drop the ``-rc.1`` make a new commit with a
-message like ``v0.X.0``, then:
-
-.. code-block:: shell
-
-  git checkout main
-  git pull
-  git tag -a v0.X.0 -m v0.X.0
-  git push --tags
-
-Wait again for the CI build, which will create a draft release on Github. Then
-manually edit the release as required and hit "publish".
 
 Naming Conventions
 ******************
