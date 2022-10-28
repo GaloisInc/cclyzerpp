@@ -184,6 +184,7 @@ jobs:
           --workdir /work \
           "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
           cmake \
+          -DCMAKE_BUILD_TYPE=RelWithDebInfo \
           -DCLANG_VERSION=${CLANG_VERSION} \
           -DLLVM_MAJOR_VERSION=${LLVM_MAJOR_VERSION} \
           -DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
