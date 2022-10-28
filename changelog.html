@@ -36,11 +36,24 @@
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="next">
 <h2>next<a class="headerlink" href="#next" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="v0-6-0-2022-10-27">
+<h2><a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.6.0">v0.6.0</a> - 2022-10-27<a class="headerlink" href="#v0-6-0-2022-10-27" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/compare/v0.5.0...v0.6.0">Compare to v0.5.0</a>.</p>
 <div class="section" id="changed">
 <h3>Changed<a class="headerlink" href="#changed" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>cclyzer++ now builds against (and requires) LLVM 14. See <a class="reference internal" href="build.html"><span class="doc">Building</span></a> for how
-to build against other versions of LLVM.</p></li>
+<li><p>cclyzer++ now builds against LLVM 14. See <a class="reference internal" href="build.html"><span class="doc">Building</span></a> for how to build
+against other versions of LLVM.</p></li>
+<li><p>Considerable documentation improvements.</p></li>
+<li><p>The Docker images now use Ubuntu 22.04.</p></li>
+<li><p>Release artifacts are now built with optimizations.</p></li>
+</ul>
+</div>
+<div class="section" id="removed">
+<h3>Removed<a class="headerlink" href="#removed" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Removed handling of function attributes in Datalog and FactGenerator code.</p></li>
 </ul>
 </div>
 </div>
@@ -73,8 +86,8 @@ LLVM 11 (see also <a class="reference external" href="https://github.com/GaloisI
 FactGenerator and the analysis code (Datalog).</p></li>
 </ul>
 </div>
-<div class="section" id="removed">
-<h3>Removed<a class="headerlink" href="#removed" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>Removed<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Removed the unused <code class="docutils literal notranslate"><span class="pre">subset-and-unification</span></code> build target.</p></li>
 <li><p>Removed the instantiations of the <code class="docutils literal notranslate"><span class="pre">ThrowInstruction</span></code> component in both
@@ -94,8 +107,8 @@ analyses.</p></li>
 <code class="docutils literal notranslate"><span class="pre">scripts/run.py</span></code>.</p></li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h3>Changed<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>Changed<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Many relations were renamed for the sake of consistency between the
 FactGenerator and the analysis code (Datalog).</p></li>
@@ -104,8 +117,8 @@ directory.</p></li>
 <li><p>Tests were reorganized and cleaned up.</p></li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h3>Fixed<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3>Fixed<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Fixed bug that led to incorrect callgraphs in the presence of indirect calls
 (<a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/issues/69">#69</a>).</p></li>
@@ -115,23 +128,23 @@ directory.</p></li>
 <div class="section" id="v0-2-2022-10-07">
 <h2><a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.2">v0.2</a> - 2022-10-07<a class="headerlink" href="#v0-2-2022-10-07" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/compare/v0.1...v0.2">Compare to v0.1</a>.</p>
-<div class="section" id="id5">
-<h3>Added<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>Added<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Aspirational developer documentation on naming conventions.</p></li>
 <li><p>Linting with Mypy in CI.</p></li>
 </ul>
 </div>
-<div class="section" id="id6">
-<h3>Changed<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3>Changed<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Many relations were renamed for the sake of consistency between the
 FactGenerator and the analysis code (Datalog).</p></li>
 <li><p>Removed superfluous use of records in instruction schemata.</p></li>
 </ul>
 </div>
-<div class="section" id="id7">
-<h3>Removed<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>Removed<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>FactGenerator no longer processes debug information.</p></li>
 </ul>
@@ -147,8 +160,8 @@ FactGenerator and the analysis code (Datalog).</p></li>
 <div class="section" id="v0-1-2022-10-04">
 <h2><a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.1">v0.1</a> - 2022-10-04<a class="headerlink" href="#v0-1-2022-10-04" title="Permalink to this headline">¶</a></h2>
 <p>First release!</p>
-<div class="section" id="id8">
-<h3>Known Issues<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id9">
+<h3>Known Issues<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>May generate incorrect callgraphs in the presence of indirect calls, see
 <a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/issues/69">#69</a>. Fixed in <a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.3">v0.3</a>.</p></li>
@@ -179,6 +192,7 @@ FactGenerator and the analysis code (Datalog).</p></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#next">next</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-6-0-2022-10-27">v0.6.0 - 2022-10-27</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-5-0-2022-10-21">v0.5.0 - 2022-10-21</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-4-0-2022-10-21">v0.4.0 - 2022-10-21</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-3-2022-10-12">v0.3 - 2022-10-12</a></li>
