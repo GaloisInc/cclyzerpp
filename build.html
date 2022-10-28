@@ -56,9 +56,13 @@ Ubuntu 20.04:</p>
 </div>
 <div class="section" id="configuring-the-build">
 <h2>Configuring the Build<a class="headerlink" href="#configuring-the-build" title="Permalink to this headline">¶</a></h2>
-<p>You can pass <code class="docutils literal notranslate"><span class="pre">-DLLVM_MAJOR_VERSION=&lt;MAJOR_VERSION_NUMBER&gt;</span></code> to CMake to build
-against a specific version of LLVM. See <span class="xref std std-ref">LLVM Library Version</span>
-for supported versions.</p>
+<p>There are several CMake options to configure the build:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-DLLVM_MAJOR_VERSION=&lt;MAJOR_VERSION_NUMBER&gt;</span></code>: Build against a specific
+version of LLVM; see <span class="xref std std-ref">LLVM Library Version</span> for supported
+versions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DUBSAN=1</span></code>: Build the FactGenerator with the undefined behavior sanitizer.</p></li>
+</ul>
 </div>
 <div class="section" id="building-the-fact-generator">
 <h2>Building the Fact Generator<a class="headerlink" href="#building-the-fact-generator" title="Permalink to this headline">¶</a></h2>
