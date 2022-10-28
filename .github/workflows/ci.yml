@@ -270,6 +270,7 @@ jobs:
         ./scripts/gha-docker-build "dist" "cclyzerpp-dist"
 
     - uses: ncipollo/release-action@v1
+      if: ${{ startsWith(github.ref, 'refs/tags/v') }}
       with:
         artifacts: "build/*.deb"
         body: "See [doc/changelog.rst](https://github.com/GaloisInc/cclyzerpp/blob/main/doc/changelog.rst)."
