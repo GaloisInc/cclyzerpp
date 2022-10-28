@@ -9,8 +9,6 @@ set(FACTGEN_LIB_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/src/Globals.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/InstructionVisitor.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/LlvmEnums.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/Wrapper.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/Types.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/Options.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/Predicate.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/PredicateGroups.cpp
@@ -19,7 +17,8 @@ set(FACTGEN_LIB_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/src/RefmodeEngineImpl.hpp
     ${CMAKE_CURRENT_LIST_DIR}/src/Signatures.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/TypeAccumulator.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/Types.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/TypeVisitor.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/Types.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/Variables.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/Wrapper.cpp
     PARENT_SCOPE)
