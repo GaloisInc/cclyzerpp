@@ -34,6 +34,8 @@ endif()
 # -----------------------------------------------------------------------------
 
 add_subdirectory(datalog)
+add_subdirectory(FactGenerator)
+
 # TODO(lb): Remove --disable-transformers=ExpandEqrelsTransformer when
 # https://github.com/souffle-lang/souffle/issues/2257 is fixed and Soufflé gets
 # upgraded.
@@ -107,7 +109,9 @@ target_compile_options(
 
 target_include_directories(SoufflePA SYSTEM PUBLIC ${SOUFFLE_INCLUDE})
 
-add_subdirectory(FactGenerator)
+target_sources(SoufflePA PRIVATE ${FACTGEN_LIB_SOURCES})
+target_include_directories(SoufflePA SYSTEM
+                           PUBLIC ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/include)
 
 # Get proper shared-library behavior (where symbols are not necessarily resolved
 # when the shared library is linked) on OS X.
@@ -175,31 +179,9 @@ target_link_libraries(
 
 target_sources(
   factgen-exe
-  PRIVATE ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/assembly.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/constants.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/ContextManager.hpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/ContextSensitivity.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/FactGenerator.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/FactWriter.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/functions.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/globals.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/InstructionVisitor.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/llvm_enums.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/main.cpp
+  PRIVATE ${FACTGEN_LIB_SOURCES}
           # ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/wrapper.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/types.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/Options.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/predicate.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/predicate_groups.cpp
-          # ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/PyFactGen.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/RefmodeEngine.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/RefmodeEngineImpl.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/RefmodeEngineImpl.hpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/Signatures.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/TypeAccumulator.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/types.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/TypeVisitor.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/variables.cpp)
+          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/main.cpp)
 
 get_target_property(FACTGEN_SOURCES factgen-exe SOURCES)
 foreach(factgen_source ${FACTGEN_SOURCES})
