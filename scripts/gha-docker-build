@@ -56,7 +56,7 @@ docker build \
   ..
 cd ..
 
-if [[ "${PUSH}" == "1" ]]; then
+if [[ "${PUSH}" == "true" ]]; then
   docker push "${full_image_name}:${ref}"
 
   docker tag "${full_image_name}:${ref}" "${full_image_name}:main"

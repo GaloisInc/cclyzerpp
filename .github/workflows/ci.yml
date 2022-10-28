@@ -201,7 +201,11 @@ jobs:
 
   release:
     runs-on: ubuntu-22.04
-    if: startsWith(github.ref, 'refs/tags/v')
+    # Build on version tags or release branches
+    if: ${{ startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/heads/release') }}
+    # Only push Docker images on actual releases
+    env:
+      PUSH: ${{ startsWith(github.event.ref, 'refs/tags/v') }}
     permissions:
       contents: write
       packages: write
@@ -218,7 +222,7 @@ jobs:
 
     - name: Build and push dev image
       run: |
-        env PUSH=1 ./scripts/gha-docker-build "dev" "cclyzerpp-dev"
+        ./scripts/gha-docker-build "dev" "cclyzerpp-dev"
 
     # TODO(lb): Reduce duplication with build job
     - name: Build
@@ -261,7 +265,7 @@ jobs:
 
     - name: Build and push dist image
       run: |
-        env PUSH=1 ./scripts/gha-docker-build "dist" "cclyzerpp-dist"
+        ./scripts/gha-docker-build "dist" "cclyzerpp-dist"
 
     - uses: ncipollo/release-action@v1
       with:
