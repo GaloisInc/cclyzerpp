@@ -177,11 +177,7 @@ target_link_libraries(
   PRIVATE Boost::system Boost::filesystem Boost::program_options
           Boost::iostreams ${OpenMP_CXX_LIBRARIES} ${factgen_llvm_libs})
 
-target_sources(
-  factgen-exe
-  PRIVATE ${FACTGEN_LIB_SOURCES}
-          # ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/wrapper.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/Main.cpp)
+target_sources(factgen-exe PRIVATE ${FACTGEN_LIB_SOURCES})
 
 get_target_property(FACTGEN_SOURCES factgen-exe SOURCES)
 foreach(factgen_source ${FACTGEN_SOURCES})
