@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-#include "predicate_groups.hpp"
+#include "PredicateGroups.hpp"
 
 namespace fs = boost::filesystem;
 namespace pred = cclyzer::predicates;

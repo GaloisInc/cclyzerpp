@@ -13,10 +13,10 @@
 
 // New pass manager
 #include "ContextSensitivity.hpp"
+#include "Wrapper.hpp"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Passes/PassBuilder.h"
 #include "llvm/Passes/PassPlugin.h"
-#include "wrapper.hpp"
 
 namespace fs = boost::filesystem;
 

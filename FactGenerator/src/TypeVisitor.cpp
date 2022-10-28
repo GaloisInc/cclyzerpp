@@ -1,7 +1,7 @@
 #include "TypeVisitor.hpp"
 
 #include "FactGenerator.hpp"
-#include "predicate_groups.hpp"
+#include "PredicateGroups.hpp"
 
 using cclyzer::TypeVisitor;
 namespace pred = cclyzer::predicates;

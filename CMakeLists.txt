@@ -167,7 +167,7 @@ if(APPLE)
   target_link_options(PAPass PRIVATE -undefined dynamic_lookup)
 endif(APPLE)
 
-add_executable(factgen-exe ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/main.cpp)
+add_executable(factgen-exe ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/Main.cpp)
 target_compile_features(factgen-exe PUBLIC cxx_std_17)
 target_include_directories(
   factgen-exe SYSTEM PRIVATE ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/include)
@@ -181,7 +181,7 @@ target_sources(
   factgen-exe
   PRIVATE ${FACTGEN_LIB_SOURCES}
           # ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/wrapper.cpp
-          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/main.cpp)
+          ${CMAKE_CURRENT_LIST_DIR}/FactGenerator/src/Main.cpp)
 
 get_target_property(FACTGEN_SOURCES factgen-exe SOURCES)
 foreach(factgen_source ${FACTGEN_SOURCES})

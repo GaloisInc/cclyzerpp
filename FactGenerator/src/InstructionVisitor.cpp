@@ -6,7 +6,7 @@
 #include <cassert>
 #include <string>
 
-#include "predicate_groups.hpp"
+#include "PredicateGroups.hpp"
 
 namespace pred = cclyzer::predicates;
 
@@ -567,7 +567,7 @@ void InstructionVisitor::visitDbgDeclareInst(const llvm::DbgDeclareInst &DDI) {
   // First visit it as a generic call instruction
   InstructionVisitor::visitCallInst(static_cast<const llvm::CallInst &>(DDI));
 
-  // TODO Move the entire debug location logic to debuginfo_variables.cpp
+  // TODO Move the entire debug location logic to debuginfo_Variables.cpp
   const llvm::Value *address = DDI.getAddress();
 
   // Skip undefined values

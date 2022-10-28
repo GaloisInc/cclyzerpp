@@ -1,7 +1,7 @@
 #ifndef PREDICATE_GROUPS_H__
 #define PREDICATE_GROUPS_H__
 
-#include "predicate.hpp"
+#include "Predicate.hpp"
 
 namespace cclyzer::predicates {
 // type aliases

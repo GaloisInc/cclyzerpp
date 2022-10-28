@@ -3,7 +3,7 @@
 #include <llvm/IR/Function.h>
 
 #include "FactGenerator.hpp"
-#include "predicate_groups.hpp"
+#include "PredicateGroups.hpp"
 
 using cclyzer::FactGenerator;
 namespace pred = cclyzer::predicates;

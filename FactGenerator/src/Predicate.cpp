@@ -1,4 +1,4 @@
-#include "predicate.hpp"
+#include "Predicate.hpp"
 
 // Add to current namespace
 using cclyzer::Predicate;

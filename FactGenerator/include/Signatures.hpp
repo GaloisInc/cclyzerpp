@@ -6,7 +6,7 @@
 #include <string>
 
 #include "ForwardingFactWriter.hpp"
-#include "predicate_groups.hpp"
+#include "PredicateGroups.hpp"
 
 auto preprocess_signatures(const boost::filesystem::path &signatures_path)
     -> std::vector<std::tuple<std::string, std::regex, llvm::json::Array>>;
