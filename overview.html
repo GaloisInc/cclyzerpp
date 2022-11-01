@@ -157,7 +157,8 @@ helpful.</p>
 <p>As mentioned above, cclyzer++ is based on cclyzer. The major differences are that
 cclyzer++</p>
 <ul class="simple">
-<li><p>supports LLVM 10 through 14</p></li>
+<li><p><a class="reference internal" href="#llvmlib"><span class="std std-ref">supports LLVM 10 through 14</span></a>, with limited support for
+LLVM 15.</p></li>
 <li><p>is implemented in Soufflé rather than LogicBlox</p></li>
 <li><p>has <a class="reference internal" href="architecture.html#cpp"><span class="std std-ref">a C++ interface</span></a>, rather than a Python one</p></li>
 <li><p>has runtime-configurable context-sensitivity and heap-cloning</p></li>
@@ -191,8 +192,8 @@ scott at galois dot com).</p>
 <div class="section" id="llvm-library-version">
 <span id="llvmlib"></span><h3>LLVM Library Version<a class="headerlink" href="#llvm-library-version" title="Permalink to this heading"></a></h3>
 <p>cclyzer++ currently builds against LLVM 14 by default and can be built with
-previous versions 13 through 10. There are <a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/issues/12">plans</a> to support
-LLVM 15.</p>
+previous versions 13 through 10. cclyzer++ can be built with LLVM 15, but
+the analysis <a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/issues/113">does not yet support opaque pointers</a>.</p>
 </div>
 <div class="section" id="development-tools">
 <h3>Development Tools<a class="headerlink" href="#development-tools" title="Permalink to this heading"></a></h3>

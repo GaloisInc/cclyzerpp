@@ -66,7 +66,8 @@ Comparison to cclyzer
 As mentioned above, cclyzer++ is based on cclyzer. The major differences are that
 cclyzer++
 
-* supports LLVM 10 through 14
+* :ref:`supports LLVM 10 through 14 <llvmlib>`, with limited support for
+  LLVM 15.
 * is implemented in Soufflé rather than LogicBlox
 * has :ref:`a C++ interface <cpp>`, rather than a Python one
 * has runtime-configurable context-sensitivity and heap-cloning
@@ -109,8 +110,8 @@ LLVM Library Version
 .. TODO(lb): Policy for supporting different LLVM versions
 
 cclyzer++ currently builds against LLVM 14 by default and can be built with
-previous versions 13 through 10. There are `plans <llvmver_>`_ to support
-LLVM 15.
+previous versions 13 through 10. cclyzer++ can be built with LLVM 15, but
+the analysis `does not yet support opaque pointers <opaque_>`_.
 
 Development Tools
 *****************
@@ -121,4 +122,5 @@ build with Clang 15.
 
 .. _tutorial: http://yanniss.github.io/points-to-tutorial15.pdf
 .. _llvmver: https://github.com/GaloisInc/cclyzerpp/issues/12
+.. _opaque: https://github.com/GaloisInc/cclyzerpp/issues/113
 .. _semver: https://semver.org/spec/v2.0.0.html
