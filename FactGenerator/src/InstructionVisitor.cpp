@@ -884,9 +884,16 @@ void InstructionVisitor::writeAtomicRMWOp(
     case llvm::AtomicRMWInst::UMin:
       oper = "umin";
       break;
-    default:
-      return;
-  }
+    case llvm::AtomicRMWInst::FAdd:
+      oper = "fadd";
+      break;
+    case llvm::AtomicRMWInst::FSub:
+      oper = "fadd";
+      break;
+    case llvm::AtomicRMWInst::BAD_BINOP:
+      // TODO(lb): Uniform handling of malformed LLVM modules
+      break;
+  }  // -Wswitch prevents fallthrough, no need for default case
 
   gen.writeFact(pred::atomicrmw::operation, instrref, oper);
 }
