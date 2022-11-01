@@ -25,10 +25,7 @@ PAInterface::~PAInterface() = default;
 // Main entry point for running the pointer analysis, after factgen has
 // completed
 auto PAInterface::runPointerAnalysis(
-    const boost::filesystem::path& p,
-    const PAFlags flags,
-    const std::map<boost::flyweight<std::string>, const llvm::Value*>&
-        llvm_val_map) -> int {
+    const boost::filesystem::path& p, const PAFlags flags) -> int {
   // Ensure we use an appropriate amount of parallelism
   unsigned threads = std::thread::hardware_concurrency();
   if (threads != 0) {
