@@ -47,9 +47,10 @@ auto RefmodeEngine::Impl::refmodeOf(const llvm::Value *Val) -> refmode_t {
     ContextManager::context &ctxt = *it;
 
     if (ctxt.isFunction) {
-      if (ctxt.numbering.empty())
+      if (ctxt.numbering.empty()) {
         computeNumbering(
             llvm::cast<llvm::Function>(ctxt.anchor), ctxt.numbering);
+      }
 
       rso << '%' << ctxt.numbering[Val];
       goto print;
@@ -112,8 +113,9 @@ void RefmodeEngine::Impl::computeNumbering(
     // Walk the instructions in order.
     for (const auto &instr : bb) {
       // void instructions don't get numbers.
-      if (!instr.hasName() && !instr.getType()->isVoidTy())
+      if (!instr.hasName() && !instr.getType()->isVoidTy()) {
         numbering[&instr] = counter++;
+      }
     }
   }
 

@@ -53,7 +53,9 @@ auto FactWriter::getWriter(const pred_t& pred) -> csv_writer* {
   map<string, csv_writer*>::iterator it = writers.find(key);
 
   // Return existing writer
-  if (it != writers.end()) return it->second;
+  if (it != writers.end()) {
+    return it->second;
+  }
 
   // Get filesystem path to CSV file
   path file = getPath(pred);

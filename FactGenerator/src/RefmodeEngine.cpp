@@ -129,8 +129,9 @@ auto RefmodeEngine::Impl::refmode(const llvm::GlobalValue& val)
 template <>
 auto RefmodeEngine::Impl::refmode(const llvm::Value& val) -> refmode_t  // const
 {
-  if (const auto* bb = dyn_cast<llvm::BasicBlock>(&val))
+  if (const auto* bb = dyn_cast<llvm::BasicBlock>(&val)) {
     return refmode<llvm::BasicBlock>(*bb);
+  }
 
   refmode_t id = refmodeOf(&val);
   std::ostringstream refmode;
@@ -172,7 +173,7 @@ auto RefmodeEngine::Impl::refmode(const llvm::MDNode& node)
 // Opaque Pointer Idiom Implementation
 //------------------------------------------------------------------------------
 
-RefmodeEngine::RefmodeEngine() { impl = new Impl(); }
+RefmodeEngine::RefmodeEngine() : impl(new Impl()) {}
 
 RefmodeEngine::~RefmodeEngine() { delete impl; }
 

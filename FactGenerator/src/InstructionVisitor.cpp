@@ -211,7 +211,7 @@ void InstructionVisitor::visitXor(const llvm::BinaryOperator &BI) {
 void InstructionVisitor::visitReturnInst(const llvm::ReturnInst &RI) {
   refmode_t iref = recordInstruction(pred::ret::instr, RI);
 
-  if (RI.getReturnValue()) {  // with returned value
+  if (RI.getReturnValue() != nullptr) {  // with returned value
     writeInstrOperand(pred::ret::operand, iref, RI.getReturnValue());
   } else {  // w/o returned value
     gen.writeFact(pred::ret::void_, iref);
@@ -265,8 +265,9 @@ void InstructionVisitor::visitIndirectBrInst(const llvm::IndirectBrInst &IBR) {
   refmode_t iref = recordInstruction(pred::indirectbr::instr, IBR);
 
   // 'label' list
-  for (unsigned i = 1; i < IBR.getNumOperands(); ++i)
+  for (unsigned i = 1; i < IBR.getNumOperands(); ++i) {
     writeInstrOperand(pred::indirectbr::label, iref, IBR.getOperand(i), i - 1);
+  }
 
   gen.writeFact(pred::indirectbr::nlabels, iref, IBR.getNumOperands() - 1);
   writeInstrOperand(pred::indirectbr::address, iref, IBR.getOperand(0));
@@ -286,11 +287,12 @@ void InstructionVisitor::visitInvokeInst(const llvm::InvokeInst &II) {
 
   // actual args
 #if LLVM_VERSION_MAJOR > 13
-  for (unsigned op = 0; op < II.arg_size(); ++op)
+  for (unsigned op = 0; op < II.arg_size(); ++op) {
 #else
   for (unsigned op = 0; op < II.getNumArgOperands(); ++op)
 #endif
     writeInstrOperand(pred::invoke::arg, iref, II.getArgOperand(op), op);
+  }
 
   writeInstrOperand(pred::invoke::normal_label, iref, II.getNormalDest());
   writeInstrOperand(pred::invoke::exception_label, iref, II.getUnwindDest());
@@ -317,14 +319,16 @@ void InstructionVisitor::visitAllocaInst(const llvm::AllocaInst &AI) {
 
   gen.writeFact(pred::alloca::type, iref, type);
 
-  if (AI.isArrayAllocation())
+  if (AI.isArrayAllocation()) {
     writeInstrOperand(pred::alloca::size, iref, AI.getArraySize());
+  }
 
 #if LLVM_VERSION_MAJOR > 14
   gen.writeFact(pred::alloca::alignment, iref, llvm::Log2(AI.getAlign()));
 #else
-  if (AI.getAlignment())
+  if (AI.getAlignment() != 0U) {
     gen.writeFact(pred::alloca::alignment, iref, AI.getAlignment());
+  }
 #endif
 }
 
@@ -333,16 +337,21 @@ void InstructionVisitor::visitLoadInst(const llvm::LoadInst &LI) {
 
   writeInstrOperand(pred::load::address, iref, LI.getPointerOperand());
 
-  if (LI.isAtomic()) writeAtomicInfo<pred::load>(iref, LI);
+  if (LI.isAtomic()) {
+    writeAtomicInfo<pred::load>(iref, LI);
+  }
 
 #if LLVM_VERSION_MAJOR > 14
   gen.writeFact(pred::load::alignment, iref, llvm::Log2(LI.getAlign()));
 #else
-  if (LI.getAlignment())
+  if (LI.getAlignment() != 0U) {
     gen.writeFact(pred::load::alignment, iref, LI.getAlignment());
+  }
 #endif
 
-  if (LI.isVolatile()) gen.writeFact(pred::load::is_volatile, iref);
+  if (LI.isVolatile()) {
+    gen.writeFact(pred::load::is_volatile, iref);
+  }
 }
 
 void InstructionVisitor::visitVAArgInst(const llvm::VAArgInst &VI) {
@@ -376,16 +385,21 @@ void InstructionVisitor::visitStoreInst(const llvm::StoreInst &SI) {
   writeInstrOperand(pred::store::value, iref, SI.getValueOperand());
   writeInstrOperand(pred::store::address, iref, SI.getPointerOperand());
 
-  if (SI.isAtomic()) writeAtomicInfo<pred::store>(iref, SI);
+  if (SI.isAtomic()) {
+    writeAtomicInfo<pred::store>(iref, SI);
+  }
 
 #if LLVM_VERSION_MAJOR > 14
   gen.writeFact(pred::store::alignment, iref, llvm::Log2(SI.getAlign()));
 #else
-  if (SI.getAlignment())
+  if (SI.getAlignment() != 0U) {
     gen.writeFact(pred::store::alignment, iref, SI.getAlignment());
+  }
 #endif
 
-  if (SI.isVolatile()) gen.writeFact(pred::store::is_volatile, iref);
+  if (SI.isVolatile()) {
+    gen.writeFact(pred::store::is_volatile, iref);
+  }
 }
 
 void InstructionVisitor::visitAtomicCmpXchgInst(
@@ -396,7 +410,9 @@ void InstructionVisitor::visitAtomicCmpXchgInst(
   writeInstrOperand(pred::cmpxchg::cmp_value, iref, AXI.getCompareOperand());
   writeInstrOperand(pred::cmpxchg::new_value, iref, AXI.getNewValOperand());
 
-  if (AXI.isVolatile()) gen.writeFact(pred::cmpxchg::is_volatile, iref);
+  if (AXI.isVolatile()) {
+    gen.writeFact(pred::cmpxchg::is_volatile, iref);
+  }
 
   llvm::AtomicOrdering successOrd = AXI.getSuccessOrdering();
   llvm::AtomicOrdering failureOrd = AXI.getFailureOrdering();
@@ -413,11 +429,13 @@ void InstructionVisitor::visitAtomicCmpXchgInst(
     gen.writeFact(pred::instr::flag, iref, "singlethread");
   }
 
-  if (!successOrdStr.empty())
+  if (!successOrdStr.empty()) {
     gen.writeFact(pred::cmpxchg::ordering, iref, successOrdStr);
+  }
 
-  if (!failureOrdStr.empty())  // change schema ordering preds
+  if (!failureOrdStr.empty()) {  // change schema ordering preds
     gen.writeFact(pred::cmpxchg::ordering, iref, failureOrdStr);
+  }
 
   // TODO: type?
 }
@@ -428,7 +446,9 @@ void InstructionVisitor::visitAtomicRMWInst(const llvm::AtomicRMWInst &AWI) {
   writeInstrOperand(pred::atomicrmw::address, iref, AWI.getPointerOperand());
   writeInstrOperand(pred::atomicrmw::value, iref, AWI.getValOperand());
 
-  if (AWI.isVolatile()) gen.writeFact(pred::atomicrmw::is_volatile, iref);
+  if (AWI.isVolatile()) {
+    gen.writeFact(pred::atomicrmw::is_volatile, iref);
+  }
 
   writeAtomicRMWOp(iref, AWI.getOperation());
   writeAtomicInfo<pred::atomicrmw>(iref, AWI);
@@ -472,7 +492,9 @@ void InstructionVisitor::visitGetElementPtrInst(
 
   gen.writeFact(pred::getelementptr::nindices, iref, GEP.getNumIndices());
 
-  if (GEP.isInBounds()) gen.writeFact(pred::getelementptr::inbounds, iref);
+  if (GEP.isInBounds()) {
+    gen.writeFact(pred::getelementptr::inbounds, iref);
+  }
 }
 
 void InstructionVisitor::visitPHINode(const llvm::PHINode &PHI) {
@@ -526,7 +548,9 @@ void InstructionVisitor::visitLandingPadInst(const llvm::LandingPadInst &LI) {
   gen.writeFact(pred::landingpad::type, iref, type);
 
   // cleanup
-  if (LI.isCleanup()) gen.writeFact(pred::landingpad::cleanup, iref);
+  if (LI.isCleanup()) {
+    gen.writeFact(pred::landingpad::cleanup, iref);
+  }
 
   // #clauses
   for (unsigned i = 0; i < LI.getNumClauses(); ++i) {
@@ -561,13 +585,16 @@ void InstructionVisitor::visitCallInst(const llvm::CallInst &CI) {
   writeInstrOperand(pred::call::func_operand, iref, callOp);
 
 #if LLVM_VERSION_MAJOR > 13
-  for (unsigned op = 0; op < CI.arg_size(); ++op)
+  for (unsigned op = 0; op < CI.arg_size(); ++op) {
 #else
   for (unsigned op = 0; op < CI.getNumArgOperands(); ++op)
 #endif
     writeInstrOperand(pred::call::arg, iref, CI.getArgOperand(op), op);
+  }
 
-  if (CI.isTailCall()) gen.writeFact(pred::call::tail_opt, iref);
+  if (CI.isTailCall()) {
+    gen.writeFact(pred::call::tail_opt, iref);
+  }
 
   if (CI.getCallingConv() != llvm::CallingConv::C) {
     refmode_t cconv = gen.refmode(CI.getCallingConv());
@@ -583,7 +610,9 @@ void InstructionVisitor::visitDbgDeclareInst(const llvm::DbgDeclareInst &DDI) {
   const llvm::Value *address = DDI.getAddress();
 
   // Skip undefined values
-  if (isa<llvm::UndefValue>(address)) return;
+  if (isa<llvm::UndefValue>(address)) {
+    return;
+  }
 
   // Obtain the refmode of the local variable
   refmode_t refmode = gen.refmode<llvm::Value>(*address);
@@ -667,7 +696,7 @@ void InstructionVisitor::visitInstruction(const llvm::Instruction &I) {
 
 void InstructionVisitor::writeCondition(
     const pred_t &pred, const refmode_t &iref, const llvm::CmpInst &I) {
-  const char *cmpStr;
+  const char *cmpStr = nullptr;
 
   switch (I.getPredicate()) {
     case llvm::FCmpInst::FCMP_FALSE:
@@ -775,38 +804,53 @@ void InstructionVisitor::writeOptimizationInfo(
 #endif
       gen.writeFact(pred::instr::flag, iref, "fast");
     } else {
-      if (fpo->hasNoNaNs()) gen.writeFact(pred::instr::flag, iref, "nnan");
+      if (fpo->hasNoNaNs()) {
+        gen.writeFact(pred::instr::flag, iref, "nnan");
+      }
 
-      if (fpo->hasNoInfs()) gen.writeFact(pred::instr::flag, iref, "ninf");
+      if (fpo->hasNoInfs()) {
+        gen.writeFact(pred::instr::flag, iref, "ninf");
+      }
 
-      if (fpo->hasNoSignedZeros())
+      if (fpo->hasNoSignedZeros()) {
         gen.writeFact(pred::instr::flag, iref, "nsz");
+      }
 
-      if (fpo->hasAllowReciprocal())
+      if (fpo->hasAllowReciprocal()) {
         gen.writeFact(pred::instr::flag, iref, "arcp");
+      }
 
 #if LLVM_VERSION_MAJOR > 4  // new FPO fields
-      if (fpo->hasAllowContract())
+      if (fpo->hasAllowContract()) {
         gen.writeFact(pred::instr::flag, iref, "acon");
+      }
 #endif
 #if LLVM_VERSION_MAJOR > 5  // new FPO fields
-      if (fpo->hasApproxFunc()) gen.writeFact(pred::instr::flag, iref, "apfn");
+      if (fpo->hasApproxFunc()) {
+        gen.writeFact(pred::instr::flag, iref, "apfn");
+      }
 #endif
     }
   }
 
   if (const auto *obo = dyn_cast<OverflowingBinaryOperator>(u)) {
-    if (obo->hasNoUnsignedWrap()) gen.writeFact(pred::instr::flag, iref, "nuw");
+    if (obo->hasNoUnsignedWrap()) {
+      gen.writeFact(pred::instr::flag, iref, "nuw");
+    }
 
-    if (obo->hasNoSignedWrap()) gen.writeFact(pred::instr::flag, iref, "nsw");
+    if (obo->hasNoSignedWrap()) {
+      gen.writeFact(pred::instr::flag, iref, "nsw");
+    }
   } else if (const auto *div = dyn_cast<PossiblyExactOperator>(u)) {
-    if (div->isExact()) gen.writeFact(pred::instr::flag, iref, "exact");
+    if (div->isExact()) {
+      gen.writeFact(pred::instr::flag, iref, "exact");
+    }
   }
 }
 
 void InstructionVisitor::writeAtomicRMWOp(
     const refmode_t &instrref, llvm::AtomicRMWInst::BinOp op) {
-  const char *oper;
+  const char *oper = nullptr;
 
   switch (op) {
     case llvm::AtomicRMWInst::Xchg:

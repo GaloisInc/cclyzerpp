@@ -81,7 +81,8 @@ class ContextManager {
 
   /// Record that a local context has been exited.
   void popContext() {
-    if (contexts.back().isFunction) iFunctionCtx = -1;
+    if (contexts.back().isFunction) { iFunctionCtx = -1;
+}
 
     contexts.pop_back();
   }
@@ -104,7 +105,7 @@ class ContextManager {
     return contexts.rend();
   }
 
-  inline auto instrCount() -> unsigned { return instrIndex; }
+  [[nodiscard]] inline auto instrCount() const -> unsigned { return instrIndex; }
   inline auto constantCount() -> unsigned { return constantIndex++; }
   [[nodiscard]] inline auto module() const -> const llvm::Module& {
     return mod;

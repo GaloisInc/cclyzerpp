@@ -32,17 +32,20 @@ void FactGenerator::writeGlobalAlias(
   refmode_t aliasType = recordType(ga.getType());
 
   // Record visibility
-  if (!visibility.empty())
+  if (!visibility.empty()) {
     writeFact(pred::alias::visibility, aliasId, visibility);
+  }
 
   // Record linkage
-  if (!linkage.empty()) writeFact(pred::alias::linkage, aliasId, linkage);
+  if (!linkage.empty()) {
+    writeFact(pred::alias::linkage, aliasId, linkage);
+  }
 
   // Record type
   writeFact(pred::alias::type, aliasId, aliasType);
 
   // Record aliasee
-  if (Aliasee) {
+  if (Aliasee != nullptr) {
     // Record aliasee constant and generate refmode for it
     refmode_t aliasee = writeConstant(*Aliasee);
 
@@ -78,23 +81,29 @@ void FactGenerator::writeGlobalVar(
       pred::global_var::demangled_name, id, demangle(gv.getName().data()));
 
   // Record external linkage
-  if (!gv.hasInitializer() && gv.hasExternalLinkage())
+  if (!gv.hasInitializer() && gv.hasExternalLinkage()) {
     writeFact(pred::global_var::linkage, id, "external");
+  }
 
   // Record linkage
-  if (!linkage.empty()) writeFact(pred::global_var::linkage, id, linkage);
+  if (!linkage.empty()) {
+    writeFact(pred::global_var::linkage, id, linkage);
+  }
 
   // Record visibility
-  if (!visibility.empty())
+  if (!visibility.empty()) {
     writeFact(pred::global_var::visibility, id, visibility);
+  }
 
   // Record thread local mode
-  if (!thrLocMode.empty())
+  if (!thrLocMode.empty()) {
     writeFact(pred::global_var::threadlocal_mode, id, thrLocMode);
+  }
 
   // TODO: in lb schema - AddressSpace & hasUnnamedAddr properties
-  if (gv.isExternallyInitialized())
+  if (gv.isExternallyInitialized()) {
     writeFact(pred::global_var::flag, id, "externally_initialized");
+  }
 
   // Record flags and type
   const char* flag = gv.isConstant() ? "constant" : "global";
@@ -122,6 +131,7 @@ void FactGenerator::writeGlobalVar(
   }
 
   // Record alignment
-  if (gv.getAlignment())
+  if (gv.getAlignment() != 0U) {
     writeFact(pred::global_var::aligned_to, id, gv.getAlignment());
+  }
 }

@@ -34,7 +34,7 @@ class cclyzer::RefmodeEngine::Impl {
   void exitModule() {}
 
   auto functionContext() -> const llvm::Function * {
-    if (ctx->functionContext()) {
+    if (ctx->functionContext() != nullptr) {
       return llvm::dyn_cast<llvm::Function>(ctx->functionContext()->anchor);
     }
     return nullptr;
@@ -62,12 +62,14 @@ class cclyzer::RefmodeEngine::Impl {
 
       // Skip basic blocks
       if (anchor && llvm::isa<llvm::BasicBlock>(*anchor) &&
-          !llvm::isa<T>(*anchor))
+          !llvm::isa<T>(*anchor)) {
         continue;
+}
 
       stream << it.prefix << ':';
 
-      if (anchor && llvm::isa<T>(*anchor)) break;
+      if (anchor && llvm::isa<T>(*anchor)) { break;
+}
     }
     return stream;
   }

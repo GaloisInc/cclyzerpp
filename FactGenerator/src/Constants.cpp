@@ -29,7 +29,7 @@ auto FactGenerator::writeConstant(const llvm::Constant &c)
 
   // Record containing function
   const llvm::Function *containingFunction = functionContext();
-  if (containingFunction) {
+  if (containingFunction != nullptr) {
     const std::string funcname = "@" + containingFunction->getName().str();
     writeFact(pred::constant::in_func, id, funcname);
   }
@@ -137,10 +137,11 @@ void FactGenerator::writeConstantExpr(
 
       refmode_t index_ref = writeConstant(*c);
 
-      if (i > 0)
+      if (i > 0) {
         writeFact(pred::gep_constant_expr::index, refmode, i - 1, index_ref);
-      else
+      } else {
         writeFact(pred::gep_constant_expr::base, refmode, index_ref);
+      }
     }
 
     writeFact(pred::gep_constant_expr::nindices, refmode, nOperands - 1);

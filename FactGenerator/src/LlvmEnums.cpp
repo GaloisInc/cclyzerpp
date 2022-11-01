@@ -56,7 +56,7 @@ auto cclyzer::utils::to_string(llvm::CallingConv::ID cc) -> string {
 
 auto cclyzer::utils::to_string(llvm::GlobalVariable::ThreadLocalMode TLM)
     -> string {
-  const char *tlm;
+  const char *tlm = nullptr;
 
   switch (TLM) {
     case llvm::GlobalVariable::NotThreadLocal:
@@ -82,7 +82,7 @@ auto cclyzer::utils::to_string(llvm::GlobalVariable::ThreadLocalMode TLM)
 }
 
 auto cclyzer::utils::to_string(llvm::GlobalValue::LinkageTypes LT) -> string {
-  const char *linkTy;
+  const char *linkTy = nullptr;
   using llvm::GlobalValue;
 
   switch (LT) {
@@ -131,7 +131,7 @@ auto cclyzer::utils::to_string(llvm::GlobalValue::LinkageTypes LT) -> string {
 
 auto cclyzer::utils::to_string(llvm::GlobalValue::VisibilityTypes Vis)
     -> string {
-  const char *visibility;
+  const char *visibility = nullptr;
   using llvm::GlobalValue;
 
   switch (Vis) {
@@ -156,7 +156,7 @@ auto cclyzer::utils::to_string(llvm::GlobalValue::VisibilityTypes Vis)
 }
 
 auto cclyzer::utils::to_string(llvm::AtomicOrdering ordering) -> string {
-  const char *atomic;
+  const char *atomic = nullptr;
 
 #if LLVM_VERSION_MAJOR > 3 || \
     (LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9)
