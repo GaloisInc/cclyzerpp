@@ -282,7 +282,7 @@ auto LegacyPointerAnalysis::runOnModule(llvm::Module &mod) -> bool {
     flags = flags | PAFlags::WRITE_ALL;
   }
 
-  pa->runPointerAnalysis(dir, flags, llvm_val_map);
+  pa->runPointerAnalysis(dir, flags);
   if (datalog_check_assertions_option) {
     pa->checkAssertions(datalog_analysis == Analysis::DEBUG);
   }

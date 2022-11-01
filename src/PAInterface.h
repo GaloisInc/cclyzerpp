@@ -89,10 +89,7 @@ class PAInterface {
 
   // Main entry point for the pointer analysis.  Assumes facts have been
   // generated, and so calls out to Souffle to run on them.
-  auto runPointerAnalysis(
-      const boost::filesystem::path &,
-      const PAFlags,
-      const std::map<boost::flyweight<std::string>, const llvm::Value *> &)
+  auto runPointerAnalysis(const boost::filesystem::path &, const PAFlags)
       -> int;
 
   // Check any assertions that are embedded in the Datalog code. Must be called

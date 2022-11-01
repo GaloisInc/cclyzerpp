@@ -94,9 +94,10 @@ target_link_libraries(
 # Use C++17 to compile our pass (i.e., supply -std=c++17).
 target_compile_features(SoufflePA PUBLIC cxx_std_17)
 
+# TODO(#115): -Werror
 target_compile_options(
   SoufflePA
-  PUBLIC # -Werror
+  PUBLIC -Werror=unused-argument
          -Werror=switch
          -Werror=return-type
          -pedantic-errors
