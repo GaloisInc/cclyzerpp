@@ -423,11 +423,7 @@ void InstructionVisitor::visitAtomicCmpXchgInst(
   string failureOrdStr = gen.refmode<llvm::AtomicOrdering>(failureOrd);
 
   // default synchScope: crossthread
-#if LLVM_VERSION_MAJOR < 5  // getSynchScope -> getSyncScopeID
-  if (AXI.getSynchScope() == llvm::SingleThread) {
-#else
   if (AXI.getSyncScopeID() == llvm::SyncScope::SingleThread) {
-#endif
     gen.writeFact(pred::instr::flag, iref, "singlethread");
   }
 
@@ -772,39 +768,27 @@ void InstructionVisitor::writeOptimizationInfo(
   using llvm::PossiblyExactOperator;
 
   if (const auto *fpo = dyn_cast<const FPMathOperator>(u)) {
-#if LLVM_VERSION_MAJOR > 5  // new FPO fields
     if (fpo->isFast()) {
-#else
-    if (fpo->hasUnsafeAlgebra()) {
-#endif
       gen.writeFact(pred::instr::flag, iref, "fast");
     } else {
       if (fpo->hasNoNaNs()) {
         gen.writeFact(pred::instr::flag, iref, "nnan");
       }
-
       if (fpo->hasNoInfs()) {
         gen.writeFact(pred::instr::flag, iref, "ninf");
       }
-
       if (fpo->hasNoSignedZeros()) {
         gen.writeFact(pred::instr::flag, iref, "nsz");
       }
-
       if (fpo->hasAllowReciprocal()) {
         gen.writeFact(pred::instr::flag, iref, "arcp");
       }
-
-#if LLVM_VERSION_MAJOR > 4  // new FPO fields
       if (fpo->hasAllowContract()) {
         gen.writeFact(pred::instr::flag, iref, "acon");
       }
-#endif
-#if LLVM_VERSION_MAJOR > 5  // new FPO fields
       if (fpo->hasApproxFunc()) {
         gen.writeFact(pred::instr::flag, iref, "apfn");
       }
-#endif
     }
   }
 

@@ -99,13 +99,8 @@ auto cclyzer::utils::to_string(llvm::GlobalValue::VisibilityTypes Vis)
 }
 
 auto cclyzer::utils::to_string(llvm::AtomicOrdering ordering) -> string {
-#if LLVM_VERSION_MAJOR > 3 || \
-    (LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9)
   using llvm::AtomicOrdering;
-#endif
   switch (ordering) {
-#if LLVM_VERSION_MAJOR > 3 || \
-    (LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9)
     case AtomicOrdering::NotAtomic:
       return "";
     case AtomicOrdering::Unordered:
@@ -120,22 +115,6 @@ auto cclyzer::utils::to_string(llvm::AtomicOrdering ordering) -> string {
       return "acq_rel";
     case AtomicOrdering::SequentiallyConsistent:
       return "seq_cst";
-#else
-    case llvm::NotAtomic:
-      return "";
-    case llvm::Unordered:
-      return "unordered";
-    case llvm::Monotonic:
-      return "monotonic";
-    case llvm::Acquire:
-      return "acquire";
-    case llvm::Release:
-      return "release";
-    case llvm::AcquireRelease:
-      return "acq_rel";
-    case llvm::SequentiallyConsistent:
-      return "seq_cst";
-#endif
   }  // -Wswitch prevents fallthrough, no need for default case
   assert(false);
 }

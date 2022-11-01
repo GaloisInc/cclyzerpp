@@ -62,10 +62,6 @@ void FactGenerator::writeFunction(
 
   // Address not significant
 
-#if LLVM_VERSION_MAJOR > 3 || \
-    (LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9)
-  // NB: for macOS LLVM-3.9.0svn this does not work, i.e. the test should be
-  //#if LLVM_VERSION_MAJOR > 3 or equivalent to force else case
   if (func.hasGlobalUnnamedAddr()) {
     writeFact(pred::func::unnamed_addr, funcref);
   }
@@ -73,11 +69,6 @@ void FactGenerator::writeFunction(
   // TODO Record appropriately
   if (func.hasAtLeastLocalUnnamedAddr()) {
   }
-#else
-  if (func.hasUnnamedAddr()) {
-    writeFact(pred::func::unnamed_addr, funcref);
-  }
-#endif
 
   if (func.isDeclaration()) {
     // Record as a function declaration entity
@@ -92,13 +83,8 @@ void FactGenerator::writeFunction(
 
   // Record section
   if (func.hasSection()) {
-#if LLVM_VERSION_MAJOR > 3 || \
-    (LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9)
     llvm::StringRef secStr = func.getSection();
     writeFact(pred::func::section, funcref, secStr.str());
-#else
-    writeFact(pred::func::section, funcref, func.getSection());
-#endif
   }
 
   // Record function parameters
