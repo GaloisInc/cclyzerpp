@@ -9,214 +9,133 @@
 using std::string;
 
 auto cclyzer::utils::to_string(llvm::CallingConv::ID cc) -> string {
-  string conv;
-
   switch (cc) {
-    // TODO: add the remaining calling conventions
     case llvm::CallingConv::Fast:
-      conv = "fastcc";
-      break;
+      return "fastcc";
     case llvm::CallingConv::Cold:
-      conv = "coldcc";
-      break;
+      return "coldcc";
     case llvm::CallingConv::X86_FastCall:
-      conv = "x86_fastcallcc";
-      break;
+      return "x86_fastcallcc";
     case llvm::CallingConv::X86_StdCall:
-      conv = "x86_stdcallcc";
-      break;
+      return "x86_stdcallcc";
     case llvm::CallingConv::X86_ThisCall:
-      conv = "x86_thiscallcc";
-      break;
+      return "x86_thiscallcc";
     case llvm::CallingConv::Intel_OCL_BI:
-      conv = "intel_ocl_bicc";
-      break;
+      return "intel_ocl_bicc";
     case llvm::CallingConv::ARM_AAPCS:
-      conv = "arm_aapcscc";
-      break;
+      return "arm_aapcscc";
     case llvm::CallingConv::ARM_AAPCS_VFP:
-      conv = "arm_aapcs_vfpcc";
-      break;
+      return "arm_aapcs_vfpcc";
     case llvm::CallingConv::ARM_APCS:
-      conv = "arm_apcscc";
-      break;
+      return "arm_apcscc";
     case llvm::CallingConv::MSP430_INTR:
-      conv = "msp430_intrcc";
-      break;
+      return "msp430_intrcc";
     case llvm::CallingConv::PTX_Device:
-      conv = "tx_device";
-      break;
+      return "tx_device";  // TODO(lb): Bug! Should be ptx_device
     case llvm::CallingConv::PTX_Kernel:
-      conv = "ptx_kernel";
-      break;
-    default:
-      conv = "cc" + to_string(cc);
-      break;
-  }
-  return conv;
+      return "ptx_kernel";
+  }  // -Wswitch prevents fallthrough, no need for default case
+  assert(false);
 }
 
 auto cclyzer::utils::to_string(llvm::GlobalVariable::ThreadLocalMode TLM)
     -> string {
-  const char *tlm = nullptr;
-
   switch (TLM) {
     case llvm::GlobalVariable::NotThreadLocal:
-      tlm = "";
-      break;
+      return "";
     case llvm::GlobalVariable::GeneralDynamicTLSModel:
-      tlm = "thread_local";
-      break;
+      return "thread_local";
     case llvm::GlobalVariable::LocalDynamicTLSModel:
-      tlm = "thread_local(localdynamic)";
-      break;
+      return "thread_local(localdynamic)";
     case llvm::GlobalVariable::InitialExecTLSModel:
-      tlm = "thread_local(initialexec)";
-      break;
+      return "thread_local(initialexec)";
     case llvm::GlobalVariable::LocalExecTLSModel:
-      tlm = "thread_local(localexec)";
-      break;
-    default:
-      unknown("thread local mode", TLM);
-      tlm = "<invalid tlm>";
-  }
-  return tlm;
+      return "thread_local(localexec)";
+  }  // -Wswitch prevents fallthrough, no need for default case
+  assert(false);
 }
 
 auto cclyzer::utils::to_string(llvm::GlobalValue::LinkageTypes LT) -> string {
-  const char *linkTy = nullptr;
   using llvm::GlobalValue;
-
   switch (LT) {
-    // TODO do not output default linkage, ie external
     case GlobalValue::ExternalLinkage:
-      linkTy = "external";
-      break;
-
+      return "external";
     case GlobalValue::PrivateLinkage:
-      linkTy = "private";
-      break;
+      return "private";
     case GlobalValue::InternalLinkage:
-      linkTy = "internal";
-      break;
+      return "internal";
     case GlobalValue::LinkOnceAnyLinkage:
-      linkTy = "linkonce";
-      break;
+      return "linkonce";
     case GlobalValue::LinkOnceODRLinkage:
-      linkTy = "linkonce_odr";
-      break;
+      return "linkonce_odr";
     case GlobalValue::WeakAnyLinkage:
-      linkTy = "weak";
-      break;
+      return "weak";
     case GlobalValue::WeakODRLinkage:
-      linkTy = "weak_odr";
-      break;
+      return "weak_odr";
     case GlobalValue::CommonLinkage:
-      linkTy = "common";
-      break;
+      return "common";
     case GlobalValue::AppendingLinkage:
-      linkTy = "appending";
-      break;
+      return "appending";
     case GlobalValue::ExternalWeakLinkage:
-      linkTy = "extern_weak";
-      break;
+      return "extern_weak";
     case GlobalValue::AvailableExternallyLinkage:
-      linkTy = "available_externally";
-      break;
-    default:
-      unknown("linkage type", LT);
-      linkTy = "<invalid linkage>";
-      break;
-  }
-  return linkTy;
+      return "available_externally";
+  }  // -Wswitch prevents fallthrough, no need for default case
+  assert(false);
 }
 
 auto cclyzer::utils::to_string(llvm::GlobalValue::VisibilityTypes Vis)
     -> string {
-  const char *visibility = nullptr;
   using llvm::GlobalValue;
-
   switch (Vis) {
-    // TODO do not output default visibility, ie external
     case GlobalValue::DefaultVisibility:
-      visibility = "default";
-      break;
-
+      return "default";
     case GlobalValue::HiddenVisibility:
-      visibility = "hidden";
-      break;
+      return "hidden";
     case GlobalValue::ProtectedVisibility:
-      visibility = "protected";
-      break;
-    default:
-      unknown("visibility type", Vis);
-      visibility = "<invalid visibility>";
-      break;
-  }
-
-  return visibility;
+      return "protected";
+  }  // -Wswitch prevents fallthrough, no need for default case
+  assert(false);
 }
 
 auto cclyzer::utils::to_string(llvm::AtomicOrdering ordering) -> string {
-  const char *atomic = nullptr;
-
 #if LLVM_VERSION_MAJOR > 3 || \
     (LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9)
   using llvm::AtomicOrdering;
 #endif
-
-  // Newer LLVM versions use scoped enums
   switch (ordering) {
 #if LLVM_VERSION_MAJOR > 3 || \
     (LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9)
     case AtomicOrdering::NotAtomic:
-      atomic = "";
-      break;
+      return "";
     case AtomicOrdering::Unordered:
-      atomic = "unordered";
-      break;
+      return "unordered";
     case AtomicOrdering::Monotonic:
-      atomic = "monotonic";
-      break;
+      return "monotonic";
     case AtomicOrdering::Acquire:
-      atomic = "acquire";
-      break;
+      return "acquire";
     case AtomicOrdering::Release:
-      atomic = "release";
-      break;
+      return "release";
     case AtomicOrdering::AcquireRelease:
-      atomic = "acq_rel";
-      break;
+      return "acq_rel";
     case AtomicOrdering::SequentiallyConsistent:
-      atomic = "seq_cst";
-      break;
+      return "seq_cst";
 #else
     case llvm::NotAtomic:
-      atomic = "";
-      break;
+      return "";
     case llvm::Unordered:
-      atomic = "unordered";
-      break;
+      return "unordered";
     case llvm::Monotonic:
-      atomic = "monotonic";
-      break;
+      return "monotonic";
     case llvm::Acquire:
-      atomic = "acquire";
-      break;
+      return "acquire";
     case llvm::Release:
-      atomic = "release";
-      break;
+      return "release";
     case llvm::AcquireRelease:
-      atomic = "acq_rel";
-      break;
+      return "acq_rel";
     case llvm::SequentiallyConsistent:
-      atomic = "seq_cst";
-      break;
+      return "seq_cst";
 #endif
-    default:
-      unknown("atomic ordering type", static_cast<int>(ordering));
-      atomic = "<invalid atomic ordering>";
-      break;
-  }
-  return atomic;
+  }  // -Wswitch prevents fallthrough, no need for default case
+  assert(false);
 }
