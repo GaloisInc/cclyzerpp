@@ -757,7 +757,6 @@ static auto icmp_pred_string(const llvm::CmpInst &I) -> std::string {
 
 void InstructionVisitor::writeCondition(
     const pred_t &pred, const refmode_t &iref, const llvm::CmpInst &I) {
-  const char *cmpStr;
   gen.writeFact(pred, iref, icmp_pred_string(I));
 }
 
