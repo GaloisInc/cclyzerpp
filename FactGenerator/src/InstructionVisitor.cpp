@@ -695,97 +695,75 @@ void InstructionVisitor::visitInstruction(const llvm::Instruction &I) {
 // Auxiliary Methods for non-instructions
 //------------------------------------------------------------------------------
 
-void InstructionVisitor::writeCondition(
-    const pred_t &pred, const refmode_t &iref, const llvm::CmpInst &I) {
-  const char *cmpStr = nullptr;
-
+static auto icmp_pred_string(const llvm::CmpInst &I) -> std::string {
   switch (I.getPredicate()) {
     case llvm::FCmpInst::FCMP_FALSE:
-      cmpStr = "false";
-      break;
+      return "false";
     case llvm::FCmpInst::FCMP_OEQ:
-      cmpStr = "oeq";
-      break;
+      return "oeq";
     case llvm::FCmpInst::FCMP_OGT:
-      cmpStr = "ogt";
-      break;
+      return "ogt";
     case llvm::FCmpInst::FCMP_OGE:
-      cmpStr = "oge";
-      break;
+      return "oge";
     case llvm::FCmpInst::FCMP_OLT:
-      cmpStr = "olt";
-      break;
+      return "olt";
     case llvm::FCmpInst::FCMP_OLE:
-      cmpStr = "ole";
-      break;
+      return "ole";
     case llvm::FCmpInst::FCMP_ONE:
-      cmpStr = "one";
-      break;
+      return "one";
     case llvm::FCmpInst::FCMP_ORD:
-      cmpStr = "ord";
-      break;
+      return "ord";
     case llvm::FCmpInst::FCMP_UNO:
-      cmpStr = "uno";
-      break;
+      return "uno";
     case llvm::FCmpInst::FCMP_UEQ:
-      cmpStr = "ueq";
-      break;
+      return "ueq";
     case llvm::FCmpInst::FCMP_UGT:
-      cmpStr = "ugt";
-      break;
+      return "ugt";
     case llvm::FCmpInst::FCMP_UGE:
-      cmpStr = "uge";
-      break;
+      return "uge";
     case llvm::FCmpInst::FCMP_ULT:
-      cmpStr = "ult";
-      break;
+      return "ult";
     case llvm::FCmpInst::FCMP_ULE:
-      cmpStr = "ule";
-      break;
+      return "ule";
     case llvm::FCmpInst::FCMP_UNE:
-      cmpStr = "une";
-      break;
+      return "une";
     case llvm::FCmpInst::FCMP_TRUE:
-      cmpStr = "true";
-      break;
+      return "true";
 
     case llvm::ICmpInst::ICMP_EQ:
-      cmpStr = "eq";
-      break;
+      return "eq";
     case llvm::ICmpInst::ICMP_NE:
-      cmpStr = "ne";
-      break;
+      return "ne";
     case llvm::ICmpInst::ICMP_SGT:
-      cmpStr = "sgt";
-      break;
+      return "sgt";
     case llvm::ICmpInst::ICMP_SGE:
-      cmpStr = "sge";
-      break;
+      return "sge";
     case llvm::ICmpInst::ICMP_SLT:
-      cmpStr = "slt";
-      break;
+      return "slt";
     case llvm::ICmpInst::ICMP_SLE:
-      cmpStr = "sle";
-      break;
+      return "sle";
     case llvm::ICmpInst::ICMP_UGT:
-      cmpStr = "ugt";
-      break;
+      return "ugt";
     case llvm::ICmpInst::ICMP_UGE:
-      cmpStr = "uge";
-      break;
+      return "uge";
     case llvm::ICmpInst::ICMP_ULT:
-      cmpStr = "ult";
-      break;
+      return "ult";
     case llvm::ICmpInst::ICMP_ULE:
-      cmpStr = "ule";
+      return "ule";
+    case llvm::ICmpInst::BAD_FCMP_PREDICATE:
+      // TODO(#129): Uniform handling of malformed LLVM modules
       break;
-    default:
-      cmpStr = "<badpred>";
-      unknown("comparison predicate", I.getPredicate());
+    case llvm::ICmpInst::BAD_ICMP_PREDICATE:
+      // TODO(#129): Uniform handling of malformed LLVM modules
       break;
-  }
+  }  // -Wswitch prevents fallthrough, no need for default case
+  assert(false);
+}
 
-  gen.writeFact(pred, iref, cmpStr);
+void InstructionVisitor::writeCondition(
+    const pred_t &pred, const refmode_t &iref, const llvm::CmpInst &I) {
+  const char *cmpStr;
+  gen.writeFact(pred, iref, icmp_pred_string(I));
 }
 
 void InstructionVisitor::writeOptimizationInfo(
@@ -846,54 +824,43 @@ void InstructionVisitor::writeOptimizationInfo(
   }
 }
 
-void InstructionVisitor::writeAtomicRMWOp(
-    const refmode_t &instrref, llvm::AtomicRMWInst::BinOp op) {
-  const char *oper = nullptr;
-
+static auto atomic_binop_string(const llvm::AtomicRMWInst::BinOp &op)
+    -> std::string {
   switch (op) {
     case llvm::AtomicRMWInst::Xchg:
-      oper = "xchg";
-      break;
+      return "xchg";
     case llvm::AtomicRMWInst::Add:
-      oper = "add";
-      break;
+      return "add";
     case llvm::AtomicRMWInst::Sub:
-      oper = "sub";
-      break;
+      return "sub";
     case llvm::AtomicRMWInst::And:
-      oper = "and";
-      break;
+      return "and";
     case llvm::AtomicRMWInst::Nand:
-      oper = "nand";
-      break;
+      return "nand";
     case llvm::AtomicRMWInst::Or:
-      oper = "or";
-      break;
+      return "or";
     case llvm::AtomicRMWInst::Xor:
-      oper = "xor";
-      break;
+      return "xor";
     case llvm::AtomicRMWInst::Max:
-      oper = "max";
-      break;
+      return "max";
     case llvm::AtomicRMWInst::Min:
-      oper = "min";
-      break;
+      return "min";
     case llvm::AtomicRMWInst::UMax:
-      oper = "umax";
-      break;
+      return "umax";
     case llvm::AtomicRMWInst::UMin:
-      oper = "umin";
-      break;
+      return "umin";
     case llvm::AtomicRMWInst::FAdd:
-      oper = "fadd";
-      break;
+      return "fadd";
     case llvm::AtomicRMWInst::FSub:
-      oper = "fadd";
-      break;
+      return "fadd";
     case llvm::AtomicRMWInst::BAD_BINOP:
-      // TODO(lb): Uniform handling of malformed LLVM modules
+      // TODO(#129): Uniform handling of malformed LLVM modules
       break;
   }  // -Wswitch prevents fallthrough, no need for default case
+  assert(false);
+}
 
-  gen.writeFact(pred::atomicrmw::operation, instrref, oper);
+void InstructionVisitor::writeAtomicRMWOp(
+    const refmode_t &instrref, llvm::AtomicRMWInst::BinOp op) {
+  gen.writeFact(pred::atomicrmw::operation, instrref, atomic_binop_string(op));
 }
