@@ -85,7 +85,7 @@ class PointerAnalysisAAResult
         allocation_sizes_(allocation_sizes),
         allocation_sites_(allocation_sites),
         null_ptr_set_(null_ptr_set),
-        callgraph_(callgraph){};
+        callgraph_(callgraph) {}
 
   auto alias(
       const llvm::MemoryLocation&,

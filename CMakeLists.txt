@@ -99,14 +99,19 @@ target_compile_options(
   SoufflePA
   PUBLIC -fopenmp
          -Werror
-         -Werror=all
-         -Werror=conversion
-         -Werror=extra
-         -Werror=pedantic
-         -Werror=return-type
-         -Werror=sign-conversion
-         -Werror=switch
-         -Wno-error=deprecated-declarations)
+         -Weverything
+         -Wno-c++98-c++11-compat-pedantic
+         -Wno-c++98-compat
+         -Wno-c++98-compat-pedantic
+         -Wno-documentation
+         -Wno-error=deprecated-declarations
+         -Wno-error=unused-macros
+         -Wno-exit-time-destructors
+         -Wno-global-constructors
+         -Wno-padded
+         -Wno-shadow
+         -Wno-undefined-func-template
+         -Wno-weak-vtables)
 
 target_include_directories(SoufflePA SYSTEM PUBLIC ${SOUFFLE_INCLUDE})
 
@@ -150,15 +155,21 @@ endif()
 # Warnings
 target_compile_options(
   PAPass
-  PUBLIC -Werror
-         -Werror=all
-         -Werror=conversion
-         -Werror=extra
-         -Werror=pedantic
-         -Werror=return-type
-         -Werror=sign-conversion
-         -Werror=switch
-         -fopenmp)
+  PUBLIC -fopenmp
+         -Werror
+         -Weverything
+         -Wno-c++98-c++11-compat-pedantic
+         -Wno-c++98-compat
+         -Wno-c++98-compat-pedantic
+         -Wno-documentation
+         -Wno-error=deprecated-declarations
+         -Wno-error=unused-macros
+         -Wno-exit-time-destructors
+         -Wno-global-constructors
+         -Wno-padded
+         -Wno-shadow
+         -Wno-undefined-func-template
+         -Wno-weak-vtables)
 
 target_link_libraries(PAPass PRIVATE PAPassInterface SoufflePA
                                      Boost::filesystem)

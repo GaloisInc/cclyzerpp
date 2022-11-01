@@ -25,8 +25,7 @@ auto FactGenerator::getInstance(FactWriter &writer) -> FactGenerator & {
 
 /* NOTE(ww): Stolen from Demangle.cpp (not present in LLVM 7).
  */
-static inline __attribute__((unused)) auto is_itanium_encoding(
-    const std::string &MangledName) -> bool {
+static inline auto is_itanium_encoding(const std::string &MangledName) -> bool {
   size_t Pos = MangledName.find_first_not_of('_');
   // A valid Itanium encoding requires 1-4 leading underscores, followed by
   // 'Z'.
