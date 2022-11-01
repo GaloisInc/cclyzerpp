@@ -67,6 +67,8 @@ atomic_operation("umax"). atomic_operation_umax("umax").
 atomic_operation("umin"). atomic_operation_umin("umin").
 atomic_operation("fadd"). atomic_operation_umax("fadd").
 atomic_operation("fsub"). atomic_operation_umin("fsub").
+atomic_operation("fmax"). atomic_operation_umax("fmax").
+atomic_operation("fmin"). atomic_operation_umin("fmin").
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
