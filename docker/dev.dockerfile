@@ -3,11 +3,14 @@
 # Image with all cclyzer++ development tools, i.e., everything needed by
 # cclyzer++ developers to build and test cclyzer++.
 
-# TODO(#12): Upgrade to Clang 15, LLVM 15
 ARG UBUNTU_NAME=jammy
 ARG UBUNTU_VERSION=22.04
 FROM ubuntu:$UBUNTU_VERSION as dev
-# See NOTE[Clang+LLVM] in ci.yml
+# See the documentation for supported versions.
+#
+# See NOTE[Clang+LLVM] in ci.yml.
+#
+# TODO(#12, #113): Upgrade to Clang 15, LLVM 15.
 ARG CLANG_VERSION=14
 ARG LLVM_MAJOR_VERSION=14
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
@@ -47,7 +50,7 @@ RUN apt-get update && \
     apt-get update && \
     apt-get --yes install --no-install-recommends souffle
 RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
-    if [[ ${LLVM_VERSION} -lt 13 ]]; then \
+    if [[ ${LLVM_MAJOR_VERSION} -lt 13 ]]; then \
       echo "deb http://apt.llvm.org/${UBUNTU_NAME}/ llvm-toolchain-${UBUNTU_NAME} main" | tee /etc/apt/sources.list.d/llvm.list; \
     else \
       echo "deb http://apt.llvm.org/${UBUNTU_NAME}/ llvm-toolchain-${UBUNTU_NAME}-${LLVM_MAJOR_VERSION} main" | tee /etc/apt/sources.list.d/llvm.list; \

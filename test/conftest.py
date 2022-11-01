@@ -45,7 +45,7 @@ class ContextSensitivity(Enum):
 
 
 PARENT: Path = Path(realpath(__file__)).parent
-BUILD: Path = PARENT.parent / "build"
+BUILD: Path = Path(getenv("CCLYZER_BUILD_DIR", str(PARENT.parent / "build")))
 PROGRAMS_PATH: Path = PARENT.parent / "test" / "c"
 
 # NOTE(ww): We don't use -Wall or -Werror here, since not all of our test

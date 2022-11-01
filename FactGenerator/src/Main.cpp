@@ -29,7 +29,7 @@ void cclyzer::factgen(
     const fs::path &outputDir,
     const llvm::Optional<fs::path> &signatures,
     const ContextSensitivity &context_sensitivity,
-    std::string delim) {
+    const std::string &delim) {
   using cclyzer::FactGenerator;
   using cclyzer::FactWriter;
 
@@ -42,7 +42,7 @@ void cclyzer::factgen(
   llvm::SMDiagnostic err;
 
   // Create fact writer
-  FactWriter writer(outputDir, std::move(delim));
+  FactWriter writer(outputDir, delim);
 
   // Create CSV generator
   FactGenerator &gen = FactGenerator::getInstance(writer);
@@ -96,12 +96,14 @@ auto main(int argc, char *argv[]) -> int {
 // Alternate version that doesn't use templates so that the python bindings work
 
 void factgen2(
-    std::vector<fs::path> files, const fs::path &outputDir, std::string delim) {
+    std::vector<fs::path> files,
+    const fs::path &outputDir,
+    const std::string &delim) {
   cclyzer::factgen(
       files.begin(),
       files.end(),
       outputDir,
       llvm::Optional<boost::filesystem::path>(),
       INSENSITIVE,
-      std::move(delim));
+      delim);
 }

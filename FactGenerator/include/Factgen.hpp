@@ -29,7 +29,7 @@ void factgen(
     const boost::filesystem::path &outputDir,
     const llvm::Optional<boost::filesystem::path> &signatures,
     const ContextSensitivity &context_sensitivity,
-    std::string delim);
+    const std::string &delim);
 }  // namespace cclyzer
 
 #endif /* FACT_GENERATOR_HPP__ */

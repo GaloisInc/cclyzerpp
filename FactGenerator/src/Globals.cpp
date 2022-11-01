@@ -66,7 +66,11 @@ void FactGenerator::writeGlobalVar(
   // Serialize global variable properties
   refmode_t visibility = refmode(gv.getVisibility());
   refmode_t linkage = refmode(gv.getLinkage());
+#if LLVM_VERSION_MAJOR > 14
+  refmode_t varType = recordType(gv.getType());
+#else
   refmode_t varType = recordType(gv.getType()->getElementType());
+#endif
   refmode_t thrLocMode = refmode(gv.getThreadLocalMode());
 
   // Record demangled variable name

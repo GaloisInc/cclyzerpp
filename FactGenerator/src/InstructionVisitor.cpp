@@ -320,8 +320,12 @@ void InstructionVisitor::visitAllocaInst(const llvm::AllocaInst &AI) {
   if (AI.isArrayAllocation())
     writeInstrOperand(pred::alloca::size, iref, AI.getArraySize());
 
+#if LLVM_VERSION_MAJOR > 14
+  gen.writeFact(pred::alloca::alignment, iref, llvm::Log2(AI.getAlign()));
+#else
   if (AI.getAlignment())
     gen.writeFact(pred::alloca::alignment, iref, AI.getAlignment());
+#endif
 }
 
 void InstructionVisitor::visitLoadInst(const llvm::LoadInst &LI) {
@@ -331,8 +335,12 @@ void InstructionVisitor::visitLoadInst(const llvm::LoadInst &LI) {
 
   if (LI.isAtomic()) writeAtomicInfo<pred::load>(iref, LI);
 
+#if LLVM_VERSION_MAJOR > 14
+  gen.writeFact(pred::load::alignment, iref, llvm::Log2(LI.getAlign()));
+#else
   if (LI.getAlignment())
     gen.writeFact(pred::load::alignment, iref, LI.getAlignment());
+#endif
 
   if (LI.isVolatile()) gen.writeFact(pred::load::is_volatile, iref);
 }
@@ -370,8 +378,12 @@ void InstructionVisitor::visitStoreInst(const llvm::StoreInst &SI) {
 
   if (SI.isAtomic()) writeAtomicInfo<pred::store>(iref, SI);
 
+#if LLVM_VERSION_MAJOR > 14
+  gen.writeFact(pred::store::alignment, iref, llvm::Log2(SI.getAlign()));
+#else
   if (SI.getAlignment())
     gen.writeFact(pred::store::alignment, iref, SI.getAlignment());
+#endif
 
   if (SI.isVolatile()) gen.writeFact(pred::store::is_volatile, iref);
 }
