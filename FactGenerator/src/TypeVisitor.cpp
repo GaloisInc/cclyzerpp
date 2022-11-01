@@ -43,7 +43,7 @@ void TypeVisitor::visitType(const llvm::Type *type) {
     case Type::LabelTyID:
     case Type::MetadataTyID:
       gen.writeFact(pred::primitive_type::id, tref);
-      break;
+      return;
     case Type::HalfTyID:  // Fallthrough to all 6 floating point types
     case Type::FloatTyID:
     case Type::DoubleTyID:
@@ -52,61 +52,62 @@ void TypeVisitor::visitType(const llvm::Type *type) {
     case Type::PPC_FP128TyID:
       assert(type->isFloatingPointTy());
       gen.writeFact(pred::fp_type::id, tref);
-      break;
+      return;
     case llvm::Type::IntegerTyID:
       gen.writeFact(pred::integer_type::id, tref);
-      break;
+      return;
     case llvm::Type::FunctionTyID:
       visitFunctionType(cast<FunctionType>(type));
-      break;
+      return;
     case llvm::Type::StructTyID:
       visitStructType(cast<StructType>(type));
-      break;
+      return;
     case llvm::Type::ArrayTyID:
       visitArrayType(cast<ArrayType>(type));
-      break;
+      return;
     case llvm::Type::PointerTyID:
       visitPointerType(cast<PointerType>(type));
-      break;
+      return;
 #if LLVM_VERSION_MAJOR > 10
     case llvm::Type::ScalableVectorTyID:
       visitVectorType(cast<VectorType>(type));
-      break;
+      return;
     case llvm::Type::FixedVectorTyID:
       visitVectorType(cast<VectorType>(type));
-      break;
+      return;
 #else
     case llvm::Type::VectorTyID:
       visitVectorType(cast<VectorType>(type));
-      break;
+      return;
 #endif
     case llvm::Type::X86_MMXTyID:  // TODO: handle this type
       unknown("type", type);
-      break;
+      return;
     case llvm::Type::TokenTyID:  // TODO: handle this type
       unknown("type", type);
-      break;
+      return;
 #if LLVM_VERSION_MAJOR > 10
     case llvm::Type::BFloatTyID:  // TODO: handle this type
       unknown("type", type);
-      break;
+      return;
 #endif
 #if LLVM_VERSION_MAJOR > 11
     case llvm::Type::X86_AMXTyID:  // TODO: handle this type
       unknown("type", type);
-      break;
+      return;
 #endif
 #if LLVM_VERSION_MAJOR == 15
     case llvm::Type::DXILPointerTyID:  // TODO: handle this type
       unknown("type", type);
-      break;
+      return;
 #endif
 #if LLVM_VERSION_MAJOR > 15
     case llvm::Type::TypedPointerTyID:  // TODO: handle this type
       unknown("type", type);
-      break;
+      return;
 #endif
-  }
+  }  // -Wswitch prevents fallthrough, no need for default case
+  assert(false);
 }
 
 void TypeVisitor::visitPointerType(const PointerType *ptrType) {
