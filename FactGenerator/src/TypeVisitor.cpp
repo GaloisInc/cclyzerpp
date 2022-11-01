@@ -2,6 +2,7 @@
 
 #include "FactGenerator.hpp"
 #include "PredicateGroups.hpp"
+#include "Unknown.hpp"
 
 using cclyzer::TypeVisitor;
 namespace pred = cclyzer::predicates;
@@ -80,23 +81,29 @@ void TypeVisitor::visitType(const llvm::Type *type) {
       break;
 #endif
     case llvm::Type::X86_MMXTyID:  // TODO: handle this type
+      unknown("type", type);
       break;
     case llvm::Type::TokenTyID:  // TODO: handle this type
+      unknown("type", type);
       break;
 #if LLVM_VERSION_MAJOR > 10
     case llvm::Type::BFloatTyID:  // TODO: handle this type
+      unknown("type", type);
       break;
 #endif
 #if LLVM_VERSION_MAJOR > 11
     case llvm::Type::X86_AMXTyID:  // TODO: handle this type
+      unknown("type", type);
       break;
 #endif
 #if LLVM_VERSION_MAJOR == 15
     case llvm::Type::DXILPointerTyID:  // TODO: handle this type
+      unknown("type", type);
       break;
 #endif
 #if LLVM_VERSION_MAJOR > 15
     case llvm::Type::TypedPointerTyID:  // TODO: handle this type
+      unknown("type", type);
       break;
 #endif
   }
