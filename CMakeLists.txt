@@ -95,11 +95,15 @@ target_link_libraries(
 target_compile_features(SoufflePA PUBLIC cxx_std_17)
 
 # TODO(#115): -Werror
+# TODO(#113): -Werror=deprecated-declarations
 target_compile_options(
   SoufflePA
   PUBLIC -Werror=unused-argument
+         -Werror=unused-variable
          -Werror=switch
          -Werror=return-type
+         -Wno-error=deprecated-declarations
+         -Werror
          -pedantic-errors
          -Wall
          -Wextra
