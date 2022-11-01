@@ -17,8 +17,13 @@
 namespace cclyzer {
 
 class PointerAnalysisAAResult
+#if LLVM_VERSION_MAJOR > 15
+    : public llvm::AAResultBase {
+  friend llvm::AAResultBase;
+#else
     : public llvm::AAResultBase<PointerAnalysisAAResult> {
   friend llvm::AAResultBase<PointerAnalysisAAResult>;
+#endif
 
  public:
   explicit PointerAnalysisAAResult(

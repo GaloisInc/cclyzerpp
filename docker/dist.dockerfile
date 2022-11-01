@@ -21,7 +21,7 @@ COPY ./build/cclyzer++*.deb /tmp/cclyzer++.deb
 RUN apt-get update -qq && \
     apt install -y --no-install-recommends ca-certificates gnupg wget && \
     wget --no-verbose -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
-    if [[ ${LLVM_MAJOR_VERSION} -lt 13 ]]; then \
+    if [[ ${LLVM_MAJOR_VERSION} -lt 13 || ${LLVM_MAJOR_VERSION} -ge 16 ]]; then \
       echo "deb http://apt.llvm.org/${UBUNTU_NAME}/ llvm-toolchain-${UBUNTU_NAME} main" | tee /etc/apt/sources.list.d/llvm.list; \
     else \
       echo "deb http://apt.llvm.org/${UBUNTU_NAME}/ llvm-toolchain-${UBUNTU_NAME}-${LLVM_MAJOR_VERSION} main" | tee /etc/apt/sources.list.d/llvm.list; \

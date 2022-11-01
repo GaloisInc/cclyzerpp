@@ -72,6 +72,10 @@ jobs:
           llvm_version: "15"
           ubuntu_version: "22.04"
           ubuntu_name: "jammy"
+        - clang_version: "16"
+          llvm_version: "16"
+          ubuntu_version: "22.04"
+          ubuntu_name: "jammy"
     env:
       LLVM_MAJOR_VERSION: ${{ matrix.llvm_version }}
       CLANG_VERSION: ${{ matrix.llvm_version }}
@@ -92,6 +96,7 @@ jobs:
         ./scripts/gha-docker-build "dev" "cclyzerpp-dev"
 
     - name: Build
+      continue-on-error: ${{ matrix.llvm_version == 16 }}
       run: |
         # The `pull_request` event creates a merge commit, which means that
         # `GITHUB_SHA` is not want we want: we need to do some additional
@@ -147,6 +152,7 @@ jobs:
           pytest -x -n=$(nproc)
 
     - name: Package
+      continue-on-error: ${{ matrix.llvm_version == 16 }}
       run: |
         # See above comment
         if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
@@ -163,6 +169,7 @@ jobs:
           cmake --build build -j $(nproc) --target deb
 
     - name: Build dist image
+      continue-on-error: ${{ matrix.llvm_version == 16 }}
       run: |
         ./scripts/gha-docker-build "dist" "cclyzerpp-dist"
 
