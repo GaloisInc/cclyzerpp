@@ -51,15 +51,6 @@ auto FactGenerator::processModule(
     functions_with_signatures = processSignatures(signatures.getValue());
   }
 
-  // iterate over named metadata
-  for (llvm::Module::const_named_metadata_iterator
-           it = Mod.named_metadata_begin(),
-           end = Mod.named_metadata_end();
-       it != end;
-       ++it) {
-    visitNamedMDNode(*it);
-  }
-
   // iterating over global variables in a module
   for (llvm::Module::const_global_iterator it = Mod.global_begin(),
                                            end = Mod.global_end();
@@ -217,11 +208,4 @@ auto FactGenerator::processSignatures(const boost::filesystem::path &signatures)
 void FactGenerator::emitSignatures(
     const std::string &func, const llvm::json::Array &signatures) {
   emit_signatures(*this, func, signatures);
-}
-
-void FactGenerator::visitNamedMDNode(const llvm::NamedMDNode &metadata) {
-  for (unsigned i = 0, e = metadata.getNumOperands(); i != e; ++i) {
-    // TODO
-    ;
-  }
 }
