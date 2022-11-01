@@ -91,8 +91,12 @@ void TypeVisitor::visitType(const llvm::Type *type) {
     case llvm::Type::X86_AMXTyID:  // TODO: handle this type
       break;
 #endif
-#if LLVM_VERSION_MAJOR > 14
+#if LLVM_VERSION_MAJOR == 15
     case llvm::Type::DXILPointerTyID:  // TODO: handle this type
+      break;
+#endif
+#if LLVM_VERSION_MAJOR > 15
+    case llvm::Type::TypedPointerTyID:  // TODO: handle this type
       break;
 #endif
   }
