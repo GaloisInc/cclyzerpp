@@ -40,7 +40,7 @@ jobs:
       if: ${{ github.ref == 'refs/heads/main' }}
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: doc/_build/html
+        publish_dir: doc/build/html
 
   build:
     runs-on: ubuntu-22.04
