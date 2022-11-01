@@ -835,7 +835,13 @@ static auto atomic_binop_string(const llvm::AtomicRMWInst::BinOp &op)
     case llvm::AtomicRMWInst::FAdd:
       return "fadd";
     case llvm::AtomicRMWInst::FSub:
-      return "fadd";
+      return "fsub";
+#if LLVM_VERSION_MAJOR > 14
+    case llvm::AtomicRMWInst::FMax:
+      return "fmax";
+    case llvm::AtomicRMWInst::FMin:
+      return "fmin";
+#endif
     case llvm::AtomicRMWInst::BAD_BINOP:
       malformedModule("bad atomicrmw binop");
       break;
