@@ -150,7 +150,7 @@ void TypeVisitor::visitStructType(const StructType *structType) {
   using llvm::StructLayout;
 
   refmode_t tref = gen.refmode<llvm::Type>(*structType);
-  size_t nFields = structType->getStructNumElements();
+  unsigned nFields = structType->getStructNumElements();
 
   // Record struct type entity
   gen.writeFact(pred::struct_type::id, tref);
@@ -170,7 +170,7 @@ void TypeVisitor::visitStructType(const StructType *structType) {
         layout.getStructLayout(const_cast<StructType *>(structType));
 
     // Record struct field types
-    for (size_t i = 0; i < nFields; i++) {
+    for (unsigned i = 0; i < nFields; i++) {
       refmode_t fieldType =
           gen.refmode<llvm::Type>(*(structType->getStructElementType(i)));
 
@@ -189,7 +189,7 @@ void TypeVisitor::visitStructType(const StructType *structType) {
 }
 
 void TypeVisitor::visitFunctionType(const FunctionType *functionType) {
-  size_t nParameters = functionType->getFunctionNumParams();
+  unsigned nParameters = functionType->getFunctionNumParams();
   const llvm::Type *returnType = functionType->getReturnType();
 
   refmode_t funcId = gen.refmode<llvm::Type>(*functionType);
@@ -207,7 +207,7 @@ void TypeVisitor::visitFunctionType(const FunctionType *functionType) {
   gen.writeFact(pred::func_type::return_type, funcId, returnTypeId);
 
   // Record function formal parameters
-  for (size_t i = 0; i < nParameters; i++) {
+  for (unsigned i = 0; i < nParameters; i++) {
     const llvm::Type *paramType = functionType->getFunctionParamType(i);
     refmode_t paramTypeId = gen.refmode<llvm::Type>(*paramType);
 
