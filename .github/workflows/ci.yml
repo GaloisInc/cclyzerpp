@@ -14,7 +14,8 @@ env:
   SPHINXOPTS: "-W --keep-going"
   # This will be empty on events that aren't pull requests.
   ACTUAL_GITHUB_SHA_ON_PULL_REQUEST: "${{ github.event.pull_request.head.sha }}"
-  # TODO(#12): Upgrade to Ubuntu 22.04 (jammy), Clang 15, LLVM 15
+  # TODO(#12, #113): Upgrade to Clang 15, LLVM 15.
+  #
   # See also the matrix of the build job.
   #
   # NOTE[Clang+LLVM]: If the Clang version outstrips the LLVM version, the tests
@@ -59,12 +60,16 @@ jobs:
           llvm_version: "12"
           ubuntu_version: "20.04"
           ubuntu_name: "focal"
-        - clang_version: "14"
+        - clang_version: "15"
           llvm_version: "13"
           ubuntu_version: "22.04"
           ubuntu_name: "jammy"
         - clang_version: "14"
           llvm_version: "14"
+          ubuntu_version: "22.04"
+          ubuntu_name: "jammy"
+        - clang_version: "15"
+          llvm_version: "15"
           ubuntu_version: "22.04"
           ubuntu_name: "jammy"
     env:

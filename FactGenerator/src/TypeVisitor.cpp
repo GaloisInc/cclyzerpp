@@ -91,24 +91,34 @@ void TypeVisitor::visitType(const llvm::Type *type) {
     case llvm::Type::X86_AMXTyID:  // TODO: handle this type
       break;
 #endif
+#if LLVM_VERSION_MAJOR > 14
+    case llvm::Type::DXILPointerTyID:  // TODO: handle this type
+      break;
+#endif
   }
 }
 
 void TypeVisitor::visitPointerType(const PointerType *ptrType) {
-  const llvm::Type *elemType = ptrType->getPointerElementType();
-
   refmode_t typeId = gen.refmode<llvm::Type>(*ptrType);
-  refmode_t elemTypeId = gen.refmode<llvm::Type>(*elemType);
 
   // Record pointer type entity
   gen.writeFact(pred::ptr_type::id, typeId);
 
-  // Record pointer element type
-  gen.writeFact(pred::ptr_type::component_type, typeId, elemTypeId);
-
   // Record pointer address space
   if (unsigned addressSpace = ptrType->getPointerAddressSpace())
     gen.writeFact(pred::ptr_type::addr_space, typeId, addressSpace);
+
+    // Record pointer element type
+#if LLVM_VERSION_MAJOR > 14
+  auto cond = !ptrType->isOpaque();
+#else
+  auto cond = true;
+#endif
+  if (cond) {
+    const llvm::Type *elemType = ptrType->getPointerElementType();
+    refmode_t elemTypeId = gen.refmode<llvm::Type>(*elemType);
+    gen.writeFact(pred::ptr_type::component_type, typeId, elemTypeId);
+  }
 }
 
 void TypeVisitor::visitArrayType(const ArrayType *arrayType) {

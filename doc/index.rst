@@ -26,7 +26,7 @@ is highly parallel. cclyzer++ was derived from `cclyzer`_.
 
 Documentation is also available `online`_.
 
-cclyzer++ is not currently actively developed or maintained by Galois, Inc.
+cclyzer++ is actively developed and maintained by Galois, Inc.
 
 .. note::
     You may also want to peruse the `Release Announcement
