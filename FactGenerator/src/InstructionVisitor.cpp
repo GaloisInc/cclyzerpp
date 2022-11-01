@@ -6,6 +6,7 @@
 #include <cassert>
 #include <string>
 
+#include "MalformedModule.hpp"
 #include "PredicateGroups.hpp"
 #include "Unknown.hpp"
 
@@ -751,11 +752,9 @@ static auto icmp_pred_string(const llvm::CmpInst &I) -> std::string {
     case llvm::ICmpInst::ICMP_ULE:
       return "ule";
     case llvm::ICmpInst::BAD_FCMP_PREDICATE:
-      // TODO(#129): Uniform handling of malformed LLVM modules
-      break;
+      malformedModule("bad fcmp predicate");
     case llvm::ICmpInst::BAD_ICMP_PREDICATE:
-      // TODO(#129): Uniform handling of malformed LLVM modules
-      break;
+      malformedModule("bad icmp predicate");
   }  // -Wswitch prevents fallthrough, no need for default case
   assert(false);
 }
@@ -854,7 +853,7 @@ static auto atomic_binop_string(const llvm::AtomicRMWInst::BinOp &op)
     case llvm::AtomicRMWInst::FSub:
       return "fadd";
     case llvm::AtomicRMWInst::BAD_BINOP:
-      // TODO(#129): Uniform handling of malformed LLVM modules
+      malformedModule("bad atomicrmw binop");
       break;
   }  // -Wswitch prevents fallthrough, no need for default case
   assert(false);
