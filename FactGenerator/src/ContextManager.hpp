@@ -44,7 +44,7 @@ class ContextManager {
   using const_reverse_iterator = std::vector<context>::const_reverse_iterator;
 
   ContextManager(const llvm::Module& module, const std::string& path)
-      :  mod(module) {
+      : mod(module) {
     // Compute global prefix for this module
     std::stringstream prefix;
     prefix << '<' << path << '>' << std::flush;
@@ -81,8 +81,9 @@ class ContextManager {
 
   /// Record that a local context has been exited.
   void popContext() {
-    if (contexts.back().isFunction) { iFunctionCtx = -1;
-}
+    if (contexts.back().isFunction) {
+      iFunctionCtx = SIZE_MAX;
+    }
 
     contexts.pop_back();
   }
@@ -105,14 +106,16 @@ class ContextManager {
     return contexts.rend();
   }
 
-  [[nodiscard]] inline auto instrCount() const -> unsigned { return instrIndex; }
+  [[nodiscard]] inline auto instrCount() const -> unsigned {
+    return instrIndex;
+  }
   inline auto constantCount() -> unsigned { return constantIndex++; }
   [[nodiscard]] inline auto module() const -> const llvm::Module& {
     return mod;
   }
 
   [[nodiscard]] inline auto functionContext() const -> const context* {
-    if (iFunctionCtx < 0) {
+    if (iFunctionCtx == SIZE_MAX) {
       return nullptr;
     }
 
@@ -125,7 +128,7 @@ class ContextManager {
   std::vector<Context> contexts;
 
   // The vector index containing a function context
-  int iFunctionCtx{-1};
+  std::size_t iFunctionCtx{SIZE_MAX};
 
   // Current module and path
   const llvm::Module& mod;
