@@ -42,8 +42,6 @@ auto FactGenerator::processModule(
   InstructionVisitor IV(*this, Mod);
   ModuleContext MC(*this, Mod, path);
 
-  llvm::SmallVector<std::pair<unsigned, llvm::MDNode *>, 4> MDForInst;
-
   // Process points-to signatures
   std::vector<std::tuple<std::string, std::regex, llvm::json::Array>>
       functions_with_signatures;
@@ -176,21 +174,13 @@ auto FactGenerator::processModule(
         // Visit instruction
         IV.visit(const_cast<llvm::Instruction &>(instr));
 
-        // Process metadata attached with this instruction.
-        instr.getAllMetadata(MDForInst);
-        for (unsigned i = 0, e = MDForInst.size(); i != e; ++i) {
-          const llvm::MDNode &mdNode = *MDForInst[i].second;
+        // Get debug location if available
+        if (const llvm::DebugLoc &location = instr.getDebugLoc()) {
+          unsigned line = location.getLine();
+          unsigned column = location.getCol();
 
-          // Get debug location if available
-          if (const llvm::DebugLoc &location = instr.getDebugLoc()) {
-            unsigned line = location.getLine();
-            unsigned column = location.getCol();
-
-            writeFact(pred::instr::pos, iref, line, column);
-          }
+          writeFact(pred::instr::pos, iref, line, column);
         }
-
-        MDForInst.clear();
       }
     }
 
