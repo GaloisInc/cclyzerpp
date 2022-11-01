@@ -94,23 +94,19 @@ target_link_libraries(
 # Use C++17 to compile our pass (i.e., supply -std=c++17).
 target_compile_features(SoufflePA PUBLIC cxx_std_17)
 
-# TODO(#115): -Werror
 # TODO(#113): -Werror=deprecated-declarations
 target_compile_options(
   SoufflePA
-  PUBLIC -Werror=unused-argument
-         -Werror=unused-variable
-         -Werror=switch
-         -Werror=return-type
-         -Wno-error=deprecated-declarations
+  PUBLIC -fopenmp
          -Werror
-         -pedantic-errors
-         -Wall
-         -Wextra
-         -Wconversion
-         -Wsign-conversion
-         -Wreturn-type
-         -fopenmp)
+         -Werror=all
+         -Werror=conversion
+         -Werror=extra
+         -Werror=pedantic
+         -Werror=return-type
+         -Werror=sign-conversion
+         -Werror=switch
+         -Wno-error=deprecated-declarations)
 
 target_include_directories(SoufflePA SYSTEM PUBLIC ${SOUFFLE_INCLUDE})
 
@@ -155,12 +151,13 @@ endif()
 target_compile_options(
   PAPass
   PUBLIC -Werror
-         -pedantic-errors
-         -Wall
-         -Wextra
-         -Wconversion
-         -Wsign-conversion
-         -Wreturn-type
+         -Werror=all
+         -Werror=conversion
+         -Werror=extra
+         -Werror=pedantic
+         -Werror=return-type
+         -Werror=sign-conversion
+         -Werror=switch
          -fopenmp)
 
 target_link_libraries(PAPass PRIVATE PAPassInterface SoufflePA
