@@ -181,7 +181,7 @@ class cclyzer::InstructionVisitor
       const predicates::pred_t &predicate,
       const refmode_t &instr,
       const llvm::Value *Value,
-      int index) -> refmode_t;
+      unsigned index) -> refmode_t;
 
   //--------------------------------------------------------------------------
   // Other auxiliary methods
