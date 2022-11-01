@@ -58,9 +58,10 @@ auto RefmodeEngine::Impl::refmode(const llvm::Type& type) -> refmode_t  // const
 }
 
 template <>
-auto RefmodeEngine::Impl::refmode(const llvm::Instruction& insn)
+auto RefmodeEngine::Impl::refmode(const llvm::Instruction& insn /* unused  */)
     -> refmode_t  // const
 {
+  (void)insn;  // TODO(lb): Why unused?
   std::ostringstream refmode;
 
   // BasicBlock context is intended so as not to qualify instruction
@@ -105,9 +106,11 @@ auto RefmodeEngine::Impl::refmode(const llvm::Function& func)
 }
 
 template <>
-auto RefmodeEngine::Impl::refmode(const llvm::InlineAsm& val)
+auto RefmodeEngine::Impl::refmode(const llvm::InlineAsm& val /* unused  */)
     -> refmode_t  // const
 {
+  (void)val;  // TODO(lb): Why unused?
+
   std::ostringstream refmode;
 
   withContext<llvm::Instruction>(refmode) << ':' << "<asm>";
