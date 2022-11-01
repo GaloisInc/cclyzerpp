@@ -73,10 +73,10 @@ auto InstructionVisitor::writeInstrOperand(
 }
 
 auto InstructionVisitor::writeInstrOperand(
-    const pred_t &predicate,          // the operand predicate
-    const refmode_t &instr,           // the instruction refmode
-    const llvm::Value *operand,       // the operand value
-    int index) -> cclyzer::refmode_t  // the operand index
+    const pred_t &predicate,               // the operand predicate
+    const refmode_t &instr,                // the instruction refmode
+    const llvm::Value *operand,            // the operand value
+    unsigned index) -> cclyzer::refmode_t  // the operand index
 {
   refmode_t refmode = recordValue(operand);
 
@@ -249,7 +249,7 @@ void InstructionVisitor::visitSwitchInst(const llvm::SwitchInst &SI) {
   writeInstrOperand(pred::switch_::default_label, iref, SI.getOperand(1));
 
   // 'case list' [constant, label]
-  int index = 0;
+  unsigned index = 0;
 
   for (auto Case : SI.cases()) {
     writeInstrOperand(
