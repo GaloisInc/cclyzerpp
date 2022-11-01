@@ -36,6 +36,7 @@ auto cclyzer::utils::to_string(llvm::CallingConv::ID cc) -> string {
       return "ptx_kernel";
   }  // -Wswitch prevents fallthrough, no need for default case
   assert(false);
+  return "";  // erroneous clang-tidy: clang-diagnostic-return-type
 }
 
 auto cclyzer::utils::to_string(llvm::GlobalVariable::ThreadLocalMode TLM)
