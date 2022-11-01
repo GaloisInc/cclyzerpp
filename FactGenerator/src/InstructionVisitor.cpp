@@ -843,7 +843,6 @@ static auto atomic_binop_string(const llvm::AtomicRMWInst::BinOp &op)
 #endif
     case llvm::AtomicRMWInst::BAD_BINOP:
       malformedModule("bad atomicrmw binop");
-      break;
   }  // -Wswitch prevents fallthrough, no need for default case
   assert(false);
 }

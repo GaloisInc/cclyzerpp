@@ -38,7 +38,7 @@ auto extract_from_row(
     if constexpr (std::is_same<T, const llvm::Value *>::value) {
       try {
         return llvm_val_map.at(boost::flyweight<std::string>(t0));
-      } catch (const std::out_of_range &e) {
+      } catch (const std::out_of_range &) {
         std::cout << "Failed value* lookup: " << t0 << std::endl;
         exit(EXIT_FAILURE);
       }
