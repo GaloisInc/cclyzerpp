@@ -1,16 +1,23 @@
 # -*- yaml -*-
+# The following are disabled not because they are undesirable, but because they
+# are present in pre-existing code:
+#
+# -readability-convert-member-functions-to-static,
+# -readability-inconsistent-declaration-parameter-name,
+# -readability-magic-numbers,
+# -readability-suspicious-call-argument,
 ---
+
 Checks: >
   -*,
   modernize-*,
   performance-*,
-  readability-const-return-type,
-  readability-delete-null-pointer,
-  readability-else-after-return,
-  readability-non-const-parameter,
-  readability-redundant-smartptr-get,
-  readability-redundant-string-cstr,
-  readability-string-compare
+  readability-*,
+  misc-static-assert,
+  -readability-convert-member-functions-to-static,
+  -readability-function-cognitive-complexity,
+  -readability-identifier-length,
+  -readability-inconsistent-declaration-parameter-name,
+  -readability-magic-numbers,
+  -readability-suspicious-call-argument,
 WarningsAsErrors: '*'
-
-

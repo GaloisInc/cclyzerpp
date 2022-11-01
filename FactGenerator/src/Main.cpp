@@ -56,7 +56,9 @@ void cclyzer::factgen(
         llvm::parseIRFile(inputFile.string(), err, context);
 
     // Check if parsing succeeded
-    if (!module) throw ParseException(inputFile);
+    if (!module) {
+      throw ParseException(inputFile);
+    }
 
     // Canonicalize path
     std::string realPath = fs::canonical(inputFile).string();

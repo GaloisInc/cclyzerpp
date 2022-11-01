@@ -109,10 +109,11 @@ void TypeVisitor::visitPointerType(const PointerType *ptrType) {
   gen.writeFact(pred::ptr_type::id, typeId);
 
   // Record pointer address space
-  if (unsigned addressSpace = ptrType->getPointerAddressSpace())
+  if (unsigned addressSpace = ptrType->getPointerAddressSpace()) {
     gen.writeFact(pred::ptr_type::addr_space, typeId, addressSpace);
+  }
 
-    // Record pointer element type
+  // Record pointer element type
 #if LLVM_VERSION_MAJOR > 14
   auto cond = !ptrType->isOpaque();
 #else
@@ -190,7 +191,9 @@ void TypeVisitor::visitFunctionType(const FunctionType *functionType) {
   gen.writeFact(pred::func_type::id, funcId);
 
   // TODO: which predicate/entity do we need to update for varagrs?
-  if (functionType->isVarArg()) gen.writeFact(pred::func_type::varargs, funcId);
+  if (functionType->isVarArg()) {
+    gen.writeFact(pred::func_type::varargs, funcId);
+  }
 
   // Record return type
   gen.writeFact(pred::func_type::return_type, funcId, returnTypeId);

@@ -65,7 +65,7 @@ Options::Options(int argc, char* argv[]) {
         vm);
 
     // --help option
-    if (vm.count("help")) {
+    if (vm.count("help") != 0U) {
       std::cout << "Usage: " << appName << " [OPTIONS] INPUT_FILE...\n\n"
                 << genericOpts;
 
@@ -89,8 +89,8 @@ Options::Options(int argc, char* argv[]) {
 
   // Compute input files and create output directories
   std::vector<fs::path> paths = vm["input-files"].as<std::vector<fs::path> >();
-  set_output_dir(outdir, vm.count("force"));
-  set_input_files(paths.begin(), paths.end(), vm.count("recursive"));
+  set_output_dir(outdir, vm.count("force") != 0U);
+  set_input_files(paths.begin(), paths.end(), vm.count("recursive") != 0U);
 
   if (signatures != signatures_sentinel) {
     set_signatures(std::move(signatures));
@@ -129,14 +129,18 @@ void Options::set_input_files(
     // Recurse into directories
     for (fs::recursive_directory_iterator iter(path), end; iter != end;
          ++iter) {
-      if (!fs::is_directory(iter->path())) inputFiles.push_back(iter->path());
+      if (!fs::is_directory(iter->path())) {
+        inputFiles.push_back(iter->path());
+      }
     }
   }
 }
 
 void Options::set_output_dir(fs::path path, bool shouldForce) {
   // Create non-existing directory
-  if (!fs::exists(path)) fs::create_directory(path);
+  if (!fs::exists(path)) {
+    fs::create_directory(path);
+  }
 
   if (!fs::is_directory(path)) {
     std::cerr << "Not a directory: " << path << std::endl;

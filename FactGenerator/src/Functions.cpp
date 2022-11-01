@@ -27,15 +27,21 @@ void FactGenerator::writeFunction(
   writeFact(pred::func::signature, funcref, demangle(func.getName().data()));
 
   // Record function linkage, visibility, alignment, and GC
-  if (!linkage.empty()) writeFact(pred::func::linkage, funcref, linkage);
+  if (!linkage.empty()) {
+    writeFact(pred::func::linkage, funcref, linkage);
+  }
 
-  if (!visibility.empty())
+  if (!visibility.empty()) {
     writeFact(pred::func::visibility, funcref, visibility);
+  }
 
-  if (func.getAlignment())
+  if (func.getAlignment() != 0U) {
     writeFact(pred::func::alignment, funcref, func.getAlignment());
+  }
 
-  if (func.hasGC()) writeFact(pred::func::gc, funcref, func.getGC());
+  if (func.hasGC()) {
+    writeFact(pred::func::gc, funcref, func.getGC());
+  }
 
   if (func.hasPersonalityFn()) {
     llvm::Constant *pers_fn = func.getPersonalityFn();

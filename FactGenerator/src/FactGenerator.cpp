@@ -166,7 +166,9 @@ auto FactGenerator::processModule(
         }
 
         // Record successor instruction
-        if (prev_instr) writeFact(pred::instr::successor, prev_iref, iref);
+        if (prev_instr != nullptr) {
+          writeFact(pred::instr::successor, prev_iref, iref);
+        }
 
         // Store the refmode of this instruction for next iteration
         prev_iref = iref;
