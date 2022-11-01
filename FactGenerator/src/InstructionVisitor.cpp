@@ -7,6 +7,7 @@
 #include <string>
 
 #include "PredicateGroups.hpp"
+#include "Unknown.hpp"
 
 namespace pred = cclyzer::predicates;
 
@@ -687,7 +688,7 @@ void InstructionVisitor::visitShuffleVectorInst(
 }
 
 void InstructionVisitor::visitInstruction(const llvm::Instruction &I) {
-  llvm::errs() << I.getOpcodeName() << ": Unhandled instruction\n";
+  unknown("instruction", I.getOpcodeName());
 }
 
 //------------------------------------------------------------------------------
@@ -780,10 +781,7 @@ void InstructionVisitor::writeCondition(
       break;
     default:
       cmpStr = "<badpred>";
-
-      // Report the unknown predicate
-      llvm::errs() << "Unknown comparison predicate:" << I.getPredicate()
-                   << '\n';
+      unknown("comparison predicate", I.getPredicate());
       break;
   }
 

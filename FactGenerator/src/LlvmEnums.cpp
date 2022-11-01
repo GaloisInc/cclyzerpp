@@ -4,6 +4,8 @@
 
 #include <sstream>
 
+#include "Unknown.hpp"
+
 using std::string;
 
 auto cclyzer::utils::to_string(llvm::CallingConv::ID cc) -> string {
@@ -75,7 +77,7 @@ auto cclyzer::utils::to_string(llvm::GlobalVariable::ThreadLocalMode TLM)
       tlm = "thread_local(localexec)";
       break;
     default:
-      llvm::errs() << "Unrecognized thread local mode: " << TLM << '\n';
+      unknown("thread local mode", TLM);
       tlm = "<invalid tlm>";
   }
   return tlm;
@@ -122,7 +124,7 @@ auto cclyzer::utils::to_string(llvm::GlobalValue::LinkageTypes LT) -> string {
       linkTy = "available_externally";
       break;
     default:
-      llvm::errs() << "Unrecognized linkage type: " << LT << '\n';
+      unknown("linkage type", LT);
       linkTy = "<invalid linkage>";
       break;
   }
@@ -147,7 +149,7 @@ auto cclyzer::utils::to_string(llvm::GlobalValue::VisibilityTypes Vis)
       visibility = "protected";
       break;
     default:
-      llvm::errs() << "Unrecognized visibility type: " << Vis << '\n';
+      unknown("visibility type", Vis);
       visibility = "<invalid visibility>";
       break;
   }
@@ -212,8 +214,7 @@ auto cclyzer::utils::to_string(llvm::AtomicOrdering ordering) -> string {
       break;
 #endif
     default:
-      llvm::errs() << "Unrecognized atomic ordering type: "
-                   << static_cast<int>(ordering) << '\n';
+      unknown("atomic ordering type", static_cast<int>(ordering));
       atomic = "<invalid atomic ordering>";
       break;
   }
