@@ -50,6 +50,8 @@ atomic_operation(op) :- atomicrmw_instr_operation(_, op).
 .decl atomic_operation_min(op:AtomicOperation)
 .decl atomic_operation_umax(op:AtomicOperation)
 .decl atomic_operation_umin(op:AtomicOperation)
+.decl atomic_operation_fadd(op:AtomicOperation)
+.decl atomic_operation_fsub(op:AtomicOperation)
 
 atomic_operation("xchg"). atomic_operation_xchg("xchg").
 atomic_operation("add"). atomic_operation_add("add").
@@ -63,6 +65,8 @@ atomic_operation("max"). atomic_operation_max("max").
 atomic_operation("min"). atomic_operation_min("min").
 atomic_operation("umax"). atomic_operation_umax("umax").
 atomic_operation("umin"). atomic_operation_umin("umin").
+atomic_operation("fadd"). atomic_operation_umax("fadd").
+atomic_operation("fsub"). atomic_operation_umin("fsub").
 
 schema_invalid_instr(Instr, __FILE__, __LINE__) :-
    schema_sanity(),
