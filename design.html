@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analysis Design &mdash; cclyzer++ 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Docker" href="docker.html" />
+    <link rel="prev" title="Changelog" href="changelog.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> cclyzer++
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Analysis Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#purpose">Purpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#abstraction">Abstraction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#an-aside-on-assignments-loads-and-stores">An Aside on Assignments, Loads, and Stores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#array-and-field-sensitivity">Array- and Field-Sensitivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#field-sensitivity">Field Sensitivity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#array-sensitivity">Array Sensitivity</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#context-sensitivity">Context-Sensitivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#heap-cloning">Heap Cloning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#type-back-propagation">Type Back-Propagation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#undefined-behavior">Undefined Behavior</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Analysis Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signatures.html">Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unsoundness.html">Sources of Unsoundness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">cclyzer++</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Analysis Design</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/design.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+
+           <div itemprop="articleBody">
+             
+  <div class="section" id="analysis-design">
+<span id="design"></span><h1>Analysis Design<a class="headerlink" href="#analysis-design" title="Permalink to this heading"></a></h1>
+<div class="section" id="purpose">
+<h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this heading"></a></h2>
+<p>The purpose of this document is twofold:</p>
+<ul class="simple">
+<li><p>To provide enough insight into pointer analysis and cclyzer++ specifically so
+that the reader can look at the output of the analysis and understand
+roughly what it means, allowing them to evaluate whether cclyzer++ is
+appropriate for their use-case.</p></li>
+<li><p>To detail the core design choices of cclyzer++ so that pointer analysis
+developers can read the code and understand how it works, and evaluate
+whether cclyzer++ is a suitable basis for an improved analysis.</p></li>
+</ul>
+<p>The intended audience is someone who knows at least a bit about static
+analysis and C programming, but may not be intimately familiar with pointer
+analysis nor an expert in static analysis generally.</p>
+<p>This discussion complements the in-code comments (rather than duplicating
+them), since this document purposefully doesn’t discuss implementation issues.</p>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>The design space of pointer analyses is large and complex. Designs that achieve
+an adequate trade-off between precision, soundness, and performance are the
+subject of ongoing research. This section documents the choices made in
+cclyzer++.</p>
+<p>The following sections contain examples and some exposition of general pointer
+analysis concepts, but are meant primarily to support the discussion of the
+particulars of the design of cclyzer++. See the <a class="reference external" href="http://yanniss.github.io/points-to-tutorial15.pdf">tutorial</a> of Smaragdakis and
+Balatsouras for a more thorough introduction to pointer analysis generally.</p>
+<p>Examples are shown in C for readability, but cclyzer++ actually analyzes LLVM
+code. Examples assume a subset-based analysis unless otherwise noted.</p>
+</div>
+<div class="section" id="abstraction">
+<h2>Abstraction<a class="headerlink" href="#abstraction" title="Permalink to this heading"></a></h2>
+<p>In order to achieve termination and scalability, static analyses have to
+<em>abstract</em>—that is, approximate—the usually infinite set of possible program
+behaviors. Consider the following program fragment:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">f</span><span class="p">(</span><span class="n">z</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The set of actual allocations made by this program at runtime is unbounded –
+it’s impossible to tell how many times the <code class="docutils literal notranslate"><span class="pre">while</span></code> loop and its call to
+<code class="docutils literal notranslate"><span class="pre">malloc</span></code> will be executed. Most pointer analyses, including cclyzer++,
+approximate sets of allocations by their allocation site. In a C (or more
+generally, LLVM) program, an allocation site can be:</p>
+<ol class="arabic simple">
+<li><p>A global variable</p></li>
+<li><p>A stack allocation (e.g., a call to <code class="docutils literal notranslate"><span class="pre">alloca</span></code> or a local variable which has
+its address taken with <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>)</p></li>
+<li><p>A heap allocation (e.g., a call to <code class="docutils literal notranslate"><span class="pre">malloc</span></code> or <code class="docutils literal notranslate"><span class="pre">realloc</span></code>)</p></li>
+</ol>
+<p>In this document, we’ll write these abstract allocations like so (using a scheme
+that mimics how they appear in the output of cclyzer++):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">*global_alloc&#64;global_var</span></code> for a global variable <code class="docutils literal notranslate"><span class="pre">global_var</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[y]</span></code> for a stack allocation in function <code class="docutils literal notranslate"><span class="pre">main</span></code> of a
+variable <code class="docutils literal notranslate"><span class="pre">y</span></code> <a class="footnote-reference brackets" href="#f1" id="id1">1</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*heap_alloc&#64;main[z]</span></code> for a heap allocation in function <code class="docutils literal notranslate"><span class="pre">main</span></code> assigned to
+a variable <code class="docutils literal notranslate"><span class="pre">z</span></code></p></li>
+</ul>
+<p>The goal of a pointer analysis is then to compute three relations:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ptr_points_to</span></code>: A mapping from pointer-typed abstract allocations to
+abstract allocations they may point to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">var_points_to</span></code>: A mapping from variables to the set of all abstract
+allocations they may point to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">callgraph_edge</span></code>: The set of edges in the call graph</p></li>
+</ol>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this heading"></a></h3>
+<p>Consider the following program:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">global_var</span><span class="p">;</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">global_var</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">z</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">f</span><span class="p">(</span><span class="n">global_var</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>A pointer analysis using an allocation-site abstraction would compute the
+following results (also called <em>points-to facts</em>):</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">ptr_points_to</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">*global_alloc&#64;global_var</span></code> points to <code class="docutils literal notranslate"><span class="pre">*heap_alloc&#64;main[z]</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">var_points_to</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;global_var</span></code> points to <code class="docutils literal notranslate"><span class="pre">*global_alloc&#64;global_var</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;y</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[y]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code> points to <code class="docutils literal notranslate"><span class="pre">*heap_alloc&#64;main[z]</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">callgraph_edge</span></code>:</dt><dd><ul>
+<li><p>An edge from <code class="docutils literal notranslate"><span class="pre">main</span></code> to <code class="docutils literal notranslate"><span class="pre">malloc</span></code> at the callsite <code class="docutils literal notranslate"><span class="pre">malloc(1)</span></code></p></li>
+<li><p>An edge from <code class="docutils literal notranslate"><span class="pre">main</span></code> to <code class="docutils literal notranslate"><span class="pre">f</span></code> at the callsite <code class="docutils literal notranslate"><span class="pre">f(global_var,</span> <span class="pre">&amp;y,</span> <span class="pre">z)</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="an-aside-on-assignments-loads-and-stores">
+<h2>An Aside on Assignments, Loads, and Stores<a class="headerlink" href="#an-aside-on-assignments-loads-and-stores" title="Permalink to this heading"></a></h2>
+<p>The following discussion aims to be mostly agnostic to how analysis results are
+computed. However, it will be helpful to look at the relationship between loads,
+stores, <code class="docutils literal notranslate"><span class="pre">ptr_points_to</span></code>, and <code class="docutils literal notranslate"><span class="pre">var_points_to</span></code> to understand the examples.</p>
+<ul class="simple">
+<li><p>After an assignment of pointer-typed variables like <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code> will
+<code class="docutils literal notranslate"><span class="pre">var_points_to</span></code> anything that <code class="docutils literal notranslate"><span class="pre">y</span></code> <code class="docutils literal notranslate"><span class="pre">var_points_to</span></code>.</p></li>
+<li><p>After a store like <code class="docutils literal notranslate"><span class="pre">*x</span> <span class="pre">=</span> <span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code> will <code class="docutils literal notranslate"><span class="pre">ptr_points_to</span></code> anything that
+<code class="docutils literal notranslate"><span class="pre">y</span></code> <code class="docutils literal notranslate"><span class="pre">var_points_to</span></code>.</p></li>
+<li><p>After a load like <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">*y</span></code>, then <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">var_points_to</span> <span class="pre">z</span></code> if <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">var_points_to</span>
+<span class="pre">w</span></code> and <code class="docutils literal notranslate"><span class="pre">w</span> <span class="pre">ptr_points_to</span> <span class="pre">z</span></code>.</p></li>
+</ul>
+<p>The examples below will illustrate how this works more concretely.</p>
+</div>
+<div class="section" id="array-and-field-sensitivity">
+<span id="suballocations"></span><h2>Array- and Field-Sensitivity<a class="headerlink" href="#array-and-field-sensitivity" title="Permalink to this heading"></a></h2>
+<p>The basic allocation site abstraction can lose precision when applied to
+compound data structures like structs and arrays. cclyzer++ subdivides
+allocations into <em>suballocations</em> to avoid imprecision.</p>
+<p>This strategy is beneficial for precision, but can actually cause unsoundness
+when combined with <a class="reference internal" href="#backprop"><span class="std std-ref">Type Back-Propagation</span></a>. See <a class="reference internal" href="unsoundness.html#unsoundness"><span class="std std-ref">Sources of Unsoundness</span></a> and <a class="reference external" href="cclyzer">the cclyzer
+paper</a> for details.</p>
+<div class="section" id="field-sensitivity">
+<h3>Field Sensitivity<a class="headerlink" href="#field-sensitivity" title="Permalink to this heading"></a></h3>
+<p>Consider the following program fragment:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="p">;</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">;</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">y</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="n">w</span><span class="p">;</span><span class="w"></span>
+<span class="n">w</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">u</span><span class="p">;</span><span class="w"></span>
+<span class="n">w</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">v</span><span class="p">;</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">x</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>A <em>field-insensitive</em> analysis (one that uses the basic allocation site
+abstraction) would conclude</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">ptr_points_to</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[w]</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[w]</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">var_points_to</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;w</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[w]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>The results for <code class="docutils literal notranslate"><span class="pre">z</span></code> are imprecise - at runtime, <code class="docutils literal notranslate"><span class="pre">z</span></code> can actually only point
+to the stack allocation for <code class="docutils literal notranslate"><span class="pre">u</span></code>.</p>
+<p>In order to more precisely handle structs, cclyzer++ further divides struct
+allocations into <em>field suballocations</em>, one for each field. For example, the
+allocation <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[w]</span></code> would have suballocations
+<code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[w].x</span></code> and <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[w].y</span></code>. With field
+suballocations, the pointer analysis results for this example are</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">ptr_points_to</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[w].x</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[w].y</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">var_points_to</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;w</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[w]</span></code> <a class="footnote-reference brackets" href="#f2" id="id2">2</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="array-sensitivity">
+<h3>Array Sensitivity<a class="headerlink" href="#array-sensitivity" title="Permalink to this heading"></a></h3>
+<p>Consider the following program fragment:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">char</span><span class="w"> </span><span class="n">u</span><span class="p">;</span><span class="w"></span>
+<span class="kt">char</span><span class="w"> </span><span class="n">v</span><span class="p">;</span><span class="w"></span>
+<span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">arr</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span><span class="w"></span>
+<span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">u</span><span class="p">;</span><span class="w"></span>
+<span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">v</span><span class="p">;</span><span class="w"></span>
+<span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
+</pre></div>
+</div>
+<p>An <em>array-insensitive</em> analysis (one that uses the basic allocation site
+abstraction) would conclude</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">ptr_points_to</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[arr]</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[arr]</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">var_points_to</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;u</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;v</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;arr</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[arr]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>The results for <code class="docutils literal notranslate"><span class="pre">z</span></code> are imprecise - at runtime, <code class="docutils literal notranslate"><span class="pre">z</span></code> can only point to the
+stack allocation for <code class="docutils literal notranslate"><span class="pre">u</span></code>.</p>
+<p>In order to precisely handle arrays and structs, cclyzer++ further divides
+array-typed allocations into <em>array suballocations</em>. Arrays have some number of
+suballocations at specific indices and a suballocation named <code class="docutils literal notranslate"><span class="pre">[*]</span></code> that
+represents <em>any</em> index (equivalently, an unknown index), e.g., in the example
+above <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[arr]</span></code> would have suballocations
+<code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[arr][0]</span></code>, <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[arr][1]</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[arr][*]</span></code>. The results of an array-sensitive analysis for
+this program would be</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">ptr_points_to</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[arr][0]</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[arr][1]</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">var_points_to</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;u</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;v</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;arr</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[arr]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arr[0]</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[arr][0]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Loads from the <code class="docutils literal notranslate"><span class="pre">[*]</span></code> suballocation are treated as loading from all of the
+indices at once, and the same is true (mutatis mutandis) for stores.</p>
+<p>It’s not the case that all possible array indices always have a suballocation -
+this would be unscalable for even moderately sized arrays. Loads from and stores
+to array indices that lack a dedicated suballocation fall back on the <code class="docutils literal notranslate"><span class="pre">[*]</span></code>
+suballocation. A heuristic decides which array indices should get a dedicated
+suballocation, see <code class="docutils literal notranslate"><span class="pre">allocations-subobjects.dl</span></code> in the implementation for
+details.</p>
+<p>Array and field suballocations can be arbitrarily nested.</p>
+</div>
+</div>
+<div class="section" id="context-sensitivity">
+<span id="id3"></span><h2>Context-Sensitivity<a class="headerlink" href="#context-sensitivity" title="Permalink to this heading"></a></h2>
+<p>Consider the following program:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="nf">id</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">z</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">z</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">(</span><span class="o">&amp;</span><span class="n">u</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">(</span><span class="o">&amp;</span><span class="n">v</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>A <em>context-insensitive</em> analysis (one that uses the basic allocation site
+abstraction) would conclude</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ptr_points_to</span></code>: (empty)</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">var_points_to</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;u</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;v</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>The results for <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are imprecise - at runtime, <code class="docutils literal notranslate"><span class="pre">x</span></code> can only point
+to the stack allocation for <code class="docutils literal notranslate"><span class="pre">u</span></code>, and <code class="docutils literal notranslate"><span class="pre">y</span></code> can only point to the stack
+allocation for <code class="docutils literal notranslate"><span class="pre">v</span></code>. The points-to results for <code class="docutils literal notranslate"><span class="pre">u</span></code> and <code class="docutils literal notranslate"><span class="pre">v</span></code> get combined
+when they flow through the function <code class="docutils literal notranslate"><span class="pre">id</span></code>.</p>
+<p>To ameliorate this kind of imprecision, pointer analyses qualify points-to
+results with <em>contexts</em>. The most common kind of context is a <em>k</em>-callsite
+context: each points-to fact is qualified with a summary of the control flow
+leading to the statement in question, namely, up to the last <em>k</em> callsites that
+occurred before its execution. In this document, we’ll write contexts like so:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nil</span></code>: The empty context</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[main:11,</span> <span class="pre">nil]</span></code>: A context indicating that the last callsite was the 11th
+statement in the <code class="docutils literal notranslate"><span class="pre">main</span></code> function.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[f:5,</span> <span class="pre">[g:8,</span> <span class="pre">nil]]</span></code>: A context indicating that the last callsite was the 5th
+statement of <code class="docutils literal notranslate"><span class="pre">f</span></code>, and the call before that was a call to <code class="docutils literal notranslate"><span class="pre">f</span></code> from the 8th
+statement of <code class="docutils literal notranslate"><span class="pre">g</span></code>.</p></li>
+</ul>
+<p>Here’s how a <em>k</em>-callsite sensitive analysis would analyze the above example for
+any <em>k</em> &gt; 0:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ptr_points_to</span></code>: (empty)</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">var_points_to</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;u</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code> in context <code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;v</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code> in context <code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code> in context <code class="docutils literal notranslate"><span class="pre">[main:3,</span> <span class="pre">nil]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code> in context <code class="docutils literal notranslate"><span class="pre">[main:4,</span> <span class="pre">nil]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code> in context <code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code> in context <code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>When the context already has <em>k</em> entries and a call is encountered, the least
+recent entry is dropped. For example, consider encountering a call at the third
+statement of <code class="docutils literal notranslate"><span class="pre">g</span></code> in the context <code class="docutils literal notranslate"><span class="pre">[f:2,</span> <span class="pre">nil]</span></code>. A 1-callsite-sensitive
+analysis would switch to the context <code class="docutils literal notranslate"><span class="pre">[g:3,</span> <span class="pre">nil]</span></code> to analyze the callee,
+whereas a 2-callsite-sensitive analysis would have the context <code class="docutils literal notranslate"><span class="pre">[g:3,</span> <span class="pre">f:2,</span>
+<span class="pre">nil]</span></code> (and would drop <code class="docutils literal notranslate"><span class="pre">f:2</span></code> only at the <em>next</em> callsite it encountered). A
+higher context depth usually leads to more precision, but may also make analysis
+performance less predictable.</p>
+<p>It can be advantageous to only <em>selectively</em> add callsites to the context. See
+<code class="docutils literal notranslate"><span class="pre">drop.dl</span></code> in the implementation for details.</p>
+</div>
+<div class="section" id="heap-cloning">
+<span id="clone"></span><h2>Heap Cloning<a class="headerlink" href="#heap-cloning" title="Permalink to this heading"></a></h2>
+<p>Consider the following program:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="o">**</span><span class="nf">alloc</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="o">**</span><span class="n">w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">w</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="o">**</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alloc</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="o">**</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alloc</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="o">*</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">u</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="o">*</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">v</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>An analysis without heap cloning would conclude</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">ptr_points_to</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">*heap_alloc&#64;main[w]</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code> in context <code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*heap_alloc&#64;main[w]</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code> in context <code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">var_points_to</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;u</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code> in context <code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;v</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code> in context <code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> points to <code class="docutils literal notranslate"><span class="pre">*heap_alloc&#64;main[w]</span></code> in context <code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code> points to <code class="docutils literal notranslate"><span class="pre">*heap_alloc&#64;main[w]</span></code> in context <code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code> in context <code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code> points to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code> in context <code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>The results for <code class="docutils literal notranslate"><span class="pre">z</span></code> are imprecise - at runtime, <code class="docutils literal notranslate"><span class="pre">z</span></code> can only point to the
+stack allocation for <code class="docutils literal notranslate"><span class="pre">u</span></code>.</p>
+<p>To ameliorate this kind of imprecision, pointer analyses qualify allocations
+with <em>allocation contexts</em>, analogous to how points-to facts are qualified with
+contexts. Instead of abstracting a set of allocations by an allocation site,
+analyses with <em>heap cloning</em> abstract allocations by a <em>pair</em> of an allocation
+site and an allocation context. Just as with context-sensitivity, the allocation
+context is usually a summary of the control flow leading to the allocation site,
+with <em>k</em>-callsite being a widely used choice. A 1-callsite sensitive analysis
+with a 1-callsite-sensitive heap would analyze the above example as follows:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">ptr_points_to</span></code>:</dt><dd><ul>
+<li><p>(<code class="docutils literal notranslate"><span class="pre">*heap_alloc&#64;main[w]</span></code>, <code class="docutils literal notranslate"><span class="pre">[main:1,</span> <span class="pre">nil]</span></code>) points to
+<code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code> in context <code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+<li><p>(<code class="docutils literal notranslate"><span class="pre">*heap_alloc&#64;main[w]</span></code>, <code class="docutils literal notranslate"><span class="pre">[main:2,</span> <span class="pre">nil]</span></code>) points to
+<code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code> in context <code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">var_points_to</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;u</span></code> points to (<code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code>, <code class="docutils literal notranslate"><span class="pre">nil</span></code>) in context <code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;v</span></code> points to (<code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[v]</span></code>, <code class="docutils literal notranslate"><span class="pre">nil</span></code>) in context <code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> points to (<code class="docutils literal notranslate"><span class="pre">*heap_alloc&#64;main[w]</span></code>, <code class="docutils literal notranslate"><span class="pre">[main:1,</span> <span class="pre">nil]</span></code>) in context
+<code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code> points to (<code class="docutils literal notranslate"><span class="pre">*heap_alloc&#64;main[w]</span></code>, <code class="docutils literal notranslate"><span class="pre">[main:2,</span> <span class="pre">nil]</span></code>) in context
+<code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code> points to (<code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code>, nil) in context <code class="docutils literal notranslate"><span class="pre">nil</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="type-back-propagation">
+<span id="backprop"></span><h2>Type Back-Propagation<a class="headerlink" href="#type-back-propagation" title="Permalink to this heading"></a></h2>
+<p>cclyzer++ infers types for heap allocations by looking at how they’re used. For
+instance, for the following code snippet</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span><span class="w"></span>
+<span class="c1">// ...</span>
+<span class="o">*</span><span class="p">((</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">z</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>type back-propagation would infer that <code class="docutils literal notranslate"><span class="pre">*heap_alloc&#64;main[z]</span></code> has type <code class="docutils literal notranslate"><span class="pre">int</span></code>.
+This type assignment can result in the creation of additional <a class="reference internal" href="#suballocations">suballocations</a> when cclyzer++ back-propagates an array or struct type. See
+the <a class="reference external" href="https://yanniss.github.io/cclyzer-sas16.pdf">cclyzer</a> paper for more details.</p>
+<p>Note that type back-propagation can result in multiple types being assigned to
+the same allocation site, which can cause unsoundness in the analysis when
+combined with <sub>suballocations</sub>. See <a class="reference internal" href="unsoundness.html#unsoundness"><span class="std std-ref">Sources of Unsoundness</span></a> for details.</p>
+</div>
+<div class="section" id="undefined-behavior">
+<h2>Undefined Behavior<a class="headerlink" href="#undefined-behavior" title="Permalink to this heading"></a></h2>
+<p>cclyzer++ assumes that the input program is free of undefined behavior, though in
+practice the majority of the analysis results will still be useful in programs
+containing such bugs. It’s not at all clear how to soundly or precisely model
+undefined behavior - by its very nature, it resists formalization in terms of
+the semantics of the source language.</p>
+<p>The assumption of fully defined behavior is rarely explicitly invoked in the
+analysis, but it can help improve precision in certain cases. For example, when
+the analysis sees a call to <code class="docutils literal notranslate"><span class="pre">memcpy</span></code> with a constant size argument, it ignores
+any points-to facts involving source or target allocations that are smaller than
+the size argument. If any of these allocations really did flow to the call to
+<code class="docutils literal notranslate"><span class="pre">memcpy</span></code>, an out-of-bounds read or write would occur. Ignoring these ill-sized
+facts improves precision, as new points-to facts are not generated for
+impossible (i.e., undefined) data flows.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>In all the examples here, the program is assumed to be in single static
+assignment (SSA) form, since this is the default for LLVM programs.
+Thus, the combination of function and variable name uniquely identify
+stack and heap allocation sites.</p>
+</dd>
+<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Technically, <code class="docutils literal notranslate"><span class="pre">&amp;w</span></code> would also point to <code class="docutils literal notranslate"><span class="pre">*stack_alloc&#64;main[u]</span></code> since
+the first field of a struct aliases the overall struct allocation.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+          </div>
+    <a href="https://github.com/GaloisInc/cclyzerpp">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="changelog.html" class="btn btn-neutral float-left" title="Changelog" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="docker.html" class="btn btn-neutral float-right" title="Docker" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Galois Inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

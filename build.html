@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building &mdash; cclyzer++ 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Development" href="dev.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> cclyzer++
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Analysis Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Analysis Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signatures.html">Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unsoundness.html">Sources of Unsoundness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Building</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#build-dependencies">Build Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuring-the-build">Configuring the Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-the-fact-generator">Building the Fact Generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-the-c-interface">Building the C++ Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">cclyzer++</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Building</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/build.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+
+           <div itemprop="articleBody">
+             
+  <div class="section" id="building">
+<h1>Building<a class="headerlink" href="#building" title="Permalink to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Most users don’t need to build cclyzer++ from source: Pre-built Debian
+packages and Docker images are available. See <a class="reference internal" href="install.html"><span class="doc">Installation</span></a> for more details.</p>
+</div>
+<div class="section" id="build-dependencies">
+<h2>Build Dependencies<a class="headerlink" href="#build-dependencies" title="Permalink to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can download a pre-built Docker image with all of the build dependencies
+rather than installing them on your host. See <a class="reference internal" href="docker.html"><span class="doc">Docker</span></a> for details.</p>
+</div>
+<p>cclyzer++ requires Soufflé version 2.3; see the <a class="reference external" href="https://souffle-lang.github.io/build">Soufflé build documentation</a>
+for information on how to download and install Soufflé.</p>
+<p>The build also requires a few Boost C++ libraries. Here’s how to get them on
+Ubuntu 20.04:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get install libboost-system-dev libboost-filesystem-dev libboost-iostreams-dev libboost-program-options-dev
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuring-the-build">
+<h2>Configuring the Build<a class="headerlink" href="#configuring-the-build" title="Permalink to this heading"></a></h2>
+<p>There are several CMake options to configure the build:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-DLLVM_MAJOR_VERSION=&lt;MAJOR_VERSION_NUMBER&gt;</span></code>: Build against a specific
+version of LLVM; see <a class="reference internal" href="overview.html#llvmlib"><span class="std std-ref">LLVM Library Version</span></a> for supported
+versions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DUBSAN=1</span></code>: Build the FactGenerator with the undefined behavior sanitizer.</p></li>
+</ul>
+</div>
+<div class="section" id="building-the-fact-generator">
+<h2>Building the Fact Generator<a class="headerlink" href="#building-the-fact-generator" title="Permalink to this heading"></a></h2>
+<p>To build the fact generator, run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake -G Ninja -B build -S .
+cmake --build build -j <span class="k">$(</span>nproc<span class="k">)</span> --target factgen-exe
+</pre></div>
+</div>
+<p>You should now see an executable at <code class="docutils literal notranslate"><span class="pre">build/factgen-exe</span></code>.</p>
+<p>See <a class="reference internal" href="architecture.html#architecture"><span class="std std-ref">the architecture documentation</span></a> for more information on
+the role of the fact generator, and <a class="reference internal" href="usage.html#configuration"><span class="std std-ref">the usage documentation</span></a> for details on running it.</p>
+</div>
+<div class="section" id="building-the-c-interface">
+<h2>Building the C++ Interface<a class="headerlink" href="#building-the-c-interface" title="Permalink to this heading"></a></h2>
+<p>To synthesize C++ code, compile it to a shared library, and compile the C++
+interface, run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake --build build -j <span class="k">$(</span>nproc<span class="k">)</span> --target PAPass
+</pre></div>
+</div>
+<p>(You could also run CMake without specifying <code class="docutils literal notranslate"><span class="pre">--target</span> <span class="pre">PAPass</span></code>.) The pass can
+be run with <code class="docutils literal notranslate"><span class="pre">opt</span></code>, see <a class="reference internal" href="usage.html#opt"><span class="std std-ref">the usage documentation</span></a>.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+    <a href="https://github.com/GaloisInc/cclyzerpp">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dev.html" class="btn btn-neutral float-right" title="Development" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Galois Inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

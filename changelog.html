@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Changelog &mdash; cclyzer++ 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Analysis Design" href="design.html" />
+    <link rel="prev" title="Architecture" href="architecture.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> cclyzer++
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#next">next</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-6-0-2022-10-27">v0.6.0 - 2022-10-27</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#removed">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-5-0-2022-10-21">v0.5.0 - 2022-10-21</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fixed">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-4-0-2022-10-21">v0.4.0 - 2022-10-21</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-3-2022-10-12">v0.3 - 2022-10-12</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-2-2022-10-07">v0.2 - 2022-10-07</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#known-issues">Known Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-1-2022-10-04">v0.1 - 2022-10-04</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Known Issues</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Analysis Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Analysis Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signatures.html">Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unsoundness.html">Sources of Unsoundness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">cclyzer++</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Changelog</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/changelog.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+
+           <div itemprop="articleBody">
+             
+  <div class="section" id="changelog">
+<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading"></a></h1>
+<div class="section" id="next">
+<h2>next<a class="headerlink" href="#next" title="Permalink to this heading"></a></h2>
+</div>
+<div class="section" id="v0-6-0-2022-10-27">
+<h2><a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.6.0">v0.6.0</a> - 2022-10-27<a class="headerlink" href="#v0-6-0-2022-10-27" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/compare/v0.5.0...v0.6.0">Compare to v0.5.0</a>.</p>
+<div class="section" id="changed">
+<h3>Changed<a class="headerlink" href="#changed" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>cclyzer++ now builds against LLVM 14. See <a class="reference internal" href="build.html"><span class="doc">Building</span></a> for how to build
+against other versions of LLVM.</p></li>
+<li><p>Considerable documentation improvements.</p></li>
+<li><p>The Docker images now use Ubuntu 22.04.</p></li>
+<li><p>Release artifacts are now built with optimizations.</p></li>
+</ul>
+</div>
+<div class="section" id="removed">
+<h3>Removed<a class="headerlink" href="#removed" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Removed handling of function attributes in Datalog and FactGenerator code.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="v0-5-0-2022-10-21">
+<h2><a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.5.0">v0.5.0</a> - 2022-10-21<a class="headerlink" href="#v0-5-0-2022-10-21" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/compare/v0.4.0...v0.5.0">Compare to v0.4.0</a>.</p>
+<div class="section" id="id1">
+<h3>Changed<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>cclyzer++ now builds against (and requires) LLVM 11. It can still be built
+from source against LLVM 10, but the Debian package and Docker images all use
+LLVM 11 (see also <a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/issues/98">#98</a>).</p></li>
+</ul>
+</div>
+<div class="section" id="fixed">
+<h3>Fixed<a class="headerlink" href="#fixed" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>The Debian package now correctly lists its dependencies</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="v0-4-0-2022-10-21">
+<h2><a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.4.0">v0.4.0</a> - 2022-10-21<a class="headerlink" href="#v0-4-0-2022-10-21" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/compare/v0.3...v0.4.0">Compare to v0.3</a>.</p>
+<div class="section" id="id2">
+<h3>Changed<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Improved type-safety in the Datalog code.</p></li>
+<li><p>Several relations were renamed for the sake of consistency between the
+FactGenerator and the analysis code (Datalog).</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>Removed<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Removed the unused <code class="docutils literal notranslate"><span class="pre">subset-and-unification</span></code> build target.</p></li>
+<li><p>Removed the instantiations of the <code class="docutils literal notranslate"><span class="pre">ThrowInstruction</span></code> component in both
+analyses.</p></li>
+<li><p>Removed a few extraneous relations.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="v0-3-2022-10-12">
+<h2><a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.3">v0.3</a> - 2022-10-12<a class="headerlink" href="#v0-3-2022-10-12" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/compare/v0.2...v0.3">Compare to v0.2</a>.</p>
+<div class="section" id="added">
+<h3>Added<a class="headerlink" href="#added" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added infrastructure for packaging for Debian with CMake and FPM.</p></li>
+<li><p>Added a new script that helps developers track down regressions, see
+<code class="docutils literal notranslate"><span class="pre">scripts/run.py</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3>Changed<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Many relations were renamed for the sake of consistency between the
+FactGenerator and the analysis code (Datalog).</p></li>
+<li><p>The repo was reorganized a bit, several files moved out of the top-level
+directory.</p></li>
+<li><p>Tests were reorganized and cleaned up.</p></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h3>Fixed<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed bug that led to incorrect callgraphs in the presence of indirect calls
+(<a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/issues/69">#69</a>).</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="v0-2-2022-10-07">
+<h2><a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.2">v0.2</a> - 2022-10-07<a class="headerlink" href="#v0-2-2022-10-07" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/compare/v0.1...v0.2">Compare to v0.1</a>.</p>
+<div class="section" id="id6">
+<h3>Added<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Aspirational developer documentation on naming conventions.</p></li>
+<li><p>Linting with Mypy in CI.</p></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h3>Changed<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Many relations were renamed for the sake of consistency between the
+FactGenerator and the analysis code (Datalog).</p></li>
+<li><p>Removed superfluous use of records in instruction schemata.</p></li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h3>Removed<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>FactGenerator no longer processes debug information.</p></li>
+</ul>
+</div>
+<div class="section" id="known-issues">
+<h3>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>May generate incorrect callgraphs in the presence of indirect calls, see
+<a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/issues/69">#69</a>. Fixed in <a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.3">v0.3</a>.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="v0-1-2022-10-04">
+<h2><a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.1">v0.1</a> - 2022-10-04<a class="headerlink" href="#v0-1-2022-10-04" title="Permalink to this heading"></a></h2>
+<p>First release!</p>
+<div class="section" id="id9">
+<h3>Known Issues<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>May generate incorrect callgraphs in the presence of indirect calls, see
+<a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/issues/69">#69</a>. Fixed in <a class="reference external" href="https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.3">v0.3</a>.</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+    <a href="https://github.com/GaloisInc/cclyzerpp">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="architecture.html" class="btn btn-neutral float-left" title="Architecture" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="design.html" class="btn btn-neutral float-right" title="Analysis Design" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Galois Inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
