@@ -20,9 +20,9 @@
 #include "Demangler.hpp"
 #include "FactWriter.hpp"
 #include "ForwardingFactWriter.hpp"
+#include "PredicateGroups.hpp"
 #include "RefmodeEngine.hpp"
 #include "Signatures.hpp"
-#include "PredicateGroups.hpp"
 
 namespace cclyzer {
 class FactGenerator;
@@ -88,8 +88,6 @@ class cclyzer::FactGenerator : private RefmodeEngine,
   void writeConstantExpr(const llvm::ConstantExpr &, const refmode_t &);
   void writeGlobalAlias(const llvm::GlobalAlias &, const refmode_t &);
   void writeGlobalVar(const llvm::GlobalVariable &, const refmode_t &);
-
-  void visitNamedMDNode(const llvm::NamedMDNode &);
 
   std::map<boost::flyweight<std::string>, const llvm::Value *> result_map_;
 
