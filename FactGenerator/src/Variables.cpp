@@ -9,8 +9,8 @@ using cclyzer::FactGenerator;
 namespace pred = cclyzer::predicates;
 
 void FactGenerator::writeLocalVariables() {
-  const llvm::Function *containingFunction = functionContext();
-  const std::string funcname = "@" + containingFunction->getName().str();
+  const llvm::Function *containing_function = functionContext();
+  const std::string funcname = "@" + containing_function->getName().str();
 
   // Record every variable encountered so far
   for (const auto &[varId, type] : variableTypes) {
@@ -22,8 +22,8 @@ void FactGenerator::writeLocalVariables() {
     // Record variable name part
     size_t idx = varId.find_last_of("%!");
     if (idx != llvm::StringRef::npos) {
-      std::string varName = varId.substr(idx);
-      writeFact(pred::variable::name, varId, varName);
+      std::string var_name = varId.substr(idx);
+      writeFact(pred::variable::name, varId, var_name);
     }
   }
 

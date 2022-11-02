@@ -76,7 +76,7 @@ void RefmodeEngine::Impl::appendMetadataId(
     meta.printAsOperand(rso, *slotTracker);
   } else {
     const auto &v = llvm::cast<llvm::ValueAsMetadata>(meta);
-    const llvm::Value *innerValue = v.getValue();
+    const llvm::Value *inner_value = v.getValue();
     const llvm::Type *type = v.getType();
 
     if (llvm::isa<llvm::ConstantAsMetadata>(meta)) {
@@ -87,7 +87,7 @@ void RefmodeEngine::Impl::appendMetadataId(
       // at least for LLVM version 3.7.{0,1}. So instead, we
       // manually construct the refmodes ourselves.
 
-      rso << refmode<llvm::Type>(*type) << " " << refmodeOf(innerValue);
+      rso << refmode<llvm::Type>(*type) << " " << refmodeOf(inner_value);
     }
   }
 }

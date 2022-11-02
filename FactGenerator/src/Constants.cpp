@@ -28,9 +28,9 @@ auto FactGenerator::writeConstant(const llvm::Constant &c)
   result_map_.insert({boost::flyweight<std::string>(id), &c});
 
   // Record containing function
-  const llvm::Function *containingFunction = functionContext();
-  if (containingFunction != nullptr) {
-    const std::string funcname = "@" + containingFunction->getName().str();
+  const llvm::Function *containing_function = functionContext();
+  if (containing_function != nullptr) {
+    const std::string funcname = "@" + containing_function->getName().str();
     writeFact(pred::constant::in_func, id, funcname);
   }
 
@@ -39,10 +39,10 @@ auto FactGenerator::writeConstant(const llvm::Constant &c)
   raw_string_ostream rso(rv);
   c.printAsOperand(rso, /* PrintType */ false);
   const std::string &val = rso.str();
-  size_t hashCode = string_hash(val);
+  size_t hash_code = string_hash(val);
 
   writeFact(pred::constant::value, id, val);
-  writeFact(pred::constant::hash, id, hashCode);
+  writeFact(pred::constant::hash, id, hash_code);
   result_map_.insert({boost::flyweight<std::string>(val), &c});
 
   if (isa<ConstantPointerNull>(c)) {
@@ -130,9 +130,9 @@ void FactGenerator::writeConstantExpr(
 #else
   } else if (expr.isGEPWithNoNotionalOverIndexing()) {
 #endif
-    unsigned nOperands = expr.getNumOperands();
+    unsigned n_operands = expr.getNumOperands();
 
-    for (unsigned i = 0; i < nOperands; i++) {
+    for (unsigned i = 0; i < n_operands; i++) {
       const llvm::Constant *c = cast<llvm::Constant>(expr.getOperand(i));
 
       refmode_t index_ref = writeConstant(*c);
@@ -144,7 +144,7 @@ void FactGenerator::writeConstantExpr(
       }
     }
 
-    writeFact(pred::gep_constant_expr::nindices, refmode, nOperands - 1);
+    writeFact(pred::gep_constant_expr::nindices, refmode, n_operands - 1);
     writeFact(pred::gep_constant_expr::id, refmode);
   } else {
     // TODO
@@ -158,16 +158,16 @@ void FactGenerator::writeConstantExpr(
 template <typename PredGroup, class ConstantType>
 void FactGenerator::writeConstantWithOperands(
     const ConstantType &base, const refmode_t &refmode) {
-  unsigned nOperands = base.getNumOperands();
+  unsigned n_operands = base.getNumOperands();
 
-  for (unsigned i = 0; i < nOperands; i++) {
+  for (unsigned i = 0; i < n_operands; i++) {
     const llvm::Constant *c = base.getOperand(i);
 
     refmode_t index_ref = writeConstant(*c);
     writeFact(PredGroup::index, refmode, i, index_ref);
   }
 
-  writeFact(PredGroup::size, refmode, nOperands);
+  writeFact(PredGroup::size, refmode, n_operands);
   writeFact(PredGroup::id, refmode);
 }
 

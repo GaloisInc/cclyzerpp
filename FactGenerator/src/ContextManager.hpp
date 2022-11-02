@@ -119,8 +119,8 @@ class ContextManager {
       return nullptr;
     }
 
-    const context& functionCtx = contexts[iFunctionCtx];
-    return functionCtx.isFunction ? &functionCtx : nullptr;
+    const context& function_ctx = contexts[iFunctionCtx];
+    return function_ctx.isFunction ? &function_ctx : nullptr;
   }
 
  private:

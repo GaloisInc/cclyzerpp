@@ -44,22 +44,22 @@ void cclyzer::factgen(
 
   // Loop over each input file
   for (FileIt it = firstFile; it != endFile; ++it) {
-    const fs::path &inputFile = *it;
+    const fs::path &input_file = *it;
 
     // Parse input file
     std::unique_ptr<llvm::Module> module =
-        llvm::parseIRFile(inputFile.string(), err, context);
+        llvm::parseIRFile(input_file.string(), err, context);
 
     // Check if parsing succeeded
     if (!module) {
-      throw ParseException(inputFile);
+      throw ParseException(input_file);
     }
 
     // Canonicalize path
-    std::string realPath = fs::canonical(inputFile).string();
+    std::string real_path = fs::canonical(input_file).string();
 
     // Generate facts for this module
-    gen.processModule(*module, realPath, signatures, context_sensitivity);
+    gen.processModule(*module, real_path, signatures, context_sensitivity);
 
     // Get data layout of this module
     const llvm::DataLayout &layout = module->getDataLayout();

@@ -15,15 +15,15 @@ using cclyzer::Options;
 
 // NOLINTNEXTLINE(modernize-avoid-c-arrays)
 Options::Options(int argc, char* argv[]) {
-  const std::string appName = fs::basename(argv[0]);
+  const std::string app_name = fs::basename(argv[0]);
   fs::path outdir;
   fs::path signatures;
   fs::path signatures_sentinel("SENTINEL");
 
   // Define and parse the program options
-  po::options_description genericOpts("Options");
+  po::options_description generic_opts("Options");
 
-  genericOpts.add_options()("help,h", "Print help message")(
+  generic_opts.add_options()("help,h", "Print help message")(
       "delim,d",
       po::value<std::string>(&delim)->default_value("\t"),
       "CSV file delimiter (default \\t)")(
@@ -41,18 +41,18 @@ Options::Options(int argc, char* argv[]) {
       "force,f", "Remove existing contents of output directory");
 
   // hidden options group - don't show in help
-  po::options_description hiddenOpts("hidden options");
-  hiddenOpts.add_options()(
+  po::options_description hidden_opts("hidden options");
+  hidden_opts.add_options()(
       "input-files",
       po::value<std::vector<fs::path> >()->required(),
       "LLVM bitcode input files");
 
   po::options_description cmdline_options;
-  cmdline_options.add(genericOpts).add(hiddenOpts);
+  cmdline_options.add(generic_opts).add(hidden_opts);
 
   // positional arguments
-  po::positional_options_description positionalOptions;
-  positionalOptions.add("input-files", -1);
+  po::positional_options_description positional_options;
+  positional_options.add("input-files", -1);
 
   po::variables_map vm;
 
@@ -60,14 +60,14 @@ Options::Options(int argc, char* argv[]) {
     po::store(
         po::command_line_parser(argc, argv)
             .options(cmdline_options)
-            .positional(positionalOptions)
+            .positional(positional_options)
             .run(),
         vm);
 
     // --help option
     if (vm.count("help") != 0U) {
-      std::cout << "Usage: " << appName << " [OPTIONS] INPUT_FILE...\n\n"
-                << genericOpts;
+      std::cout << "Usage: " << app_name << " [OPTIONS] INPUT_FILE...\n\n"
+                << generic_opts;
 
       exit(EXIT_SUCCESS);
     }

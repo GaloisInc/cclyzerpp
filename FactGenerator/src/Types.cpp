@@ -27,10 +27,10 @@ void FactGenerator::writeTypes(const llvm::DataLayout& layout) {
   alltypes.accumulate(types.begin(), types.end());
 
   // Create type visitor
-  TypeVisitor TV(*this, layout);
+  TypeVisitor tv(*this, layout);
 
   // Record each type encountered
   for (const auto* ty : alltypes) {
-    TV.visitType(ty);
+    tv.visitType(ty);
   }
 }

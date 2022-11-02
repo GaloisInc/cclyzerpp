@@ -39,18 +39,18 @@ auto RefmodeEngine::Impl::refmode(const llvm::Type& type) -> refmode_t  // const
   raw_string_ostream rso(type_str);
 
   if (type.isStructTy()) {
-    const auto* STy = cast<llvm::StructType>(&type);
+    const auto* s_ty = cast<llvm::StructType>(&type);
 
-    if (STy->isLiteral()) {
+    if (s_ty->isLiteral()) {
       type.print(rso);
       return rso.str();
     }
 
-    if (STy->hasName()) {
-      rso << "%" << STy->getName();
+    if (s_ty->hasName()) {
+      rso << "%" << s_ty->getName();
       return rso.str();
     }
-    rso << "%\"type " << STy << "\"";
+    rso << "%\"type " << s_ty << "\"";
   } else {
     type.print(rso);
   }
@@ -87,10 +87,10 @@ template <>
 auto RefmodeEngine::Impl::refmode(const llvm::BasicBlock& basicblock)
     -> refmode_t  // const
 {
-  string bbName = refmodeOf(&basicblock);
+  string bb_name = refmodeOf(&basicblock);
   std::ostringstream refmode;
 
-  withContext<llvm::Function>(refmode) << "[basicblock]" << bbName;
+  withContext<llvm::Function>(refmode) << "[basicblock]" << bb_name;
   return refmode.str();
 }
 
@@ -98,10 +98,10 @@ template <>
 auto RefmodeEngine::Impl::refmode(const llvm::Function& func)
     -> refmode_t  // const
 {
-  string functionName = string(func.getName());
+  string function_name = string(func.getName());
   std::ostringstream refmode;
 
-  withGlobalContext(refmode) << functionName;
+  withGlobalContext(refmode) << function_name;
   return refmode.str();
 }
 

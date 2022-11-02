@@ -45,9 +45,9 @@ auto InstructionVisitor::recordValue(const llvm::Value *Val)
     // with an auto-incrementing counter (which is used
     // exclusively for constants) !!
     refmode = gen.writeConstant(*c);
-  } else if (const auto *asmVal = dyn_cast<llvm::InlineAsm>(Val)) {
+  } else if (const auto *asm_val = dyn_cast<llvm::InlineAsm>(Val)) {
     // Compute refmode for ASM string
-    refmode = gen.writeAsm(*asmVal);
+    refmode = gen.writeAsm(*asm_val);
   } else {
     // Compute refmode for variable value
     refmode = gen.refmode<llvm::Value>(*Val);
@@ -251,12 +251,15 @@ void InstructionVisitor::visitSwitchInst(const llvm::SwitchInst &SI) {
   // 'case list' [constant, label]
   unsigned index = 0;
 
-  for (auto Case : SI.cases()) {
+  for (auto switch_case : SI.cases()) {
     writeInstrOperand(
-        pred::switch_::case_value, iref, Case.getCaseValue(), index);
+        pred::switch_::case_value, iref, switch_case.getCaseValue(), index);
 
     writeInstrOperand(
-        pred::switch_::case_label, iref, Case.getCaseSuccessor(), index++);
+        pred::switch_::case_label,
+        iref,
+        switch_case.getCaseSuccessor(),
+        index++);
   }
 
   gen.writeFact(pred::switch_::ncases, iref, SI.getNumCases());
@@ -279,13 +282,13 @@ void InstructionVisitor::visitInvokeInst(const llvm::InvokeInst &II) {
   refmode_t iref = recordInstruction(pred::invoke::instr, II);
 
 #if LLVM_VERSION_MAJOR > 10
-  const llvm::Value *invokeOp = II.getCalledOperand();
+  const llvm::Value *invoke_op = II.getCalledOperand();
 #else
-  const llvm::Value *invokeOp = II.getCalledValue();
+  const llvm::Value *invoke_op = II.getCalledValue();
 #endif
 
   // invoke instruction function (also records type)
-  writeInstrOperand(pred::invoke::func_operand, iref, invokeOp);
+  writeInstrOperand(pred::invoke::func_operand, iref, invoke_op);
 
   // actual args
 #if LLVM_VERSION_MAJOR > 13
@@ -416,23 +419,23 @@ void InstructionVisitor::visitAtomicCmpXchgInst(
     gen.writeFact(pred::cmpxchg::is_volatile, iref);
   }
 
-  llvm::AtomicOrdering successOrd = AXI.getSuccessOrdering();
-  llvm::AtomicOrdering failureOrd = AXI.getFailureOrdering();
+  llvm::AtomicOrdering success_ord = AXI.getSuccessOrdering();
+  llvm::AtomicOrdering failure_ord = AXI.getFailureOrdering();
 
-  string successOrdStr = gen.refmode<llvm::AtomicOrdering>(successOrd);
-  string failureOrdStr = gen.refmode<llvm::AtomicOrdering>(failureOrd);
+  string success_ord_str = gen.refmode<llvm::AtomicOrdering>(success_ord);
+  string failure_ord_str = gen.refmode<llvm::AtomicOrdering>(failure_ord);
 
   // default synchScope: crossthread
   if (AXI.getSyncScopeID() == llvm::SyncScope::SingleThread) {
     gen.writeFact(pred::instr::flag, iref, "singlethread");
   }
 
-  if (!successOrdStr.empty()) {
-    gen.writeFact(pred::cmpxchg::ordering, iref, successOrdStr);
+  if (!success_ord_str.empty()) {
+    gen.writeFact(pred::cmpxchg::ordering, iref, success_ord_str);
   }
 
-  if (!failureOrdStr.empty()) {  // change schema ordering preds
-    gen.writeFact(pred::cmpxchg::ordering, iref, failureOrdStr);
+  if (!failure_ord_str.empty()) {  // change schema ordering preds
+    gen.writeFact(pred::cmpxchg::ordering, iref, failure_ord_str);
   }
 
   // TODO: type?
@@ -465,12 +468,12 @@ void InstructionVisitor::visitGetElementPtrInst(
   writeInstrOperand(pred::getelementptr::base, iref, GEP.getPointerOperand());
 
   for (unsigned index = 1; index < GEP.getNumOperands(); ++index) {
-    const llvm::Value *GepOperand = GEP.getOperand(index);
+    const llvm::Value *gep_operand = GEP.getOperand(index);
 
     refmode_t opref = writeInstrOperand(
-        pred::getelementptr::index, iref, GepOperand, index - 1);
+        pred::getelementptr::index, iref, gep_operand, index - 1);
 
-    if (const auto *c = dyn_cast<llvm::Constant>(GepOperand)) {
+    if (const auto *c = dyn_cast<llvm::Constant>(gep_operand)) {
       if (c->getUniqueInteger().isIntN(16)) {
         // Compute integer string representation
         // TODO(lb): Compute both signed and unsigned representations
@@ -574,13 +577,13 @@ void InstructionVisitor::visitCallInst(const llvm::CallInst &CI) {
   // be able to determine the function to be called.
 
 #if LLVM_VERSION_MAJOR > 10
-  const llvm::Value *callOp = CI.getCalledOperand();
+  const llvm::Value *call_op = CI.getCalledOperand();
 #else
-  const llvm::Value *callOp = CI.getCalledValue();
+  const llvm::Value *call_op = CI.getCalledValue();
 #endif
 
   // call instruction function (also records type)
-  writeInstrOperand(pred::call::func_operand, iref, callOp);
+  writeInstrOperand(pred::call::func_operand, iref, call_op);
 
 #if LLVM_VERSION_MAJOR > 13
   for (unsigned op = 0; op < CI.arg_size(); ++op) {

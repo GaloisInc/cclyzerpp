@@ -20,7 +20,7 @@ void FactGenerator::writeGlobalAlias(
   std::string name = "@" + ga.getName().str();
 
   // Get aliasee value as llvm constant
-  const llvm::Constant* Aliasee = ga.getAliasee();
+  const llvm::Constant* aliasee = ga.getAliasee();
 
   // Record alias entity
   writeFact(pred::alias::id, aliasId);
@@ -29,7 +29,7 @@ void FactGenerator::writeGlobalAlias(
   // Serialize alias properties
   refmode_t visibility = refmode(ga.getVisibility());
   refmode_t linkage = refmode(ga.getLinkage());
-  refmode_t aliasType = recordType(ga.getType());
+  refmode_t alias_type = recordType(ga.getType());
 
   // Record visibility
   if (!visibility.empty()) {
@@ -42,15 +42,11 @@ void FactGenerator::writeGlobalAlias(
   }
 
   // Record type
-  writeFact(pred::alias::type, aliasId, aliasType);
+  writeFact(pred::alias::type, aliasId, alias_type);
 
   // Record aliasee
-  if (Aliasee != nullptr) {
-    // Record aliasee constant and generate refmode for it
-    refmode_t aliasee = writeConstant(*Aliasee);
-
-    // Record aliasee
-    writeFact(pred::alias::aliasee, aliasId, aliasee);
+  if (aliasee != nullptr) {
+    writeFact(pred::alias::aliasee, aliasId, writeConstant(*aliasee));
   }
 }
 
@@ -70,11 +66,11 @@ void FactGenerator::writeGlobalVar(
   refmode_t visibility = refmode(gv.getVisibility());
   refmode_t linkage = refmode(gv.getLinkage());
 #if LLVM_VERSION_MAJOR > 14
-  refmode_t varType = recordType(gv.getType());
+  refmode_t var_type = recordType(gv.getType());
 #else
-  refmode_t varType = recordType(gv.getType()->getElementType());
+  refmode_t var_type = recordType(gv.getType()->getElementType());
 #endif
-  refmode_t thrLocMode = refmode(gv.getThreadLocalMode());
+  refmode_t thr_loc_mode = refmode(gv.getThreadLocalMode());
 
   // Record demangled variable name
   writeFact(
@@ -96,8 +92,8 @@ void FactGenerator::writeGlobalVar(
   }
 
   // Record thread local mode
-  if (!thrLocMode.empty()) {
-    writeFact(pred::global_var::threadlocal_mode, id, thrLocMode);
+  if (!thr_loc_mode.empty()) {
+    writeFact(pred::global_var::threadlocal_mode, id, thr_loc_mode);
   }
 
   // TODO: in lb schema - AddressSpace & hasUnnamedAddr properties
@@ -109,7 +105,7 @@ void FactGenerator::writeGlobalVar(
   const char* flag = gv.isConstant() ? "constant" : "global";
 
   writeFact(pred::global_var::flag, id, flag);
-  writeFact(pred::global_var::type, id, varType);
+  writeFact(pred::global_var::type, id, var_type);
 
   // Record initializer
   if (gv.hasInitializer()) {
@@ -121,8 +117,8 @@ void FactGenerator::writeGlobalVar(
 
   // Record section
   if (gv.hasSection()) {
-    llvm::StringRef secStr = gv.getSection();
-    writeFact(pred::global_var::section, id, secStr.str());
+    llvm::StringRef sec_str = gv.getSection();
+    writeFact(pred::global_var::section, id, sec_str.str());
   }
 
   // Record alignment

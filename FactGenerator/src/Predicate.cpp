@@ -7,8 +7,8 @@ using cclyzer::Registry;
 // Initialize registries
 template <typename T>
 auto Registry<T>::all() -> std::set<const T *> & {
-  static auto *allInstances = new std::set<const T *>();
-  return *allInstances;
+  static auto *all_instances = new std::set<const T *>();
+  return *all_instances;
 }
 
 // Add explicit instantiations
