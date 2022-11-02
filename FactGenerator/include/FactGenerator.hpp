@@ -104,7 +104,6 @@ class cclyzer::FactGenerator : private RefmodeEngine,
   type_cache_t variableTypes;
 
   /* Auxiliary methods */
-
   boost::unordered_set<const llvm::Type *> types;
 
   /* A RAII object for recording the current context. */
