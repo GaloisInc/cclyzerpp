@@ -30,13 +30,13 @@ auto FactGenerator::writeAsm(const llvm::InlineAsm &asmVal)
   std::string constraints = canonicalize(asmVal.getConstraintString());
   std::string assem = canonicalize(asmVal.getAsmString());
   std::string val = "<asm>(" + assem + ")";
-  size_t hashCode = string_hash(val);
+  size_t hash_code = string_hash(val);
 
   // Record inline ASM as constant entity with its type
   writeFact(pred::constant::id, id);
   writeFact(pred::constant::type, id, recordType(type));
   writeFact(pred::constant::value, id, val);
-  writeFact(pred::constant::hash, id, hashCode);
+  writeFact(pred::constant::hash, id, hash_code);
   types.insert(type);
 
   // Record its attributes separately

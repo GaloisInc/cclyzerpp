@@ -17,10 +17,10 @@ void FactGenerator::writeFunction(
   // Serialize function properties
   refmode_t visibility = refmode(func.getVisibility());
   refmode_t linkage = refmode(func.getLinkage());
-  refmode_t typeSignature = recordType(func.getFunctionType());
+  refmode_t type_signature = recordType(func.getFunctionType());
 
   // Record function type signature
-  writeFact(pred::func::ty, funcref, typeSignature);
+  writeFact(pred::func::ty, funcref, type_signature);
 
   // Record function signature (name plus type signature) after
   // unmangling
@@ -83,8 +83,8 @@ void FactGenerator::writeFunction(
 
   // Record section
   if (func.hasSection()) {
-    llvm::StringRef secStr = func.getSection();
-    writeFact(pred::func::section, funcref, secStr.str());
+    llvm::StringRef sec_str = func.getSection();
+    writeFact(pred::func::section, funcref, sec_str.str());
   }
 
   // Record function parameters
@@ -94,12 +94,12 @@ void FactGenerator::writeFunction(
                                           arg_end = func.arg_end();
        arg != arg_end;
        arg++) {
-    refmode_t varId = refmode<llvm::Value>(*arg);
+    refmode_t var_id = refmode<llvm::Value>(*arg);
 
     // Save parameters for CPG
-    result_map_.insert({boost::flyweight<std::string>(varId), arg});
+    result_map_.insert({boost::flyweight<std::string>(var_id), arg});
 
-    writeFact(pred::func::param, funcref, index++, varId);
-    recordVariable(varId, arg->getType());
+    writeFact(pred::func::param, funcref, index++, var_id);
+    recordVariable(var_id, arg->getType());
   }
 }

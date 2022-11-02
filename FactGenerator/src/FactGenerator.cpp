@@ -19,17 +19,17 @@ using llvm::isa;
 namespace pred = cclyzer::predicates;
 
 auto FactGenerator::getInstance(FactWriter &writer) -> FactGenerator & {
-  static FactGenerator thisInstance(writer);
-  return thisInstance;
+  static FactGenerator this_instance(writer);
+  return this_instance;
 }
 
 /* NOTE(ww): Stolen from Demangle.cpp (not present in LLVM 7).
  */
 static inline auto is_itanium_encoding(const std::string &MangledName) -> bool {
-  size_t Pos = MangledName.find_first_not_of('_');
+  size_t pos = MangledName.find_first_not_of('_');
   // A valid Itanium encoding requires 1-4 leading underscores, followed by
   // 'Z'.
-  return Pos > 0 && Pos <= 4 && MangledName[Pos] == 'Z';
+  return pos > 0 && pos <= 4 && MangledName[pos] == 'Z';
 }
 
 auto FactGenerator::processModule(
@@ -38,8 +38,8 @@ auto FactGenerator::processModule(
     const llvm::Optional<boost::filesystem::path> &signatures,
     const ContextSensitivity &sensitivity)
     -> std::map<boost::flyweight<std::string>, const llvm::Value *> {
-  InstructionVisitor IV(*this, Mod);
-  ModuleContext MC(*this, Mod, path);
+  InstructionVisitor iv(*this, Mod);
+  ModuleContext mc(*this, Mod, path);
 
   // Process points-to signatures
   std::vector<std::tuple<std::string, std::regex, llvm::json::Array>>
@@ -76,7 +76,7 @@ auto FactGenerator::processModule(
 
   // iterating over functions in a module
   for (const auto &func : Mod) {
-    Context C(*this, func);
+    Context c(*this, func);
     refmode_t funcref = refmode<llvm::Function>(func);
 
     // Save the results for building the CPG
@@ -89,13 +89,13 @@ auto FactGenerator::processModule(
     // Skip emitting facts about the body if the function has a signature
     bool matched = false;
     for (const auto &[regex_str, regex, sigs] : functions_with_signatures) {
-      const auto mangledName = func.getName().str();
-      auto name = mangledName;
+      const auto mangled_name = func.getName().str();
+      auto name = mangled_name;
       if (is_itanium_encoding(name)) {
         name = demangle(name);
       }
       if (std::regex_search(name, regex)) {
-        emitSignatures(mangledName, sigs);
+        emitSignatures(mangled_name, sigs);
         matched = true;
       }
     }
@@ -109,31 +109,31 @@ auto FactGenerator::processModule(
 
     // iterating over basic blocks in a function
     for (const auto &bb : func) {
-      Context C(*this, bb);
-      refmode_t bbRef = refmode<llvm::BasicBlock>(bb);
+      Context c(*this, bb);
+      refmode_t bb_ref = refmode<llvm::BasicBlock>(bb);
 
       // Record basic block entry as a label
-      writeFact(pred::variable::id, bbRef);
-      writeFact(pred::variable::type, bbRef, "label");
-      writeFact(pred::variable::in_func, bbRef, func.getName().str());
+      writeFact(pred::variable::id, bb_ref);
+      writeFact(pred::variable::type, bb_ref, "label");
+      writeFact(pred::variable::in_func, bb_ref, func.getName().str());
 
       // Record variable name part
-      size_t idx = bbRef.find_last_of("%!");
-      std::string bbVarName = bbRef.substr(idx);
-      writeFact(pred::variable::name, bbRef, bbVarName);
+      size_t idx = bb_ref.find_last_of("%!");
+      std::string bb_var_name = bb_ref.substr(idx);
+      writeFact(pred::variable::name, bb_ref, bb_var_name);
 
       // Record basic block predecessors
       for (llvm::const_pred_iterator pi = pred_begin(&bb),
                                      pi_end = pred_end(&bb);
            pi != pi_end;
            ++pi) {
-        refmode_t predBB = refmode<llvm::BasicBlock>(**pi);
-        writeFact(pred::block::predecessor, bbRef, predBB);
+        refmode_t pred_bb = refmode<llvm::BasicBlock>(**pi);
+        writeFact(pred::block::predecessor, bb_ref, pred_bb);
       }
 
       // iterating over basic block instructions
       for (const auto &instr : bb) {
-        Context C(*this, instr);
+        Context c(*this, instr);
 
         // Compute instruction refmode
         const refmode_t iref = refmode<llvm::Instruction>(instr);
@@ -143,14 +143,14 @@ auto FactGenerator::processModule(
 
         // Record instruction target variable if such exists
         if (!instr.getType()->isVoidTy()) {
-          refmode_t targetVar = refmode<llvm::Value>(instr);
+          refmode_t target_var = refmode<llvm::Value>(instr);
 
-          writeFact(pred::instr::assigns_to, iref, targetVar);
-          recordVariable(targetVar, instr.getType());
+          writeFact(pred::instr::assigns_to, iref, target_var);
+          recordVariable(target_var, instr.getType());
 
           // Save variables for the CPG
           result_map_.insert(
-              {boost::flyweight<std::string>(targetVar), &instr});
+              {boost::flyweight<std::string>(target_var), &instr});
         }
 
         // Record successor instruction
@@ -166,12 +166,12 @@ auto FactGenerator::processModule(
         writeFact(pred::instr::func, iref, funcref);
 
         // Record instruction's basic block entry (label)
-        const llvm::BasicBlock *bbEntry = instr.getParent();
-        refmode_t bbEntryId = refmode<llvm::BasicBlock>(*bbEntry);
-        writeFact(pred::instr::bb_entry, iref, bbEntryId);
+        const llvm::BasicBlock *bb_entry = instr.getParent();
+        refmode_t bb_entry_id = refmode<llvm::BasicBlock>(*bb_entry);
+        writeFact(pred::instr::bb_entry, iref, bb_entry_id);
 
         // Visit instruction
-        IV.visit(const_cast<llvm::Instruction &>(instr));
+        iv.visit(const_cast<llvm::Instruction &>(instr));
 
         // Get debug location if available
         if (const llvm::DebugLoc &location = instr.getDebugLoc()) {

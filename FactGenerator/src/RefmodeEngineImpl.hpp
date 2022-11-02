@@ -76,11 +76,11 @@ class cclyzer::RefmodeEngine::Impl {
 
   template <typename S>
   auto withGlobalContext(S &stream) const -> S & {
-    auto firstCtxt = ctx->begin();
+    auto first_ctxt = ctx->begin();
 
-    assert(firstCtxt != ctx->end());
-    assert(firstCtxt->anchor == nullptr);
-    stream << firstCtxt->prefix << ':';
+    assert(first_ctxt != ctx->end());
+    assert(first_ctxt->anchor == nullptr);
+    stream << first_ctxt->prefix << ':';
     return stream;
   }
 
