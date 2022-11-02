@@ -4,6 +4,9 @@ Changelog
 ..
    See https://keepachangelog.com/en/1.0.0/ for a helpful reference.
 
+next
+****
+
 `v0.7.0`_ - 2022-11-02
 **********************
 
@@ -159,5 +162,6 @@ Known Issues
 .. _v0.4.0: https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.4.0
 .. _v0.5.0: https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.5.0
 .. _v0.6.0: https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.6.0
+.. _v0.7.0: https://github.com/GaloisInc/cclyzerpp/releases/tag/v0.7.0
 .. _#69: https://github.com/GaloisInc/cclyzerpp/issues/69
 .. _#98: https://github.com/GaloisInc/cclyzerpp/issues/98
