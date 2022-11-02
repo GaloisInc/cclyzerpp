@@ -4,8 +4,31 @@ Changelog
 ..
    See https://keepachangelog.com/en/1.0.0/ for a helpful reference.
 
-next
-****
+`v0.7.0`_ - 2022-11-02
+**********************
+
+`Compare to v0.6.0 <https://github.com/GaloisInc/cclyzerpp/compare/v0.6.0...v0.7.0>`_.
+
+Added
+~~~~~
+
+- Add limited support for LLVM 15 and nightly (16).
+- Add support for ``fadd``, ``fsub``, ``fmin``, ``fmax`` atomic operations to
+  the FactGenerator and Datalog.
+
+Changed
+~~~~~~~
+
+- Changed look and feel of the documentation.
+- Refactorings and small improvements to the FactGenerator.
+- The FactGenerator fails more aggressively on malformed LLVM modules.
+
+Removed
+~~~~~~~
+
+- Removed C pre-processor directives concerning LLVM versions less than 10. This
+  may cause failures to build against very old versions of LLVM that were never
+  officially supported.
 
 `v0.6.0`_ - 2022-10-27
 **********************
