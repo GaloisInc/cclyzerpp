@@ -23,14 +23,16 @@ void FactGenerator::writeTypes(const llvm::DataLayout& layout) {
   // Find types contained in the types encountered so far, but not
   // referenced directly
 
-  TypeAccumulator alltypes;
-  alltypes.accumulate(types.begin(), types.end());
+  TypeAccumulator type_accum;
+  for (const auto* type : types) {
+    type_accum.visitType(type);
+  }
 
   // Create type visitor
   TypeVisitor tv(*this, layout);
 
   // Record each type encountered
-  for (const auto* ty : alltypes) {
+  for (const auto* ty : type_accum) {
     tv.visitType(ty);
   }
 }

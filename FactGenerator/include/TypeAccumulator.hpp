@@ -20,18 +20,6 @@ class cclyzer::llvm_utils::TypeAccumulator {
   TypeAccumulator() = default;
   ~TypeAccumulator() = default;
 
-  template <typename Iterator>
-  void accumulate(Iterator first, Iterator last) {
-    // Visit every type
-    for (Iterator it = first; it != last; ++it) {
-      // Iterator must be over LLVM Types
-      const auto *type = static_cast<const llvm::Type *>(*it);
-
-      // Process type
-      visitType(type);
-    }
-  }
-
   // Iterator over all collected types
 
   auto begin() -> iterator { return types.begin(); }
