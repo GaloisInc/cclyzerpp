@@ -1,3 +1,4 @@
+#include "argv.dl"
 #include "allocations-decl.dl"
 #include "allocations.dl"
 #include "allocations-globals.dl"
