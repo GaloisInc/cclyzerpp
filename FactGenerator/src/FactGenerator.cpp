@@ -49,23 +49,15 @@ auto FactGenerator::processModule(
   }
 
   // iterating over global variables in a module
-  for (llvm::Module::const_global_iterator it = Mod.global_begin(),
-                                           end = Mod.global_end();
-       it != end;
-       ++it) {
-    refmode_t id = refmode<llvm::GlobalValue>(*it);
-
-    writeGlobalVar(*it, id);
+  for (const auto &global_var : Mod.globals()) {
+    refmode_t id = refmode<llvm::GlobalValue>(global_var);
+    writeGlobalVar(global_var, id);
   }
 
   // iterating over global alias in a module
-  for (llvm::Module::const_alias_iterator it = Mod.alias_begin(),
-                                          end = Mod.alias_end();
-       it != end;
-       ++it) {
-    refmode_t id = refmode<llvm::GlobalValue>(*it);
-
-    writeGlobalAlias(*it, id);
+  for (const auto &alias : Mod.aliases()) {
+    refmode_t id = refmode<llvm::GlobalValue>(alias);
+    writeGlobalAlias(alias, id);
   }
 
   // Context sensitivity
