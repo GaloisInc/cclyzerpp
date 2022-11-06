@@ -229,7 +229,7 @@ template_type(?type) :-
 .decl unpadded_struct_type(?type: StructType)
 unpadded_struct_type(?type) :-
    struct_type(?type),
-   match(".*\\.base",?type).
+   match(".*[.]base",?type).
 
 .decl template_typeinfo(?typeInfo: GlobalVariable)
 
