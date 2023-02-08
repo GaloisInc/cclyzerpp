@@ -106,36 +106,36 @@
 <div class="section" id="pulling-from-ghcr">
 <span id="ghcr"></span><h3>Pulling from GHCR<a class="headerlink" href="#pulling-from-ghcr" title="Permalink to this heading"></a></h3>
 <p>You can pull pre-built images from GHCR like so:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker pull ghcr.io/galoisinc/cclyzerpp-dev:main
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/galoisinc/cclyzerpp-dev:main
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">main</span></code> tag refers to the most recent release. You can also specify a tag
 or commit SHA of a previous release, e.g.,</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># The following are equivalent:</span>
-docker pull ghcr.io/galoisinc/cclyzerpp-dev:v0.5.0
-docker pull ghcr.io/galoisinc/cclyzerpp-dev:47bea4c4223d653209d28b932824618128f47910
+docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/galoisinc/cclyzerpp-dev:v0.5.0
+docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/galoisinc/cclyzerpp-dev:47bea4c4223d653209d28b932824618128f47910
 </pre></div>
 </div>
 </div>
 <div class="section" id="building-locally">
 <span id="docker-build"></span><h3>Building Locally<a class="headerlink" href="#building-locally" title="Permalink to this heading"></a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> docker
-<span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span> docker build --tag<span class="o">=</span>cclyzerpp-dev --file<span class="o">=</span>dev.dockerfile ..
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>docker
+<span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>--tag<span class="o">=</span>cclyzerpp-dev<span class="w"> </span>--file<span class="o">=</span>dev.dockerfile<span class="w"> </span>..
 </pre></div>
 </div>
 <p>To build the <code class="docutils literal notranslate"><span class="pre">dist</span></code> image, first build cclyzer++ as described in <a class="reference internal" href="build.html"><span class="doc">Building</span></a>.
 For example, to do so inside the <code class="docutils literal notranslate"><span class="pre">dev</span></code> image, run this from the source root:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run <span class="se">\</span>
-  --rm <span class="se">\</span>
-  --mount <span class="nv">type</span><span class="o">=</span>bind,src<span class="o">=</span><span class="nv">$PWD</span>,target<span class="o">=</span>/work <span class="se">\</span>
-  --workdir /work <span class="se">\</span>
-  <span class="s2">&quot;ghcr.io/galoisinc/cclyzerpp-dev:main&quot;</span> <span class="se">\</span>
-  bash -c <span class="s2">&quot;cmake -G Ninja -B build -S . &amp;&amp; cmake --build build -j </span><span class="k">$(</span>nproc<span class="k">)</span><span class="s2">&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--mount<span class="w"> </span><span class="nv">type</span><span class="o">=</span>bind,src<span class="o">=</span><span class="nv">$PWD</span>,target<span class="o">=</span>/work<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--workdir<span class="w"> </span>/work<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">&quot;ghcr.io/galoisinc/cclyzerpp-dev:main&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;cmake -G Ninja -B build -S . &amp;&amp; cmake --build build -j </span><span class="k">$(</span>nproc<span class="k">)</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
 <p>You should see files in <code class="docutils literal notranslate"><span class="pre">build/</span></code>. Now, build the <code class="docutils literal notranslate"><span class="pre">dist</span></code> image:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> docker
-<span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span> docker build --tag<span class="o">=</span>cclyzerpp-dist --file<span class="o">=</span>dist.dockerfile ..
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>docker
+<span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>--tag<span class="o">=</span>cclyzerpp-dist<span class="w"> </span>--file<span class="o">=</span>dist.dockerfile<span class="w"> </span>..
 </pre></div>
 </div>
 </div>

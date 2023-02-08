@@ -107,7 +107,7 @@ rather than installing them on your host. See <a class="reference internal" href
 for information on how to download and install Soufflé.</p>
 <p>The build also requires a few Boost C++ libraries. Here’s how to get them on
 Ubuntu 20.04:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get install libboost-system-dev libboost-filesystem-dev libboost-iostreams-dev libboost-program-options-dev
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>libboost-system-dev<span class="w"> </span>libboost-filesystem-dev<span class="w"> </span>libboost-iostreams-dev<span class="w"> </span>libboost-program-options-dev
 </pre></div>
 </div>
 </div>
@@ -124,8 +124,8 @@ versions.</p></li>
 <div class="section" id="building-the-fact-generator">
 <h2>Building the Fact Generator<a class="headerlink" href="#building-the-fact-generator" title="Permalink to this heading"></a></h2>
 <p>To build the fact generator, run</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake -G Ninja -B build -S .
-cmake --build build -j <span class="k">$(</span>nproc<span class="k">)</span> --target factgen-exe
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-G<span class="w"> </span>Ninja<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-S<span class="w"> </span>.
+cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span><span class="w"> </span>--target<span class="w"> </span>factgen-exe
 </pre></div>
 </div>
 <p>You should now see an executable at <code class="docutils literal notranslate"><span class="pre">build/factgen-exe</span></code>.</p>
@@ -136,7 +136,7 @@ the role of the fact generator, and <a class="reference internal" href="usage.ht
 <h2>Building the C++ Interface<a class="headerlink" href="#building-the-c-interface" title="Permalink to this heading"></a></h2>
 <p>To synthesize C++ code, compile it to a shared library, and compile the C++
 interface, run</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake --build build -j <span class="k">$(</span>nproc<span class="k">)</span> --target PAPass
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span><span class="w"> </span>--target<span class="w"> </span>PAPass
 </pre></div>
 </div>
 <p>(You could also run CMake without specifying <code class="docutils literal notranslate"><span class="pre">--target</span> <span class="pre">PAPass</span></code>.) The pass can

@@ -98,8 +98,8 @@
 <div class="section" id="running-tests">
 <h2>Running Tests<a class="headerlink" href="#running-tests" title="Permalink to this heading"></a></h2>
 <p>The tests are run with <a class="reference external" href="https://docs.pytest.org">Pytest</a>. They require compiling cclyzer++ first.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake --build build -j <span class="k">$(</span>nproc<span class="k">)</span>
-pytest test/
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span>
+pytest<span class="w"> </span>test/
 </pre></div>
 </div>
 <p>To make new golden tests, set <code class="docutils literal notranslate"><span class="pre">MAKE_GOLD_TESTS=1</span></code> in the environment. To run
@@ -119,12 +119,12 @@ semantic version i.e., <code class="docutils literal notranslate"><span class="p
 <li><p>Wait for CI, then publish the draft release it created.</p></li>
 </ul>
 <p>Worked example:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git checkout -b release
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>release
 <span class="c1"># Make changes, push, wait, then merge release into main and delete release</span>
-git checkout main
-git pull
-git tag -a v0.Y.Z -m v0.Y.Z
-git push --tags
+git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>pull
+git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v0.Y.Z<span class="w"> </span>-m<span class="w"> </span>v0.Y.Z
+git<span class="w"> </span>push<span class="w"> </span>--tags
 </pre></div>
 </div>
 </div>

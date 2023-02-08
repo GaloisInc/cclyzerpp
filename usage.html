@@ -99,7 +99,7 @@
 <p>The analysis is configured via command-line arguments passed to the fact
 generator, primarily <code class="docutils literal notranslate"><span class="pre">--context-sensitivity</span></code> and <code class="docutils literal notranslate"><span class="pre">--signatures</span></code>. For
 example,</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>factgen-exe --out-dir &lt;fact-dir&gt; --signatures sigs.json --context-sensitivity <span class="m">1</span>-callsite prog.bc
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>factgen-exe<span class="w"> </span>--out-dir<span class="w"> </span>&lt;fact-dir&gt;<span class="w"> </span>--signatures<span class="w"> </span>sigs.json<span class="w"> </span>--context-sensitivity<span class="w"> </span><span class="m">1</span>-callsite<span class="w"> </span>prog.bc
 </pre></div>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">prog.bc</span></code> is an LLVM bitcode module. The valid settings for context
@@ -157,11 +157,11 @@ analysis:</p>
 <span id="opt"></span><h3>With Opt<a class="headerlink" href="#with-opt" title="Permalink to this heading"></a></h3>
 <p>The LLVM pass is used via <code class="docutils literal notranslate"><span class="pre">opt</span></code>. If you installed via the Debian package or
 are running in the <code class="docutils literal notranslate"><span class="pre">dist</span></code> container, try:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>opt --disable-output --load<span class="o">=</span>/usr/lib/libSoufflePA.so --load<span class="o">=</span>/usr/lib/libPAPass.so -cclyzer --context-sensitivity<span class="o">=</span><span class="m">1</span>-callsite --datalog-analysis<span class="o">=</span>subset prog.bc
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>opt<span class="w"> </span>--disable-output<span class="w"> </span>--load<span class="o">=</span>/usr/lib/libSoufflePA.so<span class="w"> </span>--load<span class="o">=</span>/usr/lib/libPAPass.so<span class="w"> </span>-cclyzer<span class="w"> </span>--context-sensitivity<span class="o">=</span><span class="m">1</span>-callsite<span class="w"> </span>--datalog-analysis<span class="o">=</span>subset<span class="w"> </span>prog.bc
 </pre></div>
 </div>
 <p>To see more options, run</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>opt --load<span class="o">=</span>/usr/lib/libSoufflePA.so --load<span class="o">=</span>/usr/lib/libPAPass.so --help
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>opt<span class="w"> </span>--load<span class="o">=</span>/usr/lib/libSoufflePA.so<span class="w"> </span>--load<span class="o">=</span>/usr/lib/libPAPass.so<span class="w"> </span>--help
 </pre></div>
 </div>
 <p>though be warned - this includes all <code class="docutils literal notranslate"><span class="pre">opt</span></code> flags, and most of them are
@@ -173,16 +173,16 @@ irrelevant to running the analysis.</p>
 <p>If you’re not running in the <code class="docutils literal notranslate"><span class="pre">dist</span></code> Docker image and have the cclyzer++ source
 available, you can run the analysis from the Soufflé interpreter. For example,
 here’s how to run the subset analysis:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>souffle --fact-dir &lt;fact-dir&gt; --output-dir &lt;output-dir&gt; datalog/subset.project
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>souffle<span class="w"> </span>--fact-dir<span class="w"> </span>&lt;fact-dir&gt;<span class="w"> </span>--output-dir<span class="w"> </span>&lt;output-dir&gt;<span class="w"> </span>datalog/subset.project
 </pre></div>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">fact-dir</span></code> was the directory passed to the <code class="docutils literal notranslate"><span class="pre">--out-dir</span></code> option of the
 fact generator. Pass <code class="docutils literal notranslate"><span class="pre">-j</span> <span class="pre">&lt;n&gt;</span></code> to parallelize the analysis across <em>n</em> threads.
 See <a class="reference external" href="run-souffle">the Soufflé documentation</a> for more details.</p>
 <p>To synthesize and compile the analysis, run</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>souffle --generate<span class="o">=</span>subset.cpp datalog/subset.project
-souffle-compile.py subset.cpp
-subset --facts &lt;fact-dir&gt; --output &lt;output-dir&gt; -j &lt;n&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>souffle<span class="w"> </span>--generate<span class="o">=</span>subset.cpp<span class="w"> </span>datalog/subset.project
+souffle-compile.py<span class="w"> </span>subset.cpp
+subset<span class="w"> </span>--facts<span class="w"> </span>&lt;fact-dir&gt;<span class="w"> </span>--output<span class="w"> </span>&lt;output-dir&gt;<span class="w"> </span>-j<span class="w"> </span>&lt;n&gt;
 </pre></div>
 </div>
 </div>
