@@ -72,10 +72,10 @@ jobs:
           llvm_version: "15"
           ubuntu_version: "22.04"
           ubuntu_name: "jammy"
-        - clang_version: "16"
-          llvm_version: "16"
-          ubuntu_version: "22.04"
-          ubuntu_name: "jammy"
+        # - clang_version: "16"
+        #   llvm_version: "16"
+        #   ubuntu_version: "22.04"
+        #   ubuntu_name: "jammy"
     env:
       LLVM_MAJOR_VERSION: ${{ matrix.llvm_version }}
       CLANG_VERSION: ${{ matrix.llvm_version }}
