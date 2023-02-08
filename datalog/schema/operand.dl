@@ -50,7 +50,7 @@ variable_in_func(Variable, Function) :-
 .decl constant_has_value(c:Constant, val:symbol)
 
 // Precomputed hash-codes for constant values
-.decl constant_hashes_to(c:Constant, hashcode:number)
+.decl constant_hashes_to(c:Constant, hashcode:unsigned)
 
 // Previously derived. Now implemented as a macro
 #define constants_equal(X, Y)  \
