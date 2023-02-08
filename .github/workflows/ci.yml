@@ -114,7 +114,6 @@ jobs:
           "ghcr.io/galoisinc/cclyzerpp-dev:${ref}" \
           cmake \
           -DLLVM_MAJOR_VERSION=${LLVM_MAJOR_VERSION} \
-          -DUBSAN=1 \
           -G Ninja \
           -B build \
           -S .
