@@ -20,7 +20,8 @@ class cclyzer::FactWriter {
   using path = boost::filesystem::path;
   using string = std::string;
 
-  FactWriter(path outputDirectory, string delimiter);
+  FactWriter(path outputDirectory, string delimiter,
+             BOOST_IOS::openmode mode = BOOST_IOS::out);
   FactWriter(path outputDirectory);
   FactWriter();
   ~FactWriter();
@@ -64,6 +65,9 @@ class cclyzer::FactWriter {
 
   /* Output directory */
   const path outdir;
+
+  /* Open mode for output CSV */
+  const BOOST_IOS::openmode mode;
 
   /* Map of CSV writers with predicate name as key */
   map<string, csv_writer*> writers;

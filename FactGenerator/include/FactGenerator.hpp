@@ -1,5 +1,5 @@
-#ifndef CSV_GENERATOR_H__
-#define CSV_GENERATOR_H__
+#ifndef FACT_GENERATOR_H__
+#define FACT_GENERATOR_H__
 
 #include <llvm/IR/Constants.h>
 #include <llvm/IR/DataLayout.h>
@@ -134,4 +134,4 @@ class cclyzer::FactGenerator : private RefmodeEngine,
   };
 };
 
-#endif
+#endif /* FACT_GENERATOR_H__ */
