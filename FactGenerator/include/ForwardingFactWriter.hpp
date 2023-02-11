@@ -19,7 +19,7 @@ class ForwardingFactWriter {
       const Predicate &pred,
       const refmode_t &refmode,
       const V val,
-      const Vs &... vals) {
+      const Vs &...vals) {
     writer.writeFact(pred, refmode, val, vals...);
   }
 

@@ -28,8 +28,10 @@ inline auto predicates_end() -> pred_iterator {
 //----------------------------------------------------
 
 #define GROUP_BEGIN(g) struct g : public predicate_group {
-#define GROUP_END(g) };
-#define PREDICATE(g, p, f)   static pred_t p;
+#define GROUP_END(g) \
+  }                  \
+  ;
+#define PREDICATE(g, p, f) static pred_t p;
 #include "./predicates.inc"
 
 }  // namespace cclyzer::predicates

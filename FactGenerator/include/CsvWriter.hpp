@@ -50,8 +50,10 @@ class csv_writer {
 
   /* Constructor must create output file stream */
 
-  csv_writer(const path& csvfile, std::string delimiter = "\t",
-             BOOST_IOS::openmode mode = BOOST_IOS::out)
+  csv_writer(
+      const path& csvfile,
+      std::string delimiter = "\t",
+      BOOST_IOS::openmode mode = BOOST_IOS::out)
       : out(), delim(std::move(delimiter)) {
     out.push(boost::iostreams::gzip_compressor());
     out.push(boost::iostreams::file_sink(csvfile.c_str(), mode));

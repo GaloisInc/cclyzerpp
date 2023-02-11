@@ -6,8 +6,6 @@
 #include <string>
 #include <utility>
 
-#include "Singleton.hpp"
-
 namespace cclyzer {
 /* Forward declarations to be able to define actual registries */
 class Predicate;

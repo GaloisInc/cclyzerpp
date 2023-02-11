@@ -22,9 +22,10 @@ const std::string FactWriter::FILE_EXTENSION = ".csv.gz";
 // Delegating Constructors
 //-------------------------------------------------------------------
 
-FactWriter::FactWriter(path outputDirectory, string delimiter,
-                       BOOST_IOS::openmode mode)
-    : delim(std::move(delimiter)), outdir(std::move(outputDirectory)),
+FactWriter::FactWriter(
+    path outputDirectory, string delimiter, BOOST_IOS::openmode mode)
+    : delim(std::move(delimiter)),
+      outdir(std::move(outputDirectory)),
       mode(mode) {
   // Initialize all CSV writers
   init_writers();
