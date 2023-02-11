@@ -64,12 +64,13 @@ class cclyzer::RefmodeEngine::Impl {
       if (anchor && llvm::isa<llvm::BasicBlock>(*anchor) &&
           !llvm::isa<T>(*anchor)) {
         continue;
-}
+      }
 
       stream << it.prefix << ':';
 
-      if (anchor && llvm::isa<T>(*anchor)) { break;
-}
+      if (anchor && llvm::isa<T>(*anchor)) {
+        break;
+      }
     }
     return stream;
   }

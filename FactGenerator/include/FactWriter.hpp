@@ -5,9 +5,9 @@
 #include <boost/unordered_map.hpp>
 #include <string>
 
-#include "RefmodeEngine.hpp"  // TODO replace
 #include "CsvWriter.hpp"
 #include "Predicate.hpp"
+#include "RefmodeEngine.hpp"  // TODO replace
 
 namespace cclyzer {
 class FactWriter;
@@ -20,8 +20,10 @@ class cclyzer::FactWriter {
   using path = boost::filesystem::path;
   using string = std::string;
 
-  FactWriter(path outputDirectory, string delimiter,
-             BOOST_IOS::openmode mode = BOOST_IOS::out);
+  FactWriter(
+      path outputDirectory,
+      string delimiter,
+      BOOST_IOS::openmode mode = BOOST_IOS::out);
   FactWriter(path outputDirectory);
   FactWriter();
   ~FactWriter();

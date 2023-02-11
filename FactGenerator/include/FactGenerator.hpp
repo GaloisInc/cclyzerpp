@@ -36,6 +36,9 @@ class cclyzer::FactGenerator : private RefmodeEngine,
   using RefmodeEngine::refmode;
 
  public:
+  /* No default constructor */
+  FactGenerator() = delete;
+
   /* Non-copyable */
   FactGenerator(FactGenerator const &) = delete;
   auto operator=(FactGenerator const &) -> FactGenerator & = delete;
@@ -46,8 +49,6 @@ class cclyzer::FactGenerator : private RefmodeEngine,
   /* Fact Writing Methods */
   auto writeConstant(const llvm::Constant &) -> refmode_t;
   auto writeAsm(const llvm::InlineAsm &) -> refmode_t;
-
-  // std::map<boost::flyweight<std::string>, const llvm::Value *>
 
   auto processModule(
       const llvm::Module &Mod,
@@ -92,9 +93,6 @@ class cclyzer::FactGenerator : private RefmodeEngine,
   std::map<boost::flyweight<std::string>, const llvm::Value *> result_map_;
 
  private:
-  /* Initialize output file streams */
-  void initStreams();
-
   auto processSignatures(const boost::filesystem::path &signatures)
       -> std::vector<std::tuple<std::string, std::regex, llvm::json::Array>>;
   void emitSignatures(
