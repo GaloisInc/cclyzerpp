@@ -21,12 +21,16 @@ class cclyzer::FactWriter {
   using string = std::string;
 
   FactWriter(
+      const Registry<Predicate>& registry,
       path outputDirectory,
       string delimiter,
       BOOST_IOS::openmode mode = BOOST_IOS::out);
-  FactWriter(path outputDirectory);
-  FactWriter();
+  FactWriter(const Registry<Predicate>& registry, path outputDirectory);
+  FactWriter(const Registry<Predicate>& registry);
   ~FactWriter();
+
+  /* Non-default */
+  FactWriter() = delete;
 
   /* Non-copyable */
   FactWriter(const FactWriter& other) = delete;
@@ -55,7 +59,7 @@ class cclyzer::FactWriter {
   auto getPath(const Predicate& pred) -> path;
 
   /* Exhaustive CSV writer initialization */
-  void init_writers();
+  void init_writers(const Registry<Predicate>&);
 
  private:
   /* Map type */

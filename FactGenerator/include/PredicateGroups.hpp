@@ -11,17 +11,8 @@ typedef Predicate pred_t;
 // passed as a template argument
 struct predicate_group {};
 
-// Iterators for the different sets of predicates
-
-using pred_iterator = Registry<Predicate>::iterator;
-
-inline auto predicates_begin() -> pred_iterator {
-  return Registry<Predicate>::begin();
-}
-
-inline auto predicates_end() -> pred_iterator {
-  return Registry<Predicate>::end();
-}
+// The predicates
+extern Registry<pred_t> const predicates_reg;
 
 //----------------------------------------------------
 // Predicate group definitions, from this point on.

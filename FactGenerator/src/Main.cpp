@@ -32,12 +32,13 @@ void cclyzer::factgen(
     const std::string &delim) {
   using cclyzer::FactGenerator;
   using cclyzer::FactWriter;
+  using cclyzer::predicates::predicates_reg;
 
   llvm::LLVMContext context;
   llvm::SMDiagnostic err;
 
   // Create fact writer
-  FactWriter writer(outputDir, delim);
+  FactWriter writer(predicates_reg, outputDir, delim);
 
   // Create CSV generator
   FactGenerator &gen = FactGenerator::getInstance(writer);

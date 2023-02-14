@@ -18,11 +18,12 @@ auto factgen_module(
         std::map<boost::flyweight<std::string>, const llvm::Value *>> {
   using cclyzer::FactGenerator;
   using cclyzer::FactWriter;
+  using cclyzer::predicates::predicates_reg;
 
   std::cerr << "Writing facts to: " << output_dir << "...\n";
 
   // initialize factgen and output writer
-  FactWriter writer(output_dir, "\t");
+  FactWriter writer(predicates_reg, output_dir, "\t");
   FactGenerator &gen = FactGenerator::getInstance(writer);
   const std::string &real_path = module.getSourceFileName();
 
