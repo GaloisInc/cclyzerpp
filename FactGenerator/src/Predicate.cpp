@@ -2,19 +2,6 @@
 
 // Add to current namespace
 using cclyzer::Predicate;
-using cclyzer::Registry;
-
-// Initialize registries
-template <typename T>
-auto Registry<T>::all() -> std::set<const T *> & {
-  static auto *all_instances = new std::set<const T *>();
-  return *all_instances;
-}
-
-// Add explicit instantiations
-namespace cclyzer {
-template std::set<const Predicate *> &Registry<Predicate>::all();
-}
 
 // Comparing predicates
 

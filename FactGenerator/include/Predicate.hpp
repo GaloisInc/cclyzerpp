@@ -14,34 +14,28 @@ class Predicate;
 template <typename T>
 class Registry {
  public:
-  Registry() { all().insert((const T *)(this)); }
+  Registry() = default;
+  Registry(std::initializer_list<const T *> l) : all_instances(l) {}
+  ~Registry() { all_instances.clear(); }
+
+  // Make objects non-copyable
+  Registry(const Registry &) = delete;
+  auto operator=(const Registry &) -> Registry & = delete;
 
   // Define iterator methods over class instances
-
   typedef typename std::set<const T *>::const_iterator iterator;
-
-  static auto begin() -> iterator { return all().begin(); }
-
-  static auto end() -> iterator { return all().end(); }
+  auto begin() const -> iterator { return all_instances.begin(); }
+  auto end() const -> iterator { return all_instances.end(); }
 
  protected:
-  ~Registry() { all().erase((const T *)(this)); }
-
   // Collection of instances
-  static auto all() -> std::set<const T *> &;
-
- private:
-  // Make objects non-copyable
-  Registry(const Registry &);
-  auto operator=(const Registry &) -> Registry &;
+  std::set<const T *> all_instances;
 };
-
-template class Registry<Predicate>;
 }  // namespace cclyzer
 
 /* Predicate */
 
-class cclyzer::Predicate : public Registry<Predicate> {
+class cclyzer::Predicate {
  public:
   Predicate(const char *name) : name(name) {}
   Predicate(std::string name) : name(std::move(name)) {}
@@ -52,7 +46,7 @@ class cclyzer::Predicate : public Registry<Predicate> {
 
   [[nodiscard]] auto getName() const -> std::string { return name; }
 
-  operator std::string() const { return name; }
+  [[nodiscard]] operator std::string() const { return name; }
 
   [[nodiscard]] auto c_str() const -> const char * { return name.c_str(); }
 

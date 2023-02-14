@@ -23,18 +23,22 @@ const std::string FactWriter::FILE_EXTENSION = ".csv.gz";
 //-------------------------------------------------------------------
 
 FactWriter::FactWriter(
-    path outputDirectory, string delimiter, BOOST_IOS::openmode mode)
+    const Registry<pred_t>& registry,
+    path outputDirectory,
+    string delimiter,
+    BOOST_IOS::openmode mode)
     : delim(std::move(delimiter)),
       outdir(std::move(outputDirectory)),
       mode(mode) {
   // Initialize all CSV writers
-  init_writers();
+  init_writers(registry);
 }
 
-FactWriter::FactWriter(path outputDirectory)
-    : FactWriter(std::move(outputDirectory), "\t") {}
+FactWriter::FactWriter(const Registry<pred_t>& registry, path outputDirectory)
+    : FactWriter(registry, std::move(outputDirectory), "\t") {}
 
-FactWriter::FactWriter() : FactWriter(fs::current_path()) {}
+FactWriter::FactWriter(const Registry<pred_t>& registry)
+    : FactWriter(registry, fs::current_path()) {}
 
 FactWriter::~FactWriter() {
   for (auto& [_, writer] : writers) {
@@ -83,11 +87,8 @@ auto FactWriter::getPath(const pred_t& pred) -> fs::path {
   return path;
 }
 
-void FactWriter::init_writers() {
-  using namespace predicates;
-
-  for (auto it = predicates_begin(), end = predicates_end(); it != end; ++it) {
-    const pred_t* pred = *it;
+void FactWriter::init_writers(const Registry<pred_t>& registry) {
+  for (const pred_t* pred : registry) {
     getWriter(*pred);
   }
 
