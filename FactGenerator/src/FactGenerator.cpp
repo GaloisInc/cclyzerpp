@@ -98,7 +98,7 @@ auto FactGenerator::processModule(
       // Record basic block entry as a label
       writeFact(pred::variable::id, bb_ref);
       writeFact(pred::variable::type, bb_ref, "label");
-      writeFact(pred::variable::in_func, bb_ref, func.getName().str());
+      writeFact(pred::variable::in_func, bb_ref, "@" + func.getName().str());
 
       // Record variable name part
       size_t idx = bb_ref.find_last_of("%!");
