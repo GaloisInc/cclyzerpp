@@ -213,6 +213,12 @@ are not yet supported:</p>
 </ul>
 <p>The analysis also doesn’t use any LLVM pointer metadata like <code class="docutils literal notranslate"><span class="pre">llvm.lifetime.*</span></code>
 or <code class="docutils literal notranslate"><span class="pre">dereferencable</span></code> to improve precision.</p>
+<p>Clang can be run with the <code class="docutils literal notranslate"><span class="pre">-fno-vectorize</span></code> and <code class="docutils literal notranslate"><span class="pre">-fno-slp-vectorize</span></code> options
+to disable [auto vectorization](<a class="reference external" href="https://llvm.org/docs/Vectorizers.html">https://llvm.org/docs/Vectorizers.html</a>),
+preventing the generation of unsupported vector instructions. Similarly, LLVM’s
+[LowerInvoke](<a class="reference external" href="https://llvm.org/doxygen/LowerInvoke_8h_source.html">https://llvm.org/doxygen/LowerInvoke_8h_source.html</a>) pass can be
+used to remove (unsupported) exception handling constructs (i.e., via the
+<code class="docutils literal notranslate"><span class="pre">invoke</span></code> and <code class="docutils literal notranslate"><span class="pre">resume</span></code> instructions).</p>
 <div class="section" id="poison-and-undef">
 <h3>Poison and Undef<a class="headerlink" href="#poison-and-undef" title="Permalink to this heading"></a></h3>
 <p>The analysis doesn’t do anything with poison or <code class="docutils literal notranslate"><span class="pre">undef</span></code> values - it doesn’t
