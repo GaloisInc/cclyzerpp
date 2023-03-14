@@ -100,6 +100,13 @@ are not yet supported:
 The analysis also doesn't use any LLVM pointer metadata like ``llvm.lifetime.*``
 or ``dereferencable`` to improve precision.
 
+Clang can be run with the ``-fno-vectorize`` and ``-fno-slp-vectorize`` options
+to disable [auto vectorization](https://llvm.org/docs/Vectorizers.html),
+preventing the generation of unsupported vector instructions. Similarly, LLVM's
+[LowerInvoke](https://llvm.org/doxygen/LowerInvoke_8h_source.html) pass can be
+used to remove (unsupported) exception handling constructs (i.e., via the
+``invoke`` and ``resume`` instructions).
+
 Poison and Undef
 ~~~~~~~~~~~~~~~~
 
