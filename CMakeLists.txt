@@ -141,7 +141,7 @@ target_sources(PAPassInterface
 target_include_directories(PAPassInterface
                            INTERFACE ${CMAKE_CURRENT_LIST_DIR}/src)
 
-add_library(PAPass MODULE ${CMAKE_CURRENT_LIST_DIR}/src/PointerAnalysis.cpp)
+add_library(PAPass SHARED ${CMAKE_CURRENT_LIST_DIR}/src/PointerAnalysis.cpp)
 
 # Use C++17 to compile our pass (i.e., supply -std=c++17).
 target_compile_features(PAPass PUBLIC cxx_std_17)
