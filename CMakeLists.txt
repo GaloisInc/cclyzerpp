@@ -21,7 +21,7 @@ list(APPEND CMAKE_MODULE_PATH "${LLVM_CMAKE_DIR}")
 find_package(Boost 1.71 REQUIRED COMPONENTS system filesystem program_options
                                             iostreams)
 
-find_package(OpenMP REQUIRED)
+find_package(OpenMP)
 
 # Allow these to be overriden at the command line:
 if(NOT (DEFINED SOUFFLE_BIN))
@@ -39,8 +39,11 @@ add_subdirectory(FactGenerator)
 # TODO(lb): Remove --disable-transformers=ExpandEqrelsTransformer when
 # https://github.com/souffle-lang/souffle/issues/2257 is fixed and Soufflé gets
 # upgraded.
-set(SOUFFLE_FLAGS -jauto -PSIPS:max-bound
+set(SOUFFLE_FLAGS -PSIPS:max-bound
                   --disable-transformers=ExpandEqrelsTransformer)
+if(OPENMP_FOUND)
+  set(SOUFFLE_FLAGS "${SOUFFLE_FLAGS} -jauto")
+endif(OPENMP_FOUND)
 
 add_custom_command(
   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/subset.cpp
