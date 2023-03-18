@@ -48,7 +48,7 @@ RUN apt-get update && \
     wget --no-verbose https://souffle-lang.github.io/ppa/souffle-key.public -O /usr/share/keyrings/souffle-archive-keyring.gpg && \
     echo "deb [signed-by=/usr/share/keyrings/souffle-archive-keyring.gpg] https://souffle-lang.github.io/ppa/ubuntu/ stable main" | tee /etc/apt/sources.list.d/souffle.list && \
     apt-get update && \
-    apt-get --yes install --no-install-recommends souffle
+    apt-get --yes install --no-install-recommends souffle=2.3
 RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
     if [[ ${LLVM_MAJOR_VERSION} -lt 13 || ${LLVM_MAJOR_VERSION} -ge 16 ]]; then \
       echo "deb http://apt.llvm.org/${UBUNTU_NAME}/ llvm-toolchain-${UBUNTU_NAME} main" | tee /etc/apt/sources.list.d/llvm.list; \
