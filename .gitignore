@@ -168,3 +168,6 @@ dmypy.json
 
 # macOS artifacts
 .DS_Store
+
+# Nix result output path
+result
