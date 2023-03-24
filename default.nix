@@ -5,6 +5,7 @@
 , llvmPackages_14
 , boost
 , souffle
+, 
 , useUBSAN ? true
 , buildInterface ? false
 }:
@@ -45,6 +46,7 @@ stdenv.mkDerivation rec {
 
     # could not build PAPass, no output
     cp factgen-exe $out
+    cp -r ../datalog $out
 
     # we should use this to install
     # cmake --install .
