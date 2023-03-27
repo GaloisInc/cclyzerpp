@@ -5,7 +5,6 @@
 , llvmPackages_14
 , boost
 , souffle
-, 
 , useUBSAN ? true
 , buildInterface ? false
 }:
