@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
   '';
   
   meta = with lib; {
-    description = "Cclyzer++ is a precise and scalable global pointer analysis for LLVM code";
+    description = "cclyzer++ is a precise and scalable global pointer analysis for LLVM code";
     homepage = "https://github.com/GaloisInc/cclyzerpp/tree/main";
     license = licenses.bsd3;
   };
