@@ -41,10 +41,10 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    mkdir -p $out
+    mkdir -p $out/bin
 
     # could not build PAPass, no output
-    cp factgen-exe $out
+    cp factgen-exe $out/bin
     cp -r ../datalog $out
 
     # we should use this to install
