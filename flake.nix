@@ -14,7 +14,7 @@
         inherit (pkgs) callPackage;
       in
       {
-        defaultPackage = callPackage ./default.nix { };
+        defaultPackage = callPackage ./contrib/nix/default.nix { };
       });
 }
 
