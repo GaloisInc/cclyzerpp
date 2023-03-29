@@ -1,3 +1,6 @@
+# NOTE: This configuration is not evaluated during Continuous Integration (CI) processes and may not
+# be as well-maintained or up-to-date as the CMake and Docker setup. Use with caution.
+
 { lib
 , fetchFromGitHub
 , cmake
