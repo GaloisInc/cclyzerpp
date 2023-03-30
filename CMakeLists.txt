@@ -250,3 +250,5 @@ if(UBSAN)
   message(STATUS "Sanitizing!")
   undefined_behavior_sanitizer(factgen-exe)
 endif()
+
+install(TARGETS factgen-exe PAPass SoufflePA)
