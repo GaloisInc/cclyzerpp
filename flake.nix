@@ -16,8 +16,11 @@
 
         inherit (pkgs) callPackage;
       in
-      {
-        defaultPackage = callPackage ./contrib/nix/default.nix { };
+      rec {
+        defaultPackage = packages.cclyzerpp;
+        packages = {
+          cclyzerpp = callPackage ./contrib/nix/default.nix { };
+        };
       });
 }
 
