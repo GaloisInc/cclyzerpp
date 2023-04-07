@@ -287,6 +287,8 @@
 .output fmul_instr (compress=true)
 .output fmul_instr_first_operand (compress=true)
 .output fmul_instr_second_operand (compress=true)
+.output fneg_instr (compress=true)
+.output fneg_instr_operand (compress=true)
 .output fp128_type (compress=true)
 .output fp_constant (compress=true)
 .output fp_pointer_type (compress=true)

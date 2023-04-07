@@ -20,6 +20,7 @@
 #include "fadd-instr.dl"
 #include "fsub-instr.dl"
 #include "fmul-instr.dl"
+#include "fneg-instr.dl"
 #include "fdiv-instr.dl"
 #include "frem-instr.dl"
 #include "and-instr.dl"

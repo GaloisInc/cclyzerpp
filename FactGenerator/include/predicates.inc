@@ -458,6 +458,11 @@ PREDICATEI(landingpad, nclauses)
 PREDICATE(landingpad, cleanup, landingpad_instr_is_cleanup)
 GROUP_END(landingpad)
 
+GROUP_BEGIN(fneg)
+PREDICATE2(fneg, instr)
+PREDICATEI(fneg, operand)
+GROUP_END(fneg)
+
 // Types
 
 GROUP_BEGIN(primitive_type)
