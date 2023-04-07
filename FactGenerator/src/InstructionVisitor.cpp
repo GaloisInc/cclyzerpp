@@ -701,6 +701,12 @@ void InstructionVisitor::visitUnaryInstruction(
   }
 }
 
+void InstructionVisitor::visitFreezeInst(const llvm::FreezeInst &FI) {
+  refmode_t iref = recordInstruction(pred::freeze::instr, FI);
+
+  writeInstrOperand(pred::freeze::operand, iref, FI.getOperand(0));
+}
+
 void InstructionVisitor::visitInstruction(const llvm::Instruction &I) {
   unknown("instruction", I.getOpcodeName());
 }

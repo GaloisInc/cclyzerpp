@@ -27,6 +27,7 @@
   | FRemInstruction
   | FSubInstruction
   | FenceInstruction
+  | FreezeInstruction
   | GetElementPtrInstruction
   | ICmpInstruction
   | IndirectBrInstruction

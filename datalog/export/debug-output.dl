@@ -310,6 +310,8 @@
 .output fptrunc_instr_from_operand (compress=true)
 .output fptrunc_instr_from_type (compress=true)
 .output fptrunc_instr_to_type (compress=true)
+.output freeze_instr (compress=true)
+.output freeze_instr_operand (compress=true)
 .output frem_instr (compress=true)
 .output frem_instr_first_operand (compress=true)
 .output frem_instr_second_operand (compress=true)

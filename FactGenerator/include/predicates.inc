@@ -463,6 +463,11 @@ PREDICATE2(fneg, instr)
 PREDICATEI(fneg, operand)
 GROUP_END(fneg)
 
+GROUP_BEGIN(freeze)
+PREDICATE2(freeze, instr)
+PREDICATEI(freeze, operand)
+GROUP_END(freeze)
+
 // Types
 
 GROUP_BEGIN(primitive_type)
