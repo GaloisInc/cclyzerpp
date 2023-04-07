@@ -100,6 +100,7 @@ class cclyzer::InstructionVisitor
   void visitCallInst(const llvm::CallInst &);
   void visitDbgDeclareInst(const llvm::DbgDeclareInst &);
   void visitVAArgInst(const llvm::VAArgInst &);
+  void visitFreezeInst(const llvm::FreezeInst &);
 
   // Vector Operations
 

@@ -22,6 +22,7 @@
 #include "fmul-instr.dl"
 #include "fneg-instr.dl"
 #include "fdiv-instr.dl"
+#include "freeze-instr.dl"
 #include "frem-instr.dl"
 #include "and-instr.dl"
 #include "or-instr.dl"

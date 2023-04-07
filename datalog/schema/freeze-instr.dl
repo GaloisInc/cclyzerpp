@@ -1,0 +1,28 @@
+// http://llvm.org/docs/LangRef.html#freeze-instr
+// keywords: instr
+
+.type FreezeInstruction <: symbol
+.decl freeze_instr(instr:FreezeInstruction)
+
+instr(v) :- freeze_instr(v).
+
+.decl freeze_instr_operand(instr:FreezeInstruction, val:Operand)
+
+
+//------------------------------------------------------------------------------
+// [Constraints]
+//
+// The ‘freeze‘ instr requires that the resulting value is the same type as its
+// operand.
+//------------------------------------------------------------------------------
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+    schema_sanity(),
+    freeze_instr(Instr),
+    !freeze_instr_operand(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+    schema_sanity(),
+    instr_returns_type(Instr, Type),
+    freeze_instr_operand(Instr, Op),
+    !operand_has_type(Op, Type).

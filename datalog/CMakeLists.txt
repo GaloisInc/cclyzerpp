@@ -86,6 +86,7 @@ set(DL_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/schema/phi-instr.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/fmul-instr.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/fneg-instr.dl
+    ${CMAKE_CURRENT_LIST_DIR}/schema/freeze-instr.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/basic-block.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/global.dl
     ${CMAKE_CURRENT_LIST_DIR}/schema/call-instr.dl
