@@ -19,6 +19,7 @@
   | FCmpInstruction
   | FDivInstruction
   | FMulInstruction
+  | FNegInstruction
   | FPExtInstruction
   | FPToSIInstruction
   | FPToUIInstruction

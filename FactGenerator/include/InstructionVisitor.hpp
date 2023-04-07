@@ -107,6 +107,10 @@ class cclyzer::InstructionVisitor
   void visitInsertElementInst(const llvm::InsertElementInst &);
   void visitShuffleVectorInst(const llvm::ShuffleVectorInst &);
 
+  // Unary Operations
+
+  void visitUnaryInstruction(const llvm::UnaryInstruction &);
+
   // 'default' case
   void visitInstruction(const llvm::Instruction &I);
 

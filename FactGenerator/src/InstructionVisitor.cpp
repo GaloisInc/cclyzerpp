@@ -687,6 +687,20 @@ void InstructionVisitor::visitShuffleVectorInst(
   writeInstrOperand(pred::shufflevector::mask, iref, SVI.getOperand(2));
 }
 
+void InstructionVisitor::visitUnaryInstruction(
+    const llvm::UnaryInstruction &UI) {
+  switch (UI.getOpcode()) {
+    default:
+      unknown("instruction", UI.getOpcodeName());
+      break;
+    case llvm::Instruction::FNeg:
+      refmode_t iref = recordInstruction(pred::fneg::instr, UI);
+
+      writeInstrOperand(pred::fneg::operand, iref, UI.getOperand(0));
+      break;
+  }
+}
+
 void InstructionVisitor::visitInstruction(const llvm::Instruction &I) {
   unknown("instruction", I.getOpcodeName());
 }

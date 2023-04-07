@@ -1,0 +1,39 @@
+// http://llvm.org/docs/LangRef.html#fneg-instr
+// keywords: arithmetic; unary; instr
+
+.type FNegInstruction <: symbol
+.decl fneg_instr(instr:FNegInstruction)
+
+instr(v) :- fneg_instr(v).
+
+.decl fneg_instr_operand(instr:FNegInstruction, val:Operand)
+
+
+//-------------------------------------------------------------------
+// [Constraints]
+//
+// 1) The argument to the ‘fneg‘ instr must be:
+//      (i)  floating point or
+//      (ii) vector of floating point values.
+//
+// 2) The resulting value is the same type as its operands.
+//-------------------------------------------------------------------
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fneg_instr(Instr),
+   !fneg_instr_operand(Instr, _).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+   schema_sanity(),
+   fneg_instr(Instr),
+   instr_returns_type(Instr, Type),
+   !fp_type(Type),
+   !fp_vector_type(Type).
+
+schema_invalid_instr(Instr, __FILE__, __LINE__) :-
+    schema_sanity(),
+    fneg_instr(Instr),
+    instr_returns_type(Instr, Type),
+    fneg_instr_operand(Instr, Op),
+    !operand_has_type(Op, Type).
