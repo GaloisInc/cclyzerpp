@@ -684,7 +684,12 @@ void InstructionVisitor::visitShuffleVectorInst(
   writeInstrOperand(pred::shufflevector::first_vector, iref, SVI.getOperand(0));
   writeInstrOperand(
       pred::shufflevector::second_vector, iref, SVI.getOperand(1));
-  writeInstrOperand(pred::shufflevector::mask, iref, SVI.getOperand(2));
+#if LLVM_VERSION_MAJOR > 10
+  const llvm::Constant *mask = SVI.getShuffleMaskForBitcode();
+#else
+  const llvm::Constant *mask = SVI.getMask();
+#endif
+  writeInstrOperand(pred::shufflevector::mask, iref, mask);
 }
 
 void InstructionVisitor::visitUnaryInstruction(
