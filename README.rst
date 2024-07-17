@@ -23,6 +23,11 @@ Datalog`_, and so is highly parallel. cclyzer++ was derived from `cclyzer`_.
 See the `documentation <doc_>`_ for more information about cczlyer++, including
 examples of its output. Documentation is also available `online`_.
 
+If you use cclyzer++ in your own work, please include the following citations:
+
+* Langston Barrett and Scott Moore. "cclyzer++: Scalable and Precise Pointer Analysis for LLVM." https://galois.com/blog/2022/08/cclyzer-scalable-and-precise-pointer-analysis-for-llvm/. 2022.
+* George Balatsouras and Yannis Smaragdakis. "Structure-sensitive points-to analysis for C and C++." In Static Analysis: 23rd International Symposium, SAS 2016, Edinburgh, UK, September 8-10, 2016, Proceedings 23, pp. 84-104. Springer Berlin Heidelberg, 2016.
+
 Acknowledgments
 ---------------
 
