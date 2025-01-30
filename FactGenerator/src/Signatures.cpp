@@ -2,20 +2,20 @@
 
 template <typename T>
 auto extract_from_array(const llvm::json::Array &json_array, size_t index)
-    -> llvm::Optional<T>;
+    -> std::optional<T>;
 
 template <>
 auto extract_from_array(const llvm::json::Array &json_array, size_t index)
-    -> llvm::Optional<int64_t> {
+    -> std::optional<int64_t> {
   return json_array[index].getAsInteger();
 }
 
 template <>
 auto extract_from_array(const llvm::json::Array &json_array, size_t index)
-    -> llvm::Optional<std::string> {
+    -> std::optional<std::string> {
   auto val = json_array[index].getAsString();
-  if (val.hasValue()) {
-    return {"@" + val.getValue().str()};
+  if (val.has_value()) {
+    return {"@" + val.value().str()};
   }
   return {};
 }
@@ -24,14 +24,14 @@ template <typename T, typename... Ts>
 auto extract_many_from_array(const llvm::json::Array &json_array, size_t index)
     -> std::tuple<T, Ts...> {
   auto t = extract_from_array<T>(json_array, index);
-  if (!t.hasValue()) {
+  if (!t.has_value()) {
     throw std::invalid_argument("Wrong type of argument for signature!");
   }
   if constexpr (sizeof...(Ts) == 0) {
-    return std::make_tuple(t.getValue());
+    return std::make_tuple(t.value());
   } else {  // NOLINT: clang-tidy doesn't know about "if constexpr"
     return std::tuple_cat(
-        std::make_tuple(t.getValue()),
+        std::make_tuple(t.value()),
         extract_many_from_array<Ts...>(json_array, index + 1));
   }
 }

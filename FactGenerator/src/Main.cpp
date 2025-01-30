@@ -27,7 +27,7 @@ void cclyzer::factgen(
     FileIt firstFile,
     FileIt endFile,
     const fs::path &outputDir,
-    const llvm::Optional<fs::path> &signatures,
+    const std::optional<fs::path> &signatures,
     const ContextSensitivity &context_sensitivity,
     const std::string &delim) {
   using cclyzer::FactGenerator;
@@ -101,7 +101,7 @@ void factgen2(
       files.begin(),
       files.end(),
       outputDir,
-      llvm::Optional<boost::filesystem::path>(),
+      std::optional<boost::filesystem::path>(),
       INSENSITIVE,
       delim);
 }

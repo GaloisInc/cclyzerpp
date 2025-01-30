@@ -11,7 +11,7 @@ namespace fs = boost::filesystem;
 auto factgen_module(
     llvm::Module &module,
     const fs::path &output_dir,
-    const llvm::Optional<boost::filesystem::path> &signatures,
+    const std::optional<boost::filesystem::path> &signatures,
     ContextSensitivity sensitivity)
     -> std::tuple<
         fs::path,

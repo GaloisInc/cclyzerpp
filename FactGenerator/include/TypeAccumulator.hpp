@@ -43,12 +43,14 @@ class cclyzer::llvm_utils::TypeAccumulator {
     if (elementType->isArrayTy()) {
       visitType(elementType->getArrayElementType());
     } else if (elementType->isPointerTy()) {
+#if LLVM_VERSION_MAJOR < 17
 #if LLVM_VERSION_MAJOR > 14
       if (!llvm::cast<llvm::PointerType>(elementType)->isOpaque()) {
         visitType(elementType->getPointerElementType());
       }
-#else
+#elif LLVM_VERSION_MAJOR
       visitType(elementType->getPointerElementType());
+#endif
 #endif
     } else if (elementType->isStructTy()) {
       visitStructType(elementType);

@@ -1,9 +1,8 @@
 #ifndef OPTIONS_HPP__
 #define OPTIONS_HPP__
 
-#include <llvm/ADT/Optional.h>
-
 #include <boost/filesystem.hpp>
+#include <optional>
 #include <string>
 
 #include "ContextSensitivity.hpp"
@@ -25,7 +24,7 @@ class cclyzer::Options {
 
   [[nodiscard]] auto output_dir() const -> const path& { return outdir; }
 
-  [[nodiscard]] auto get_signatures() const -> const llvm::Optional<path>& {
+  [[nodiscard]] auto get_signatures() const -> const std::optional<path>& {
     return signatures;
   }
 
@@ -61,7 +60,7 @@ class cclyzer::Options {
   std::string delim;
 
   /* Points-to signatures */
-  llvm::Optional<boost::filesystem::path> signatures;
+  std::optional<boost::filesystem::path> signatures;
 
   /* Output Directory for generated facts */
   boost::filesystem::path outdir;

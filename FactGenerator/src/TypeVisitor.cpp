@@ -122,6 +122,7 @@ void TypeVisitor::visitPointerType(const PointerType *ptrType) {
   }
 
   // Record pointer element type
+#if LLVM_VERSION_MAJOR < 17
 #if LLVM_VERSION_MAJOR > 14
   auto cond = !ptrType->isOpaque();
 #else
@@ -132,6 +133,7 @@ void TypeVisitor::visitPointerType(const PointerType *ptrType) {
     refmode_t elem_type_id = gen.refmode<llvm::Type>(*elem_type);
     gen.writeFact(pred::ptr_type::component_type, type_id, elem_type_id);
   }
+#endif
 }
 
 void TypeVisitor::visitArrayType(const ArrayType *arrayType) {

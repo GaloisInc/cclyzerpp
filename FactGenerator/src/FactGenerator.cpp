@@ -26,7 +26,7 @@ auto FactGenerator::getInstance(FactWriter &writer) -> FactGenerator & {
 auto FactGenerator::processModule(
     const llvm::Module &Mod,
     const std::string &path,
-    const llvm::Optional<boost::filesystem::path> &signatures,
+    const std::optional<boost::filesystem::path> &signatures,
     const ContextSensitivity &sensitivity)
     -> std::map<boost::flyweight<std::string>, const llvm::Value *> {
   InstructionVisitor iv(*this, Mod);
@@ -35,8 +35,8 @@ auto FactGenerator::processModule(
   // Process points-to signatures
   std::vector<std::tuple<std::string, std::regex, llvm::json::Array>>
       functions_with_signatures;
-  if (signatures.hasValue()) {
-    functions_with_signatures = processSignatures(signatures.getValue());
+  if (signatures.has_value()) {
+    functions_with_signatures = processSignatures(signatures.value());
   }
 
   // iterating over global variables in a module

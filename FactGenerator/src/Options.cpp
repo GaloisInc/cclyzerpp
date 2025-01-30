@@ -170,5 +170,5 @@ void Options::set_signatures(fs::path path) {
     std::cerr << "No such signature file: " << path << std::endl;
     exit(ERROR_IN_COMMAND_LINE);
   }
-  signatures = llvm::Optional<boost::filesystem::path>(std::move(path));
+  signatures = std::optional<boost::filesystem::path>(std::move(path));
 }

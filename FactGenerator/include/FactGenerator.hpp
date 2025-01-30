@@ -53,7 +53,7 @@ class cclyzer::FactGenerator : private RefmodeEngine,
   auto processModule(
       const llvm::Module &Mod,
       const std::string &path,
-      const llvm::Optional<boost::filesystem::path> &signatures,
+      const std::optional<boost::filesystem::path> &signatures,
       const ContextSensitivity &sensitivity)
       -> std::map<boost::flyweight<std::string>, const llvm::Value *>;
   void writeLocalVariables();
